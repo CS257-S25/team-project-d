@@ -1,4 +1,2 @@
-CS257 S25
-
-Claire Holmes, Camila Mendoza, KD Meraz
-
+# CS257-F23-TeamTemplate
+Template for long-term team projects
