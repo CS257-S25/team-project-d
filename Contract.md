@@ -3,14 +3,14 @@
 *Academic Goals*
 - Be proud of the work we do
 - Be confident in implementing the main ideas of Software Design
-- Hone in programming skills in ones we know and don't know as well
+- Hone in programming skills in languages we know and ones don't know as well
 - Strive for Exemplary as much as possible
 
 *Teamwork Goals*
 - Communicate effectively 
-- Accountability and Responsibility 
+- Accountability and responsibility to the team
 - Be organized and fair
-- Constructive Criticism is okay
+- Constructive criticism is okay
 
 ## **Strengths**
 - Patience and Honing in Ideas- Camila

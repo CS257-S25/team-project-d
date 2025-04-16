@@ -20,9 +20,9 @@ United States. Bureau of Labor Statistics. American Time Use Survey (ATUS): Arts
 [United States], 2003-2023. Inter-university Consortium for Political and Social Research [distributor], 2025-03-10. https://doi.org/10.3886/ICPSR36268.v8 
 
 # Potential User Interactions
-User Story 1: A user can search up their generation’s leisure time to determine whether the amount of TikTok they watch is normal.
+**User Story 1:** A user can search up their generation’s leisure time to determine whether the amount of TikTok they watch is normal.
 
-Acceptance criteria: 
+*Acceptance criteria:* 
 
 If the user inputs valid generation and TikTok time, works
 - Test: available generation, possible TikTok times (from none to many hours)
@@ -31,9 +31,9 @@ If the user inputs invalid generation and TikTok time, does not work
 - Test: generations not listed in the set, test over 24 hours of TikTok use per day
 
 
-User Story 2: A user can input their own activity times to see a visualization of their spent time so that they can compare to others of similar demographics to get inspiration for diversifying their hobbies/leisure time.
+**User Story 2:** A user can input their own activity times to see a visualization of their spent time so that they can compare to others of similar demographics to get inspiration for diversifying their hobbies/leisure time.
 
-Acceptance criteria: 
+*Acceptance criteria:* 
 
 If user inputs a valid 24 hour time:
 - Test amount of time left in their day
@@ -41,9 +41,9 @@ If user inputs a valid 24 hour time:
 If user inputs invalid time within the 24 hr timeframe:
 - Ask for correct input according to the time guidelines given 
 
-User Story 3: A user wants to compare their leisure time to the leisure time of their demographic data ten or twenty years prior
+**User Story 3:** A user wants to compare their leisure time to the leisure time of their demographic data ten or twenty years prior
 
-Acceptance criteria: 
+*Acceptance criteria:* 
 
 If the user inputs valid demographic values:
 - Test State, gender, children status, what type of demographic?
