@@ -1,8 +1,9 @@
 # Title
-The Hobby Clock: Reflecting Your Time Against the Nation's (Gemini help/inspired)
+The Hobby Clock: Reflecting Your Time Against the Nation's 
+(Gemini help/inspired)
 
 # Dataset(s) summary
-The dataset is based on the American Time use survey over 20 years. It includes different categories of time use, i.e childcare, sleeping, hobbies, etc. and compares the different characteristics i.e race, age, sex, region, etc. of the surveyed individuals. 
+The dataset is based on the American Time use survey over 20 years. Our specific subset of this data is from 2022 and 2023 as this is the data post-COVID. It includes different categories of time use, i.e childcare, sleeping, hobbies, etc. and compares the different characteristics i.e race, age, sex, region, etc. of the surveyed individuals. 
 
 # Dataset(s) Metadata
 https://www.icpsr.umich.edu/web/NADAC/studies/36268?utm_source=NADAC%3AATUS+2003-2023_web&utm_medium=NADAC%3AATUS+2003-2023_web&utm_campaign=NADAC%3AATUS+2003-2023_web&utm_id=NADAC%3AATUS+2003-2023 
