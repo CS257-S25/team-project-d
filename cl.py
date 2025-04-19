@@ -24,4 +24,5 @@ def get_parsed_arguments():
     parser2 = argparse.ArgumentParser(description="Get a list of activities within a category")
     parser2.add_argument("--category", type=str, help="the category to get the activities for")
     args2 = parser2.parse_args()
-    return args
+    return args, args2
+
