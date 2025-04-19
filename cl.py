@@ -5,7 +5,6 @@ This will be the entry point for the project when run from the command line.
 
 import argparse
 import sys
-from loadData import load_data
 
 # python3 cl.py -- age 20 -- top 1 
 # get the top activity for people of age 20 
