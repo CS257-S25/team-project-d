@@ -7,6 +7,7 @@ from io import StringIO
 
 
 
+
 class TestCL(unittest.TestCase):
     def setUp(self):
     #mock data for testing
@@ -53,4 +54,8 @@ class TestCL(unittest.TestCase):
     3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available
     "'''
     
-
+    def test_args(self):
+         # check if the user has provided an age and top
+        if args.age is None or args.top is None:
+            print("Usage: python3 cl.py --age <age> --top <number of activities>")
+            sys.exit(1)
