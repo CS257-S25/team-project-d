@@ -8,7 +8,7 @@ import argparse
 import sys
 from ProductionCode.loadData import load_data
 #usually this: from ProductionCode.getAge import get_most_common_top_activity
-from ProductionCode.getAge import get_most_common_top_activity
+from ProductionCode.get_top_by_age import get_most_common_top_activity
 
 
 def get_parsed_arguments():
