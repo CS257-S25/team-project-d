@@ -5,24 +5,16 @@ import sys
 from unittest import patch
 from io import StringIO
 from ProductionCode.loadData import load_data
+from ProductionCode.get_top_by_age import *
 
 
 
 class TestCL(unittest.TestCase):
     def setUp(self):
-    #mock data for testing     
-    #activity, category
-        patcher= @patch ("ProductionCode.core.data2",
-            ["T01", "TV", "entertainment"],
-            ["T02","basketball", "exercise"],
-            ["T03","sleeping", "rest"],
-            ["T04","lifting", "exercise"])
-        
-        self.mock_data =patcher.start()
-        self.addCleanup(patcher.stop)
+        self.main_data= load_data()
+        #at one point also load the data needed for getActivityByCategory
+        #self.category_data = load_data()
 
-        self.fake_data = load_data()
-        
     def output_usage_for_age(self):
         '''helper method to call main from cl
         returns: usage message (str)
@@ -30,14 +22,13 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --age <age> --top <number of activities>")
+        self.assertEqual(output, "Usage: python3 cl.py --age <age> --top")
     
-    ##### TESTS FOR USER STORY 1: getAge --- getting the top n activities by age #####
-    # tests for the finctions in getAge.py
+    ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
+    # tests for the functions in get_top_by_age.py
     def test_get_matching_rows(self):
         '''tests the get_matching_rows function'''
         rows = get_matching_rows(self.fake_data, age = 20)
-        
         pass
 
     def test_load_matching_rows(self):
@@ -59,12 +50,12 @@ class TestCL(unittest.TestCase):
         #test if the function returns None if there are no matching rows
         pass
     
-    #acceptance tests for user story 1 for getAge 
+    #acceptance tests for user story 1 for get_top_by_age
     ''' User story: a user wants to know the most common activity for a given age group
     Acceptance tests:
     1) given they input a valid age group (ex: (int) 18)---> the program should return the most common activity for that age group
     2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
-    3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available
+    3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
     "'''
     
     #also do a test for if there are two activities that tie for first
