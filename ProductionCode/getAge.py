@@ -15,13 +15,16 @@ Acceptance tests:
 2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
 3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available
 "'''
-#issue: this is just returning ('T010101', ###) for every age group
+#issue: this is just returning ('T010101', ###) for every age group for the real dataset
 
 #def get_rows_by_age(age):
     #print("checking for age match:", age)
     #return [row for row in data if row['age'] == int(age)]
 
 def get_matching_rows(age):
+    ''' Purpose: get the rows that match the age group given
+    Args: age: the age group to get the rows for
+    returns: a list of rows/people with the age given in cl'''
     print("Getting matching rows for age group: ", age)
     data= load_data()
 
