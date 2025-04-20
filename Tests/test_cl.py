@@ -4,17 +4,24 @@ import cl
 import sys
 from unittest import patch
 from io import StringIO
+from ProductionCode.loadData import load_data
+
 
 
 class TestCL(unittest.TestCase):
     def setUp(self):
     #mock data for testing     
     #activity, category
-        @patch ("ProductionCode.core.data2",
+        patcher= @patch ("ProductionCode.core.data2",
             ["T01", "TV", "entertainment"],
             ["T02","basketball", "exercise"],
             ["T03","sleeping", "rest"],
             ["T04","lifting", "exercise"])
+        
+        self.mock_data =patcher.start()
+        self.addCleanup(patcher.stop)
+
+        self.fake_data = load_data()
         
     def output_usage_for_age(self):
         '''helper method to call main from cl
@@ -28,12 +35,28 @@ class TestCL(unittest.TestCase):
     ##### TESTS FOR USER STORY 1: getAge --- getting the top n activities by age #####
     # tests for the finctions in getAge.py
     def test_get_matching_rows(self):
+        '''tests the get_matching_rows function'''
+        rows = get_matching_rows(self.fake_data, age = 20)
+        
         pass
 
-    def test_get_top_activity(self):
+    def test_load_matching_rows(self):
+        pass
+
+    def test_process_row_for_activity(self):
+        pass
+
+    def test_get_top_activity_from_rows(self):
+        pass
+
+    def test_count_top_activites(self):
         pass
 
     def test_get_most_common_top_activity(self):
+        '''test the get_most_common_top_activity function'''
+        #test if the function returns the most common activity for the age group
+        #test if the function returns the top n activities for the age group
+        #test if the function returns None if there are no matching rows
         pass
     
     #acceptance tests for user story 1 for getAge 

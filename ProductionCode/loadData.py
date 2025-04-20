@@ -7,16 +7,14 @@ def load_data():
     Returns: None'''
     print("Loading data from file...")
     #actually use this:"Data/teamproject22-23FINAL_updatedpls.csv"
-    with open("Data/fakeData - Sheet1.csv", "r") as file:
+    with open("Data/mini_data_set_for_testing.csv", "r") as file:
         ##### usually: keep these ones but actully just edit the dataset and remove first useless row
+        
         #lines = file.readlines()
-
-        #remove the first line (header) from the file because it was just the title 
+        #     remove the first line (header) from the file because it was just the title 
         #cleaned_lines = lines[1:]
-
-        #use DictReader to read the csv file into a dictionary (avoid closing the file early)
+        #     use DictReader to read the csv file into a dictionary (avoid closing the file early)
         #reader =csv.DictReader(cleaned_lines)
-
         #data = list(reader) #convert to list to be able to pass around the data
 
         ##############

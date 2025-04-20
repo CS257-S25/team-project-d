@@ -1,4 +1,4 @@
-'''file: getAge.py'''
+'''file: get_top_by_age.py'''
 import argparse
 import csv
 from ProductionCode.loadData import load_data
@@ -17,23 +17,13 @@ Acceptance tests:
 "'''
 #issue: this is just returning ('T010101', ###) for every age group for the real dataset
 
-#def get_rows_by_age(age):
-    #print("checking for age match:", age)
-    #return [row for row in data if row['age'] == int(age)]
 
 def get_matching_rows(age):
     ''' Purpose: get the rows that match the age group given
     Args: age: the age group to get the rows for
     returns: a list of rows/people with the age given in cl'''
+    #testing print statement
     print("Getting matching rows for age group: ", age)
-    data= load_data()
-
-    #for row in data:
-        #if "age" in row:
-            #print("Row age value:", repr(row["age"]))  # see what's actually in there
-
-
-    ''''return: a list of rows/people with the age given in cl'''
     matching_rows = []
     data = load_data()
     for row in data:
@@ -44,6 +34,10 @@ def get_matching_rows(age):
     return matching_rows
 
 def load_matching_rows(age):
+    ''' Purpose: load the matching rows for the age group given
+    Args: age: the age group to get the rows for
+    returns: a list of rows/people with the age given in cl'''
+    ##testing print statement
     print("Getting the top activity for age group: ", age)
     matching_rows = get_matching_rows(age)
     if not matching_rows:
@@ -52,9 +46,12 @@ def load_matching_rows(age):
     return matching_rows
 
 def process_row_for_activity(row):
-    #print("Processing row for activity: ", row)
-    #print(" 1 got here to process row for activity: ")
-    
+    ''' Purpose: process the row for the activity hours
+    Args: row: the row to process
+    returns: a dictionary of the activity hours for the row'''
+    #testing print statement
+    print("processing for activity hours")
+    #print("Processing row for activity hours: ", row)
     #exclude non activity columns like education, gender, etc. 
     activity_hours = {}
         #ex: T010101: 24
@@ -75,48 +72,43 @@ def process_row_for_activity(row):
     return activity_hours
     
 def get_top_activity_from_row(activity_hours):
+    ''' Purpose: get the top activity from the row
+    Args: activity_hours: the activity hours to get the top activity from
+    returns: the top activity from the row'''
+    #testing print statement
+    print("getting the top activity from row")
     #print("Getting the top activity from row: ", activity_hours)
-    #print("2 got here to get top activity from row:")
-
     if activity_hours:
         return max(activity_hours, key = activity_hours.get)
     return None
 
 def count_top_activites(matching_rows):
+    ''' Purpose: count the top activities from the matching rows
+    Args: matching_rows: the matching rows to count the top activities from
+    returns: a dictionary of the top activities and their counts'''
+    #testing print statement
+    print("Counting top activities from matching rows")
     #print("Counting top activities from matching rows: ", matching_rows)
-    print("3 got here to count top activities from matching rows:")
     top_activities = Counter() # counter to track the number of times each activity is the top activity
-
     for row in matching_rows:
         activity_hours = process_row_for_activity(row)
         top_activity = get_top_activity_from_row(activity_hours)
-        #print("got to this place")
         if top_activity:
             top_activities[top_activity] += 1
-    #print("got right here")
     return top_activities
 
 def get_most_common_top_activity(age, top_n):
     ''' figures out which top activity is the most common in the dictionary
     returns: the name of the most common top activity (future: list of top names ex top 5) '''
-    
-    #print("Getting the most common top activity for age group: ", age)
-    print("4 got here to get the most common top activity for age group:")
-
-    print("Loading matching rows for age group: ", age)
+    #testing print statement
+    print("Getting the most common top activity for age group: ", age)
     matching_rows = load_matching_rows(age)
-    print("Matching rows for age group: ", matching_rows)
     if not matching_rows:
         print(f"No data available for age {age}")
         return None, 0
-    
     top_activities = count_top_activites(matching_rows)
-    #print(f"Top activities for age {age}: {top_activities}")
-    
     if top_activities:
-        most_common_activity, count= top_activities.most_common(1)[0]
-        #print(f"Most common activity for age {age}: {most_common_activity} appeared {count} times")
-        print("5 got here to get the most common activity for age group:")
+        most_common_activity, count= top_activities.most_common(top_n)[0]
         return most_common_activity, count
     else:
         print(f"No activities found for age {age}")
