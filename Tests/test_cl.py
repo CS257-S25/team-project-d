@@ -8,15 +8,15 @@ from io import StringIO
 
 class TestCL(unittest.TestCase):
     def setUp(self):
-    #mock data for testing     
-    #activity, category
-        @patch ("ProductionCode.core.data2",
-            ["T01", "TV", "entertainment"],
-            ["T02","basketball", "exercise"],
-            ["T03","sleeping", "rest"],
-            ["T04","lifting", "exercise"])
-        
-    def output_usage_for_age(self):
+    # mock data for testing     
+    # activity, category
+    @patch("ProductionCode.core.data2", [
+        ["T01", "TV", "entertainment"],
+        ["T02", "basketball", "exercise"],
+        ["T03", "sleeping", "rest"],
+        ["T04", "lifting", "exercise"]
+    ])
+    def setUp(self, mock_data):
         '''helper method to call main from cl
         returns: usage message (str)
         simplifies repeated calls to main'''
@@ -24,17 +24,13 @@ class TestCL(unittest.TestCase):
         cl.main()
         output = sys.stdout.getvalue().strip()
         self.assertEqual(output, "Usage: python3 cl.py --age <age> --top <number of activities>")
+        pass
     
     ##### TESTS FOR USER STORY 1: getAge --- getting the top n activities by age #####
     # tests for the finctions in getAge.py
     def test_get_matching_rows(self):
         pass
 
-<<<<<<< HEAD
-    def test_get_category(self):
-        '''tests to see if the selected category is the correct one'''
-        
-=======
     def test_get_top_activity(self):
         pass
 
@@ -55,4 +51,3 @@ class TestCL(unittest.TestCase):
         if args.age is None or args.top is None:
             print("Usage: python3 cl.py --age <age> --top <number of activities>")
             sys.exit(1)
->>>>>>> 708a580a282b3913cd74d46451cc2009e54f8843
