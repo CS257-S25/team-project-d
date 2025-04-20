@@ -6,25 +6,15 @@ from unittest import patch
 from io import StringIO
 
 
-
-
 class TestCL(unittest.TestCase):
     def setUp(self):
-    #mock data for testing
-    # ID, Age, tv, basketball, sleeping, lifting
-        @patch ("ProductionCode.core.data", 
-            ["p1", 20, 120, 30, 40, 50], 
-            ["p2", 20. 60, 69, 36, 66],
-            ["p3", 30, 70, 35, 14, 21],
-            ["p4", 45, 55, 89, 71, 2], 
-            ["p5", 20, 12. 100, 89, 36])
-        
+    #mock data for testing     
     #activity, category
         @patch ("ProductionCode.core.data2",
-            ["TV", "entertainment"],
-            ["basketball", "exercise"],
-            ["sleeping", "rest"],
-            ["lifting", "exercise"])
+            ["T01", "TV", "entertainment"],
+            ["T02","basketball", "exercise"],
+            ["T03","sleeping", "rest"],
+            ["T04","lifting", "exercise"])
         
     def output_usage_for_age(self):
         '''helper method to call main from cl

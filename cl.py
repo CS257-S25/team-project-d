@@ -7,6 +7,7 @@ This will be the entry point for the project when run from the command line.
 import argparse
 import sys
 from ProductionCode.loadData import load_data
+#usually this: from ProductionCode.getAge import get_most_common_top_activity
 from ProductionCode.getAge import get_most_common_top_activity
 
 
@@ -20,6 +21,7 @@ def get_parsed_arguments():
     parser.add_argument("--top", "-t", type=int, help="the number of activities to get (ex: n=5 for top 5)")
     args = parser.parse_args()
     
+    ######figure out how to have this work with the category 
     # python3 cl.py -- category "exercise" 
     # get a list of activities within a category
     #parser = argparse.ArgumentParser(description="Get a list of activities within a category")
