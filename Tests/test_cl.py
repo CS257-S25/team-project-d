@@ -34,3 +34,6 @@ class TestCL(unittest.TestCase):
     def test_get_age(self):
         pass
 
+    def test_get_category(self):
+        '''tests to see if the selected category is the correct one'''
+        
