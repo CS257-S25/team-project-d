@@ -18,15 +18,15 @@ def get_parsed_arguments():
     # get the top activity for people of age 20 
     parser = argparse.ArgumentParser(description="Get the most common activity for a given age group")
     parser.add_argument("--age", "-a", type=int, help="the age group to get the most common activity for")
-    parser.add_argument("--top", "-t", type=int, help="the number of activities to get (ex: n=5 for top 5)")
-    args = parser.parse_args()
+    parser.add_argument("--top", "-t", action='store_true', help="the top activity")
+    #args = parser.parse_args()
     
     ######figure out how to have this work with the category 
     # python3 cl.py -- category "exercise" 
     # get a list of activities within a category
-    #parser = argparse.ArgumentParser(description="Get a list of activities within a category")
-    #parser.add_argument("--category", type=str, help="the category to get the activities for")
-    #args = parser.parse_args()
+    # parser = argparse.ArgumentParser(description="Get a list of activities within a category")
+    parser.add_argument("--category", type=str, help="the category to get the activities for")
+    args = parser.parse_args()
     return args
 
 def main(): 
