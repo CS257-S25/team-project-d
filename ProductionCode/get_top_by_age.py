@@ -4,6 +4,7 @@ import csv
 from ProductionCode.loadData import load_data
 from collections import Counter
 
+# NOTE: currently we are calculating mode but we want the median
 
 #finding the activity that has has the most hours and came up the most frequently for an age group 
 # python3 cl.py -- age 20 -- top 1 
@@ -46,12 +47,9 @@ def load_matching_rows(age):
     return matching_rows
 
 def process_row_for_activity(row):
-    ''' Purpose: process the row for the activity hours
-    Args: row: the row to process
-    returns: a dictionary of the activity hours for the row'''
-    #testing print statement
-    print("processing for activity hours")
-    #print("Processing row for activity hours: ", row)
+    #print("Processing row for activity: ", row)
+    #print(" 1 got here to process row for activity: ")
+    
     #exclude non activity columns like education, gender, etc. 
     activity_hours = {}
         #ex: T010101: 24
@@ -61,7 +59,7 @@ def process_row_for_activity(row):
                         "hispanic origin", "race", "age", "labor force status", 
                         "school enrollment", "school level", "sex", "number children", 
                         "full time/part time", "presence of spouse", "age youngest child", 
-                        "statistical weight", "usual weekly hours worked", "year", "weekly earnings"   ]:
+                        "statistical weight", "usual weekly hours worked", "year", "weekly earnings", "T010101"   ]:
             if value != "NA":
                 try:
                     value = float(value) #handle scientific notation

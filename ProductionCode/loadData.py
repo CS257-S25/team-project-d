@@ -7,7 +7,7 @@ def load_data():
     Returns: None'''
     print("Loading data from file...")
     #actually use this:"Data/teamproject22-23FINAL_updatedpls.csv"
-    with open("Data/mini_data_set_for_testing.csv", "r") as file:
+    with open("Data/teamproject22-23FINAL_updatedpls.csv", "r") as file:
         ##### usually: keep these ones but actully just edit the dataset and remove first useless row
         
         #lines = file.readlines()
