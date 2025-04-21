@@ -1,24 +1,26 @@
 '''This is the Test file to use'''
 import unittest
-import cl
+# import cl
 import sys
-from unittest import patch
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from unittest.mock import patch
 from io import StringIO
 from ProductionCode.get_top_by_age import *
 from ProductionCode.getActivtyByCategory import *
 
+
 class TestCL(unittest.TestCase):
     def setUp(self):
-        @patch ("ProductionCode.core.data", #get_top_by_age.py would return (T050101,2) for age 23
-            ["23, 5, 1, 1 "]
-            ["57, 1, 5, 3"]
-            ["23, 5, 1, 3"] ) #age, hours for T050101, T050102, T050103
-        
         self.category_data = load_category_data()
         self.subcategory_data = load_subcategory_data()
         self.activity_data = load_activity_data()
 
-              
+    @patch("ProductionCode.core.data", #get_top_by_age.py would return (T050101,2) for age 23
+        ["23, 5, 1, 1 "],
+        ["57, 1, 5, 3"],
+        ["23, 5, 1, 3"] ) #age, hours for T050101, T050102, T050103
+               
     def output_usage_for_age(self):
         '''helper method to call main from cl
         returns: usage message (str)
