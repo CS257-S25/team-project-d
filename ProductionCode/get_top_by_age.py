@@ -5,8 +5,11 @@ from ProductionCode.loadData import load_data
 from collections import Counter
 
 # NOTE: currently we are calculating mode but we want the median if we wnated to return the top N activities 
+# Future: make it so that it is get_top_activity_by_demographic i.e gender, marital status, etc. including age
+# Future: make it so it translates what the activity is i.e T050101 = watching tv or whatever it is and returns (watching tv, 2) 
+# Future: make it so it gets the top N activities for a group 
 
-# finding the activity that has has the most hours and came up the most frequently for an age group 
+#  finding the activity that has has the most hours and came up the most frequently for an age group 
 # python3 cl.py -- age 20 -- top
 # get the top activity for people of age 20 
 
@@ -93,7 +96,7 @@ def get_most_common_top_activity(age, top_n):
     matching_rows = load_matching_rows(age)
     # check if there are any matching rows
     if not matching_rows: # if there are no matching rows, return None
-        print(f"No data available for age {age}")
+        print(f"No data available for age {age}, try ages 15-85")
         return None, 0
     # count the top activities from the matching rows
     top_activities = count_top_activites(matching_rows)
@@ -104,7 +107,7 @@ def get_most_common_top_activity(age, top_n):
         most_common_activity, count= top_activities.most_common(top_n)[0]
         return most_common_activity, count
     else: # if there are no top activities, return None
-        print(f"No activities found for age {age}")
+        print(f"No activities found for age {age}, try ages 15-85")
         return None, 0
 
 
