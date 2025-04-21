@@ -43,9 +43,17 @@ def get_category_from_data(category):
     data = load_category_data()
     for row in data:
         if row['Category'] == category:
-            print("supposed category ID: "+row['Activity_ID'])
             return row['Activity_ID']
     print("Category not found")
+    return None
+
+def get_subcategory_from_data(subcategory):
+    '''return subcategory ID from the subcategory data'''
+    data = load_subcategory_data()
+    for row in data:
+        if row['Activity_Name'] == subcategory:
+            return row['Activity_ID']
+    print("Subcategory not found")
     return None
 
 def get_list_of_subcategories(category):
@@ -64,12 +72,18 @@ def get_list_of_subcategories(category):
 
 def get_activities_from_subcategory(category, subcategory):
     '''return a list of activities in the subcategory'''
-    category_ID = get_category_from_data(category)
+
+    category_ID = get_subcategory_from_data(subcategory)
     subcategories = get_list_of_subcategories(category)
     activities = []
     data = load_activity_data()
     for row in data:
-        if (row['Activity_ID'][:-4] == category_ID and row['Activity_Name'] == subcategory):
+        print("row['Activity_ID'][:4]: "+row['Activity_ID'])
+        print("ROW HERE")
+        print(row)
+        #print("category_ID: "+category_ID)
+        print(category_ID)
+        if (row['Activity_ID'][:5] == category_ID and row['Activity_Name'] == subcategory):
             activities.append(row['Activity_Name'])
             print("got appended to the activities list: "+row['Activity_Name'])
 
