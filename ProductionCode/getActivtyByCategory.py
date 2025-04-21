@@ -1,7 +1,7 @@
 import argparse
 import csv
 #from loadData import load_data
-from cl import args, args2
+from shared_logic import get_list_of_activities
 
 # python3 cl.py -- category "exercise" 
 # get a list of activities within a category
@@ -10,45 +10,57 @@ from cl import args, args2
 
 def load_category_data():
 
-    print("Loading data from file...")
-    with open("Data/Categories_Data - Hoja 1", "r") as file:
+    print("Loading category data from file...")
+    with open("Data/Categories_Data_test.csv", "r") as file:
 
         reader=csv.DictReader(file)
         data = list(reader)
-
+        print("Data loaded successfully")
         return data
 
 def load_subcategory_data():
-    print("Loading data from file...")
-    with open("Data/Subcategories_Data - Hoja 4 (1)", "r") as file:
+    print("Loading subcategory data from file...")
+    with open("Data/SubCategories_Data_test.csv", "r") as file:
 
         reader=csv.DictReader(file)
         data = list(reader)
 
         return data
 
-def get_list_of_activities():
-    '''return the list of activities from the subcategory of the category from the user's input'''
+'''def get_list_of_activities():
+    return the list of activities from the subcategory of the category from the user's input
     list_of_activities = []
     if (args.category):
-        category = args2.category
+        category = args.category
+        print("recognizes that their is only one argument")
         get_list_of_subcategories(category)
 
-    elif (args2.category and args2.subcategory):
-        category = args2.category
-        subcategory = args2.subcategory
+    elif (args.category and args.subcategory):
+        category = args.category
+        subcategory = args.subcategory
         get_activities_from_subcategory(category, subcategory)
 
     else:
         print("no arguments provided")
-    return list_of_activities
+    return list_of_activities'''
 
 def get_category_from_data(category):
     '''return category ID from the data'''
     data = load_category_data()
+    print(data)
+    print("Type of data:", type(data))
+    print(data[0]['Category'])
     for row in data:
-        if (category in row):
-            return row[0]
+        #print("row: "+row)
+        #print("category: "+category)
+        print("IM HERE")
+        #print("row['Activity_Name']: "+row['Activity_Name'])
+        print("category: "+category)
+        #category = "Household Activities"
+        #print("Row get: "+row.get('Activity_Name'))
+        if row['Category'] == category:
+            print("supposed category ID: "+row['Activity_ID'])
+            return row['Activity_ID']
     print("Category not found")
     return None
 
@@ -58,8 +70,11 @@ def get_list_of_subcategories(category):
     subcategories = []
     data = load_subcategory_data()
     for row in data:
-        if (row[0].startswith(category_ID)):
-            subcategories.append(row[1])
+        print("row['Activity_ID'][:-4]: "+row['Activity_ID'][:-4])
+        print("category_ID: "+category_ID)
+        if (row['Activity_ID'][:-4] == category_ID):
+            subcategories.append(row['Activity_Name'])
+            print("got appended to the subcategories list: "+row['Activity_Name'])
 
     return subcategories
 
