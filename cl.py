@@ -10,6 +10,7 @@ from ProductionCode.loadData import load_data
 from ProductionCode.get_top_by_age import get_most_common_top_activity
 from shared_logic import get_list_of_activities
 from ProductionCode.getActivtyByCategory import load_subcategory_data
+from ProductionCode.getActivtyByCategory import get_activities_from_subcategory
 #from ProductionCode.getActivtyByCategory import get_list_of_activities
 
 
@@ -22,6 +23,7 @@ def get_parsed_arguments():
     parser.add_argument("--age", "-a", type=int, help="the age group to get the most common activity for")
     parser.add_argument("--top", "-t", action='store_true', help="the top activity")
     parser.add_argument("--category", type=str, help="the category to get the activities for")
+    parser.add_argument("--subcategory", type=str, help="the subcategory to get the activities for")
     args = parser.parse_args()
     return args
 
@@ -34,10 +36,14 @@ def main():
             most_common_top_activity = get_most_common_top_activity(args.age, args.top)
             print(most_common_top_activity)
     
+
+    elif args.category is not None and args.subcategory is not None:
+            list_of_activities = get_activities_from_subcategory(args.category, args.subcategory)
+            print(list_of_activities)
     #if user puts --category then call getActivtyByCategory()
     elif args.category is not None:
-            list_of_activities = get_list_of_activities(args)
-            print(list_of_activities)
+            list_of_subcategories = get_list_of_activities(args)
+            print(list_of_subcategories)
  
 if __name__ == "__main__":
    main()
