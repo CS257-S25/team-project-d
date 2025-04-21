@@ -11,18 +11,23 @@ from ProductionCode.get_top_by_age import *
 
 class TestCL(unittest.TestCase):
     def setUp(self):
-        self.main_data= load_data()
-        #at one point also load the data needed for getActivityByCategory
-        #self.category_data = load_data()
-
-    def output_usage_for_age(self):
+    # mock data for testing     
+    # activity, category
+    @patch("ProductionCode.core.data2", [
+        ["T01", "TV", "entertainment"],
+        ["T02", "basketball", "exercise"],
+        ["T03", "sleeping", "rest"],
+        ["T04", "lifting", "exercise"]
+    ])
+    def setUp(self, mock_data):
         '''helper method to call main from cl
         returns: usage message (str)
         simplifies repeated calls to main'''
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --age <age> --top")
+        self.assertEqual(output, "Usage: python3 cl.py --age <age> --top <number of activities>")
+        pass
     
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py

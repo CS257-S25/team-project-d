@@ -9,6 +9,9 @@ import sys
 from ProductionCode.loadData import load_data
 #usually this: from ProductionCode.getAge import get_most_common_top_activity
 from ProductionCode.get_top_by_age import get_most_common_top_activity
+from shared_logic import get_list_of_activities
+from ProductionCode.getActivtyByCategory import load_subcategory_data
+#from ProductionCode.getActivtyByCategory import get_list_of_activities
 
 
 def get_parsed_arguments():
@@ -37,6 +40,11 @@ def main():
     if args.age is not None and args.top is not None:
             most_common_top_activity = get_most_common_top_activity(args.age, args.top)
             print(most_common_top_activity)
+    
+    #if user puts --category then call getActivtyByCategory()
+    elif args.category is not None:
+            list_of_activities = get_list_of_activities(args)
+            print(list_of_activities)
  
 if __name__ == "__main__":
    main()
