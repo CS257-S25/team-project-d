@@ -8,3 +8,6 @@ Acceptance tests:
 User story 2: a user wants a list of activities under a specific category (ex: Exercise)
 
 Acceptance tests:
+1) given they input a valid category -> the program returns the list of subcategories
+2) given they input a valid category and valid subcategory -> the program returns the list of subcategories
+3) given they input an invalid category and/or invalid subcategory -> the program returns the usage statement
