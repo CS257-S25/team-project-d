@@ -47,7 +47,7 @@ def process_row_for_activity(row):
     returns: a dictionary of the activity hours'''
     #exclude non activity columns like education, gender, etc.
     activity_hours = {} #ex: T050101: 24
-    for key, value in row:
+    for key in row:
         # check if the key is an activity (not T010101 - sleeping) and not a non-activity column
         # we remove sleeping from the list of options because everyone/s top activity is sleeping
         if key not in ["ID","TUCASEID", "metropolitan status","education",
@@ -55,13 +55,13 @@ def process_row_for_activity(row):
                         "school enrollment", "school level", "sex", "number children", 
                         "full time/part time", "presence of spouse", "age youngest child", 
                         "statistical weight", "usual weekly hours worked",
-                        "year", "weekly earnings", "T010101"   ]:
-            if value != "NA": # check if the value is not NA / is a number
+                        "year", "weekly earnings", "T010101"]:
+            if row[key] != "NA": # check if the value is not NA / is a number
                 try:
-                    value = float(value) #handle scientific notation
-                    activity_hours[key] = int(value)
+                    row[key] = float(row[key]) #handle scientific notation
+                    activity_hours[key] = int(row[key])
                 except ValueError:
-                    print(f"ValueError: could not convert {value} to int for key {key}")
+                    print(f"ValueError: could not convert {row[key]} to int for key {key}")
                     continue
     return activity_hours #return the activity hours dictionary
 
