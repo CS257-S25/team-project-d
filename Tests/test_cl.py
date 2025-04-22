@@ -2,12 +2,18 @@
 import unittest
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from unittest.mock import patch
 from io import StringIO
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import cl
-from ProductionCode.get_top_by_age import *
-from ProductionCode.getActivtyByCategory import *
+from ProductionCode.get_top_by_age import (get_matching_rows, 
+    load_matching_rows, process_row_for_activity,
+    get_top_activity_from_row, count_top_activites, 
+    get_most_common_top_activity)
+from ProductionCode.getActivtyByCategory import (get_category_from_data,
+    get_list_of_subcategories,get_list_of_activities,
+    load_category_data, 
+    load_subcategory_data, load_activity_data)
 
 
 class TestCL(unittest.TestCase):
@@ -21,6 +27,7 @@ class TestCL(unittest.TestCase):
         ["23, 5, 1, 1 "],
         ["57, 1, 5, 3"],
         ["23, 5, 1, 3"] )#age, hours for T050101, T050102, T050103
+    
     def output_usage_for_age(self):
         '''helper method to call main from cl
         returns: usage message (str)
@@ -31,6 +38,7 @@ class TestCL(unittest.TestCase):
         self.assertEqual(output, "Usage: python3 cl.py --age <age from 15-85> --top")
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
+    @patch
     def test_get_matching_rows(self):
         '''tests the get_matching_rows function
         verifies the method returns the correct number of rows that match the age given'''
