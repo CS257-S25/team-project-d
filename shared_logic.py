@@ -1,7 +1,7 @@
 
-def get_list_of_activities(sent_category):
+def get_the_subcategories(sent_category):
     '''Return the list of activities from the subcategory of the category from the user's input'''
-    list_of_activities = []
+    list_of_subcategories = []
     if sent_category:
         category = sent_category
         print("Recognizes that there is only one argument")
@@ -10,6 +10,6 @@ def get_list_of_activities(sent_category):
         # Filter activities based on the category (example logic)
         from ProductionCode.getActivtyByCategory import get_list_of_subcategories
 
-        list_of_activities = get_list_of_subcategories(category)
+        list_of_subcategories= get_list_of_subcategories(category)
 
-    return list_of_activities
+    return list_of_subcategories
