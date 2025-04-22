@@ -53,7 +53,8 @@ def process_row_for_activity(row):
                         "hispanic origin", "race", "age", "labor force status", 
                         "school enrollment", "school level", "sex", "number children", 
                         "full time/part time", "presence of spouse", "age youngest child", 
-                        "statistical weight", "usual weekly hours worked", "year", "weekly earnings", "T010101"   ]:
+                        "statistical weight", "usual weekly hours worked",
+                        "year", "weekly earnings", "T010101"   ]:
             if value != "NA": # check if the value is not NA / is a number
                 try:
                     value = float(value) #handle scientific notation
@@ -76,7 +77,8 @@ def count_top_activites(matching_rows):
     ''' Purpose: count the top activities from the matching rows
     Args: matching_rows: the matching rows to count the top activities from
     returns: a dictionary of the top activities and their counts'''
-    top_activities = Counter() # counter to track the number of times each activity is the top activity
+    top_activities = Counter() 
+    #counter to track the number of times each activity is the top activity
     for row in matching_rows:
         # process the row to get the activity hours
         activity_hours = process_row_for_activity(row)
@@ -104,6 +106,5 @@ def get_most_common_top_activity(age, top_n):
         # get the most common top activity
         # NOTE: this will return the most common activity and the count of the activity
         # if there are multiple activities with the same count, it will return the first one
-        most_common_activity, count= top_activities.most_common(top_n)[0]
-    return most_common_activity, count
-
+        most_common_activity= top_activities.most_common(top_n)[0]
+    return most_common_activity
