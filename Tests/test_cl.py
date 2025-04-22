@@ -1,16 +1,16 @@
-'''This is the Test file to use'''
 import unittest
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import cl
 from unittest.mock import patch
 from io import StringIO
+import cl
 from ProductionCode.get_top_by_age import *
 from ProductionCode.getActivtyByCategory import *
 
 
 class TestCL(unittest.TestCase):
+    '''Test class for the command line interface (CLI) for the project.'''
     def setUp(self):
         self.category_data = load_category_data()
         self.subcategory_data = load_subcategory_data()
@@ -19,8 +19,7 @@ class TestCL(unittest.TestCase):
     @patch("ProductionCode.data", #get_top_by_age.py would return (T050101,2) for age 23
         ["23, 5, 1, 1 "],
         ["57, 1, 5, 3"],
-        ["23, 5, 1, 3"] ) #age, hours for T050101, T050102, T050103
-               
+        ["23, 5, 1, 3"] )#age, hours for T050101, T050102, T050103       
     def output_usage_for_age(self):
         '''helper method to call main from cl
         returns: usage message (str)
@@ -29,7 +28,6 @@ class TestCL(unittest.TestCase):
         cl.main()
         output = sys.stdout.getvalue().strip()
         self.assertEqual(output, "Usage: python3 cl.py --age <age from 15-85> --top")
-    
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
     def test_get_matching_rows(self):
@@ -42,7 +40,7 @@ class TestCL(unittest.TestCase):
         '''tests the load_matching_rows function
         verifies the method returns a list of rows that match the age given'''
         rows = load_matching_rows(23)
-        self.asserEqual(rows, [
+        self.assertEqual(rows, [
             ["23", "5", "1", "1"],
             ["23", "5", "1", "3"]
         ])
@@ -90,7 +88,7 @@ class TestCL(unittest.TestCase):
         counts = {"T050101": 2, "T050103": 2}
         result = get_most_common_top_activity(counts, 2)
         self.assertEqual(result, ("T050101", 2)) #returns the first one in the list
-        pass
+        
     
     #acceptance tests for user story 1 for get_top_by_age
     ''' User story: a user wants to know the most common activity for a given age group
@@ -112,12 +110,7 @@ class TestCL(unittest.TestCase):
         sys.argv = ["cl.py", "--age", "200"]
         self.output_usage_for_age()
 
-    '''User Story: A user wants to see a list of exercise activities
-    Acceptance Test 1: given they input a valid category -> the program returns the list of subcategories
-    Acceptance Test 2: given they input a valid category and valid subcategory -> the program returns the list of subcategories
-    Acceptance Test 3: given they input an invalid category and/or invalid subcategory -> the program returns the usage statement
-    '''
-
+    ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
     def test_get_category_from_data(self):
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
