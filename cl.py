@@ -6,7 +6,7 @@ This will be the entry point for the project when run from the command line.
 import argparse
 from ProductionCode.getActivtyByCategory import get_activities_from_subcategory
 from ProductionCode.get_top_by_age import get_most_common_top_activity
-from shared_logic import get_list_of_subcategories
+from shared_logic import get_the_subcategories
 
 def get_parsed_arguments():
     '''parse the command line arguments
@@ -36,7 +36,7 @@ def main():
         print(list_of_activities)
     #if user puts --category then call getActivtyByCategory()
     elif args.category is not None:
-        list_of_subcategories = get_list_of_subcategories(args.category)
+        list_of_subcategories = get_the_subcategories(args.category)
         print(list_of_subcategories)
 if __name__ == "__main__":
     main()

@@ -1,5 +1,5 @@
 
-def get_list_of_subcategories(sent_category):
+def get_the_subcategories(sent_category):
     '''Return the list of activities from the subcategory of the category from the user's input'''
     list_of_subcategories = []
     if sent_category:

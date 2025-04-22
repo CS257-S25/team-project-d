@@ -126,7 +126,7 @@ class TestCL(unittest.TestCase):
     def test_get_list_of_subcategories(self):
         '''tests the get_list_of_subcategories function and Acceptance Test 2
         test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry ID'''
-        self.assertEqual("['Interior cleaning', 'Laundry']", get_list_of_subcategories("T02"))
+        self.assertEqual("['Interior cleaning', 'Laundry']", get_the_subcategories("T02"))
 
     def test_get_list_of_activities(self):
         '''tests get_list_of_activities from getActivityByCategory
