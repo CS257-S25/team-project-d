@@ -1,14 +1,17 @@
-'''file: test_cl.py'''
-import unittest
-import sys
+'''This is the Test file to use'''
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from unittest.mock import patch
+import sys
+import unittest
 from io import StringIO
+from unittest.mock import patch
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import cl
-from ProductionCode.get_top_by_age import *
-from ProductionCode.getActivtyByCategory import *
-
+from ProductionCode.get_top_by_age import get_matching_rows, load_matching_rows
+from ProductionCode.get_top_by_age import process_row_for_activity, get_top_activity_from_row
+from ProductionCode.get_top_by_age import count_top_activites, get_most_common_top_activity
+from ProductionCode.getActivtyByCategory import load_category_data, load_subcategory_data
+from ProductionCode.getActivtyByCategory import load_activity_data, get_category_from_data
+from ProductionCode.getActivtyByCategory import get_list_of_subcategories, get_list_of_activities
 
 class TestCL(unittest.TestCase):
     '''Test class for the command line interface (CLI) for the project.'''
@@ -17,7 +20,7 @@ class TestCL(unittest.TestCase):
         self.subcategory_data = load_subcategory_data()
         self.activity_data = load_activity_data()
 
-    @patch("ProductionCode.data", #get_top_by_age.py would return (T050101,2) for age 23
+    @patch("ProductionCode.data",#get_top_by_age.py would return (T050101,2) for age 23
         ["23, 5, 1, 1 "],
         ["57, 1, 5, 3"],
         ["23, 5, 1, 3"] )#age, hours for T050101, T050102, T050103
@@ -29,6 +32,7 @@ class TestCL(unittest.TestCase):
         cl.main()
         output = sys.stdout.getvalue().strip()
         self.assertEqual(output, "Usage: python3 cl.py --age <age from 15-85> --top")
+
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
     def test_get_matching_rows(self):
@@ -88,8 +92,8 @@ class TestCL(unittest.TestCase):
         #tie case
         counts = {"T050101": 2, "T050103": 2}
         result = get_most_common_top_activity(counts, 2)
-        self.assertEqual(result, ("T050101", 2)) #returns the first one in the list
-        
+        self.assertEqual(result, ("T050101", 2))#returns the first one in the list
+        pass
 
     #acceptance tests for user story 1 for get_top_by_age
     ''' User story: a user wants to know the most common activity for a given age group
@@ -97,19 +101,21 @@ class TestCL(unittest.TestCase):
     1) given they input a valid age group (ex: (int) 18)---> the program should return the most common activity for that age group
     2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
     3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
-    "'''
+    '''
+
     def test_acceptance_valid_age(self):
+        '''test if the function returns the correct category ID and number of times it is top'''
         self.assertEqual(cl.get_most_common_top_activity(23, 1), "T050101, 2")
 
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
         sys.argv = ["cl.py", "--age", "eighteen"]
-        self.output_usage_for_age()
+        self.assertRaises("ValueError", self.output_usage_for_age())
 
-    def test_acceptance_invalid_age_range(self): #the range is 15-85 i thinkkkkk
+    def test_acceptance_invalid_age_range(self):# the range is 15-85
         '''test if the function returns usage statement for invalid age range'''
         sys.argv = ["cl.py", "--age", "200"]
-        self.output_usage_for_age()
+        self.assertRaises("ValueError", self.output_usage_for_age())
 
     ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
     def test_get_category_from_data(self):
@@ -126,7 +132,7 @@ class TestCL(unittest.TestCase):
         '''tests get_list_of_activities from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
         self.assertEqual("['Interior cleaning', 'Laundry']", 
-                        get_list_of_activities("Household Activities"))
+                        get_list_of_activities("Housework"))
 
     def output_usage_for_category(self):
         '''helper method to call main from cl
@@ -135,9 +141,8 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --category "
-        "<'Personal Care Activities' or 'Household Activities'>")
-    
+        self.assertEqual(output, "Usage: python3 cl.py --category <'Personal Care Activities' or 'Household Activities'>")
+
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
         '''
@@ -151,11 +156,11 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
+        self.assertEqual(output, "Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory> " \
+        "\n reference python3 cl.py --category for valid subcategory inputs")
 
     def test_invalid_subcategory(self):
         '''test an invalid subcategory for Acceptance Test 3
         '''
         sys.argv = 'Astronaut'
         self.output_usage_for_subcategory()
-        
