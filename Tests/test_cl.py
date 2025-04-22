@@ -14,6 +14,7 @@ from ProductionCode.getActivtyByCategory import load_activity_data, get_category
 from ProductionCode.getActivtyByCategory import get_list_of_subcategories, get_list_of_activities
 
 class TestCL(unittest.TestCase):
+    '''Test class for the command line interface (CLI) for the project.'''
     def setUp(self):
         self.category_data = load_category_data()
         self.subcategory_data = load_subcategory_data()
@@ -23,7 +24,6 @@ class TestCL(unittest.TestCase):
         ["23, 5, 1, 1 "],
         ["57, 1, 5, 3"],
         ["23, 5, 1, 3"] )#age, hours for T050101, T050102, T050103
-
     def output_usage_for_age(self):
         '''helper method to call main from cl
         returns: usage message (str)
@@ -45,7 +45,7 @@ class TestCL(unittest.TestCase):
         '''tests the load_matching_rows function
         verifies the method returns a list of rows that match the age given'''
         rows = load_matching_rows(23)
-        self.asserEqual(rows, [
+        self.assertEqual(rows, [
             ["23", "5", "1", "1"],
             ["23", "5", "1", "3"]
         ])
@@ -117,12 +117,7 @@ class TestCL(unittest.TestCase):
         sys.argv = ["cl.py", "--age", "200"]
         self.output_usage_for_age()
 
-    '''User Story: A user wants to see a list of exercise activities
-    Acceptance Test 1: given they input a valid category -> the program returns the list of subcategories
-    Acceptance Test 2: given they input a valid category and valid subcategory -> the program returns the list of subcategories
-    Acceptance Test 3: given they input an invalid category and/or invalid subcategory -> the program returns the usage statement
-    '''
-
+    ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
     def test_get_category_from_data(self):
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
@@ -136,7 +131,8 @@ class TestCL(unittest.TestCase):
     def test_get_list_of_activities(self):
         '''tests get_list_of_activities from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
-        self.assertEqual("['Interior cleaning', 'Laundry']", get_list_of_activities("Household Activities"))
+        self.assertEqual("['Interior cleaning', 'Laundry']", 
+                        get_list_of_activities("Household Activities"))
 
     def output_usage_for_category(self):
         '''helper method to call main from cl
@@ -145,8 +141,9 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --category <'Personal Care Activities' or 'Household Activities'>")
-
+        self.assertEqual(output, "Usage: python3 cl.py --category "
+        "<'Personal Care Activities' or 'Household Activities'>")
+    
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
         '''
