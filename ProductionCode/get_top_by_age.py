@@ -1,8 +1,7 @@
 '''file: get_top_by_age.py'''
-import argparse
-import csv
-from ProductionCode.loadData import load_data
 from collections import Counter
+from ProductionCode.loadData import load_data
+
 
 # Future: make it so that it is get_top_activity_by_demographic
 # i.e gender, marital status, etc. including age
@@ -107,4 +106,4 @@ def get_most_common_top_activity(age, top_n):
         # if there are multiple activities with the same count, it will return the first one
         most_common_activity, count= top_activities.most_common(top_n)[0]
     return most_common_activity, count
-    
+
