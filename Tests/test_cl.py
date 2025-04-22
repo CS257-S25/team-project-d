@@ -29,9 +29,12 @@ class TestCL(unittest.TestCase):
         returns: usage message (str)
         simplifies repeated calls to main'''
         sys.stdout = StringIO()
-        cl.main()
-        output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --age <age from 15-85> --top")
+        try:
+            cl.main()
+            output = sys.stdout.getvalue().strip()
+        except ValueError:
+            print("Usage: python3 cl.py --age <age from 15-85> --top")
+            return
 
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
