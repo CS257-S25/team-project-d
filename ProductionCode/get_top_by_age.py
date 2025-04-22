@@ -23,7 +23,8 @@ def get_matching_rows(age):
     data = load_data()
     for row in data:
         # check if the age is in the row
-        if "age" in row and int(row["age"]) == int(age):
+        row_age = row['age']
+        if int(row_age) == int(age):
             # if it is add it to the list
             matching_rows.append(row)
     return matching_rows
@@ -46,7 +47,7 @@ def process_row_for_activity(row):
     returns: a dictionary of the activity hours'''
     #exclude non activity columns like education, gender, etc.
     activity_hours = {} #ex: T050101: 24
-    for key, value in row.items():
+    for key, value in row:
         # check if the key is an activity (not T010101 - sleeping) and not a non-activity column
         # we remove sleeping from the list of options because everyone/s top activity is sleeping
         if key not in ["ID","TUCASEID", "metropolitan status","education",
