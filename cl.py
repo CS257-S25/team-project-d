@@ -36,7 +36,7 @@ def main():
         print(list_of_activities)
     #if user puts --category then call getActivtyByCategory()
     elif args.category is not None:
-        list_of_subcategories = get_list_of_activities(args)
+        list_of_subcategories = get_list_of_activities(args.category)
         print(list_of_subcategories)
 if __name__ == "__main__":
     main()
