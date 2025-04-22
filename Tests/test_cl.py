@@ -1,9 +1,9 @@
 '''This is the Test file to use'''
 import unittest
-# import cl
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import cl
 from unittest.mock import patch
 from io import StringIO
 from ProductionCode.get_top_by_age import *
@@ -16,7 +16,7 @@ class TestCL(unittest.TestCase):
         self.subcategory_data = load_subcategory_data()
         self.activity_data = load_activity_data()
 
-    @patch("ProductionCode.core.data", #get_top_by_age.py would return (T050101,2) for age 23
+    @patch("ProductionCode.data", #get_top_by_age.py would return (T050101,2) for age 23
         ["23, 5, 1, 1 "],
         ["57, 1, 5, 3"],
         ["23, 5, 1, 3"] ) #age, hours for T050101, T050102, T050103
