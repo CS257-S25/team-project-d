@@ -4,14 +4,15 @@ import csv
 from ProductionCode.loadData import load_data
 from collections import Counter
 
-# NOTE: currently we are calculating mode but we want the median if we wnated to return the top N activities 
-# Future: make it so that it is get_top_activity_by_demographic i.e gender, marital status, etc. including age
-# Future: make it so it translates what the activity is i.e T050101 = watching tv or whatever it is and returns (watching tv, 2) 
-# Future: make it so it gets the top N activities for a group 
+# Future: make it so that it is get_top_activity_by_demographic
+# i.e gender, marital status, etc. including age
+# Future: make it so it translates what the activity is
+# i.e T050101 = watching tv or whatever it is and returns (watching tv, 2)
+# Future: make it so it gets the top N activities for a group
 
-#  finding the activity that has has the most hours and came up the most frequently for an age group 
+#  finding the activity that has has the most hours and came up the most frequently for an age group
 # python3 cl.py -- age 20 -- top
-# get the top activity for people of age 20 
+# get the top activity for people of age 20
 
 def get_matching_rows(age):
     ''' Purpose: get the rows that match the age group given
@@ -22,7 +23,7 @@ def get_matching_rows(age):
     matching_rows = []
     data = load_data()
     for row in data:
-        # check if the age is in the row   
+        # check if the age is in the row
         if "age" in row and int(row["age"]) == int(age):
             # if it is add it to the list
             matching_rows.append(row)
@@ -44,12 +45,12 @@ def process_row_for_activity(row):
     ''' Purpose: process the row to get the activity hours
     Args: row: the row to process
     returns: a dictionary of the activity hours'''
-    #exclude non activity columns like education, gender, etc. 
+    #exclude non activity columns like education, gender, etc.
     activity_hours = {} #ex: T050101: 24
     for key, value in row.items():
         # check if the key is an activity (not T010101 - sleeping) and not a non-activity column
         # we remove sleeping from the list of options because everyone/s top activity is sleeping
-        if key not in ["ID","TUCASEID", "metropolitan status","education", 
+        if key not in ["ID","TUCASEID", "metropolitan status","education",
                         "hispanic origin", "race", "age", "labor force status", 
                         "school enrollment", "school level", "sex", "number children", 
                         "full time/part time", "presence of spouse", "age youngest child", 
@@ -57,12 +58,12 @@ def process_row_for_activity(row):
             if value != "NA": # check if the value is not NA / is a number
                 try:
                     value = float(value) #handle scientific notation
-                    activity_hours[key] = int(value) 
+                    activity_hours[key] = int(value)
                 except ValueError:
                     print(f"ValueError: could not convert {value} to int for key {key}")
                     continue
     return activity_hours #return the activity hours dictionary
-    
+
 def get_top_activity_from_row(activity_hours):
     ''' Purpose: get the top activity from the row
     Args: activity_hours: the activity hours to get the top activity from
@@ -105,9 +106,5 @@ def get_most_common_top_activity(age, top_n):
         # NOTE: this will return the most common activity and the count of the activity
         # if there are multiple activities with the same count, it will return the first one
         most_common_activity, count= top_activities.most_common(top_n)[0]
-        return most_common_activity, count
-    else: # if there are no top activities, return None
-        print(f"No activities found for age {age}, try ages 15-85")
-        return None, 0
-
-
+    return most_common_activity, count
+    
