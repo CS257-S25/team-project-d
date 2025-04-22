@@ -1,3 +1,4 @@
+'''file: test_cl.py'''
 import unittest
 import sys
 import os
@@ -19,7 +20,7 @@ class TestCL(unittest.TestCase):
     @patch("ProductionCode.data", #get_top_by_age.py would return (T050101,2) for age 23
         ["23, 5, 1, 1 "],
         ["57, 1, 5, 3"],
-        ["23, 5, 1, 3"] )#age, hours for T050101, T050102, T050103       
+        ["23, 5, 1, 3"] )#age, hours for T050101, T050102, T050103
     def output_usage_for_age(self):
         '''helper method to call main from cl
         returns: usage message (str)
@@ -89,7 +90,7 @@ class TestCL(unittest.TestCase):
         result = get_most_common_top_activity(counts, 2)
         self.assertEqual(result, ("T050101", 2)) #returns the first one in the list
         
-    
+
     #acceptance tests for user story 1 for get_top_by_age
     ''' User story: a user wants to know the most common activity for a given age group
     Acceptance tests:
@@ -124,7 +125,8 @@ class TestCL(unittest.TestCase):
     def test_get_list_of_activities(self):
         '''tests get_list_of_activities from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
-        self.assertEqual("['Interior cleaning', 'Laundry']", get_list_of_activities("Household Activities"))
+        self.assertEqual("['Interior cleaning', 'Laundry']", 
+                        get_list_of_activities("Household Activities"))
 
     def output_usage_for_category(self):
         '''helper method to call main from cl
@@ -133,7 +135,8 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --category <'Personal Care Activities' or 'Household Activities'>")
+        self.assertEqual(output, "Usage: python3 cl.py --category "
+        "<'Personal Care Activities' or 'Household Activities'>")
     
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
