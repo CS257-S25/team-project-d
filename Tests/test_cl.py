@@ -12,6 +12,7 @@ from ProductionCode.get_top_by_age import count_top_activites, get_most_common_t
 from ProductionCode.getActivtyByCategory import load_category_data, load_subcategory_data
 from ProductionCode.getActivtyByCategory import load_activity_data, get_category_from_data
 from ProductionCode.getActivtyByCategory import get_list_of_subcategories, get_list_of_activities
+from shared_logic import get_the_subcategories
 
 class TestCL(unittest.TestCase):
     '''Test class for the command line interface (CLI) for the project.'''
@@ -126,7 +127,7 @@ class TestCL(unittest.TestCase):
     def test_get_list_of_subcategories(self):
         '''tests the get_list_of_subcategories function and Acceptance Test 2
         test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry ID'''
-        self.assertEqual("['Interior cleaning', 'Laundry']", get_the_subcategories("T02"))
+        self.assertEqual("['Interior cleaning', 'Laundry']", get_list_of_subcategories("T02"))
 
     def test_get_list_of_activities(self):
         '''tests get_list_of_activities from getActivityByCategory
