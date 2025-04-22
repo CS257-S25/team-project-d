@@ -77,7 +77,7 @@ def count_top_activites(matching_rows):
     ''' Purpose: count the top activities from the matching rows
     Args: matching_rows: the matching rows to count the top activities from
     returns: a dictionary of the top activities and their counts'''
-    top_activities = Counter() 
+    top_activities = Counter()
     #counter to track the number of times each activity is the top activity
     for row in matching_rows:
         # process the row to get the activity hours
@@ -107,4 +107,4 @@ def get_most_common_top_activity(age, top_n):
         # NOTE: this will return the most common activity and the count of the activity
         # if there are multiple activities with the same count, it will return the first one
         most_common_activity= top_activities.most_common(top_n)[0]
-    return most_common_activity
+        return most_common_activity
