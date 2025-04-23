@@ -22,14 +22,7 @@ class TestCL(unittest.TestCase):
         self.subcategory_data = load_subcategory_data()
         self.activity_data = load_activity_data()
 
-    @patch("ProductionCode.loadData.load_data",#get_top_by_age.py would return (T050101,2) for age 23
-        return_value= [
-            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
-            {"age":"57", "T050101": "1", "T050102": "5", "T050103": "3"},
-            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
-        ]) #age, hours for T050101, T050102, T050103
-    
-  
+   
     def output_usage_for_age(self):
         '''helper method to call main from cl
         returns: usage message (str)
@@ -102,7 +95,7 @@ class TestCL(unittest.TestCase):
             "T050103": 1
         })
 
-    def test_get_most_common_top_activity(self, mock_load_data):
+    def test_get_most_common_top_activity(self):
         '''test the get_most_common_top_activity function
         verifies the method returns the most common activity for the age group given
         '''
@@ -123,18 +116,22 @@ class TestCL(unittest.TestCase):
     2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
     3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
     '''
-    
+    @patch("ProductionCode.loadData.load_data", 
+        return_value=[
+        {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
+        {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
+    ])
     def test_acceptance_valid_age(self, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
         self.assertEqual(cl.get_most_common_top_activity(23, 1), "T050101, 2")
 
-    def test_acceptance_invalid_age_format(self, mock_load_data):
+    def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
         sys.argv = ["cl.py", "--age", "eighteen"]
         with self.assertRaises(ValueError):
             self.output_usage_for_age()
 
-    def test_acceptance_invalid_age_range(self, mock_load_data):# the range is 15-85
+    def test_acceptance_invalid_age_range(self):# the range is 15-85
         '''test if the function returns usage statement for invalid age range'''
         sys.argv = ["cl.py", "--age", "200"]
         with self.assertRaises(ValueError):
@@ -168,7 +165,7 @@ class TestCL(unittest.TestCase):
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
         '''
-        sys.argv = 'Astronaut'
+        sys.argv = ["cl.py", "--category", "Astronaut"]
         self.output_usage_for_category()
 
     def output_usage_for_subcategory(self):
@@ -184,5 +181,5 @@ class TestCL(unittest.TestCase):
     def test_invalid_subcategory(self):
         '''test an invalid subcategory for Acceptance Test 3
         '''
-        sys.argv = 'Astronaut'
+        sys.argv = ["cl.py", "--category", "Household Activities", "--subcategory", "Astronaut"]
         self.output_usage_for_subcategory()
