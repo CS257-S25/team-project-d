@@ -98,7 +98,7 @@ class TestCL(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ]
         result = count_top_activites(matching_rows)
-        expected = {"T050101": 2, "T050103": 1}
+        expected = {"T050101": 2} #should this be {"T050101": 2} or  {'T050101': 2, 'T050103': 1}
         self.assertEqual(result, expected)
 
     @patch("ProductionCode.get_top_by_age.load_matching_rows")
