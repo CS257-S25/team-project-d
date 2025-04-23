@@ -24,6 +24,9 @@ def get_parsed_arguments():
 def main():
     '''main function for the command line interface'''
     args = get_parsed_arguments()
+    age = args.age
+    if age<15 or age>85:
+        raise ValueError("age out of range, please select age between 15 and 85")
 
     #if user puts --age and --top,
     # get the most common activity for that age group w/ get_most_common_top_activity
