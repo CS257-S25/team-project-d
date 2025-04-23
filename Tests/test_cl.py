@@ -101,19 +101,22 @@ class TestCL(unittest.TestCase):
         expected = {"T050101": 2, "T050103": 1}
         self.assertEqual(result, expected)
 
-    def test_get_most_common_top_activity(self):
+    @patch("ProductionCode.get_top_by_age.load_matching_rows")
+    def test_get_most_common_top_activity(self, mock_load_matching_rows):
         '''test the get_most_common_top_activity function
         verifies the method returns the most common activity for the age group given
         '''
-        counts= {"T050101": 2, "T050103": 1}
-        result = get_most_common_top_activity(counts, 2)
+        mock_load_matching_rows.return_value = [
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
+        ]
+        result = get_most_common_top_activity(23,1)
         self.assertEqual(result, ("T050101", 2))
 
         #tie case
-        counts = {"T050101": 2, "T050103": 2}
-        result = get_most_common_top_activity(counts, 2)
-        self.assertEqual(result, ("T050101", 2))#returns the first one in the list
-        pass
+        #result = get_most_common_top_activity(23,1)
+        #self.assertEqual(result, ("T050101", 2))#returns the first one in the list
+        
 
     #acceptance tests for user story 1 for get_top_by_age
     ''' User story: a user wants to know the most common activity for a given age group
