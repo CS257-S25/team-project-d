@@ -4,6 +4,7 @@ import sys
 import unittest
 from io import StringIO
 from unittest.mock import patch
+from unittest.mock import mock_open
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import cl
 from ProductionCode.get_top_by_age import get_matching_rows, load_matching_rows
@@ -146,6 +147,26 @@ class TestCL(unittest.TestCase):
 
 
     ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
+    from unittest.mock import mock_open
+
+    def mock_file_selector(file, *args, **kwargs):
+        if "Categories_Data_test.csv" in file:
+            mock_categories = (
+                "Activity_ID,Category\n"
+                "T02,Household Activities\n"
+            )
+            return mock_open(read_data=mock_categories).return_value
+        elif "SubCategories_data.csv" in file:
+            mock_subcategories = (
+                "Activity_ID,Activity_Name\n"
+                "T0201,Interior cleaning\n"
+                "T0202,Laundry\n"
+                "T0101,Showering\n"
+            )
+            return mock_open(read_data=mock_subcategories).return_value
+        else:
+            raise FileNotFoundError(f"Unexpected file path: {file}")
+
     @patch("ProductionCode.getActivtyByCategory.get_category_from_data")
     def test_get_category_from_data(self, mock_get_category_from_data):
         '''tests the get_category_from_data function and Acceptance Test 1
@@ -163,8 +184,8 @@ class TestCL(unittest.TestCase):
             "T0202,Laundry\n"
             "T0101,Showering\n"
         )
-        mock_open_file.return_value.__enter__.return_value = mock_csv_data.splitlines()
-        result =get_list_of_subcategories("Household Activities")
+        mock_open_file.side_effect= mock_file_selector
+        result =get_list_of_subcategories("T02")
         self.assertEqual(['Interior cleaning', 'Laundry'], result)
 
     @patch("shared_logic.get_the_subcategories")
