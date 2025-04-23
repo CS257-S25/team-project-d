@@ -49,8 +49,8 @@ class TestCL(unittest.TestCase):
         rows = get_matching_rows(23)
         self.assertEqual(len(rows), 2)
 
-    @patch("ProductionCode.loadData.load_data",
-           #get_top_by_age.py would return (T050101,2) for age 23
+    #patch where the function is looked up not where it's defined
+    @patch("ProductionCode.get_top_by_age.load_matching_rows",#get_top_by_age.py would return (T050101,2) for age 23
         return_value= [
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
@@ -115,21 +115,21 @@ class TestCL(unittest.TestCase):
         self.assertEqual(result, ("T050101", 2))
 
 
-    # acceptance tests for user story 1 for get_top_by_age
-    # User story: a user wants to know the most common activity for a given age group
-    # Acceptance tests:
-    # 1) given they input a valid age group (ex: (int) 18)---> the program should return the most common activity for that age group
-    # 2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
-    # 3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
-
-    @patch("ProductionCode.loadData.load_data",
+    #acceptance tests for user story 1 for get_top_by_age
+    ''' User story: a user wants to know the most common activity for a given age group
+    Acceptance tests:
+    1) given they input a valid age group (ex: (int) 18)---> the program should return the most common activity for that age group
+    2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
+    3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
+    '''
+    @patch("ProductionCode.get_top_by_age.get_matching_rows", 
         return_value=[
         {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
         {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
     ])
     def test_acceptance_valid_age(self):
         '''test if the function returns the correct category ID and number of times it is top'''
-        self.assertEqual(cl.get_most_common_top_activity(23, 1), "T050101, 2")
+        self.assertEqual(cl.get_most_common_top_activity(23, 1), ("T050101", 2))
 
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
@@ -159,7 +159,7 @@ class TestCL(unittest.TestCase):
     def test_get_list_of_activities(self):
         '''tests get_list_of_activities from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
-        self.assertEqual("['Interior cleaning', 'Laundry']", get_the_subcategories("Housework"))
+        self.assertEqual(['Interior cleaning', 'Laundry'], get_the_subcategories("Housework"))
 
     def output_usage_for_category(self):
         '''helper method to call main from cl
