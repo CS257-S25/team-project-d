@@ -11,7 +11,7 @@ from ProductionCode.get_top_by_age import count_top_activites, get_most_common_t
 from ProductionCode.getActivtyByCategory import load_category_data, load_subcategory_data
 from ProductionCode.getActivtyByCategory import load_activity_data, get_category_from_data
 from ProductionCode.getActivtyByCategory import get_list_of_subcategories
-#from ProductionCode.getActivtyByCategory import get_activities_from_subcategory,
+#from ProductionCode.getActivtyByCategory import get_activities_from_subcategory, 
 # get_subcategory_from_data
 from shared_logic import get_the_subcategories
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -33,6 +33,7 @@ class TestCL(unittest.TestCase):
             sys.stdout.getvalue().strip()
         except ValueError:
             print("Usage: python3 cl.py --age <age from 15-85> --top")
+            return
 
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
