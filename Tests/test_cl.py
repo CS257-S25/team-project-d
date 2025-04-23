@@ -49,7 +49,8 @@ class TestCL(unittest.TestCase):
         rows = get_matching_rows(23)
         self.assertEqual(len(rows), 2)
 
-    @patch("ProductionCode.loadData.load_data",#get_top_by_age.py would return (T050101,2) for age 23
+    #patch where the function is looked up not where it's defined
+    @patch("cl.load_matching_rows",#get_top_by_age.py would return (T050101,2) for age 23
         return_value= [
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
