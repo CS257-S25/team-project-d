@@ -139,9 +139,10 @@ class TestCL(unittest.TestCase):
     def test_acceptance_invalid_age_range(self):# the range is 15-85
         '''test if the function returns usage statement for invalid age range'''
         sys.argv = ["cl.py", "--age", "200"]
-        with self.assertRaises(ValueError):
+        with self.assertRaises(SystemExit) as cm:
             self.output_usage_for_age()
-        #trying this
+        self.assertEqual(cm.exception.code,2)
+
 
     ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
     def test_get_category_from_data(self):
