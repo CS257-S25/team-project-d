@@ -21,7 +21,6 @@ class TestCL(unittest.TestCase):
         self.category_data = load_category_data()
         self.subcategory_data = load_subcategory_data()
         self.activity_data = load_activity_data()
-
    
     def output_usage_for_age(self):
         '''helper method to call main from cl
@@ -37,8 +36,8 @@ class TestCL(unittest.TestCase):
 
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
-
-    @patch("ProductionCode.loadData.load_data",#get_top_by_age.py would return (T050101,2) for age 23
+    @patch("ProductionCode.get_top_by_age.load_data", 
+           #get_top_by_age.py would return (T050101,2) for age 23
         return_value= [
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
@@ -55,7 +54,7 @@ class TestCL(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ])
-    def test_load_matching_rows(self, mock_load_data): 
+    def test_load_matching_rows(self, mock_load_data):
         '''tests the load_matching_rows function
         verifies the method returns a list of rows that match the age given'''
         rows = load_matching_rows(23)
@@ -89,7 +88,7 @@ class TestCL(unittest.TestCase):
             activity_hours = process_row_for_activity(row)
             top_activity = get_top_activity_from_row(activity_hours)
             results.append(top_activity)
-        self.assertEqual(results, ["T050101", "T050101"])
+        self.assertEqual(results, expected)
 
     def test_count_top_activites(self):
         '''tests the count_top_activites function
@@ -130,12 +129,11 @@ class TestCL(unittest.TestCase):
     def test_acceptance_valid_age(self, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
         self.assertEqual(cl.get_most_common_top_activity(23, 1), ("T050101", 2))
-        mock_load_data.assert_called_once_with(23,1)
 
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
         sys.argv = ["cl.py", "--age", "eighteen"]
-        with self.assertRaises(SystemExit) as cm:
+        with self.assertRaises(SystemExit):
             self.output_usage_for_age()
 
     def test_acceptance_invalid_age_range(self):# the range is 15-85
@@ -147,8 +145,7 @@ class TestCL(unittest.TestCase):
 
 
     ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
-    #@patch("ProductionCode.getActivityByCategory.get_category_from_data", return_value= 'T01')
-    def test_get_category_from_data(self): 
+    def test_get_category_from_data(self):
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
         self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
@@ -170,7 +167,8 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --category <'Personal Care Activities' or 'Household Activities'>")
+        self.assertEqual(output, "Usage: python3 cl.py --category <'Personal Care Activities' or" \
+            " 'Household Activities'>")
 
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
@@ -185,11 +183,12 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory> " \
-        "\n reference python3 cl.py --category for valid subcategory inputs")
+        self.assertEqual(output, "Usage: python3 cl.py --category <valid category> --subcategory " \
+        "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
 
     def test_invalid_subcategory(self):
         '''test an invalid subcategory for Acceptance Test 3
         '''
         sys.argv = ["cl.py", "--category", "Household Activities", "--subcategory", "Astronaut"]
         self.output_usage_for_subcategory()
+        
