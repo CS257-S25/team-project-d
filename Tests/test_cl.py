@@ -93,12 +93,13 @@ class TestCL(unittest.TestCase):
     def test_count_top_activites(self):
         '''tests the count_top_activites function
         verifies the method returns a dictionary of the top activities and their counts'''
-        top_activities =["T050101, T050101, T050103"]
-        result = count_top_activites(top_activities)
-        self.assertEqual(result, {
-            "T050101": 2,
-            "T050103": 1
-        })
+        matching_rows =[
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
+        ]
+        result = count_top_activites(matching_rows)
+        expected = {"T050101": 2, "T050103": 1}
+        self.assertEqual(result, expected)
 
     def test_get_most_common_top_activity(self):
         '''test the get_most_common_top_activity function
