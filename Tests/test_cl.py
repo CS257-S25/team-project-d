@@ -182,7 +182,7 @@ class TestCL(unittest.TestCase):
             "T0202,Laundry\n"
             "T0101,Showering\n"
         )
-        mock_open_file.side_effect= self.mock_file_selector
+        mock_open_file.side_effect= mock_file_selector
         result =get_list_of_subcategories("T02")
         self.assertEqual(['Interior cleaning', 'Laundry'], result)
 
