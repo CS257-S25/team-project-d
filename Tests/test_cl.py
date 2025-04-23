@@ -43,7 +43,7 @@ class TestCL(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ])
-    def test_get_matching_rows(self, mock_load_data): # noqa: W0613
+    def test_get_matching_rows(self, mock_load_data):
         '''tests the get_matching_rows function
         verifies the method returns the correct number of rows that match the age given'''
         rows = get_matching_rows(23)
@@ -55,7 +55,7 @@ class TestCL(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ])
-    def test_load_matching_rows(self, mock_load_data): # noqa: W0613
+    def test_load_matching_rows(self, mock_load_data): 
         '''tests the load_matching_rows function
         verifies the method returns a list of rows that match the age given'''
         rows = load_matching_rows(23)
@@ -127,9 +127,10 @@ class TestCL(unittest.TestCase):
         {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
         {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
     ])
-    def test_acceptance_valid_age(self, mock_load_data): # noqa: W0613
+    def test_acceptance_valid_age(self, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
         self.assertEqual(cl.get_most_common_top_activity(23, 1), ("T050101", 2))
+        mock_load_data.assert_called_once_with(23,1)
 
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
@@ -146,8 +147,8 @@ class TestCL(unittest.TestCase):
 
 
     ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
-    @patch("ProductionCode.getActivityByCategory.get_category_from_data", return_value= 'T01')
-    def test_get_category_from_data(self, mock_get_category_from_data): # noqa: W0613
+    #@patch("ProductionCode.getActivityByCategory.get_category_from_data", return_value= 'T01')
+    def test_get_category_from_data(self): 
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
         self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
