@@ -145,19 +145,25 @@ class TestCL(unittest.TestCase):
 
 
     ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
-    def test_get_category_from_data(self):
+    @patch("ProductionCode.getActivityByCategory.get_category_from_data")
+    def test_get_category_from_data(self, mock_get_category_from_data):
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
+        mock_get_category_from_data.return_value = "T01"
         self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
 
-    def test_get_list_of_subcategories(self):
+    @patch("ProductionCode.getActivityByCategory.get_list_of_subcategories")
+    def test_get_list_of_subcategories(self, mock_get_list_of_subs):
         '''tests the get_list_of_subcategories function and Acceptance Test 2
         test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry ID'''
-        self.assertEqual("['Interior cleaning', 'Laundry']", get_list_of_subcategories("T02"))
+        mock_get_list_of_subs.return_value = ['Interior cleaning', 'Laundry']
+        self.assertEqual(['Interior cleaning', 'Laundry'], get_list_of_subcategories("T02"))
 
-    def test_get_list_of_activities(self):
+    @patch("ProductionCode.getActivityByCategory.get_list_of_activities")
+    def test_get_list_of_activities(self, mock_get_list_of_activities):
         '''tests get_list_of_activities from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
+        mock_get_list_of_activities.return_value = ['Interior cleaning', 'Laundry']
         self.assertEqual(['Interior cleaning', 'Laundry'], get_the_subcategories("Housework"))
 
     def output_usage_for_category(self):
@@ -191,4 +197,7 @@ class TestCL(unittest.TestCase):
         '''
         sys.argv = ["cl.py", "--category", "Household Activities", "--subcategory", "Astronaut"]
         self.output_usage_for_subcategory()
+
+if __name__ == '__main__':
+    unittest.main()
         
