@@ -1,6 +1,6 @@
 import argparse
 import csv
-from shared_logic import get_list_of_activities
+from shared_logic import get_the_subcategories
 
 #Future: including more categories and subcategories to work with
 #Future: organize loading functions into a separate file

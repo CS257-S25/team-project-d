@@ -132,7 +132,7 @@ class TestCL(unittest.TestCase):
     def test_get_list_of_activities(self):
         '''tests get_list_of_activities from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
-        self.assertEqual("['Interior cleaning', 'Laundry']", get_list_of_activities("Housework"))
+        self.assertEqual("['Interior cleaning', 'Laundry']", get_the_subcategories("Housework"))
 
     def output_usage_for_category(self):
         '''helper method to call main from cl
