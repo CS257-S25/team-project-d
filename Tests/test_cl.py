@@ -122,14 +122,14 @@ class TestCL(unittest.TestCase):
     2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
     3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
     '''
-    @patch("ProductionCode.loadData.load_data", 
+    @patch("ProductionCode.get_top_by_age.get_matching_rows", 
         return_value=[
         {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
         {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
     ])
     def test_acceptance_valid_age(self, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
-        self.assertEqual(cl.get_most_common_top_activity(23, 1), "T050101, 2")
+        self.assertEqual(cl.get_most_common_top_activity(23, 1), "T050101", 2)
 
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
