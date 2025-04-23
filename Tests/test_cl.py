@@ -4,16 +4,16 @@ import sys
 import unittest
 from io import StringIO
 from unittest.mock import patch
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import cl
 from ProductionCode.get_top_by_age import get_matching_rows, load_matching_rows
 from ProductionCode.get_top_by_age import process_row_for_activity, get_top_activity_from_row
 from ProductionCode.get_top_by_age import count_top_activites, get_most_common_top_activity
 from ProductionCode.getActivtyByCategory import load_category_data, load_subcategory_data
 from ProductionCode.getActivtyByCategory import load_activity_data, get_category_from_data
-from ProductionCode.getActivtyByCategory import get_list_of_subcategories
-#from ProductionCode.getActivtyByCategory import get_activities_from_subcategory, get_subcategory_from_data
+from ProductionCode.getActivtyByCategory import get_list_of_subcategories, get_subcategory_from_data
+from ProductionCode.getActivtyByCategory import get_activities_from_subcategory
 from shared_logic import get_the_subcategories
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 class TestCL(unittest.TestCase):
     '''Test class for the command line interface (CLI) for the project.'''
@@ -30,7 +30,6 @@ class TestCL(unittest.TestCase):
         try:
             cl.main()
             output = sys.stdout.getvalue().strip()
-            return output
         except ValueError:
             print("Usage: python3 cl.py --age <age from 15-85> --top")
             return
@@ -43,7 +42,7 @@ class TestCL(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ])
-    def test_get_matching_rows(self):
+    def test_get_matching_rows(self, mock_load_data):
         '''tests the get_matching_rows function
         verifies the method returns the correct number of rows that match the age given'''
         rows = get_matching_rows(23)
@@ -55,7 +54,7 @@ class TestCL(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ])
-    def test_load_matching_rows(self):
+    def test_load_matching_rows(self, mock_load_data):
         '''tests the load_matching_rows function
         verifies the method returns a list of rows that match the age given'''
         rows = load_matching_rows(23)
@@ -63,7 +62,7 @@ class TestCL(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ])
-        self.max_diff=None
+        self.maxDiff=None
 
     def test_process_row_for_activity(self):
         '''tests the process_row_for_activity function
@@ -127,7 +126,7 @@ class TestCL(unittest.TestCase):
         {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
         {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
     ])
-    def test_acceptance_valid_age(self):
+    def test_acceptance_valid_age(self, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
         self.assertEqual(cl.get_most_common_top_activity(23, 1), ("T050101", 2))
 
@@ -168,8 +167,8 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        usage = "Usage: python3 cl.py --category <'Personal Care Activities' or 'Household Activities'>"
-        self.assertEqual(output, usage)
+        self.assertEqual(output, "Usage: python3 cl.py --category <'Personal Care Activities' or" \
+            " 'Household Activities'>")
 
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
