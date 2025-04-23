@@ -16,6 +16,23 @@ from ProductionCode.getActivtyByCategory import get_list_of_subcategories, get_s
 from ProductionCode.getActivtyByCategory import get_activities_from_subcategory
 from shared_logic import get_the_subcategories
 
+def mock_file_selector(file, *args, **kwargs):
+    if "Categories_Data_test.csv" in file:
+        mock_categories = (
+            "Activity_ID,Category\n"
+            "T02,Household Activities\n"
+        )
+        return mock_open(read_data=mock_categories).return_value
+    elif "SubCategories_data.csv" in file:
+        mock_subcategories = (
+            "Activity_ID,Activity_Name\n"
+            "T0201,Interior cleaning\n"
+            "T0202,Laundry\n"
+            "T0101,Showering\n"
+        )
+        return mock_open(read_data=mock_subcategories).return_value
+    else:
+        raise FileNotFoundError(f"Unexpected file path: {file}")
 class TestCL(unittest.TestCase):
     '''Test class for the command line interface (CLI) for the project.'''
     def setUp(self):
@@ -147,25 +164,6 @@ class TestCL(unittest.TestCase):
 
 
     ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
-    from unittest.mock import mock_open
-
-    def mock_file_selector(file, *args, **kwargs):
-        if "Categories_Data_test.csv" in file:
-            mock_categories = (
-                "Activity_ID,Category\n"
-                "T02,Household Activities\n"
-            )
-            return mock_open(read_data=mock_categories).return_value
-        elif "SubCategories_data.csv" in file:
-            mock_subcategories = (
-                "Activity_ID,Activity_Name\n"
-                "T0201,Interior cleaning\n"
-                "T0202,Laundry\n"
-                "T0101,Showering\n"
-            )
-            return mock_open(read_data=mock_subcategories).return_value
-        else:
-            raise FileNotFoundError(f"Unexpected file path: {file}")
 
     @patch("ProductionCode.getActivtyByCategory.get_category_from_data")
     def test_get_category_from_data(self, mock_get_category_from_data):
