@@ -22,10 +22,14 @@ class TestCL(unittest.TestCase):
         self.subcategory_data = load_subcategory_data()
         self.activity_data = load_activity_data()
 
-    @patch("ProductionCode.data",#get_top_by_age.py would return (T050101,2) for age 23
-        ["23, 5, 1, 1 "],
-        ["57, 1, 5, 3"],
-        ["23, 5, 1, 3"] )#age, hours for T050101, T050102, T050103
+    @patch("ProductionCode.loadData.load_data",#get_top_by_age.py would return (T050101,2) for age 23
+        return_value= [
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
+            {"age":"57", "T050101": "1", "T050102": "5", "T050103": "3"},
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
+        ]) #age, hours for T050101, T050102, T050103
+    
+  
     def output_usage_for_age(self):
         '''helper method to call main from cl
         returns: usage message (str)
@@ -40,20 +44,32 @@ class TestCL(unittest.TestCase):
 
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
+
+    @patch("ProductionCode.loadData.load_data",#get_top_by_age.py would return (T050101,2) for age 23
+        return_value= [
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
+        ])
     def test_get_matching_rows(self):
         '''tests the get_matching_rows function
         verifies the method returns the correct number of rows that match the age given'''
         rows = get_matching_rows(23)
         self.assertEqual(len(rows), 2)
 
+    @patch("ProductionCode.loadData.load_data",#get_top_by_age.py would return (T050101,2) for age 23
+        return_value= [
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
+        ])
     def test_load_matching_rows(self):
         '''tests the load_matching_rows function
         verifies the method returns a list of rows that match the age given'''
         rows = load_matching_rows(23)
         self.assertEqual(rows, [
-            ["23", "5", "1", "1"],
-            ["23", "5", "1", "3"]
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ])
+        self.maxDiff=None
 
     def test_process_row_for_activity(self):
         '''tests the process_row_for_activity function
@@ -61,17 +77,17 @@ class TestCL(unittest.TestCase):
         row = ["23", "5", "1", "3"]
         result = process_row_for_activity(row)
         self.assertEqual(result, {
-            "T050101": 5,
-            "T050102": 1,
-            "T050103": 3
+            "T050101": "5",
+            "T050102": "1",
+            "T050103": "3"
         })
 
     def test_get_top_activity_from_rows(self):
         '''tests the get_top_activity_from_row function
         veriifies the method returns the top activity for the rows given'''
         rows = [
-            ["23", "5", "1", "1"],
-            ["23", "5", "1", "3"]
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ]
         result = get_top_activity_from_row(rows)
         self.assertEqual(result, ["T050101", "T050101"])
