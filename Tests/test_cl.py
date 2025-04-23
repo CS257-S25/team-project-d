@@ -67,12 +67,12 @@ class TestCL(unittest.TestCase):
     def test_process_row_for_activity(self):
         '''tests the process_row_for_activity function
         verifies the method returns a dictionary of the activity hours for the row given'''
-        row = ["23", "5", "1", "3"]
+        row = {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         result = process_row_for_activity(row)
         self.assertEqual(result, {
-            "T050101": "5",
-            "T050102": "1",
-            "T050103": "3"
+            "T050101": 5,
+            "T050102": 1,
+            "T050103": 3
         })
 
     def test_get_top_activity_from_rows(self):
@@ -82,8 +82,13 @@ class TestCL(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ]
-        result = get_top_activity_from_row(rows)
-        self.assertEqual(result, ["T050101", "T050101"])
+        expected = ["T050101", "T050101"]
+        results = []
+        for row in rows:
+            activity_hours = process_row_for_activity(row)
+            top_activity = get_top_activity_from_row(activity_hours)
+            results.append(top_activity)
+        self.assertEqual(results, ["T050101", "T050101"])
 
     def test_count_top_activites(self):
         '''tests the count_top_activites function
