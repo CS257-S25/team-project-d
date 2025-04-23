@@ -21,7 +21,7 @@ class TestCL(unittest.TestCase):
         self.category_data = load_category_data()
         self.subcategory_data = load_subcategory_data()
         self.activity_data = load_activity_data()
-
+   
     def output_usage_for_age(self):
         '''helper method to call main from cl
         returns: usage message (str)
@@ -29,14 +29,15 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         try:
             cl.main()
-            sys.stdout.getvalue().strip()
+            output = sys.stdout.getvalue().strip()
+            return output
         except ValueError:
             print("Usage: python3 cl.py --age <age from 15-85> --top")
             return
 
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
-    @patch("ProductionCode.get_top_by_age.load_data",
+    @patch("ProductionCode.get_top_by_age.load_data", 
            #get_top_by_age.py would return (T050101,2) for age 23
         return_value= [
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
@@ -62,7 +63,7 @@ class TestCL(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ])
-        self.maxDiff=None
+        self.max_diff=None
 
     def test_process_row_for_activity(self):
         '''tests the process_row_for_activity function
@@ -117,12 +118,9 @@ class TestCL(unittest.TestCase):
     # acceptance tests for user story 1 for get_top_by_age
     # User story: a user wants to know the most common activity for a given age group
     # Acceptance tests:
-    # 1) given they input a valid age group (ex: (int) 18)
-    #      -> the program should return the most common activity for that age group
-    # 2) given they input an invalid age group format (ex: (str) "eighteen")
-    #      -> the program should return usage statement
-    # 3) given they input an invalid age group/ out of range/no data (ex: (int) 200)
-    #      -> the program should return usage statement, message that says no data available valid: 15-85
+    # 1) given they input a valid age group (ex: (int) 18)---> the program should return the most common activity for that age group
+    # 2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
+    # 3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
 
     @patch("ProductionCode.loadData.load_data",
         return_value=[
@@ -170,8 +168,8 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --category <'Personal Care Activities' or " \
-        "'Household Activities'>")
+        usage = "Usage: python3 cl.py --category <'Personal Care Activities' or 'Household Activities'>"
+        self.assertEqual(output, usage)
 
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
