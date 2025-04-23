@@ -153,16 +153,23 @@ class TestCL(unittest.TestCase):
         mock_get_category_from_data.return_value = "T01"
         self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
 
-    @patch("ProductionCode.getActivtyByCategory.get_list_of_subcategories")
-    def test_get_list_of_subcategories(self, mock_get_list_of_subs):
+    @patch("ProductionCode.getActivtyByCategory.open")
+    def test_get_list_of_subcategories(self, mock_open_file):
         '''tests the get_list_of_subcategories function and Acceptance Test 2
         test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry ID'''
-        mock_get_list_of_subs.return_value = ['Interior cleaning', 'Laundry']
-        self.assertEqual(['Interior cleaning', 'Laundry'], get_list_of_subcategories("T02"))
+        mock_csv_data = (
+            "Activity_ID,Activity_Name\n"
+            "T0201,Interior cleaning\n"
+            "T0202,Laundry\n"
+            "T0101,Showering\n"
+        )
+        mock_open_file.return_value.__enter__.return_value = mock_csv_data.splitlines()
+        result =get_list_of_subcategories("T02")
+        self.assertEqual(['Interior cleaning', 'Laundry'], result)
 
     @patch("shared_logic.get_the_subcategories")
     def test_get_list_of_activities(self, mock_get_list_of_activities):
-        '''tests get_list_of_activities from getActivityByCategory
+        '''tests get_activity_from_subcategory from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
         mock_get_list_of_activities.return_value = ['Interior cleaning', 'Laundry']
         result = get_the_subcategories("Housework")
