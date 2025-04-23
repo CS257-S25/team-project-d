@@ -11,7 +11,8 @@ from ProductionCode.get_top_by_age import process_row_for_activity, get_top_acti
 from ProductionCode.get_top_by_age import count_top_activites, get_most_common_top_activity
 from ProductionCode.getActivtyByCategory import load_category_data, load_subcategory_data
 from ProductionCode.getActivtyByCategory import load_activity_data, get_category_from_data
-from ProductionCode.getActivtyByCategory import get_list_of_subcategories, get_list_of_activities
+from ProductionCode.getActivtyByCategory import get_list_of_subcategories, get_subcategory_from_data
+from ProductionCode.getActivtyByCategory import get_activities_from_subcategory
 from shared_logic import get_the_subcategories
 
 class TestCL(unittest.TestCase):
@@ -137,7 +138,7 @@ class TestCL(unittest.TestCase):
     def test_get_list_of_activities(self):
         '''tests get_list_of_activities from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
-        self.assertEqual("['Interior cleaning', 'Laundry']", get_list_of_activities("Housework"))
+        self.assertEqual("['Interior cleaning', 'Laundry']", get_the_subcategories("Housework"))
 
     def output_usage_for_category(self):
         '''helper method to call main from cl
