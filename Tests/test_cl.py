@@ -164,7 +164,7 @@ class TestCL(unittest.TestCase):
             "T0101,Showering\n"
         )
         mock_open_file.return_value.__enter__.return_value = mock_csv_data.splitlines()
-        result =get_list_of_subcategories("T02")
+        result =get_list_of_subcategories("Household Activities")
         self.assertEqual(['Interior cleaning', 'Laundry'], result)
 
     @patch("shared_logic.get_the_subcategories")
