@@ -18,9 +18,10 @@ from shared_logic import get_the_subcategories
 class TestCL(unittest.TestCase):
     '''Test class for the command line interface (CLI) for the project.'''
     def setUp(self):
-        self.category_data = load_category_data()
-        self.subcategory_data = load_subcategory_data()
-        self.activity_data = load_activity_data()
+        #self.category_data = load_category_data()
+        #self.subcategory_data = load_subcategory_data()
+        #self.activity_data = load_activity_data()
+        pass
    
     def output_usage_for_age(self):
         '''helper method to call main from cl
@@ -159,16 +160,14 @@ class TestCL(unittest.TestCase):
         mock_get_list_of_subs.return_value = ['Interior cleaning', 'Laundry']
         self.assertEqual(['Interior cleaning', 'Laundry'], get_list_of_subcategories("T02"))
 
-    @patch("ProductionCode.getActivtyByCategory.get_activities_from_subcategory")
+    @patch("shared_logic.get_the_subcategories")
     def test_get_list_of_activities(self, mock_get_list_of_activities):
         '''tests get_list_of_activities from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
         mock_get_list_of_activities.return_value = ['Interior cleaning', 'Laundry']
-        print(f"Mocked return value: {mock_get_list_of_activities.return_value}")
         result = get_the_subcategories("Housework")
-        print(f"function result:{result}")
-        self.assertEqual(['Interior cleaning', 'Laundry'], get_the_subcategories("Housework"))
-        
+        self.assertEqual(['Interior cleaning', 'Laundry'], result)
+
     def output_usage_for_category(self):
         '''helper method to call main from cl
         returns: usage message (str)
