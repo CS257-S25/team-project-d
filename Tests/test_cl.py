@@ -113,10 +113,6 @@ class TestCL(unittest.TestCase):
         result = get_most_common_top_activity(23,1)
         self.assertEqual(result, ("T050101", 2))
 
-        #tie case
-        #result = get_most_common_top_activity(23,1)
-        #self.assertEqual(result, ("T050101", 2))#returns the first one in the list
-        
 
     #acceptance tests for user story 1 for get_top_by_age
     ''' User story: a user wants to know the most common activity for a given age group
@@ -137,7 +133,7 @@ class TestCL(unittest.TestCase):
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
         sys.argv = ["cl.py", "--age", "eighteen"]
-        with self.assertRaises(ValueError):
+        with self.assertRaises(SystemExit) as cm:
             self.output_usage_for_age()
 
     def test_acceptance_invalid_age_range(self):# the range is 15-85
