@@ -159,7 +159,7 @@ class TestCL(unittest.TestCase):
         mock_get_list_of_subs.return_value = ['Interior cleaning', 'Laundry']
         self.assertEqual(['Interior cleaning', 'Laundry'], get_list_of_subcategories("T02"))
 
-    @patch("ProductionCode.getActivtyByCategory.get_list_of_activities")
+    @patch("ProductionCode.getActivtyByCategory.get_activities_from_subcategory")
     def test_get_list_of_activities(self, mock_get_list_of_activities):
         '''tests get_list_of_activities from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
