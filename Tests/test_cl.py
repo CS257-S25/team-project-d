@@ -141,6 +141,7 @@ class TestCL(unittest.TestCase):
         sys.argv = ["cl.py", "--age", "200"]
         with self.assertRaises(ValueError):
             self.output_usage_for_age()
+        #trying this
 
     ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
     def test_get_category_from_data(self):
