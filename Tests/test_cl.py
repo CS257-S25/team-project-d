@@ -164,8 +164,11 @@ class TestCL(unittest.TestCase):
         '''tests get_list_of_activities from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
         mock_get_list_of_activities.return_value = ['Interior cleaning', 'Laundry']
+        print(f"Mocked return value: {mock_get_list_of_activities.return_value}")
+        result = get_the_subcategories("Housework")
+        print(f"function result:{result}")
         self.assertEqual(['Interior cleaning', 'Laundry'], get_the_subcategories("Housework"))
-
+        
     def output_usage_for_category(self):
         '''helper method to call main from cl
         returns: usage message (str)
