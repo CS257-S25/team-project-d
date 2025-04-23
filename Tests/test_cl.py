@@ -38,7 +38,7 @@ class TestCL(unittest.TestCase):
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
 
-    @patch("get_top_by_age.load_data",#get_top_by_age.py would return (T050101,2) for age 23
+    @patch("ProductionCode.get_top_by_age.loa_data",#get_top_by_age.py would return (T050101,2) for age 23
         return_value= [
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
