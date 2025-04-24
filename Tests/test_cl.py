@@ -28,7 +28,7 @@ def mock_file_selector(file, *args, **kwargs):
             "Activity_ID,Activity_Name\n"
             "T0101,Sleeping\n"
             "T0201,Housework\n"
-            "T0202,Food & Drink Preparation, Presentation, & Clean-Up\n"
+            "T0202,Food & Drink Preparation/Presentation/Clean-Up\n"
         )
         return mock_open(read_data=mock_subcategories).return_value
     else:
@@ -175,7 +175,7 @@ class TestCL(unittest.TestCase):
     @patch("ProductionCode.getActivtyByCategory.open")
     def test_get_list_of_subcategories(self, mock_open_file):
         '''tests the get_list_of_subcategories function and Acceptance Test 2
-        test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry ID'''
+        test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry name'''
         mock_csv_data = (
             "Activity_ID,Activity_Name\n"
             "T0201,Interior cleaning\n"
