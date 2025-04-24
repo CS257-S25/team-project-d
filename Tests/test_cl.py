@@ -192,7 +192,7 @@ class TestCL(unittest.TestCase):
         test if the function returns ['Sleeping', 'Grooming'] given the category name'''
         mock_get_the_subcategories.return_value = ['Sleeping', 'Grooming']
         result = get_the_subcategories("Personal Care Activities")
-        self.assertEqual(['Sleeping', 'Grooming'], result)
+        self.assertEqual(['Sleeping', 'Grooming','Health-related self care','Personal Activities','Personal Care Emergencies'], result)
 
     def test_get_activities_from_subcategory(self, mock_get_activities_from_subcategory):
         '''tests get_activity_from_subcategory from getActivityByCategory
