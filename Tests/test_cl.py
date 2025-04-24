@@ -26,9 +26,9 @@ def mock_file_selector(file, *args, **kwargs):
     elif "SubCategories_data.csv" in file:
         mock_subcategories = (
             "Activity_ID,Activity_Name\n"
-            "T0201,Interior cleaning\n"
-            "T0202,Laundry\n"
-            "T0101,Showering\n"
+            "T0101,Sleeping\n"
+            "T0201,Housework\n"
+            "T0202,Food & Drink Preparation, Presentation, & Clean-Up\n"
         )
         return mock_open(read_data=mock_subcategories).return_value
     else:
@@ -169,7 +169,7 @@ class TestCL(unittest.TestCase):
     def test_get_category_from_data(self, mock_get_category_from_data):
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
-        mock_get_category_from_data.return_value = "T01"
+        mock_get_category_from_data.return_value = "T01" #might not be needed
         self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
 
     @patch("ProductionCode.getActivtyByCategory.open")
@@ -183,8 +183,8 @@ class TestCL(unittest.TestCase):
             "T0101,Showering\n"
         )
         mock_open_file.side_effect= mock_file_selector
-        result =get_list_of_subcategories("T02")
-        self.assertEqual(['Interior cleaning', 'Laundry'], result)
+        result =get_list_of_subcategories('Household Activities')
+        self.assertEqual(['Housework', 'Food & Drink Preparation, Presentation, & Clean-Up'], result)
 
     @patch("shared_logic.get_the_subcategories")
     def test_get_list_of_activities(self, mock_get_list_of_activities):
