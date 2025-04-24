@@ -184,7 +184,7 @@ class TestCL(unittest.TestCase):
         )
         mock_open_file.side_effect= mock_file_selector
         result =get_list_of_subcategories('Household Activities')
-        self.assertEqual(['Housework', 'Food & Drink Preparation, Presentation, & Clean-Up'], result)
+        self.assertEqual(['Housework', 'Food & Drink Preparation/Presentation/Clean-Up'], result)
 
     @patch("shared_logic.get_the_subcategories")
     def test_get_list_of_activities(self, mock_get_list_of_activities):
