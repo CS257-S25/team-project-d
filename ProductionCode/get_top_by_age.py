@@ -1,7 +1,6 @@
 '''file: get_top_by_age.py'''
 from collections import Counter
-from ProductionCode.loadData import load_data
-
+from ProductionCode.load_data import load_data
 
 # Future: make it so that it is get_top_activity_by_demographic
 # i.e gender, marital status, etc. including age
@@ -100,7 +99,7 @@ def get_most_common_top_activity(age, top_n):
     # check if there are any matching rows
     if not matching_rows: # if there are no matching rows, return None
         print(f"No data available for age {age}, try ages 15-85")
-        return None, 0
+        return None
     # count the top activities from the matching rows
     top_activities = count_top_activites(matching_rows)
     if top_activities: # check if there are any top activities
