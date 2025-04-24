@@ -78,14 +78,14 @@ def get_list_of_subcategories(category):
     Args: category: the category to get the subcategories for
     Returns: a list of subcategories in the category'''
     # gets the ID of the category
-    category_iD = get_category_from_data(category)
+    category_id = get_category_from_data(category)
     # the array will store the subcategories
     subcategories = []
     data = load_subcategory_data()
     for row in data:
         # checks to see if the last two numbers of the current row's ID,
         #  match the ID of the category
-        if row['Activity_ID'][:-2] == category_iD:
+        if row['Activity_ID'][:-2] == category_id:
             # if it does, the subcategory is added to the array
             subcategories.append(row['Activity_Name'])
 
@@ -97,16 +97,16 @@ def get_activities_from_subcategory(category, subcategory):
           subcategory: the subcategory to get the activities for
     Returns: a list of activities in the subcategory'''
     #gets the ID of the subcategory
-    subcategory_iD = get_subcategory_from_data(subcategory)
+    subcategory_id = get_subcategory_from_data(subcategory)
     #gets the list of subcategories
-    subcategories = get_list_of_subcategories(category)
+    #subcategories = get_list_of_subcategories(category)
     # the array will store the activities belonging to the subcategory
     activities = []
     data = load_activity_data()
     for row in data:
         # checks to see if the first five numbers (including the 'T') of the current row's ID,
         #  match the ID of the subcategory
-        if (row['Activity_ID'][:5] == subcategory_iD):
+        if row['Activity_ID'][:5] == subcategory_id:
             # if it does, the activity is added to the array
             activities.append(row['Activity_Name'])
 
