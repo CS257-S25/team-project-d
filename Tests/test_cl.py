@@ -187,12 +187,19 @@ class TestCL(unittest.TestCase):
         self.assertEqual(['Housework', 'Food & Drink Preparation/Presentation/Clean-Up'], result)
 
     @patch("shared_logic.get_the_subcategories")
-    def test_get_list_of_activities(self, mock_get_list_of_activities):
+    def test_get_the_subcategories(self, mock_get_the_subcategories):
+        '''tests get_the_subcategories from shared_logic.py
+        test if the function returns ['Sleeping', 'Grooming'] given the category name'''
+        mock_get_the_subcategories.return_value = ['Sleeping', 'Grooming']
+        result = get_the_subcategories("Personal Care Activities")
+        self.assertEqual(['Sleeping', 'Grooming'], result)
+
+    def test_get_activities_from_subcategory(self, mock_get_activities_from_subcategory):
         '''tests get_activity_from_subcategory from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
-        mock_get_list_of_activities.return_value = ['Interior cleaning', 'Laundry']
+        mock_get_activities_from_subcategory.return_value = ['Interior cleaning', 'Laundry']
         result = get_the_subcategories("Housework")
-        self.assertEqual(['Interior cleaning', 'Laundry'], result)
+        self.assertEqual(['Interior cleaning', 'Laundry'], result) 
 
     def output_usage_for_category(self):
         '''helper method to call main from cl
