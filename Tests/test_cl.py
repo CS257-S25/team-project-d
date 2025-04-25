@@ -68,20 +68,20 @@ class TestCL(unittest.TestCase):
         self.assertEqual(len(rows), 2)
 
     #patch where the function is looked up not where it's defined
-    @patch("ProductionCode.get_top_by_age.load_matching_rows",#get_top_by_age.py would return (T050101,2) for age 23
-        return_value= [
-            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
-            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
-        ])
+    @patch("ProductionCode.get_top_by_age.load_data") #get_top_by_age.py would return (T050101,2) for age 23
     def test_load_matching_rows(self, mock_load_data):
         '''tests the load_matching_rows function
         verifies the method returns a list of rows that match the age given'''
+        mock_load_data.return_value = [
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"},
+            {"age":"57", "T050101": "3", "T050102": "1", "T050103": "3"}
+        ]
         rows = load_matching_rows(23)
         self.assertEqual(rows, [
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ])
-        self.maxDiff=None
 
     def test_process_row_for_activity(self):
         '''tests the process_row_for_activity function

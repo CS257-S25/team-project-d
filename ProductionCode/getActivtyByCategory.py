@@ -70,7 +70,8 @@ def get_subcategory_from_data(subcategory):
         if row['Activity_Name'] == subcategory:
             # if it is, it returns the ID stored in the row
             return row['Activity_ID']
-    print("No data available found for subcategory {subcategory}, try Sleeping or Grooming")
+    print("Usage: python3 cl.py --category <valid category> --subcategory " \
+        "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
     return None
 
 def get_list_of_subcategories(category):
@@ -86,7 +87,7 @@ def get_list_of_subcategories(category):
         # checks to see if the last two numbers of the current row's ID,
         #  match the ID of the category
         if row['Activity_ID'][:-2] == category_id:
-            # if it does, the subcategory is added to the array
+            # if it does, the subcategory  is added to the array
             subcategories.append(row['Activity_Name'])
 
     return subcategories
