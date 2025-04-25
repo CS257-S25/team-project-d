@@ -70,7 +70,8 @@ def get_subcategory_from_data(subcategory):
         if row['Activity_Name'] == subcategory:
             # if it is, it returns the ID stored in the row
             return row['Activity_ID']
-    print("No data available found for subcategory {subcategory}, try Sleeping or Grooming")
+    print("Usage: python3 cl.py --category <valid category> --subcategory " \
+        "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
     return None
 
 def get_list_of_subcategories(category):
