@@ -194,10 +194,11 @@ class TestCL(unittest.TestCase):
         result = get_the_subcategories("Personal Care Activities")
         self.assertEqual(['Sleeping', 'Grooming','Health-related self care','Personal Activities','Personal Care Emergencies'], result)
 
-
-    def test_get_activities_from_subcategory(self):
+    @patch("ProductionCode.getActivtyByCategory.get_activities_from_subcategory")
+    def test_get_activities_from_subcategory(self, mock_get_activities_from_subcategory):
         '''tests get_activity_from_subcategory from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
+        mock_get_activities_from_subcategory.return_value = ['Interior cleaning', 'Laundry']
         result = get_the_subcategories("Housework")
         self.assertEqual(['Interior cleaning', 'Laundry'], result) 
 
