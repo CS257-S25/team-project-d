@@ -172,17 +172,17 @@ class TestCL(unittest.TestCase):
         mock_get_category_from_data.return_value = "T01"
         self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
 
-    @patch("ProductionCode.getActivtyByCategory.open")
-    def test_get_list_of_subcategories(self, mock_open_file):
+    @patch("ProductionCode.getActivtyByCategory.load_subcategory_data")
+    #use same structure astets-Get_list _of_activities
+    def test_get_list_of_subcategories(self, mock_load_sub_data):
         '''tests the get_list_of_subcategories function and Acceptance Test 2
         test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry ID'''
-        mock_csv_data = (
+        mock_load_sub_data.return_value = [
             "Activity_ID,Activity_Name\n"
             "T0201,Interior cleaning\n"
             "T0202,Laundry\n"
             "T0101,Showering\n"
-        )
-        mock_open_file.side_effect= mock_file_selector
+        ]
         result =get_list_of_subcategories("T02")
         self.assertEqual(['Interior cleaning', 'Laundry'], result)
 
@@ -218,7 +218,7 @@ class TestCL(unittest.TestCase):
         cl.main()
         output = sys.stdout.getvalue().strip()
         self.assertEqual(output, "Usage: python3 cl.py --category <valid category> --subcategory " \
-        "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
+            b"<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
 
     def test_invalid_subcategory(self):
         '''test an invalid subcategory for Acceptance Test 3
