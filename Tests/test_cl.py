@@ -217,7 +217,7 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --category <valid category> --subcategory " \
+        self.assertEqual(output, b"Usage: python3 cl.py --category <valid category> --subcategory " \
             b"<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
 
     def test_invalid_subcategory(self):
