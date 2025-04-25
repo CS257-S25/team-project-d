@@ -199,7 +199,7 @@ class TestCL(unittest.TestCase):
         '''tests get_activity_from_subcategory from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
         mock_get_activities_from_subcategory.return_value = ['Interior cleaning', 'Laundry']
-        result = get_the_subcategories('Household Activities','Housework')
+        result = get_activities_from_subcategory('Household Activities','Housework')
         self.assertEqual(['Interior cleaning', 'Laundry'], result) 
 
     def output_usage_for_category(self):
