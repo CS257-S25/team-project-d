@@ -1,6 +1,8 @@
 
 def get_the_subcategories(sent_category):
-    '''Return the list of activities from the subcategory of the category from the user's input'''
+    '''Return the list of activities from the subcategory of the category from the user's input
+    Args: sent_category: the category to get the subcategories for
+    Returns: a list of subcategories in the category'''
     list_of_subcategories = []
     if sent_category:
         category = sent_category
