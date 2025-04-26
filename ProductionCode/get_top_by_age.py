@@ -1,6 +1,6 @@
 '''file: get_top_by_age.py'''
 from collections import Counter
-from ProductionCode.load_data import load_data
+from ProductionCode.load_data import load_data, load_categories
 
 # Future: make it so that it is get_top_activity_by_demographic
 # i.e gender, marital status, etc. including age
@@ -88,6 +88,19 @@ def count_top_activites(matching_rows):
             top_activities[top_activity] += 1 # increment the count of the top activity
     return top_activities
 
+def get_activity_name(activity_ID):
+    '''purpose: finds the name of the activity based on the ID
+    arg activity_ID: the id of the activity to find
+    return: the name of the activity
+    '''
+    categories = load_categories()
+    for row in categories:
+        if row['Activity ID'] == activity_ID:
+            return row['Activity Name']
+        else:
+            pass
+    return "invalid activity_ID"
+
 def get_most_common_top_activity(age, top_n):
     ''' purpose:figures out which top activity is the most common in the dictionary
     args: age: the age group to get the most common activity for
@@ -105,5 +118,6 @@ def get_most_common_top_activity(age, top_n):
         # get the most common top activity
         # NOTE: this will return the most common activity and the count of the activity
         # if there are multiple activities with the same count, it will return the first one
-        most_common_activity= top_activities.most_common(top_n)[0]
-        return most_common_activity
+        most_common_activity= top_activities.most_common(1)[0][0]
+        activity = get_activity_name(most_common_activity)
+        return activity

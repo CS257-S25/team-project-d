@@ -26,9 +26,9 @@ def mock_file_selector(file, *args, **kwargs):
     elif "SubCategories_data.csv" in file:
         mock_subcategories = (
             "Activity_ID,Activity_Name\n"
-            "T0201,Interior cleaning\n"
-            "T0202,Laundry\n"
-            "T0101,Showering\n"
+            "T0101,Sleeping\n"
+            "T0201,Housework\n"
+            "T0202,Food & Drink Preparation/Presentation/Clean-Up\n"
         )
         return mock_open(read_data=mock_subcategories).return_value
     else:
@@ -36,10 +36,9 @@ def mock_file_selector(file, *args, **kwargs):
 class TestCL(unittest.TestCase):
     '''Test class for the command line interface (CLI) for the project.'''
     def setUp(self):
-        #self.category_data = load_category_data()
-        #self.subcategory_data = load_subcategory_data()
-        #self.activity_data = load_activity_data()
-        pass
+        self.category_data = load_category_data()
+        self.subcategory_data = load_subcategory_data()
+        self.activity_data = load_activity_data()
    
     def output_usage_for_age(self):
         '''helper method to call main from cl
@@ -169,7 +168,7 @@ class TestCL(unittest.TestCase):
     def test_get_category_from_data(self, mock_get_category_from_data):
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
-        mock_get_category_from_data.return_value = "T01"
+        mock_get_category_from_data.return_value = "T01" #might not be needed
         self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
 
     @patch("ProductionCode.getActivtyByCategory.load_subcategory_data")
@@ -187,12 +186,20 @@ class TestCL(unittest.TestCase):
         self.assertEqual(['Interior cleaning', 'Laundry'], result)
 
     @patch("shared_logic.get_the_subcategories")
-    def test_get_list_of_activities(self, mock_get_list_of_activities):
+    def test_get_the_subcategories(self, mock_get_the_subcategories):
+        '''tests get_the_subcategories from shared_logic.py
+        test if the function returns ['Sleeping', 'Grooming'] given the category name'''
+        mock_get_the_subcategories.return_value = ['Sleeping', 'Grooming']
+        result = get_the_subcategories("Personal Care Activities")
+        self.assertEqual(['Sleeping', 'Grooming','Health-related self care','Personal Activities','Personal Care Emergencies'], result)
+
+    @patch("ProductionCode.getActivtyByCategory.get_activities_from_subcategory")
+    def test_get_activities_from_subcategory(self, mock_get_activities_from_subcategory):
         '''tests get_activity_from_subcategory from getActivityByCategory
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
-        mock_get_list_of_activities.return_value = ['Interior cleaning', 'Laundry']
-        result = get_the_subcategories("Housework")
-        self.assertEqual(['Interior cleaning', 'Laundry'], result)
+        mock_get_activities_from_subcategory.return_value = ['Interior cleaning', 'Laundry']
+        result = get_activities_from_subcategory('Household Activities','Housework')
+        self.assertEqual(['Interior cleaning', 'Laundry'], result) 
 
     def output_usage_for_category(self):
         '''helper method to call main from cl
