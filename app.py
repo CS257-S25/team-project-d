@@ -12,20 +12,17 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
     '''Purpose: Homepage provides instructions for what URL to go to see the data you choose'''
-    return "This is the homepage:"\
+    return "This is the homepage: "\
     "1) TO GET the top activity for a certain age, go to /get-top/'<'age'>'"\
-    ".... Note: for dummy data age options are: 23, 57, 80, 71, 40, 56, 18 "\
     "2) TO GET a list of all category options, go to /get-all-categories "\
     "....  NOTE: for now you can only shoose these categories: "\
     "Personal Care Activities or Household Activities"\
     "3) TO GET a list of subcategory options from a category,"\
     " go to /get-subcategories/'<'category'>'"\
-    "....  NOTE: for now lowkey just use Personal Care Activities as Category "\
-    "becuase the test data is incomplete"\
+    "....  NOTE: for now you can only shoose these categories: "\
+    "Personal Care Activities or Household Activities"\
     "4) TO GET a list of activities from a subcategory, "\
     "go to /get-activities/'<'category'>'/'<'subcategory'>'"\
-    "....  NOTE: basically choose Personal Care Activities and Sleeping "\
-    "because of incomplete test data"
 
 @app.route('/get-top/<age>')
 def get_top_by_age(age):
@@ -72,11 +69,11 @@ def missing_cat_and_sub():
     return "please include a category and a subcategory, " \
         "ex: /get-activities/Personal Care activities/Sleeping"
 
-#@app.route('/get-activities/<category>/')
-#def missing_subcategory():
-    #'''returns a message if you forgot to add just a subcategory'''
-    #return "please include subcategory, " \
-        #"ex: /get-activities/Personal Care activities/Sleeping"
+@app.route('/get-activities/<category>/')
+def missing_subcategory():
+    '''returns a message if you forgot to add just a subcategory'''
+    return "please include subcategory, " \
+        "ex: /get-activities/Personal Care activities/Sleeping"
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -90,4 +87,3 @@ def python_bug(e):
 
 if __name__ == '__main__':
     app.run()
-
