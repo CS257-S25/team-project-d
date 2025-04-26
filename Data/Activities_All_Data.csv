@@ -1,0 +1,323 @@
+Activity ID,Activity Name
+T010101,Sleeping
+T010102,Sleeplessness
+T010201,"Washing, dressing and grooming oneself"
+T010301,Health-related self care
+T010401,Personal/Private activities
+T010501,Personal emergencies
+T020101,Interior cleaning
+T020102,Laundry
+T020103,"Sewing, repairing, & maintaining textiles"
+T020104,"Storing interior hh items, inc. food"
+T020201,Food and drink preparation
+T020202,Food presentation
+T020203,Kitchen and food clean-up
+T020301,"Interior arrangement, decoration, & repairs"
+T020302,Building and repairing furniture
+T020303,Heating and cooling
+T020401,Exterior cleaning
+T020402,"Exterior repair, improvements, & decoration"
+T020501,"Lawn, garden, and houseplant care"
+T020502,"Ponds, pools, and hot tubs"
+T020681,Care for animals and pets (not veterinary care)
+T020701,Vehicle repair and maintenance (by self)
+T020801,"Appliance, tool, and toy set-up, repair, & maintenance (by self)"
+T020901,Financial management
+T020902,Household & personal organization and planning
+T020903,HH & personal mail & messages (except e-mail)
+T020904,HH & personal e-mail and messages
+T020905,Home security
+T030101,Physical care for hh children
+T030102,Reading to/with hh children
+T030103,"Playing with hh children, not sports"
+T030104,Arts and crafts with hh children
+T030105,Playing sports with hh children
+T030186,Talking with/listening to hh children
+T030108,Organization & planning for hh children
+T030109,Looking after hh children (as a primary activity)
+T030110,Attending hh children's events
+T0030111,Waiting for/with hh children
+T0030112,Picking up/dropping off hh children
+T0030201,Homework (hh children)
+T0030202,Meetings and school conferences (hh children)
+T0030203,Home schooling of hh children
+T0030204,Waiting associated with hh children's education
+T0030301,Providing medical care to hh children
+T0030302,Obtaining medical care for hh children
+T0030303,Waiting associated with hh children's health
+T0030401,Physical care for hh adults
+T0030402,Looking after hh adult (as a primary activity)
+T0030403,Providing medical care to hh adult
+T0030404,Obtaining medical and care services for hh adult
+T0030405,Waiting associated with caring for household adults
+T0030501,Helping hh adults
+T0030502,Organization & planning for hh adults
+T0030503,Picking up/dropping off hh adult
+T0030504,Waiting associated with helping hh adults
+T0040101,Physical care for nonhh children
+T0040102,Reading to/with nonhh children
+T0040103,"Playing with nonhh children, not sports"
+T0040104,Arts and crafts with nonhh children
+T0040105,Playing sports with nonhh children
+T0040186,Talking with/listening to nonhh children
+T0040108,Organization & planning for nonhh children
+T0040109,Looking after nonhh children (as primary activity)
+T0040110,Attending nonhh children's events
+T0040111,Waiting for/with nonhh children
+T0040112,Dropping off/picking up nonhh children
+T0040201,Homework (nonhh children)
+T0040202,Meetings and school conferences (nonhh children)
+T0040203,Home schooling of nonhh children
+T0040204,Waiting associated with nonhh children's education
+T0040301,Providing medical care to nonhh children
+T0040302,Obtaining medical care for nonhh children
+T0040303,Waiting associated with nonhh children's health
+T0040401,Physical care for nonhh adults
+T0040402,Looking after nonhh adult (as a primary activity)
+T0040403,Providing medical care to nonhh adult
+T0040404,Obtaining medical and care services for nonhh adult
+T0040405,Waiting associated with caring for nonhh adults
+T0040501,"Housework, cooking, & shopping assistance for nonhh adults"
+T0040502,House & lawn maintenance & repair assistance for nonhh adults
+T0040503,Animal & pet care assistance for nonhh adults
+T0040504,Vehicle & appliance maintenance/repair assistance for nonhh adults
+T0040505,Financial management assistance for nonhh adults
+T0040506,Household management & paperwork assistance for nonhh adults
+T0040507,Picking up/dropping off nonhh adult
+T0040508,Waiting associated with helping nonhh adults
+T0050101,"Work, main job"
+T0050102,"Work, other job(s)"
+T0050103,Security procedures related to work
+T0050201,"Socializing, relaxing, and leisure as part of job"
+T0050202,Eating and drinking as part of job
+T0050203,Sports and exercise as part of job
+T0050204,Security procedures as part of job
+T0050301,"Income-generating hobbies, crafts, and food"
+T0050302,Income-generating performances
+T0050303,Income-generating services
+T0050304,Income-generating rental property activities
+T0050481,Job search activities
+T0050403,Job interviewing
+T0050404,Waiting associated with job search or interview
+T0050405,Security procedures rel. to job search/interviewing
+T0060101,"Taking class for degree, certification, or licensure"
+T0060102,Taking class for personal interest
+T0060103,Waiting associated with taking classes
+T0060104,Security procedures rel. to taking classes
+T0060201,Extracurricular club activities
+T0060202,Extracurricular music & performance activities
+T0060203,Extracurricular student government activities
+T0060301,"Research/homework for class for degree, certification, or licensure"
+T0060302,Research/homework for class for pers. interest
+T0060303,Waiting associated with research/homework
+T0060401,"Administrative activities: class for degree, certification, or licensure"
+T0060402,Administrative activities: class for personal interest
+T0060403,Waiting associated w/admin. activities (education)
+T0070101,Grocery shopping
+T0070102,Purchasing gas
+T0070103,Purchasing food (not groceries)
+T0070104,"Shopping, except groceries, food and gas"
+T0070105,Waiting associated with shopping
+T0070201,Comparison shopping
+T0070301,Security procedures rel. to consumer purchases
+T0080101,Using paid childcare services
+T0080102,Waiting associated w/purchasing childcare svcs
+T0080201,Banking
+T0080202,Using other financial services
+T0080203,Waiting associated w/banking/financial services
+T0080301,Using legal services
+T0080302,Waiting associated with legal services
+T0080401,Using health and care services outside the home
+T0080402,Using in-home health and care services
+T0080403,Waiting associated with medical services
+T0080501,Using personal care services
+T0080502,Waiting associated w/personal care services
+T0080601,Activities rel. to purchasing/selling real estate
+T0080602,Waiting associated w/purchasing/selling real estate
+T0080701,Using veterinary services
+T0080702,Waiting associated with veterinary services
+T0080801,Security procedures rel. to professional/personal svcs.
+T0090101,Using interior cleaning services
+T0090102,Using meal preparation services
+T0090103,Using clothing repair and cleaning services
+T0090104,Waiting associated with using household services
+T0090201,Using home maint/repair/décor/construction svcs
+T0090202,Waiting associated w/ home main/repair/décor/constr
+T0090301,Using pet services
+T0090302,Waiting associated with pet services
+T0090401,Using lawn and garden services
+T0090402,Waiting associated with using lawn & garden services
+T0090501,Using vehicle maintenance or repair services
+T0090502,Waiting associated with vehicle main. or repair svcs
+T0100101,Using police and fire services
+T0100102,Using social services
+T0100103,"Obtaining licenses & paying fines, fees, taxes"
+T0100201,Civic obligations & participation
+T0100381,Waiting associated with using government services
+T0100383,Waiting associated w/civic obligations & participation
+T0100401,Security procedures rel. to govt svcs/civic obligations
+T0110101,Eating and drinking
+T0110281,Waiting associated w/eating & drinking
+T0120101,Socializing and communicating with others
+T0120201,Attending or hosting parties/receptions/ceremonies
+T0120202,Attending meetings for personal interest (not volunteering)
+T0120301,"Relaxing, thinking"
+T0120302,Tobacco and drug use
+T0120303,Television and movies (not religious)
+T0120304,Television (religious)
+T0120305,Listening to the radio
+T0120306,Listening to/playing music (not radio)
+T0120307,Playing games
+T0120308,Computer use for leisure (exc. Games)
+T0120309,Arts and crafts as a hobby
+T0120310,Collecting as a hobby
+T0120311,"Hobbies, except arts & crafts and collecting"
+T0120312,Reading for personal interest
+T0120313,Writing for personal interest
+T0120401,Attending performing arts
+T0120402,Attending museums
+T0120403,Attending movies/film
+T0120404,Attending gambling establishments
+T0120405,Security procedures rel. to arts & entertainment
+T0120501,Waiting assoc. w/socializing & communicating
+T0120502,Waiting assoc. w/attending/hosting social events
+T0120503,Waiting associated with relaxing/leisure
+T0120504,Waiting associated with arts & entertainment
+T0130101,Doing aerobics
+T0130102,Playing baseball
+T0130103,Playing basketball
+T0130104,Biking
+T0130105,Playing billiards
+T0130106,Boating
+T0130107,Bowling
+T0130108,"Climbing, spelunking, caving"
+T0130109,Dancing
+T0130110,Participating in equestrian sports
+T0130111,Fencing
+T0130112,Fishing
+T0130113,Playing football
+T0130114,Golfing
+T0130115,Doing gymnastics
+T0130116,Hiking
+T0130117,Playing hockey
+T0130118,Hunting
+T0130119,Participating in martial arts
+T0130120,Playing racquet sports
+T0130121,Participating in rodeo competitions
+T0130122,Rollerblading
+T0130123,Playing rugby
+T0130124,Running
+T0130125,"Skiing, ice skating, snowboarding"
+T0130126,Playing soccer
+T0130127,Softball
+T0130128,Using cardiovascular equipment
+T0130129,Vehicle touring/racing
+T0130130,Playing volleyball
+T0130131,Walking
+T0130132,Participating in water sports
+T0130133,Weightlifting/strength training
+T0130134,"Working out, unspecified"
+T0130135,Wrestling
+T0130136,Doing yoga
+T0130201,Watching aerobics
+T0130202,Watching baseball
+T0130203,Watching basketball
+T0130204,Watching biking
+T0130205,Watching billiards
+T0130206,Watching boating
+T0130207,Watching bowling
+T0130208,"Watching climbing, spelunking, caving"
+T0130209,Watching dancing
+T0130210,Watching equestrian sports
+T0130211,Watching fencing
+T0130212,Watching fishing
+T0130213,Watching football
+T0130214,Watching golfing
+T0130215,Watching gymnastics
+T0130216,Watching hockey
+T0130217,Watching martial arts
+T0130218,Watching racquet sports
+T0130219,Watching rodeo competitions
+T0130220,Watching rollerblading
+T0130221,Watching rugby
+T0130222,Watching running
+T0130223,"Watching skiing, ice skating, snowboarding"
+T0130224,Watching soccer
+T0130225,Watching softball
+T0130226,Watching vehicle touring/racing
+T0130227,Watching volleyball
+T0130228,Watching walking
+T0130229,Watching water sports
+T0130230,Watching weightlifting/strength training
+T0130231,"Watching people working out, unspecified"
+T0130232,Watching wrestling
+T0130301,Waiting related to playing sports or exercising
+T0130302,Waiting related to attending sporting events
+T0130401,Security related to playing sports or exercising
+T0130402,Security related to attending sporting events
+T0140101,Attending religious services
+T0140102,Participation in religious practices
+T0140103,Waiting associated w/religious & spiritual activities
+T0140104,Security procedures rel. to religious & spiritual activities
+T0150101,Computer use
+T0150102,Organizing and preparing
+T0150103,Reading
+T0150104,Telephone calls (except hotline counseling)
+T0150105,Writing
+T0150106,Fundraising
+T0150201,"Food preparation, presentation, clean-up"
+T0150202,Collecting & delivering clothing & other goods
+T0150203,Providing care
+T0150204,"Teaching, leading, counseling, mentoring"
+T0150301,"Building houses, wildlife sites, & other structures"
+T0150302,"Indoor & outdoor maintenance, repair, & clean-up"
+T0150401,Performing
+T0150402,Serving at volunteer events & cultural activities
+T0150501,"Attending meetings, conferences, & training"
+T0150601,Public health activities
+T0150602,Public safety activities
+T0160101,Telephone calls to/from family members
+T0160102,"Telephone calls to/from friends, neighbors, or acquaintances"
+T0160103,Telephone calls to/from education services providers
+T0160104,Telephone calls to/from salespeople
+T0160105,Telephone calls to/from professional or personal care svcs providers
+T0160106,Telephone calls to/from household services providers
+T0160107,Telephone calls to/from paid child or adult care providers
+T0160108,Telephone calls to/from government officials
+T0180101,Travel related to personal care
+T0180280,Travel related to household activities
+T0180381,Travel related to caring for and helping hh children
+T0180382,Travel related to caring for and helping hh adults
+T0180481,Travel related to caring for and helping nonhh children
+T0180482,Travel related to caring for and helping nonhh adults
+T0180501,Travel related to working
+T0180502,Travel related to work-related activities
+T0180601,Travel related to taking class
+T0180682,Travel related to education (except taking class)
+T0180701,Travel related to grocery shopping
+T0180782,Travel related to shopping (except grocery shopping)
+T0180801,Travel related to using childcare services
+T0180802,Travel related to using financial services and banking
+T0180803,Travel related to using legal services
+T0180804,Travel related to using medical services
+T0180805,Travel related to using personal care services
+T0180806,Travel related to using real estate services
+T0180807,Travel related to using veterinary services
+T0180901,Travel related to using household services
+T0180902,Travel related to using home main./repair/décor./construction svcs
+T0180903,Travel related to using pet services (not vet)
+T0180904,Travel related to using lawn and garden services
+T0180905,Travel related to using vehicle maintenance & repair services
+T0181081,Travel related to using government services
+T0181002,Travel related to civic obligations & participation
+T0181101,Travel related to eating and drinking
+T0181201,Travel related to socializing and communicating
+T0181202,Travel related to attending or hosting social events
+T0181283,Travel related to relaxing and leisure
+T0181204,Travel related to arts and entertainment
+T0181301,Travel related to participating in sports/exercise/recreation
+T0181302,Travel related to attending sporting/recreational events
+T0181401,Travel related to religious/spiritual practices
+T0181501,Travel related to volunteering
+T0181601,Travel related to phone calls
+T0181801,Security procedures related to traveling
