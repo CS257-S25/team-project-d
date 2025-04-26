@@ -18,7 +18,8 @@ def get_matching_rows(age):
     returns: a list of rows/people with the age given in cl'''
     print("Getting matching rows for age group: ", age)
     matching_rows = []
-    data = load_data()
+    dataset= "Data/teamproject22-23FINAL_updatedpls.csv"
+    data = load_data(dataset)
     for row in data:
         # check if the age is in the row
         row_age = row['age']
