@@ -4,7 +4,7 @@ The eventual location for the command line interface (CLI) for the project.
 This will be the entry point for the project when run from the command line.
 '''
 import argparse
-from ProductionCode.getActivtyByCategory import get_activities_from_subcategory
+from ProductionCode.get_activity_by_category import get_activities_from_subcategory
 from ProductionCode.get_top_by_age import get_most_common_top_activity
 from shared_logic import get_the_subcategories
 
@@ -38,7 +38,7 @@ def main():
     elif args.category is not None and args.subcategory is not None:
         list_of_activities = get_activities_from_subcategory(args.category, args.subcategory)
         print(list_of_activities)
-    #if user puts --category then call getActivtyByCategory()
+    #if user puts --category then call get_activity_by_category()
     elif args.category is not None:
         list_of_subcategories = get_the_subcategories(args.category)
         print(list_of_subcategories)

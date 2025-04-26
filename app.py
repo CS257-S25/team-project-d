@@ -3,10 +3,10 @@ file: app.py
 '''
 from flask import Flask
 from ProductionCode.get_top_by_age import get_most_common_top_activity
-from ProductionCode.getActivityByCategory import load_category_data
-from ProductionCode.getActivityByCategory import get_list_of_categories
-from ProductionCode.getActivityByCategory import get_list_of_subcategories
-from ProductionCode.getActivityByCategory import get_activities_from_subcategory
+from ProductionCode.get_activity_by_category import load_category_data
+from ProductionCode.get_activity_by_category import get_category_from_data
+from ProductionCode.get_activity_by_category import get_list_of_subcategories
+from ProductionCode.get_activity_by_category import get_activities_from_subcategory
 app = Flask(__name__)
 
 @app.route('/')
@@ -43,7 +43,7 @@ def missing_age():
 def get_all_categories():
     '''returns a list of category options'''
     data_for_get_category = load_category_data()
-    category_list =get_list_of_categories(data_for_get_category)
+    category_list =get_category_from_data(data_for_get_category)
     return "the categoy options are: " + str(category_list)
 
 @app.route('/get-subcategories/<category>')

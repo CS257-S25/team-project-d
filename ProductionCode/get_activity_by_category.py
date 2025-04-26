@@ -87,7 +87,7 @@ def get_list_of_subcategories(category):
         # checks to see if the last two numbers of the current row's ID,
         #  match the ID of the category
         if row['Activity_ID'][:-2] == category_id:
-            # if it does, the subcategory  is added to the array
+            # if it does, the subcategory is added to the array
             subcategories.append(row['Activity_Name'])
 
     return subcategories

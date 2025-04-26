@@ -10,10 +10,10 @@ import cl
 from ProductionCode.get_top_by_age import get_matching_rows, load_matching_rows
 from ProductionCode.get_top_by_age import process_row_for_activity, get_top_activity_from_row
 from ProductionCode.get_top_by_age import count_top_activites, get_most_common_top_activity
-from ProductionCode.getActivtyByCategory import load_category_data, load_subcategory_data
-from ProductionCode.getActivtyByCategory import load_activity_data, get_category_from_data
-from ProductionCode.getActivtyByCategory import get_list_of_subcategories, get_subcategory_from_data
-from ProductionCode.getActivtyByCategory import get_activities_from_subcategory
+from ProductionCode.get_activity_by_category import load_category_data, load_subcategory_data
+from ProductionCode.get_activity_by_category import load_activity_data, get_category_from_data
+from ProductionCode.get_activity_by_category import get_list_of_subcategories, get_subcategory_from_data
+from ProductionCode.get_activity_by_category import get_activities_from_subcategory
 from shared_logic import get_the_subcategories
 
 def mock_file_selector(file, *args, **kwargs):
@@ -162,16 +162,16 @@ class TestCL(unittest.TestCase):
         self.assertEqual(cm.exception.code,2)
 
 
-    ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
+    ##### TESTS FOR USER STORY 2: get_activty_by_category --- getting the activities by category #####
 
-    @patch("ProductionCode.getActivtyByCategory.get_category_from_data")
+    @patch("ProductionCode.get_activity_by_category.get_category_from_data")
     def test_get_category_from_data(self, mock_get_category_from_data):
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
         mock_get_category_from_data.return_value = "T01" #might not be needed
         self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
 
-    @patch("ProductionCode.getActivtyByCategory.load_subcategory_data")
+    @patch("ProductionCode.get_activity_by_category.load_subcategory_data")
     #use same structure astets-Get_list _of_activities
     def test_get_list_of_subcategories(self, mock_load_sub_data):
         '''tests the get_list_of_subcategories function and Acceptance Test 2
@@ -193,9 +193,9 @@ class TestCL(unittest.TestCase):
         result = get_the_subcategories("Personal Care Activities")
         self.assertEqual(['Sleeping', 'Grooming','Health-related self care','Personal Activities','Personal Care Emergencies'], result)
 
-    @patch("ProductionCode.getActivtyByCategory.get_activities_from_subcategory")
+    @patch("ProductionCode.get_activity_by_category.get_activities_from_subcategory")
     def test_get_activities_from_subcategory(self, mock_get_activities_from_subcategory):
-        '''tests get_activity_from_subcategory from getActivityByCategory
+        '''tests get_activity_from_subcategory from get_activity_by_category
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
         mock_get_activities_from_subcategory.return_value = ['Interior cleaning', 'Laundry']
         result = get_activities_from_subcategory('Household Activities','Housework')
