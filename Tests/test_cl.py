@@ -177,10 +177,7 @@ class TestCL(unittest.TestCase):
         '''tests the get_list_of_subcategories function and Acceptance Test 2
         test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry ID'''
         mock_load_sub_data.return_value = [
-            "Activity_ID,Activity_Name\n"
-            "T0201,Interior cleaning\n"
-            "T0202,Laundry\n"
-            "T0101,Showering\n"
+            #idk what this should be 
         ]
         result =get_list_of_subcategories("T02")
         self.assertEqual(['Interior cleaning', 'Laundry'], result)

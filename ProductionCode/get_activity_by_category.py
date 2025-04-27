@@ -1,5 +1,6 @@
 '''file: '''
 import csv
+from ProductionCode.load_data import load_data
 
 #Future: including more categories and subcategories to work with
 #Future: organize loading functions into a separate file
@@ -18,33 +19,20 @@ def load_category_data():
     '''Purpose: loads the general categories data from the file
     Args: None
     Returns: a list of dicitionaries containing the categories data from the file'''
-    with open("Data/Categories_Data_test.csv", "r", encoding='utf-8') as file:
+    return load_data("Data/Categories_Data_test.csv")
 
-        reader=csv.DictReader(file)
-        data = list(reader)
-        return data
 
 def load_subcategory_data():
     '''Purpose: loads the subcategories data from the file
     Args: None
     Returns: a list of dicitionaries containing the subcategories data from the file'''
-    with open("Data/SubCategories_data.csv", "r", encoding='utf-8') as file:
-
-        reader=csv.DictReader(file)
-        data = list(reader)
-
-        return data
+    return load_data("Data/SubCategories_data.csv")
 
 def load_activity_data():
     '''Purpose: loads the activities data from the file
     Args: None
     Returns: a list of dicitionaries containing the activities data from the file'''
-    with open("Data/Activities_data.csv", "r", encoding='utf-8') as file:
-
-        reader=csv.DictReader(file)
-        data = list(reader)
-
-        return data
+    return load_data("Data/Activities_data.csv")
 
 def get_category_from_data(category):
     '''Purpose: gets the category ID from the selected category
@@ -52,9 +40,7 @@ def get_category_from_data(category):
     Returns: the ID of the category'''
     data = load_category_data()
     for row in data:
-        # checks to see if the category is in the row
         if row['Category'] == category:
-            # if it is, it returns the ID stored in the row
             return row['Activity_ID']
     print("No data available found for category {category}, " \
         "try Personal Care Activities or Household Activities")
@@ -78,16 +64,11 @@ def get_list_of_subcategories(category):
     '''Purpose: gets the list of subcategories from the selected category
     Args: category: the category to get the subcategories for
     Returns: a list of subcategories in the category'''
-    # gets the ID of the category
     category_id = get_category_from_data(category)
-    # the array will store the subcategories
     subcategories = []
     data = load_subcategory_data()
     for row in data:
-        # checks to see if the last two numbers of the current row's ID,
-        #  match the ID of the category
         if row['Activity_ID'][:-2] == category_id:
-            # if it does, the subcategory is added to the array
             subcategories.append(row['Activity_Name'])
 
     return subcategories
