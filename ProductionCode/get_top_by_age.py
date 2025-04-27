@@ -92,8 +92,8 @@ def get_activity_name(activity_id):
     '''
     categories = load_data("Data/Activities_All_Data.csv")
     for row in categories:
-        if row['Activity ID'] == activity_id:
-            return row['Activity Name']
+        if row['Activity_ID'] == activity_id:
+            return row['Activity_Name']
     return "invalid Activity ID"
 
 def get_most_common_top_activity(age):

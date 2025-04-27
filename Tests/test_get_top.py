@@ -94,9 +94,9 @@ class TestGetTop(unittest.TestCase):
     def test_acceptance_valid_age(self, mock_get_matching_rows, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
         mock_load_data.return_value = [
-            {"Activity ID": "T050101", "Activity Name": "Work, main job"},
-            {"Activity ID": "T050102", "Activity Name": "Other work"},
-            {"Activity ID": "T050103", "Activity Name": "Another work"}
+            {"Activity_ID": "T050101", "Activity_Name": "Work_main_job"},
+            {"Activity_ID": "T050102", "Activity_Name": "Other_work"},
+            {"Activity_ID": "T050103", "Activity_Name": "Another_work"}
         ]
         mock_get_matching_rows.return_value = [
             {"age": "23", "T050101": "5", "T050102": "1", "T050103": "1"},
