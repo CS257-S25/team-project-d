@@ -100,14 +100,28 @@ class TestGetTop(unittest.TestCase):
     2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
     3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
     '''
-    @patch("ProductionCode.get_top_by_age.get_matching_rows", 
-        return_value=[
-        {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
-        {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
-    ])
-    def test_acceptance_valid_age(self, mock_load_data):
+
+    #come back to this, should be similar to invalid and use sys.argv
+    @patch("ProductionCode.get_top_by_age.get_matching_rows")
+    def test_acceptance_valid_age(self, mock_get_matching_rows):
         '''test if the function returns the correct category ID and number of times it is top'''
-        self.assertEqual(cl.get_most_common_top_activity(23), ("T050101", 2))
+        #self.assertEqual(cl.get_most_common_top_activity(23), ("T050101", "Work, main job"))
+    
+        mock_get_matching_rows.return_value = [
+            {"age": "23", "T050101": "5", "T050102": "1", "T050103": "1"},
+            {"age": "23", "T050101": "5", "T050102": "1", "T050103": "3"}
+        ]
+        
+        sys.argv = ["cl.py", "--age", "23", "--top"]
+        sys.stdout = StringIO()
+        with self.assertRaises(SystemExit):  
+            cl.main()
+        output = sys.stdout.getvalue().strip()
+
+        self.assertEqual(output, "T050101 2")
+        
+        #verify that mock_get_matching_rows was called with the correct argument (age 23)
+        mock_get_matching_rows.assert_called_with(23)
 
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
