@@ -62,9 +62,8 @@ class TestCL(unittest.TestCase):
         simplifies repeated calls to main'''
         sys.stdout = StringIO()
         cl.main()
-        #output = sys.stdout.getvalue().strip()
-        self.assertEqual(b"Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>" \
-            b"Reference python3 cl.py --category for valid subcategory inputs")
+        output = sys.stdout.getvalue().strip()
+        self.assertEqual(output, b"Usage: python3 cl.py --category <valid category>")
 
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
@@ -78,8 +77,8 @@ class TestCL(unittest.TestCase):
         simplifies repeated calls to main'''
         sys.stdout = StringIO()
         cl.main()
-        #output = sys.stdout.getvalue().strip()
-        self.assertEqual(b"Usage: python3 cl.py --category <valid category> --subcategory " \
+        output = sys.stdout.getvalue().strip()
+        self.assertEqual(output, b"Usage: python3 cl.py --category <valid category> --subcategory " \
             b"<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
 
     def test_invalid_subcategory(self):
