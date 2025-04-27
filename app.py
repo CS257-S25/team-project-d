@@ -37,7 +37,8 @@ def get_all_categories():
     '''returns a list of category options'''
     data_for_get_category = load_category_data()
     category_list = []
-    for category in data_for_get_category:
+    for row in data_for_get_category:
+        category = row['Category']
         category_list.append(get_category_from_data(category))
     return "The category options are: " + str(category_list)
 
