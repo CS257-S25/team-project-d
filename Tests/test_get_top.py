@@ -107,9 +107,9 @@ class TestGetTop(unittest.TestCase):
         '''test if the function returns the correct category ID and number of times it is top'''
         #self.assertEqual(cl.get_most_common_top_activity(23), ("T050101", "Work, main job"))
         mock_load_data.return_value = [   
-            {"ActivityID": "T050101", "Activity Name": "Work, main job"},
-            {"ActivityID": "T050102", "Activity Name": "Other work"},
-            {"ActivityID": "T050103", "Activity Name": "Another work"}
+            {"Activity ID": "T050101", "Activity Name": "Work, main job"},
+            {"Activity ID": "T050102", "Activity Name": "Other work"},
+            {"Activity ID": "T050103", "Activity Name": "Another work"}
         ]
         mock_get_matching_rows.return_value = [
             {"age": "23", "T050101": "5", "T050102": "1", "T050103": "1"},
