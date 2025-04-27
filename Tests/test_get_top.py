@@ -115,10 +115,10 @@ class TestGetTop(unittest.TestCase):
         sys.argv = ["cl.py", "--age", "23", "--top"]
         sys.stdout = StringIO()
         with self.assertRaises(SystemExit):  
-            cl.main()
-        output = sys.stdout.getvalue().strip()
-
-        self.assertEqual(output, "T050101 2")
+            
+            output = sys.stdout.getvalue().strip()
+            self.assertEqual(output, "T050101 2")
+            
         
         #verify that mock_get_matching_rows was called with the correct argument (age 23)
         mock_get_matching_rows.assert_called_with(23)
