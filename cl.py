@@ -36,7 +36,7 @@ def main():
         print(most_common_top_activity)
 
     elif args.category is not None and args.subcategory is not None:
-        list_of_activities = get_activities_from_subcategory(args.category, args.subcategory)
+        list_of_activities = get_activities_from_subcategory(args.subcategory)
         print(list_of_activities)
     #if user puts --category then call get_activity_by_category()
     elif args.category is not None:

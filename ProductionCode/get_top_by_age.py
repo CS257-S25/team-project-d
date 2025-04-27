@@ -8,7 +8,8 @@ from ProductionCode.load_data import load_data
 # i.e T050101 = watching tv or whatever it is and returns (watching tv, 2)
 # Future: make it so it gets the top N activities for a group
 
-# Purpose: finding the activity that has has the most hours and came up the most frequently for an age group
+# Purpose: finding the activity that has has the most hours 
+# and came up the most frequently for an age group
 # python3 cl.py -- age 20 -- top
 # get the top activity for people of age 20
 
@@ -32,18 +33,6 @@ def get_matching_rows(age):
         if not matching_rows: # this is repeated later on, make into helper
             print(f"No data available for age {age}")
             return None
-    return matching_rows
-
-#i don't think we actually need this 
-#def filter_matching_rows(age):
-    ''' Purpose: filter the matching rows for the age group given
-    Args: age: the age group to get the rows for
-    #returns: a list of rows/people with the age given in cl'''
-    print("Getting the top activity for age group: ", age)
-    matching_rows = get_matching_rows(age)
-    if not matching_rows:
-        print(f"No data available for age {age}")
-        return None
     return matching_rows
 
 def get_excluded_columns():
