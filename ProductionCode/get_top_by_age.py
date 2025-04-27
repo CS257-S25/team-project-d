@@ -8,7 +8,7 @@ from ProductionCode.load_data import load_data
 # i.e T050101 = watching tv or whatever it is and returns (watching tv, 2)
 # Future: make it so it gets the top N activities for a group
 
-# Purpose: finding the activity that has has the most hours 
+# Purpose: finding the activity that has has the most hours
 # and came up the most frequently for an age group
 # python3 cl.py -- age 20 -- top
 # get the top activity for people of age 20
@@ -38,7 +38,8 @@ def get_matching_rows(age):
 def get_excluded_columns():
     '''return a list of columns that should be excluded from processing, 
     i.e exclude identifiers, and demographics / non-activities'''
-    # we remove sleeping from the list of options because everyone/s top activity is sleeping (T010101)
+    # we remove sleeping from the list of options because
+    # everyone'stop activity is sleeping (T010101)
     # might need to consider removing T050101 which is work,main job
     excluded_columns = ["ID","TUCASEID", "metropolitan status","education",
                         "hispanic origin", "race", "age", "labor force status", 
@@ -53,7 +54,7 @@ def process_row_for_activity(row):
     Args: row: the row to process
     returns: a dictionary of the activity hours'''
     excluded_columns = get_excluded_columns()
-    activity_hours = {} 
+    activity_hours = {}
     for key in row:
         if key not in excluded_columns and row[key] != "NA":
             try:
@@ -62,13 +63,13 @@ def process_row_for_activity(row):
             except ValueError:
                 print(f"ValueError: could not convert {row[key]} to int for key {key}")
                 continue
-    return activity_hours 
+    return activity_hours
 
 def get_top_activity_from_row(activity_hours):
     ''' Purpose: get the top activity from the row
     Args: activity_hours: the activity hours to get the top activity from
     returns: the top activity from the row'''
-    if activity_hours: 
+    if activity_hours:
         return max(activity_hours, key = activity_hours.get)
     return None
 
@@ -80,8 +81,8 @@ def count_top_activites(matching_rows):
     for row in matching_rows:
         activity_hours = process_row_for_activity(row)
         top_activity = get_top_activity_from_row(activity_hours)
-        if top_activity: 
-            top_activities[top_activity] += 1 
+        if top_activity:
+            top_activities[top_activity] += 1
     return top_activities
 
 def get_activity_name(activity_id):
@@ -94,7 +95,7 @@ def get_activity_name(activity_id):
         if row['Activity ID'] == activity_id:
             return row['Activity Name']
     return "invalid Activity ID"
-    
+
 def get_most_common_top_activity(age):
     ''' purpose:figures out which top activity is the most common in the dictionary
     args: age: the age group to get the most common activity for
@@ -105,9 +106,10 @@ def get_most_common_top_activity(age):
         print(f"No data available for age {age}, try ages 15-85")
         return None
     top_activities = count_top_activites(matching_rows)
-    if top_activities: 
+    if top_activities:
         # NOTE: this will return the most common activity and the count of the activity
-        # if there are multiple activities with the same count, it will return the first one numerically
+        # if there are multiple activities with the same count,
+        # it will return the first one numerically
         most_common_activity = top_activities.most_common(1)[0][0]
         activity = get_activity_name(most_common_activity)
         return most_common_activity, activity #activity, most_common_activity
