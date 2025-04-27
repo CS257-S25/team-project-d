@@ -8,6 +8,7 @@ class TestApp(unittest.TestCase):
         '''set up for testing'''
         app.config['TESTING']= True
         self.app = app.test_client()
+    
     def test_route_home(self):
         '''tests that the home route returns the correct thing'''
         response = self.app.get('/', follow_redirects=True)
@@ -25,6 +26,7 @@ class TestApp(unittest.TestCase):
             b"go to /get-activities/'<'category'>'/'<'subcategory'>'"\
             b"....  NOTE: basically choose Personal Care Activities and Sleeping "\
             b"because of incomplete test data", response.data )
+    
     def test_route_top_by_age(self):
         '''tests that the route to get top by age returns the right thing, given age 23'''
         response = self.app.get('/get-top/23', follow_redirects=True)
