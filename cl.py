@@ -44,7 +44,8 @@ def check_validity(args):
         valid_subcategories = get_list_of_subcategories(args.category)
 
         if args.subcategory not in valid_subcategories:
-            raise InvalidCategoryError("Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>")
+            raise InvalidCategoryError("Usage: python3 cl.py --category <valid category> --subcategory " \
+            "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
            
 
 def main():

@@ -56,6 +56,7 @@ class TestCL(unittest.TestCase):
         self.assertEqual(['Interior cleaning', 'Laundry'], result) 
 
     #Acceptance Tests for user story 2:
+    #def output usage can be one with prarams
     def output_usage_for_category(self):
         '''helper method to call main from cl
         returns: usage message (str)
@@ -65,7 +66,7 @@ class TestCL(unittest.TestCase):
             cl.main()
         except cl.InvalidCategoryError as e:
             output = str(e)
-            self.assertEqual(output, b"Usage: python3 cl.py --category <valid category>")
+            self.assertEqual(output, "Usage: python3 cl.py --category <valid category>")
             return output
         return None
 
@@ -80,11 +81,15 @@ class TestCL(unittest.TestCase):
         returns: usage message (str)
         simplifies repeated calls to main'''
         sys.stdout = StringIO()
-        cl.main()
-        output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, b"Usage: python3 cl.py --category <valid category> --subcategory " \
-            b"<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
-
+        try:
+            cl.main()
+        except cl.InvalidCategoryError as e:
+            output = str(e)
+            self.assertEqual(output, "Usage: python3 cl.py --category <valid category> --subcategory " \
+            "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
+            return output
+        return None
+        
     def test_invalid_subcategory(self):
         '''test an invalid subcategory for Acceptance Test 3
         '''
