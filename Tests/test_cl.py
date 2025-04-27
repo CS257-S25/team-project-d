@@ -33,7 +33,7 @@ class TestCL(unittest.TestCase):
         mock_load_sub_data.return_value = [
             {"Activity_ID": "T0201", "Activity_Name": "Housework"},
             {"Activity_ID": "T0202",
-                "Activity_Name":"Food & Drink Preparation/Presentation/Clean-Up"},
+                "Activity_Name":"Food_&_Drink_Preparation/Presentation/Clean-Up"},
             {"Activity_ID": "T0301", "Activity_Name": "rats"}
         ]
         result = get_list_of_subcategories("Household Activities")

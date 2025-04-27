@@ -33,16 +33,16 @@ class TestApp(unittest.TestCase):
         '''tests that the route to get all categories returns the correct thing'''
         response = self.app.get('/get-all-categories', follow_redirects=True)
         self.assertEqual(b"the category options are: "
-            b"['Personal Care Activities', 'Household Activities', " \
-            b"'Caring For & Helping Household (HH) Members', " \
-            b"'Caring For & Helping Nonhousehold (NonHH) Members', " \
-            b"'Work & Work-Related Activities', 'Education', " \
-            b"'Consumer Purchases', 'Professional & Personal Care Services', " \
-            b"'Household Services', 'Government Services & Civic Obligations', " \
-            b"'Eating and Drinking', " \
-            b"'Socializing, Relaxing, and Leisure', 'Sports, Exercise, & Recreation', " \
-            b"'Religious and Spiritual Activities', " \
-            b"'Volunteer Activities', 'Telephone Calls', 'Traveling']", response.data)
+            b"['Personal_Care_Activities', 'Household_Activities', " \
+            b"'Caring_For_&_Helping_Household_(HH)_Members', " \
+            b"'Caring_For_&_Helping_Nonhousehold_(NonHH)_Members', " \
+            b"'Work_&_Work-Related_Activities', 'Education', " \
+            b"'Consumer_Purchases', 'Professional_&_Personal_Care_Services', " \
+            b"'Household_Services', 'Government_Services_&_Civic_Obligations', " \
+            b"'Eating_and_Drinking', " \
+            b"'Socializing_Relaxing_and_Leisure', 'Sports_Exercise_&_Recreation', " \
+            b"'Religious_and_Spiritual_Activities', " \
+            b"'Volunteer_Activities', 'Telephone_Calls', 'Traveling']", response.data)
 
     def test_get_subcategories_for_category(self):
         '''tets that the route to get subcatefories given a category returns the right thing '''
