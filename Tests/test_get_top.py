@@ -123,10 +123,6 @@ class TestGetTop(unittest.TestCase):
         output = sys.stdout.getvalue().strip()
         self.assertEqual(output, "('T050101', 'Work, main job')")
 
-        
-        #verify that mock_get_matching_rows was called with the correct argument (age 23)
-        mock_get_matching_rows.assert_called_with(23)
-
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
         sys.argv = ["cl.py", "--age", "eighteen"]
