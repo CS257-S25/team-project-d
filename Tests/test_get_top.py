@@ -4,7 +4,6 @@ import sys
 import unittest
 from io import StringIO
 from unittest.mock import patch
-from unittest.mock import mock_open
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import cl
 from ProductionCode.get_top_by_age import get_matching_rows
@@ -118,7 +117,7 @@ class TestGetTop(unittest.TestCase):
             
             output = sys.stdout.getvalue().strip()
             self.assertEqual(output, "T050101 2")
-            
+
         
         #verify that mock_get_matching_rows was called with the correct argument (age 23)
         mock_get_matching_rows.assert_called_with(23)
