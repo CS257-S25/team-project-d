@@ -10,7 +10,7 @@ def get_the_subcategories(sent_category):
         # Call the function to get subcategories (assume it's implemented elsewhere)
         #data = load_subcategory_data()
         # Filter activities based on the category (example logic)
-        from ProductionCode.getActivtyByCategory import get_list_of_subcategories
+        from ProductionCode.get_activity_by_category import get_list_of_subcategories
 
         list_of_subcategories= get_list_of_subcategories(category)
 

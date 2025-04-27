@@ -8,7 +8,7 @@ from ProductionCode.load_data import load_data, load_categories
 # i.e T050101 = watching tv or whatever it is and returns (watching tv, 2)
 # Future: make it so it gets the top N activities for a group
 
-#  finding the activity that has has the most hours and came up the most frequently for an age group
+# Purpose: finding the activity that has has the most hours and came up the most frequently for an age group
 # python3 cl.py -- age 20 -- top
 # get the top activity for people of age 20
 
@@ -16,7 +16,6 @@ def get_matching_rows(age):
     ''' Purpose: get the rows that match the age group given
     Args: age: the age group to get the rows for
     returns: a list of rows/people with the age given in cl'''
-    #testing print statement
     print("Getting matching rows for age group: ", age)
     matching_rows = []
     data = load_data()

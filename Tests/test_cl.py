@@ -10,10 +10,10 @@ import cl
 from ProductionCode.get_top_by_age import get_matching_rows, load_matching_rows
 from ProductionCode.get_top_by_age import process_row_for_activity, get_top_activity_from_row
 from ProductionCode.get_top_by_age import count_top_activites, get_most_common_top_activity
-from ProductionCode.getActivtyByCategory import load_category_data, load_subcategory_data
-from ProductionCode.getActivtyByCategory import load_activity_data, get_category_from_data
-from ProductionCode.getActivtyByCategory import get_list_of_subcategories, get_subcategory_from_data
-from ProductionCode.getActivtyByCategory import get_activities_from_subcategory
+from ProductionCode.get_activity_by_category import load_category_data, load_subcategory_data
+from ProductionCode.get_activity_by_category import load_activity_data, get_category_from_data
+from ProductionCode.get_activity_by_category import get_list_of_subcategories, get_subcategory_from_data
+from ProductionCode.get_activity_by_category import get_activities_from_subcategory
 from shared_logic import get_the_subcategories
 
 def mock_file_selector(file, *args, **kwargs):
@@ -67,20 +67,20 @@ class TestCL(unittest.TestCase):
         self.assertEqual(len(rows), 2)
 
     #patch where the function is looked up not where it's defined
-    @patch("ProductionCode.get_top_by_age.load_matching_rows",#get_top_by_age.py would return (T050101,2) for age 23
-        return_value= [
-            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
-            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
-        ])
+    @patch("ProductionCode.get_top_by_age.load_data") #get_top_by_age.py would return (T050101,2) for age 23
     def test_load_matching_rows(self, mock_load_data):
         '''tests the load_matching_rows function
         verifies the method returns a list of rows that match the age given'''
+        mock_load_data.return_value = [
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
+            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"},
+            {"age":"57", "T050101": "3", "T050102": "1", "T050103": "3"}
+        ]
         rows = load_matching_rows(23)
         self.assertEqual(rows, [
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ])
-        self.maxDiff=None
 
     def test_process_row_for_activity(self):
         '''tests the process_row_for_activity function
@@ -162,28 +162,28 @@ class TestCL(unittest.TestCase):
         self.assertEqual(cm.exception.code,2)
 
 
-    ##### TESTS FOR USER STORY 2: getActivtyByCategory --- getting the activities by category #####
+    ##### TESTS FOR USER STORY 2: get_activty_by_category --- getting the activities by category #####
 
-    @patch("ProductionCode.getActivtyByCategory.get_category_from_data")
+    @patch("ProductionCode.get_activity_by_category.get_category_from_data")
     def test_get_category_from_data(self, mock_get_category_from_data):
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
         mock_get_category_from_data.return_value = "T01" #might not be needed
         self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
 
-    @patch("ProductionCode.getActivtyByCategory.open")
-    def test_get_list_of_subcategories(self, mock_open_file):
+    @patch("ProductionCode.get_activity_by_category.load_subcategory_data")
+    #use same structure astets-Get_list _of_activities
+    def test_get_list_of_subcategories(self, mock_load_sub_data):
         '''tests the get_list_of_subcategories function and Acceptance Test 2
-        test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry name'''
-        mock_csv_data = (
+        test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry ID'''
+        mock_load_sub_data.return_value = [
             "Activity_ID,Activity_Name\n"
             "T0201,Interior cleaning\n"
             "T0202,Laundry\n"
             "T0101,Showering\n"
-        )
-        mock_open_file.side_effect= mock_file_selector
-        result =get_list_of_subcategories('Household Activities')
-        self.assertEqual(['Housework', 'Food & Drink Preparation/Presentation/Clean-Up'], result)
+        ]
+        result =get_list_of_subcategories("T02")
+        self.assertEqual(['Interior cleaning', 'Laundry'], result)
 
     @patch("shared_logic.get_the_subcategories")
     def test_get_the_subcategories(self, mock_get_the_subcategories):
@@ -193,9 +193,9 @@ class TestCL(unittest.TestCase):
         result = get_the_subcategories("Personal Care Activities")
         self.assertEqual(['Sleeping', 'Grooming','Health-related self care','Personal Activities','Personal Care Emergencies'], result)
 
-    @patch("ProductionCode.getActivtyByCategory.get_activities_from_subcategory")
+    @patch("ProductionCode.get_activity_by_category.get_activities_from_subcategory")
     def test_get_activities_from_subcategory(self, mock_get_activities_from_subcategory):
-        '''tests get_activity_from_subcategory from getActivityByCategory
+        '''tests get_activity_from_subcategory from get_activity_by_category
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
         mock_get_activities_from_subcategory.return_value = ['Interior cleaning', 'Laundry']
         result = get_activities_from_subcategory('Household Activities','Housework')
@@ -224,8 +224,8 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --category <valid category> --subcategory " \
-        "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
+        self.assertEqual(output, b"Usage: python3 cl.py --category <valid category> --subcategory " \
+            b"<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
 
     def test_invalid_subcategory(self):
         '''test an invalid subcategory for Acceptance Test 3

@@ -14,7 +14,7 @@ def load_categories():
     '''Purpose: loads category IDs and their category
     Returns: None
     '''
-    with open("Data/Categories_Data.csv", "r") as file:
+    with open("Data/Activities_All_Data.csv", "r") as file:
         reader = csv.DictReader(file)
         data = list(reader)
         return data
