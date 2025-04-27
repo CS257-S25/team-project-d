@@ -86,7 +86,7 @@ class TestGetTop(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ]
         result = get_most_common_top_activity(23)
-        self.assertEqual(result, ("T050101",'Work, main job' ))
+        self.assertEqual(result, ("T050101",'Work_main_job' ))
 
     #Acceptance tests for User Story 1:
     @patch('ProductionCode.get_top_by_age.load_data')
@@ -108,7 +108,7 @@ class TestGetTop(unittest.TestCase):
         cl.main()
 
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "('T050101', 'Work, main job')")
+        self.assertEqual(output, "('T050101', 'Work_main_job')")
 
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''

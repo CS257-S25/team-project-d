@@ -22,7 +22,7 @@ def homepage():
     "....  NOTE: for now you can only shoose these categories: "\
     "Personal Care Activities or Household Activities"\
     " 4) TO GET a list of activities from a subcategory, "\
-    "go to /get-activities/'<'category'>'/'<'subcategory'>'"\
+    "go to /get-activities/'<'category'>'/'<'subcategory'>'"
 
 @app.route('/get-top/<age>')
 def get_top_by_age(age):
