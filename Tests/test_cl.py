@@ -56,45 +56,35 @@ class TestCL(unittest.TestCase):
         self.assertEqual(['Interior cleaning', 'Laundry'], result) 
 
     #Acceptance Tests for user story 2:
-    #def output usage can be one with prarams
-    def output_usage_for_category(self):
-        '''helper method to call main from cl
-        returns: usage message (str)
-        simplifies repeated calls to main'''
+    def output_usage(self, args, expected_error_message):
+        '''helper method to call main from cl and check error messahes '''
         sys.stdout = StringIO()
-        try:
+        sys.argv = args
+        try: 
             cl.main()
-        except cl.InvalidCategoryError as e:
+        except cl.InvalidCategoryError as e: 
             output = str(e)
-            self.assertEqual(output, "Usage: python3 cl.py --category <valid category>")
+            self.assertEqual(output, expected_error_message)
             return output
         return None
 
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
         '''
-        sys.argv = ["cl.py", "--category", "Astronaut"]
-        self.output_usage_for_category()
-
-    def output_usage_for_subcategory(self):
-        '''helper method to call main from cl
-        returns: usage message (str)
-        simplifies repeated calls to main'''
-        sys.stdout = StringIO()
-        try:
-            cl.main()
-        except cl.InvalidCategoryError as e:
-            output = str(e)
-            self.assertEqual(output, "Usage: python3 cl.py --category <valid category> --subcategory " \
-            "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
-            return output
-        return None
-        
+        args = ["cl.py", "--category", "Astronaut"]
+        expected_error_message = "Usage: python3 cl.py --category <valid category>"
+        output = self.output_usage(args, expected_error_message)
+        self.assertIsNotNone(output)
+       
     def test_invalid_subcategory(self):
         '''test an invalid subcategory for Acceptance Test 3
         '''
-        sys.argv = ["cl.py", "--category", "Household Activities", "--subcategory", "Astronaut"]
-        self.output_usage_for_subcategory()
+        args= ["cl.py", "--category", "Household Activities", "--subcategory", "Astronaut"]
+        expected_error_message = "Usage: python3 cl.py --category <valid category> --subcategory " \
+            "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs"
+        output = self.output_usage(args, expected_error_message)
+        self.assertIsNotNone(output)
+
 
 if __name__ == '__main__':
     unittest.main()
