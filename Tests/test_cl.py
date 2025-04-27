@@ -6,9 +6,6 @@ from io import StringIO
 from unittest.mock import patch
 from unittest.mock import mock_open
 import cl
-#from ProductionCode.get_top_by_age import get_matching_rows, load_matching_rows
-#from ProductionCode.get_top_by_age import process_row_for_activity, get_top_activity_from_row
-#from ProductionCode.get_top_by_age import count_top_activites, get_most_common_top_activity
 from ProductionCode.get_activity_by_category import load_category_data, load_subcategory_data
 from ProductionCode.get_activity_by_category import load_activity_data, get_category_from_data
 from ProductionCode.get_activity_by_category import get_list_of_subcategories, get_subcategory_from_data
@@ -40,9 +37,6 @@ class TestCL(unittest.TestCase):
         self.category_data = load_category_data()
         self.subcategory_data = load_subcategory_data()
         self.activity_data = load_activity_data()
-   
-    
-    ##### TESTS FOR USER STORY 2: get_activty_by_category --- getting the activities by category #####
 
     @patch("ProductionCode.get_activity_by_category.get_category_from_data")
     def test_get_category_from_data(self, mock_get_category_from_data):
@@ -52,15 +46,16 @@ class TestCL(unittest.TestCase):
         self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
 
     @patch("ProductionCode.get_activity_by_category.load_subcategory_data")
-    #use same structure astets-Get_list _of_activities
     def test_get_list_of_subcategories(self, mock_load_sub_data):
         '''tests the get_list_of_subcategories function and Acceptance Test 2
-        test if the function returns ['Interior cleaning', 'Laundry'] given the cateogry ID'''
+        test if the function returns correct thing given the cateogry ID'''
         mock_load_sub_data.return_value = [
-            #idk what this should be 
+            {"Activity_ID": "T0201", "Activity_Name": "Housework"},
+            {"Activity_ID": "T0202", "Activity_Name": "Food & Drink Preparation/Presentation/Clean-Up"},
+            {"Activity_ID": "T0301", "Activity_Name": "rats"}
         ]
         result =get_list_of_subcategories("T02")
-        self.assertEqual(['Interior cleaning', 'Laundry'], result)
+        self.assertEqual(["Housework", "Food & Drink Preparation/Presentation/Clean-Up"], result)
 
     @patch("shared_logic.get_the_subcategories")
     def test_get_the_subcategories(self, mock_get_the_subcategories):
@@ -75,9 +70,10 @@ class TestCL(unittest.TestCase):
         '''tests get_activity_from_subcategory from get_activity_by_category
         test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
         mock_get_activities_from_subcategory.return_value = ['Interior cleaning', 'Laundry']
-        result = get_activities_from_subcategory('Household Activities','Housework')
+        result = get_activities_from_subcategory('Housework')
         self.assertEqual(['Interior cleaning', 'Laundry'], result) 
 
+    #Acceptance Tests for user story 2:
     def output_usage_for_category(self):
         '''helper method to call main from cl
         returns: usage message (str)
