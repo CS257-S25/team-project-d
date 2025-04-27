@@ -90,7 +90,7 @@ def get_activity_name(activity_id):
     arg activity_ID: the id of the activity to find
     return: the name of the activity
     '''
-    categories = load_data("Data/Activities_All_Data.csv")
+    categories = load_data("Data/Activities_Data.csv")
     for row in categories:
         if row['Activity_ID'] == activity_id:
             return row['Activity_Name']
