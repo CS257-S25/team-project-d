@@ -101,19 +101,23 @@ class TestGetTop(unittest.TestCase):
     '''
 
     #come back to this, should be similar to invalid and use sys.argv
+    @patch('ProductionCode.get_top_by_age.load_data')
     @patch("ProductionCode.get_top_by_age.get_matching_rows")
-    def test_acceptance_valid_age(self, mock_get_matching_rows):
+    def test_acceptance_valid_age(self, mock_get_matching_rows, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
         #self.assertEqual(cl.get_most_common_top_activity(23), ("T050101", "Work, main job"))
-    
+        mock_load_data.return_value = [   
+            {"ActivityID": "T050101", "Activity Name": "Work, main job"},
+            {"ActivityID": "T050102", "Activity Name": "Other work"},
+            {"ActivityID": "T050103", "Activity Name": "Another work"}
+        ]
         mock_get_matching_rows.return_value = [
             {"age": "23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age": "23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ]
-        
+
         sys.argv = ["cl.py", "--age", "23", "--top"]
         sys.stdout = StringIO()
-       
         cl.main()
 
         output = sys.stdout.getvalue().strip()
