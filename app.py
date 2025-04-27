@@ -36,7 +36,9 @@ def missing_age():
 def get_all_categories():
     '''returns a list of category options'''
     data_for_get_category = load_category_data()
-    category_list = get_category_from_data(data_for_get_category)
+    category_list = []
+    for category in data_for_get_category:
+        category_list.append(get_category_from_data(category))
     return "The category options are: " + str(category_list)
 
 @app.route('/get-subcategories/<category>')
