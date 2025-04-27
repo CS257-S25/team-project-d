@@ -20,12 +20,8 @@ class TestGetTop(unittest.TestCase):
         sys.stdout = StringIO()
         try:
             cl.main()
-            #output = sys.stdout.getvalue().strip()
         except ValueError:
             print("Usage: python3 cl.py --age <age from 15-85> --top")
-
-    ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
-    # tests for the functions in get_top_by_age.py
 
     #patch where the function is looked up not where it's defined
     @patch("ProductionCode.get_top_by_age.load_data")
@@ -77,7 +73,7 @@ class TestGetTop(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ]
         result = count_top_activites(matching_rows)
-        expected = {"T050101": 2} #should this be {"T050101": 2} or  {'T050101': 2, 'T050103': 1}
+        expected = {"T050101": 2}
         self.assertEqual(result, expected)
 
     @patch("ProductionCode.get_top_by_age.get_matching_rows")
@@ -92,12 +88,7 @@ class TestGetTop(unittest.TestCase):
         result = get_most_common_top_activity(23)
         self.assertEqual(result, ("T050101",'Work, main job' ))
 
-    #User story: a user wants to know the most common activity for a given age group
-    #Acceptance tests:
-    #1) given they input a valid age group (ex: (int) 18)---> the program should return the most common activity for that age group
-    #2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
-    #3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
-    
+    #Acceptance tests for User Story 1:
     @patch('ProductionCode.get_top_by_age.load_data')
     @patch("ProductionCode.get_top_by_age.get_matching_rows")
     def test_acceptance_valid_age(self, mock_get_matching_rows, mock_load_data):
