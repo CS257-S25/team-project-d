@@ -53,7 +53,7 @@ def get_subcategories_for_category(category):
 @app.route('/get-subcategories/')
 def missing_category():
     '''returns a message if you forgot to add a /category'''
-    return "Please include a category, ex: /get-subcategories/Personal Care Activities", 200
+    return "Please include a category, ex: /get-subcategories/Personal_Care_Activities", 200
 
 @app.route('/get-activities/<category>/<subcategory>')
 def get_activities_from_sub(category, subcategory):
@@ -67,13 +67,13 @@ def get_activities_from_sub(category, subcategory):
 def missing_cat_and_sub():
     '''returns a message if you forgot to add a category and subcategory'''
     return "Please include a category and a subcategory, " \
-        "ex: /get-activities/Personal Care activities/Sleeping"
+        "ex: /get-activities/Personal_Care_Activities/Sleeping"
 
 @app.route('/get-activities/<category>/')
 def missing_subcategory(category):
     '''returns a message if you forgot to add a subcategory'''
     return "Please include a subcategory, " \
-        "ex: /get-activities/Personal Care activities/Sleeping"
+        "ex: /get-activities/Personal_Care_Activities/Sleeping"
 
 @app.errorhandler(404)
 def page_not_found(e):
