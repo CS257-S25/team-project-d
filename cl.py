@@ -4,7 +4,8 @@ The eventual location for the command line interface (CLI) for the project.
 This will be the entry point for the project when run from the command line.
 '''
 import argparse
-from ProductionCode.get_activity_by_category import get_activities_from_subcategory
+import sys
+from ProductionCode.get_activity_by_category import get_activities_from_subcategory, get_list_of_subcategories
 from ProductionCode.get_top_by_age import get_most_common_top_activity
 from shared_logic import get_the_subcategories
 
@@ -20,17 +21,31 @@ def get_parsed_arguments():
     parser.add_argument("--category", type=str, help="the category to get the activities for")
     parser.add_argument("--subcategory", type=str, help="the subcategory to get the activities for")
     args = parser.parse_args()
+
+    check_validity(args)
+
     return args
+
+def check_validity(args):
+    '''just a test rn'''
+    if args.category:
+        valid_subcategories = get_list_of_subcategories(args.category)
+
+        if not valid_subcategories: 
+            print("Usage: python3 cl.py --category <valid category>")
+            sys.exit(1)
+
+    if args.category and args.subcategory:
+        valid_subcategories = get_list_of_subcategories(args.category)
+
+        if args.subcategory not in valid_subcategories:
+            print("Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>")
+            sys.exit(1)
 
 def main():
     '''main function for the command line interface'''
     args = get_parsed_arguments()
-    #age = args.age
-    #if age<15 or age>85:
-        #raise ValueError("age out of range, please select age between 15 and 85")
 
-    #if user puts --age and --top,
-    # get the most common activity for that age group w/ get_most_common_top_activity
     if args.age is not None and args.top is not None:
         most_common_top_activity = get_most_common_top_activity(args.age)
         print(most_common_top_activity)
@@ -38,7 +53,7 @@ def main():
     elif args.category is not None and args.subcategory is not None:
         list_of_activities = get_activities_from_subcategory(args.subcategory)
         print(list_of_activities)
-    #if user puts --category then call get_activity_by_category()
+
     elif args.category is not None:
         list_of_subcategories = get_the_subcategories(args.category)
         print(list_of_subcategories)
