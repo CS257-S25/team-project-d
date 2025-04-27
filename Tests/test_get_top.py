@@ -1,14 +1,15 @@
 '''file: test_get_top.py --- tests for get_top_by_age.py'''
+import cl
 import os
 import sys
 import unittest
 from io import StringIO
 from unittest.mock import patch
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import cl
 from ProductionCode.get_top_by_age import get_matching_rows
 from ProductionCode.get_top_by_age import process_row_for_activity, get_top_activity_from_row
 from ProductionCode.get_top_by_age import count_top_activites, get_most_common_top_activity
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 class TestGetTop(unittest.TestCase):
     def output_usage_for_age(self):
@@ -25,9 +26,9 @@ class TestGetTop(unittest.TestCase):
 
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
-   
+
     #patch where the function is looked up not where it's defined
-    @patch("ProductionCode.get_top_by_age.load_data") #get_top_by_age.py would return (T050101,2) for age 23
+    @patch("ProductionCode.get_top_by_age.load_data") 
     def test_get_matching_rows(self, mock_load_data):
         '''tests the get_matching_rows function
         verifies the method returns a list of rows that match the age given'''
@@ -106,7 +107,7 @@ class TestGetTop(unittest.TestCase):
     def test_acceptance_valid_age(self, mock_get_matching_rows, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
         #self.assertEqual(cl.get_most_common_top_activity(23), ("T050101", "Work, main job"))
-        mock_load_data.return_value = [   
+        mock_load_data.return_value = [
             {"Activity ID": "T050101", "Activity Name": "Work, main job"},
             {"Activity ID": "T050102", "Activity Name": "Other work"},
             {"Activity ID": "T050103", "Activity Name": "Another work"}
