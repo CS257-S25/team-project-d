@@ -38,8 +38,8 @@ def get_all_categories():
     data_for_get_category = load_category_data()
     category_list =get_category_from_data(data_for_get_category)
     #categories = "The category options are: " + str(category_list)
-    #return "The category options are: " + str(category_list)
-    return "Hi"
+    return "The category options are: " + category_list
+    # return category_list
 
 @app.route('/get-subcategories/<category>')
 def get_subcategories_for_category(category):
