@@ -36,7 +36,7 @@ class TestCL(unittest.TestCase):
             {"Activity_ID": "T0202", "Activity_Name": "Food & Drink Preparation/Presentation/Clean-Up"},
             {"Activity_ID": "T0301", "Activity_Name": "rats"}
         ]
-        result =get_list_of_subcategories("T02")
+        result = get_list_of_subcategories("Household Activities")
         self.assertEqual(["Housework", "Food & Drink Preparation/Presentation/Clean-Up"], result)
 
     @patch("shared_logic.get_the_subcategories")
@@ -84,7 +84,6 @@ class TestCL(unittest.TestCase):
             "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs"
         output = self.output_usage(args, expected_error_message)
         self.assertIsNotNone(output)
-
 
 if __name__ == '__main__':
     unittest.main()
