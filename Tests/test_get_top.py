@@ -121,7 +121,7 @@ class TestGetTop(unittest.TestCase):
         cl.main()
 
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "T050101 2")
+        self.assertEqual(output, "('T050101', 'Work, main job')")
 
         
         #verify that mock_get_matching_rows was called with the correct argument (age 23)
