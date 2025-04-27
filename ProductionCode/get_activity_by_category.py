@@ -34,62 +34,73 @@ def load_activity_data():
     Returns: a list of dicitionaries containing the activities data from the file'''
     return load_data("Data/Activities_data.csv")
 
+def find_id_by_name(data_loader, name_key, target_name):
+    '''helper function to reduce repeated code to fin an Activity_ID by name
+    params: data_loader, the data you want to load
+    param: name_key, 
+    paramL target_name, '''
+    data = data_loader()
+    for row in data:
+        if row[name_key] == target_name:
+            return row['Activity_ID']
+    return None
+
+def filter_by_prefix(data_loader, id_prefix, name_key, prefix_length=None):
+    '''helper function to filter &return names whose Activity_ID matches a prefix 
+    param: data_loader, a function that loads and returns activity data
+    param: id_prefix, the prefix to match at the beginning of each Activity_ID 
+    param: name_key, the key name in dict with the calue you want 
+    param: prefix_length: how many char of Activity_ID to compare
+    returns a list of names whose Activity_ID match the given prefix'''
+    data = data_loader()
+    results = []
+    for row in data:
+        if prefix_length:
+            prefix = row['Activity_ID'][:prefix_length]
+        else:
+            prefix = row['Activity_ID']
+        if prefix == id_prefix:
+            results.append(row[name_key])
+    return results
+
 def get_category_from_data(category):
     '''Purpose: gets the category ID from the selected category
     Args: category: the category to get the ID for
     Returns: the ID of the category'''
-    data = load_category_data()
-    for row in data:
-        if row['Category'] == category:
-            return row['Activity_ID']
-    print("No data available found for category {category}, " \
+    category_id = find_id_by_name(load_category_data, 'Category', category)
+    if not category_id:
+        print(f"No data available found for category {category}, " \
         "try Personal Care Activities or Household Activities")
-    return None
-
+        # we should print something more like this instead of try...: 
+        # print("Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>\n"
+        #"Reference python3 cl.py --category for valid subcategory inputs")
+    return category_id
+ 
 def get_subcategory_from_data(subcategory):
     '''Purpose: gets the ID of the selected subcategory
     Args: subcategory: the subcategory to get the ID for
     Returns: the ID of the subcategory'''
-    data = load_subcategory_data()
-    for row in data:
-        # checks to see if the subcategory is in the row
-        if row['Activity_Name'] == subcategory:
-            # if it is, it returns the ID stored in the row
-            return row['Activity_ID']
-    print("Usage: python3 cl.py --category <valid category> --subcategory " \
+    subcategory_id = find_id_by_name(load_subcategory_data, 'Activity_Name', subcategory)
+    if not subcategory_id:
+        print("Usage: python3 cl.py --category <valid category> --subcategory " \
         "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
-    return None
+    return subcategory_id
 
 def get_list_of_subcategories(category):
     '''Purpose: gets the list of subcategories from the selected category
     Args: category: the category to get the subcategories for
     Returns: a list of subcategories in the category'''
     category_id = get_category_from_data(category)
-    subcategories = []
-    data = load_subcategory_data()
-    for row in data:
-        if row['Activity_ID'][:-2] == category_id:
-            subcategories.append(row['Activity_Name'])
-
-    return subcategories
+    if category_id:
+        return filter_by_prefix(load_subcategory_data, category_id, 
+                                'Activity_Name', prefix_length = len(category_id))
+    return []
 
 def get_activities_from_subcategory(category, subcategory):
     '''Purpose: gets the list of activities from the selected subcategory
     Args: category: the category to get the activities for
           subcategory: the subcategory to get the activities for
     Returns: a list of activities in the subcategory'''
-    #gets the ID of the subcategory
     subcategory_id = get_subcategory_from_data(subcategory)
-    #gets the list of subcategories
-    #subcategories = get_list_of_subcategories(category)
-    # the array will store the activities belonging to the subcategory
-    activities = []
-    data = load_activity_data()
-    for row in data:
-        # checks to see if the first five numbers (including the 'T') of the current row's ID,
-        #  match the ID of the subcategory
-        if row['Activity_ID'][:5] == subcategory_id:
-            # if it does, the activity is added to the array
-            activities.append(row['Activity_Name'])
-
+    activities = filter_by_prefix(load_activity_data, subcategory_id, 'Activity_Name', prefix_length=5)
     return activities
