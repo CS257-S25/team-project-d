@@ -36,119 +36,119 @@ T030186,Talking with/listening to hh children
 T030108,Organization & planning for hh children
 T030109,Looking after hh children (as a primary activity)
 T030110,Attending hh children's events
-T0030111,Waiting for/with hh children
-T0030112,Picking up/dropping off hh children
-T0030201,Homework (hh children)
-T0030202,Meetings and school conferences (hh children)
-T0030203,Home schooling of hh children
-T0030204,Waiting associated with hh children's education
-T0030301,Providing medical care to hh children
-T0030302,Obtaining medical care for hh children
-T0030303,Waiting associated with hh children's health
-T0030401,Physical care for hh adults
-T0030402,Looking after hh adult (as a primary activity)
-T0030403,Providing medical care to hh adult
-T0030404,Obtaining medical and care services for hh adult
-T0030405,Waiting associated with caring for household adults
-T0030501,Helping hh adults
-T0030502,Organization & planning for hh adults
-T0030503,Picking up/dropping off hh adult
-T0030504,Waiting associated with helping hh adults
-T0040101,Physical care for nonhh children
-T0040102,Reading to/with nonhh children
-T0040103,"Playing with nonhh children, not sports"
-T0040104,Arts and crafts with nonhh children
-T0040105,Playing sports with nonhh children
-T0040186,Talking with/listening to nonhh children
-T0040108,Organization & planning for nonhh children
-T0040109,Looking after nonhh children (as primary activity)
-T0040110,Attending nonhh children's events
-T0040111,Waiting for/with nonhh children
-T0040112,Dropping off/picking up nonhh children
-T0040201,Homework (nonhh children)
-T0040202,Meetings and school conferences (nonhh children)
-T0040203,Home schooling of nonhh children
-T0040204,Waiting associated with nonhh children's education
-T0040301,Providing medical care to nonhh children
-T0040302,Obtaining medical care for nonhh children
-T0040303,Waiting associated with nonhh children's health
-T0040401,Physical care for nonhh adults
-T0040402,Looking after nonhh adult (as a primary activity)
-T0040403,Providing medical care to nonhh adult
-T0040404,Obtaining medical and care services for nonhh adult
-T0040405,Waiting associated with caring for nonhh adults
-T0040501,"Housework, cooking, & shopping assistance for nonhh adults"
-T0040502,House & lawn maintenance & repair assistance for nonhh adults
-T0040503,Animal & pet care assistance for nonhh adults
-T0040504,Vehicle & appliance maintenance/repair assistance for nonhh adults
-T0040505,Financial management assistance for nonhh adults
-T0040506,Household management & paperwork assistance for nonhh adults
-T0040507,Picking up/dropping off nonhh adult
-T0040508,Waiting associated with helping nonhh adults
-T0050101,"Work, main job"
-T0050102,"Work, other job(s)"
-T0050103,Security procedures related to work
-T0050201,"Socializing, relaxing, and leisure as part of job"
-T0050202,Eating and drinking as part of job
-T0050203,Sports and exercise as part of job
-T0050204,Security procedures as part of job
-T0050301,"Income-generating hobbies, crafts, and food"
-T0050302,Income-generating performances
-T0050303,Income-generating services
-T0050304,Income-generating rental property activities
-T0050481,Job search activities
-T0050403,Job interviewing
-T0050404,Waiting associated with job search or interview
-T0050405,Security procedures rel. to job search/interviewing
-T0060101,"Taking class for degree, certification, or licensure"
-T0060102,Taking class for personal interest
-T0060103,Waiting associated with taking classes
-T0060104,Security procedures rel. to taking classes
-T0060201,Extracurricular club activities
-T0060202,Extracurricular music & performance activities
-T0060203,Extracurricular student government activities
-T0060301,"Research/homework for class for degree, certification, or licensure"
-T0060302,Research/homework for class for pers. interest
-T0060303,Waiting associated with research/homework
-T0060401,"Administrative activities: class for degree, certification, or licensure"
-T0060402,Administrative activities: class for personal interest
-T0060403,Waiting associated w/admin. activities (education)
-T0070101,Grocery shopping
-T0070102,Purchasing gas
-T0070103,Purchasing food (not groceries)
-T0070104,"Shopping, except groceries, food and gas"
-T0070105,Waiting associated with shopping
-T0070201,Comparison shopping
-T0070301,Security procedures rel. to consumer purchases
-T0080101,Using paid childcare services
-T0080102,Waiting associated w/purchasing childcare svcs
-T0080201,Banking
-T0080202,Using other financial services
-T0080203,Waiting associated w/banking/financial services
-T0080301,Using legal services
-T0080302,Waiting associated with legal services
-T0080401,Using health and care services outside the home
-T0080402,Using in-home health and care services
-T0080403,Waiting associated with medical services
-T0080501,Using personal care services
-T0080502,Waiting associated w/personal care services
-T0080601,Activities rel. to purchasing/selling real estate
-T0080602,Waiting associated w/purchasing/selling real estate
-T0080701,Using veterinary services
-T0080702,Waiting associated with veterinary services
-T0080801,Security procedures rel. to professional/personal svcs.
-T0090101,Using interior cleaning services
-T0090102,Using meal preparation services
-T0090103,Using clothing repair and cleaning services
-T0090104,Waiting associated with using household services
-T0090201,Using home maint/repair/décor/construction svcs
-T0090202,Waiting associated w/ home main/repair/décor/constr
-T0090301,Using pet services
-T0090302,Waiting associated with pet services
-T0090401,Using lawn and garden services
-T0090402,Waiting associated with using lawn & garden services
-T0090501,Using vehicle maintenance or repair services
-T0090502,Waiting associated with vehicle main. or repair svcs
+T030111,Waiting for/with hh children
+T030112,Picking up/dropping off hh children
+T030201,Homework (hh children)
+T030202,Meetings and school conferences (hh children)
+T030203,Home schooling of hh children
+T030204,Waiting associated with hh children's education
+T030301,Providing medical care to hh children
+T030302,Obtaining medical care for hh children
+T030303,Waiting associated with hh children's health
+T030401,Physical care for hh adults
+T030402,Looking after hh adult (as a primary activity)
+T030403,Providing medical care to hh adult
+T030404,Obtaining medical and care services for hh adult
+T030405,Waiting associated with caring for household adults
+T030501,Helping hh adults
+T030502,Organization & planning for hh adults
+T030503,Picking up/dropping off hh adult
+T030504,Waiting associated with helping hh adults
+T040101,Physical care for nonhh children
+T040102,Reading to/with nonhh children
+T040103,"Playing with nonhh children, not sports"
+T040104,Arts and crafts with nonhh children
+T040105,Playing sports with nonhh children
+T040186,Talking with/listening to nonhh children
+T040108,Organization & planning for nonhh children
+T040109,Looking after nonhh children (as primary activity)
+T040110,Attending nonhh children's events
+T040111,Waiting for/with nonhh children
+T040112,Dropping off/picking up nonhh children
+T040201,Homework (nonhh children)
+T040202,Meetings and school conferences (nonhh children)
+T040203,Home schooling of nonhh children
+T040204,Waiting associated with nonhh children's education
+T040301,Providing medical care to nonhh children
+T040302,Obtaining medical care for nonhh children
+T040303,Waiting associated with nonhh children's health
+T040401,Physical care for nonhh adults
+T040402,Looking after nonhh adult (as a primary activity)
+T040403,Providing medical care to nonhh adult
+T040404,Obtaining medical and care services for nonhh adult
+T040405,Waiting associated with caring for nonhh adults
+T040501,"Housework, cooking, & shopping assistance for nonhh adults"
+T040502,House & lawn maintenance & repair assistance for nonhh adults
+T040503,Animal & pet care assistance for nonhh adults
+T040504,Vehicle & appliance maintenance/repair assistance for nonhh adults
+T040505,Financial management assistance for nonhh adults
+T040506,Household management & paperwork assistance for nonhh adults
+T040507,Picking up/dropping off nonhh adult
+T040508,Waiting associated with helping nonhh adults
+T050101,"Work, main job"
+T050102,"Work, other job(s)"
+T050103,Security procedures related to work
+T050201,"Socializing, relaxing, and leisure as part of job"
+T050202,Eating and drinking as part of job
+T050203,Sports and exercise as part of job
+T050204,Security procedures as part of job
+T050301,"Income-generating hobbies, crafts, and food"
+T050302,Income-generating performances
+T050303,Income-generating services
+T050304,Income-generating rental property activities
+T050481,Job search activities
+T050403,Job interviewing
+T050404,Waiting associated with job search or interview
+T050405,Security procedures rel. to job search/interviewing
+T060101,"Taking class for degree, certification, or licensure"
+T060102,Taking class for personal interest
+T060103,Waiting associated with taking classes
+T060104,Security procedures rel. to taking classes
+T060201,Extracurricular club activities
+T060202,Extracurricular music & performance activities
+T060203,Extracurricular student government activities
+T060301,"Research/homework for class for degree, certification, or licensure"
+T060302,Research/homework for class for pers. interest
+T060303,Waiting associated with research/homework
+T060401,"Administrative activities: class for degree, certification, or licensure"
+T060402,Administrative activities: class for personal interest
+T060403,Waiting associated w/admin. activities (education)
+T070101,Grocery shopping
+T070102,Purchasing gas
+T070103,Purchasing food (not groceries)
+T070104,"Shopping, except groceries, food and gas"
+T070105,Waiting associated with shopping
+T070201,Comparison shopping
+T070301,Security procedures rel. to consumer purchases
+T080101,Using paid childcare services
+T080102,Waiting associated w/purchasing childcare svcs
+T080201,Banking
+T080202,Using other financial services
+T080203,Waiting associated w/banking/financial services
+T080301,Using legal services
+T080302,Waiting associated with legal services
+T080401,Using health and care services outside the home
+T080402,Using in-home health and care services
+T080403,Waiting associated with medical services
+T080501,Using personal care services
+T080502,Waiting associated w/personal care services
+T080601,Activities rel. to purchasing/selling real estate
+T080602,Waiting associated w/purchasing/selling real estate
+T080701,Using veterinary services
+T080702,Waiting associated with veterinary services
+T080801,Security procedures rel. to professional/personal svcs.
+T090101,Using interior cleaning services
+T090102,Using meal preparation services
+T090103,Using clothing repair and cleaning services
+T090104,Waiting associated with using household services
+T090201,Using home maint/repair/décor/construction svcs
+T090202,Waiting associated w/ home main/repair/décor/constr
+T090301,Using pet services
+T090302,Waiting associated with pet services
+T090401,Using lawn and garden services
+T090402,Waiting associated with using lawn & garden services
+T090501,Using vehicle maintenance or repair services
+T090502,Waiting associated with vehicle main. or repair svcs
 T0100101,Using police and fire services
 T0100102,Using social services
 T0100103,"Obtaining licenses & paying fines, fees, taxes"

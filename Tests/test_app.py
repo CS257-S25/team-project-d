@@ -8,6 +8,7 @@ class TestApp(unittest.TestCase):
         '''set up for testing'''
         app.config['TESTING']= True
         self.app = app.test_client()
+    
     def test_route_home(self):
         '''tests that the home route returns the correct thing'''
         response = self.app.get('/', follow_redirects=True)
@@ -25,6 +26,7 @@ class TestApp(unittest.TestCase):
             b"go to /get-activities/'<'category'>'/'<'subcategory'>'"\
             b"....  NOTE: basically choose Personal Care Activities and Sleeping "\
             b"because of incomplete test data", response.data )
+    
     def test_route_top_by_age(self):
         '''tests that the route to get top by age returns the right thing, given age 23'''
         response = self.app.get('/get-top/23', follow_redirects=True)
@@ -69,27 +71,28 @@ class TestApp(unittest.TestCase):
         b"If you entered the URL manually please check your spelling and try again. " \
         b"... refer to homepage (/) for options", response.data)
 
-    #these could all probably be shortened with a helper function to reduce repeated code
+    def check_missing_route(self, route, message):
+        '''helper to test missing parameter routes'''
+        response= self.app.get(route)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(message.encode(), response.data)
+
     def test_missing_age(self):
         '''test for missing_age route'''
-        response= self.app.get('/get-top/')
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(b"please include an age, ex: /get-top/23", response.data)
+        self.check_missing_route('/get-top/',
+                                "please include an age, ex: /get-top/23" ) 
 
     def test_missing_category(self):
         '''test for missing_category route'''
-        response = self.app.get('/get-subcategories/')
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(b"please include a category, " \
-            b"ex: /get-subcategories/Personal Care Activities", response.data)
+        self.check_missing_route('/get-subcategories/',
+                                "please include a category, " \
+                                "ex: /get-subcategories/Personal Care Activities")
 
     def test_missing_cat_and_sub(self):
         '''test for missing_cat_and_sub route'''
-        response = self.app.get('/get-activities/')
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(b"please include a category and a subcategory, " \
-            b"ex: /get-activities/Personal Care activities/Sleeping", response.data)
-
+        self.check_missing_route('/get-activities/',
+                                "please include a category and a subcategory, " \
+                                "ex: /get-activities/Personal Care activities/Sleeping" ) 
     #def test_missing_subcategory(self):
         #'''test for missing_subcategory'''
         #response = self.app.get('/get-activities/Personal Care Activities/')

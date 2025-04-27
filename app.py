@@ -28,8 +28,8 @@ def homepage():
 def get_top_by_age(age):
     '''param: age, the age you want to see the top category for
     returns a string that gives the information for the top activity for an age group'''
-    top=get_most_common_top_activity(age, 1)[0]
-    return "The top activity for people age " + str(age) + " is " + str(top)
+    top= get_most_common_top_activity(age)[0]
+    return "the top activity for people age " + str(age) + " is " + str(top)
 
 @app.route('/get-top/')
 def missing_age():
@@ -60,8 +60,8 @@ def get_activities_from_sub(category, subcategory):
     ''' param: category, the category you want to look at 
     param: subcategory, the subcategory you want more info about (activities for)
     returns a list of activities from a subcategory'''
-    activities = get_activities_from_subcategory(category, subcategory)
-    return f"Here are the activities for {subcategory} in {category}: {activities}"
+    activities = get_activities_from_subcategory(subcategory)
+    return f"here are the activities for {subcategory} in {category}: {activities}"
 
 @app.route('/get-activities/')
 def missing_cat_and_sub():
