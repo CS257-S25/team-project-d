@@ -76,7 +76,7 @@ class TestCL(unittest.TestCase):
         expected_error_message = "Usage: python3 cl.py --category <valid category>"
         output = self.output_usage(args, expected_error_message)
         self.assertIsNotNone(output)
- 
+
     def test_invalid_subcategory(self):
         '''test an invalid subcategory for Acceptance Test 3
         '''
