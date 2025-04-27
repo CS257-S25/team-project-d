@@ -84,7 +84,7 @@ class TestCL(unittest.TestCase):
     def test_invalid_subcategory(self):
         '''test an invalid subcategory for Acceptance Test 3
         '''
-        args= ["cl.py", "--category", "Household Activities", "--subcategory", "Astronaut"]
+        args= ["cl.py", "--category", "Household_Activities", "--subcategory", "Astronaut"]
         expected_error_message = "Usage: python3 cl.py --category <valid category> --subcategory " \
             "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs"
         output = self.output_usage(args, expected_error_message)
