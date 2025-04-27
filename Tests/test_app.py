@@ -28,7 +28,7 @@ class TestApp(unittest.TestCase):
     def test_get_all_categories(self):
         '''tests that the route to get all categories returns the correct thing'''
         response = self.app.get('/get-all-categories', follow_redirects=True)
-        self.assertEqual(b"the category options are: "
+        self.assertEqual(b"the category options are: " \
             b"['Personal_Care_Activities', 'Household_Activities', " \
             b"'Caring_For_&_Helping_Household_(HH)_Members', " \
             b"'Caring_For_&_Helping_Nonhousehold_(NonHH)_Members', " \
