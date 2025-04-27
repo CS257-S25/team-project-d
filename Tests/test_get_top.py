@@ -107,7 +107,7 @@ class TestGetTop(unittest.TestCase):
     ])
     def test_acceptance_valid_age(self, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
-        self.assertEqual(cl.get_most_common_top_activity(23, 1), ("T050101", 2))
+        self.assertEqual(cl.get_most_common_top_activity(23), ("T050101", 2))
 
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
