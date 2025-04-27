@@ -15,12 +15,8 @@ class TestApp(unittest.TestCase):
         self.assertEqual(b"This is the homepage: "\
             b" 1) TO GET the top activity for a certain age, go to /get-top/'<'age'>'"\
             b" 2) TO GET a list of all category options, go to /get-all-categories "\
-            b"....  NOTE: for now you can only shoose these categories: "\
-            b"Personal Care Activities or Household Activities"\
             b" 3) TO GET a list of subcategory options from a category, "\
             b"go to /get-subcategories/'<'category'>' "\
-            b"....  NOTE: for now you can only shoose these categories: "\
-            b"Personal Care Activities or Household Activities"\
             b" 4) TO GET a list of activities from a subcategory, "\
             b"go to /get-activities/'<'category'>'/'<'subcategory'>'", response.data )
     
@@ -55,9 +51,9 @@ class TestApp(unittest.TestCase):
 
     def test_get_activities_from_sub(self):
         '''tests that the route to get activities returns the correct thing '''
-        response = self.app.get('/get-activities/Personal Care Activities/Sleeping',
+        response = self.app.get('/get-activities/Personal_Care_Activities/Sleeping',
                                 follow_redirects=True)
-        self.assertEqual(b"here are the activities for Sleeping in Personal Care Activities: "
+        self.assertEqual(b"here are the activities for Sleeping in Personal_Care_Activities: "
         b"['Sleeping', 'Sleeplessness']", response.data)
 
     def assert_404(self, route):
@@ -83,19 +79,19 @@ class TestApp(unittest.TestCase):
         '''test for missing_category route'''
         self.check_missing_route('/get-subcategories/',
                                 "Please include a category, " \
-                                "ex: /get-subcategories/Personal Care Activities")
+                                "ex: /get-subcategories/Personal_Care_Activities")
 
     def test_missing_cat_and_sub(self):
         '''test for missing_cat_and_sub route'''
         self.check_missing_route('/get-activities/',
                                 "Please include a category and a subcategory, " \
-                                "ex: /get-activities/Personal Care activities/Sleeping" ) 
+                                "ex: /get-activities/Personal_Care_Activities/Sleeping" ) 
     #def test_missing_subcategory(self):
         #'''test for missing_subcategory'''
-        #response = self.app.get('/get-activities/Personal Care Activities/')
+        #response = self.app.get('/get-activities/Personal_Care_Activities/')
         #self.assertEqual(response.status_code, 200)
         #self.assertIn(b"please include subcategory, " \
-            #b"ex: /get-activities/Personal Care activities/Sleeping", response.data)
+            #b"ex: /get-activities/Personal_Care_Activities/Sleeping", response.data)
     #def test_invalid_inputs(self):
         #response = self.app.get("/get-top/eighteen")
         #self.assertEqual(response.status_code. 200) if i add to app.py a test valid age thing

@@ -15,12 +15,8 @@ def homepage():
     return "This is the homepage: "\
     " 1) TO GET the top activity for a certain age, go to /get-top/'<'age'>'"\
     " 2) TO GET a list of all category options, go to /get-all-categories "\
-    "....  NOTE: for now you can only shoose these categories: "\
-    "Personal Care Activities or Household Activities"\
     " 3) TO GET a list of subcategory options from a category, "\
     "go to /get-subcategories/'<'category'>' "\
-    "....  NOTE: for now you can only shoose these categories: "\
-    "Personal Care Activities or Household Activities"\
     " 4) TO GET a list of activities from a subcategory, "\
     "go to /get-activities/'<'category'>'/'<'subcategory'>'"
 
