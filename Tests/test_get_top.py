@@ -113,8 +113,8 @@ class TestGetTop(unittest.TestCase):
         
         sys.argv = ["cl.py", "--age", "23", "--top"]
         sys.stdout = StringIO()
-        with self.assertRaises(SystemExit):  
-            cl.main()
+       
+        cl.main()
 
         output = sys.stdout.getvalue().strip()
         self.assertEqual(output, "T050101 2")
