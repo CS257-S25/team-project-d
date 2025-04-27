@@ -12,17 +12,17 @@ class TestApp(unittest.TestCase):
     def test_route_home(self):
         '''tests that the home route returns the correct thing'''
         response = self.app.get('/', follow_redirects=True)
-        self.assertEqual("This is the homepage: "\
-            " 1) TO GET the top activity for a certain age, go to /get-top/'<'age'>'"\
-            " 2) TO GET a list of all category options, go to /get-all-categories "\
-            "....  NOTE: for now you can only shoose these categories: "\
-            "Personal Care Activities or Household Activities"\
-            " 3) TO GET a list of subcategory options from a category, "\
-            "go to /get-subcategories/'<'category'>' "\
-            "....  NOTE: for now you can only shoose these categories: "\
-            "Personal Care Activities or Household Activities"\
-            " 4) TO GET a list of activities from a subcategory, "\
-            "go to /get-activities/'<'category'>'/'<'subcategory'>'", response.data )
+        self.assertEqual(b"This is the homepage: "\
+            b" 1) TO GET the top activity for a certain age, go to /get-top/'<'age'>'"\
+            b" 2) TO GET a list of all category options, go to /get-all-categories "\
+            b"....  NOTE: for now you can only shoose these categories: "\
+            b"Personal Care Activities or Household Activities"\
+            b" 3) TO GET a list of subcategory options from a category, "\
+            b"go to /get-subcategories/'<'category'>' "\
+            b"....  NOTE: for now you can only shoose these categories: "\
+            b"Personal Care Activities or Household Activities"\
+            b" 4) TO GET a list of activities from a subcategory, "\
+            b"go to /get-activities/'<'category'>'/'<'subcategory'>'", response.data )
     
     def test_route_top_by_age(self):
         '''tests that the route to get top by age returns the right thing, given age 23'''
