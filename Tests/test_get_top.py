@@ -1,10 +1,10 @@
 '''file: test_get_top.py --- tests for get_top_by_age.py'''
-import cl
 import os
 import sys
 import unittest
 from io import StringIO
 from unittest.mock import patch
+import cl
 from ProductionCode.get_top_by_age import get_matching_rows
 from ProductionCode.get_top_by_age import process_row_for_activity, get_top_activity_from_row
 from ProductionCode.get_top_by_age import count_top_activites, get_most_common_top_activity
@@ -12,6 +12,7 @@ from ProductionCode.get_top_by_age import count_top_activites, get_most_common_t
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 class TestGetTop(unittest.TestCase):
+    '''class to test stuff from get_top_by_age'''
     def output_usage_for_age(self):
         '''helper method to call main from cl
         returns: usage message (str)
@@ -19,16 +20,15 @@ class TestGetTop(unittest.TestCase):
         sys.stdout = StringIO()
         try:
             cl.main()
-            output = sys.stdout.getvalue().strip()
+            #output = sys.stdout.getvalue().strip()
         except ValueError:
             print("Usage: python3 cl.py --age <age from 15-85> --top")
-            return
 
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
 
     #patch where the function is looked up not where it's defined
-    @patch("ProductionCode.get_top_by_age.load_data") 
+    @patch("ProductionCode.get_top_by_age.load_data")
     def test_get_matching_rows(self, mock_load_data):
         '''tests the get_matching_rows function
         verifies the method returns a list of rows that match the age given'''
@@ -92,21 +92,16 @@ class TestGetTop(unittest.TestCase):
         result = get_most_common_top_activity(23)
         self.assertEqual(result, ("T050101",'Work, main job' ))
 
-
-    #acceptance tests for user story 1 for get_top_by_age
-    ''' User story: a user wants to know the most common activity for a given age group
-    Acceptance tests:
-    1) given they input a valid age group (ex: (int) 18)---> the program should return the most common activity for that age group
-    2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
-    3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
-    '''
-
-    #come back to this, should be similar to invalid and use sys.argv
+    #User story: a user wants to know the most common activity for a given age group
+    #Acceptance tests:
+    #1) given they input a valid age group (ex: (int) 18)---> the program should return the most common activity for that age group
+    #2) given they input an invalid age group format (ex: (str) "eighteen")---> the program should return usage statement
+    #3) given they input an invalid age group/ out of range/no data (ex: (int) 200)---> the program should return usage statement, message that says no data available valid: 15-85
+    
     @patch('ProductionCode.get_top_by_age.load_data')
     @patch("ProductionCode.get_top_by_age.get_matching_rows")
     def test_acceptance_valid_age(self, mock_get_matching_rows, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
-        #self.assertEqual(cl.get_most_common_top_activity(23), ("T050101", "Work, main job"))
         mock_load_data.return_value = [
             {"Activity ID": "T050101", "Activity Name": "Work, main job"},
             {"Activity ID": "T050102", "Activity Name": "Other work"},
