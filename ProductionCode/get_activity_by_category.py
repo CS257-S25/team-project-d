@@ -67,11 +67,8 @@ def get_category_from_data(category):
     Returns: the ID of the category'''
     category_id = find_id_by_name(load_category_data, 'Category', category)
     if not category_id:
-        print(f"No data available found for category {category}, " \
-        "try Personal Care Activities or Household Activities")
-        # we should print something more like this instead of try...:
-        # "Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>\n"
-        #"Reference python3 cl.py --category for valid subcategory inputs")
+        print("Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>" \
+            "Reference python3 cl.py --category for valid subcategory inputs")
     return category_id
 
 def get_subcategory_from_data(subcategory):

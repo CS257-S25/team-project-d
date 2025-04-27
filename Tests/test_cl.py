@@ -81,8 +81,8 @@ class TestCL(unittest.TestCase):
         sys.stdout = StringIO()
         cl.main()
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "Usage: python3 cl.py --category <'Personal Care Activities' or" \
-            " 'Household Activities'>")
+        self.assertEqual(output, b"Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>" \
+            b"Reference python3 cl.py --category for valid subcategory inputs")
 
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
