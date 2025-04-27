@@ -37,7 +37,7 @@ class TestCL(unittest.TestCase):
             {"Activity_ID": "T0301", "Activity_Name": "rats"}
         ]
         result = get_list_of_subcategories("Household Activities")
-        self.assertEqual(["Housework", "Food & Drink Preparation/Presentation/Clean-Up"], result)
+        self.assertEqual(["Housework", "Food_&_Drink_Preparation/Presentation/Clean-Up"], result)
 
     @patch("shared_logic.get_the_subcategories")
     def test_get_the_subcategories(self, mock_get_the_subcategories):
@@ -45,19 +45,19 @@ class TestCL(unittest.TestCase):
         test if the function returns ['Sleeping', 'Grooming'] given the category name'''
         mock_get_the_subcategories.return_value = ['Sleeping', 'Grooming']
         result = get_the_subcategories("Personal Care Activities")
-        self.assertEqual(['Sleeping', 'Grooming','Health-related self care',
-                          'Personal Activities','Personal Care Emergencies'], result)
+        self.assertEqual(['Sleeping', 'Grooming','Health-related_self_care',
+                          'Personal_Activities','Personal_Care_Emergencies'], result)
 
     @patch("ProductionCode.get_activity_by_category.get_activities_from_subcategory")
     def test_get_activities_from_subcategory(self, mock_get_activities_from_subcategory):
         '''tests get_activity_from_subcategory from get_activity_by_category
-        test if the function returns ['Interior cleaning', 'Laundry', 
+        test if the function returns ['Interior_cleaning', 'Laundry', 
         'Sewing_repairing_&_maintaining_textiles', 'Storing_interior_hh_items_inc._food'] 
         given the subcategory name'''
-        mock_get_activities_from_subcategory.return_value = ['Interior cleaning', 'Laundry', 
+        mock_get_activities_from_subcategory.return_value = ['Interior_cleaning', 'Laundry', 
             'Sewing_repairing_&_maintaining_textiles', 'Storing_interior_hh_items_inc._food']
         result = get_activities_from_subcategory('Housework')
-        self.assertEqual(['Interior cleaning', 'Laundry', 
+        self.assertEqual(['Interior_cleaning', 'Laundry', 
             'Sewing_repairing_&_maintaining_textiles', 'Storing_interior_hh_items_inc._food'], result)
 
     #Acceptance Tests for user story 2:

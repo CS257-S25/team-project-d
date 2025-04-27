@@ -49,8 +49,8 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/get-subcategories/Personal Care Activities',
                                 follow_redirects=True)
         self.assertEqual(b"These are the subcategories: "
-        b"['Sleeping', 'Grooming', 'Health-related self care', " \
-        b"'Personal Activities', 'Personal Care Emergencies'] "
+        b"['Sleeping', 'Grooming', 'Health-related_self_care', " \
+        b"'Personal_Activities', 'Personal_Care_Emergencies'] "
         b"for Personal Care Activities", response.data)
 
     def test_get_activities_from_sub(self):
