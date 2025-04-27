@@ -42,7 +42,7 @@ def find_id_by_name(data_loader, name_key, target_name):
         if row[name_key] == target_name:
             print(row['Activity_ID'])
             return row['Activity_ID']
-    return None
+    # return None
 
 def filter_by_prefix(data_loader, id_prefix, name_key, prefix_length=None):
     '''helper function to filter &return names whose Activity_ID matches a prefix 
