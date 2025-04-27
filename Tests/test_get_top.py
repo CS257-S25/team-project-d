@@ -26,13 +26,7 @@ class TestGetTop(unittest.TestCase):
 
     ##### TESTS FOR USER STORY 1: get_top_by_age --- getting the top activity by age #####
     # tests for the functions in get_top_by_age.py
-    @patch("ProductionCode.get_top_by_age.load_data", 
-           #get_top_by_age.py would return (T050101,2) for age 23
-        return_value= [
-            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
-            {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
-        ])
-
+   
     #patch where the function is looked up not where it's defined
     @patch("ProductionCode.get_top_by_age.load_data") #get_top_by_age.py would return (T050101,2) for age 23
     def test_get_matching_rows(self, mock_load_data):
@@ -96,7 +90,7 @@ class TestGetTop(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ]
         result = get_most_common_top_activity(23)
-        self.assertEqual(result, ("T050101", 2))
+        self.assertEqual(result, ("T050101",'Work, main job' ))
 
 
     #acceptance tests for user story 1 for get_top_by_age
