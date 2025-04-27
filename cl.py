@@ -30,23 +30,21 @@ def get_parsed_arguments():
 
     return args
 
-def check_validity(args):
-    '''just a test rn'''
-    # use helper to reduce repeated code here: 
-    if args.category:
-        valid_subcategories = get_list_of_subcategories(args.category)
+def validate_category(category, subcategory = None):
+    valid_subcategories = get_list_of_subcategories(category)
 
-        if not valid_subcategories: 
-            raise InvalidCategoryError("Usage: python3 cl.py --category <valid category>")
-           
-
-    if args.category and args.subcategory:
-        valid_subcategories = get_list_of_subcategories(args.category)
-
-        if args.subcategory not in valid_subcategories:
-            raise InvalidCategoryError("Usage: python3 cl.py --category <valid category> --subcategory " \
+    if not valid_subcategories: 
+        raise InvalidCategoryError("Usage: python3 cl.py --category <valid category>")
+    
+    if subcategory and subcategory not in valid_subcategories:
+        raise InvalidCategoryError("Usage: python3 cl.py --category <valid category> --subcategory " \
             "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
-           
+
+
+def check_validity(args):
+    '''checks if the category and subcategory are valid'''
+    if args.category:
+        validate_category(args.category, args.subcategory)
 
 def main():
     '''main function for the command line interface'''
