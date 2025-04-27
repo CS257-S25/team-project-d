@@ -4,7 +4,7 @@ import sys
 import unittest
 from io import StringIO
 from unittest.mock import patch
-#from unittest.mock import mock_open
+from unittest.mock import mock_open
 import cl
 #from ProductionCode.get_top_by_age import get_matching_rows, load_matching_rows
 #from ProductionCode.get_top_by_age import process_row_for_activity, get_top_activity_from_row
@@ -16,23 +16,23 @@ from ProductionCode.get_activity_by_category import get_activities_from_subcateg
 from shared_logic import get_the_subcategories
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-#def mock_file_selector(file, *args, **kwargs):
-    #if "Categories_Data_test.csv" in file:
-        #mock_categories = (
-            #"Activity_ID,Category\n"
-            #"T02,Household Activities\n"
-        #)
-        #return mock_open(read_data=mock_categories).return_value
-    #elif "SubCategories_data.csv" in file:
-        #mock_subcategories = (
-            #"Activity_ID,Activity_Name\n"
-            #"T0101,Sleeping\n"
-            #"T0201,Housework\n"
-            #"T0202,Food & Drink Preparation/Presentation/Clean-Up\n"
-        #)
-        #return mock_open(read_data=mock_subcategories).return_value
-    #else:
-        #raise FileNotFoundError(f"Unexpected file path: {file}")
+def mock_file_selector(file, *args, **kwargs):
+    if "Categories_Data_test.csv" in file:
+        mock_categories = (
+            "Activity_ID,Category\n"
+            "T02,Household Activities\n"
+        )
+        return mock_open(read_data=mock_categories).return_value
+    elif "SubCategories_data.csv" in file:
+        mock_subcategories = (
+            "Activity_ID,Activity_Name\n"
+            "T0101,Sleeping\n"
+            "T0201,Housework\n"
+            "T0202,Food & Drink Preparation/Presentation/Clean-Up\n"
+        )
+        return mock_open(read_data=mock_subcategories).return_value
+    else:
+        raise FileNotFoundError(f"Unexpected file path: {file}")
 
 class TestCL(unittest.TestCase):
     '''Test class for the command line interface (CLI) for the project.'''
