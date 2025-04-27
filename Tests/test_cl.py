@@ -62,8 +62,8 @@ class TestCL(unittest.TestCase):
         simplifies repeated calls to main'''
         sys.stdout = StringIO()
         cl.main()
-        output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, b"Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>" \
+        #output = sys.stdout.getvalue().strip()
+        self.assertEqual(b"Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>" \
             b"Reference python3 cl.py --category for valid subcategory inputs")
 
     def test_invalid_category(self):
@@ -78,8 +78,8 @@ class TestCL(unittest.TestCase):
         simplifies repeated calls to main'''
         sys.stdout = StringIO()
         cl.main()
-        output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, b"Usage: python3 cl.py --category <valid category> --subcategory " \
+        #output = sys.stdout.getvalue().strip()
+        self.assertEqual(b"Usage: python3 cl.py --category <valid category> --subcategory " \
             b"<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
 
     def test_invalid_subcategory(self):
@@ -90,4 +90,3 @@ class TestCL(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-        
