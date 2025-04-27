@@ -15,8 +15,6 @@ class InvalidCategoryError(Exception):
 def get_parsed_arguments():
     '''parse the command line arguments
     returns: the parsed arguments (argparse.Namespace)'''
-    # python3 cl.py -- age 20 -- top
-    # get the top activity for people of age 20
     parser = argparse.ArgumentParser(description="Get the top activity for a given age group")
     parser.add_argument("--age", "-a", type=int, choices = range(15,85),
                          help="the age (15-85) to get the top activity for")
