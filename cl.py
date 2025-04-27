@@ -32,7 +32,7 @@ def main():
     #if user puts --age and --top,
     # get the most common activity for that age group w/ get_most_common_top_activity
     if args.age is not None and args.top is not None:
-        most_common_top_activity = get_most_common_top_activity(args.age, args.top)
+        most_common_top_activity = get_most_common_top_activity(args.age)
         print(most_common_top_activity)
 
     elif args.category is not None and args.subcategory is not None:

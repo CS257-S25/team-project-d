@@ -21,7 +21,6 @@ def load_category_data():
     Returns: a list of dicitionaries containing the categories data from the file'''
     return load_data("Data/Categories_Data_test.csv")
 
-
 def load_subcategory_data():
     '''Purpose: loads the subcategories data from the file
     Args: None
@@ -71,11 +70,11 @@ def get_category_from_data(category):
     if not category_id:
         print(f"No data available found for category {category}, " \
         "try Personal Care Activities or Household Activities")
-        # we should print something more like this instead of try...: 
-        # print("Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>\n"
+        # we should print something more like this instead of try...:
+        # "Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>\n"
         #"Reference python3 cl.py --category for valid subcategory inputs")
     return category_id
- 
+
 def get_subcategory_from_data(subcategory):
     '''Purpose: gets the ID of the selected subcategory
     Args: subcategory: the subcategory to get the ID for
@@ -92,15 +91,16 @@ def get_list_of_subcategories(category):
     Returns: a list of subcategories in the category'''
     category_id = get_category_from_data(category)
     if category_id:
-        return filter_by_prefix(load_subcategory_data, category_id, 
+        return filter_by_prefix(load_subcategory_data, category_id,
                                 'Activity_Name', prefix_length = len(category_id))
     return []
 
-def get_activities_from_subcategory(category, subcategory):
+def get_activities_from_subcategory(subcategory):
     '''Purpose: gets the list of activities from the selected subcategory
     Args: category: the category to get the activities for
           subcategory: the subcategory to get the activities for
     Returns: a list of activities in the subcategory'''
     subcategory_id = get_subcategory_from_data(subcategory)
-    activities = filter_by_prefix(load_activity_data, subcategory_id, 'Activity_Name', prefix_length=5)
+    activities = filter_by_prefix(load_activity_data, subcategory_id,
+                                  'Activity_Name', prefix_length=5)
     return activities
