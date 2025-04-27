@@ -78,8 +78,7 @@ class TestApp(unittest.TestCase):
     def test_missing_age(self):
         '''test for missing_age route'''
         self.check_missing_route('/get-top/',
-                                "please include an age, ex: /get-top/23" )
-        
+                                "please include an age, ex: /get-top/23" ) 
 
     def test_missing_category(self):
         '''test for missing_category route'''
@@ -92,7 +91,7 @@ class TestApp(unittest.TestCase):
         self.check_missing_route('/get-activities/',
                                 "please include a category and a subcategory, " \
                                 "ex: /get-activities/Personal Care activities/Sleeping" )
-        
+     
     #def test_missing_subcategory(self):
         #'''test for missing_subcategory'''
         #response = self.app.get('/get-activities/Personal Care Activities/')
