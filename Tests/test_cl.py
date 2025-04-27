@@ -24,7 +24,7 @@ class TestCL(unittest.TestCase):
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
         mock_get_category_from_data.return_value = "T01" #might not be needed
-        self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
+        self.assertEqual('T01', get_category_from_data('Personal_Care_Activities'))
 
     @patch("ProductionCode.get_activity_by_category.load_subcategory_data")
     def test_get_list_of_subcategories(self, mock_load_sub_data):
@@ -36,7 +36,7 @@ class TestCL(unittest.TestCase):
                 "Activity_Name":"Food_&_Drink_Preparation/Presentation/Clean-Up"},
             {"Activity_ID": "T0301", "Activity_Name": "rats"}
         ]
-        result = get_list_of_subcategories("Household Activities")
+        result = get_list_of_subcategories("Household_Activities")
         self.assertEqual(["Housework", "Food_&_Drink_Preparation/Presentation/Clean-Up"], result)
 
     @patch("shared_logic.get_the_subcategories")
@@ -44,7 +44,7 @@ class TestCL(unittest.TestCase):
         '''tests get_the_subcategories from shared_logic.py
         test if the function returns ['Sleeping', 'Grooming'] given the category name'''
         mock_get_the_subcategories.return_value = ['Sleeping', 'Grooming']
-        result = get_the_subcategories("Personal Care Activities")
+        result = get_the_subcategories("Personal_Care_Activities")
         self.assertEqual(['Sleeping', 'Grooming','Health-related_self_care',
                           'Personal_Activities','Personal_Care_Emergencies'], result)
 
