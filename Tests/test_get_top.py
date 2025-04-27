@@ -36,14 +36,14 @@ class TestGetTop(unittest.TestCase):
     #patch where the function is looked up not where it's defined
     @patch("ProductionCode.get_top_by_age.load_data") #get_top_by_age.py would return (T050101,2) for age 23
     def test_get_matching_rows(self, mock_load_data):
-        '''tests the load_matching_rows function
+        '''tests the get_matching_rows function
         verifies the method returns a list of rows that match the age given'''
         mock_load_data.return_value = [
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"},
             {"age":"57", "T050101": "3", "T050102": "1", "T050103": "3"}
         ]
-        rows = load_matching_rows(23)
+        rows = get_matching_rows(23)
         self.assertEqual(rows, [
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
@@ -86,12 +86,12 @@ class TestGetTop(unittest.TestCase):
         expected = {"T050101": 2} #should this be {"T050101": 2} or  {'T050101': 2, 'T050103': 1}
         self.assertEqual(result, expected)
 
-    @patch("ProductionCode.get_top_by_age.load_matching_rows")
-    def test_get_most_common_top_activity(self, mock_load_matching_rows):
+    @patch("ProductionCode.get_top_by_age.get_matching_rows")
+    def test_get_most_common_top_activity(self, mock_get_matching_rows):
         '''test the get_most_common_top_activity function
         verifies the method returns the most common activity for the age group given
         '''
-        mock_load_matching_rows.return_value = [
+        mock_get_matching_rows.return_value = [
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "1"},
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ]
