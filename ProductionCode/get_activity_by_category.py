@@ -1,5 +1,4 @@
-'''file: '''
-import csv
+'''file: get_activity_by_category'''
 from ProductionCode.load_data import load_data
 
 #Future: including more categories and subcategories to work with
