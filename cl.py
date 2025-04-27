@@ -4,14 +4,13 @@ The eventual location for the command line interface (CLI) for the project.
 This will be the entry point for the project when run from the command line.
 '''
 import argparse
-import sys
-from ProductionCode.get_activity_by_category import get_activities_from_subcategory, get_list_of_subcategories
+from ProductionCode.get_activity_by_category import get_activities_from_subcategory
+from ProductionCode.get_activity_by_category import get_list_of_subcategories
 from ProductionCode.get_top_by_age import get_most_common_top_activity
 from shared_logic import get_the_subcategories
 
 class InvalidCategoryError(Exception):
     '''exception raised for invalid category or subcategory'''
-    pass
 
 def get_parsed_arguments():
     '''parse the command line arguments
@@ -31,14 +30,16 @@ def get_parsed_arguments():
     return args
 
 def validate_category(category, subcategory = None):
+    '''helper method for check valid category and subcategory'''
     valid_subcategories = get_list_of_subcategories(category)
 
-    if not valid_subcategories: 
+    if not valid_subcategories:
         raise InvalidCategoryError("Usage: python3 cl.py --category <valid category>")
-    
+
     if subcategory and subcategory not in valid_subcategories:
-        raise InvalidCategoryError("Usage: python3 cl.py --category <valid category> --subcategory " \
-            "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
+        raise InvalidCategoryError(
+            "Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory> " \
+            "\n reference python3 cl.py --category for valid subcategory inputs")
 
 
 def check_validity(args):
