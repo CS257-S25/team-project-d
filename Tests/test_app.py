@@ -90,8 +90,7 @@ class TestApp(unittest.TestCase):
         '''test for missing_cat_and_sub route'''
         self.check_missing_route('/get-activities/',
                                 "please include a category and a subcategory, " \
-                                "ex: /get-activities/Personal Care activities/Sleeping" )
-    
+                                "ex: /get-activities/Personal Care activities/Sleeping" ) 
     #def test_missing_subcategory(self):
         #'''test for missing_subcategory'''
         #response = self.app.get('/get-activities/Personal Care Activities/')
