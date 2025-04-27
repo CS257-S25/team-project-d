@@ -9,6 +9,10 @@ from ProductionCode.get_activity_by_category import get_activities_from_subcateg
 from ProductionCode.get_top_by_age import get_most_common_top_activity
 from shared_logic import get_the_subcategories
 
+class InvalidCategoryError(Exception):
+    '''exception raised for invalid category or subcategory'''
+    pass
+
 def get_parsed_arguments():
     '''parse the command line arguments
     returns: the parsed arguments (argparse.Namespace)'''
@@ -28,19 +32,20 @@ def get_parsed_arguments():
 
 def check_validity(args):
     '''just a test rn'''
+    # use helper to reduce repeated code here: 
     if args.category:
         valid_subcategories = get_list_of_subcategories(args.category)
 
         if not valid_subcategories: 
-            print("Usage: python3 cl.py --category <valid category>")
-            sys.exit(1)
+            raise InvalidCategoryError("Usage: python3 cl.py --category <valid category>")
+           
 
     if args.category and args.subcategory:
         valid_subcategories = get_list_of_subcategories(args.category)
 
         if args.subcategory not in valid_subcategories:
-            print("Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>")
-            sys.exit(1)
+            raise InvalidCategoryError("Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory>")
+           
 
 def main():
     '''main function for the command line interface'''

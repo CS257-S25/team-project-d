@@ -61,9 +61,13 @@ class TestCL(unittest.TestCase):
         returns: usage message (str)
         simplifies repeated calls to main'''
         sys.stdout = StringIO()
-        cl.main()
-        output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, b"Usage: python3 cl.py --category <valid category>")
+        try:
+            cl.main()
+        except cl.InvalidCategoryError as e:
+            output = str(e)
+            self.assertEqual(output, b"Usage: python3 cl.py --category <valid category>")
+            return output
+        return None
 
     def test_invalid_category(self):
         '''test an invalid category for Acceptance Test 3
