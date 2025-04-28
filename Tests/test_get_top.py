@@ -116,6 +116,11 @@ class TestGetTop(unittest.TestCase):
         with self.assertRaises(SystemExit):
             self.output_usage_for_age()
 
+    def test_acceptance_invalid_age(self):
+        '''test if the function returns usage statement for invalid age format'''
+        sys.argv = ["cl.py", "--age", "82"]
+        self.assertIn("No data available for age 82, try ages 15-85", self.output_usage_for_age())
+
     def test_acceptance_invalid_age_range(self):# the range is 15-85
         '''test if the function returns usage statement for invalid age range'''
         sys.argv = ["cl.py", "--age", "200"]
