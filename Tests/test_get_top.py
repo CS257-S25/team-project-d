@@ -119,7 +119,7 @@ class TestGetTop(unittest.TestCase):
     def test_acceptance_invalid_age(self):
         '''test if the function returns usage statement for invalid age'''
         sys.argv = ["cl.py", "--age", "82"]
-        print(f"test to fix error: {self.out}")
+        print(f"test to fix error: {self.output_usage_for_age}")
         self.assertIn("No data available for age 82", self.output_usage_for_age())
 
     def test_acceptance_invalid_age_range(self):# the range is 15-85
