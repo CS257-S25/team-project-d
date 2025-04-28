@@ -67,7 +67,7 @@ def missing_cat_and_sub():
         "ex: /get-activities/Personal_Care_Activities/Sleeping"
 
 @app.route('/get-activities/<category>/')
-def missing_subcategory(category):
+def missing_subcategory(_category):
     '''returns a message if you forgot to add a subcategory'''
     return "Please include a subcategory, " \
         "ex: /get-activities/Personal_Care_Activities/Sleeping"
