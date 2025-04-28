@@ -104,7 +104,7 @@ def get_most_common_top_activity(age):
     matching_rows = get_matching_rows(age)
     if not matching_rows:
         print(f"No data available for age {age}, try ages 15-85")
-        return None
+        return None, None
     top_activities = count_top_activites(matching_rows)
     if top_activities:
         # NOTE: this will return the most common activity and the count of the activity
