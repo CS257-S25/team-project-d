@@ -59,12 +59,6 @@ def process_row_for_activity(row):
         if key not in excluded_columns and row[key] != "NA":
             row[key] = float(row[key]) #handle scientific notation
             activity_hours[key] = int(row[key])
-            # try:
-            #     row[key] = float(row[key]) #handle scientific notation
-            #     activity_hours[key] = int(row[key])
-            # except ValueError:
-            #     print(f"ValueError: could not convert {row[key]} to int for key {key}")
-            #     continue
     return activity_hours
 
 def get_top_activity_from_row(activity_hours):
