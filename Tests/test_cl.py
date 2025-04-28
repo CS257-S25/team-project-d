@@ -54,11 +54,12 @@ class TestCL(unittest.TestCase):
         test if the function returns ['Interior_cleaning', 'Laundry', 
         'Sewing_repairing_&_maintaining_textiles', 'Storing_interior_hh_items_inc._food'] 
         given the subcategory name'''
-        mock_get_activities_from_subcategory.return_value = ['Interior_cleaning', 'Laundry', 
+        mock_get_activities_from_subcategory.return_value = ['Interior_cleaning', 'Laundry',
             'Sewing_repairing_&_maintaining_textiles', 'Storing_interior_hh_items_inc._food']
         result = get_activities_from_subcategory('Housework')
-        self.assertEqual(['Interior_cleaning', 'Laundry', 
-            'Sewing_repairing_&_maintaining_textiles', 'Storing_interior_hh_items_inc._food'], result)
+        self.assertEqual(['Interior_cleaning', 'Laundry',
+            'Sewing_repairing_&_maintaining_textiles',
+            'Storing_interior_hh_items_inc._food'], result)
 
     #Acceptance Tests for user story 2:
     def output_usage(self, args, expected_error_message):

@@ -4,7 +4,6 @@ file: app.py
 from flask import Flask, request
 from ProductionCode.get_top_by_age import get_most_common_top_activity
 from ProductionCode.get_activity_by_category import load_category_data
-from ProductionCode.get_activity_by_category import get_category_from_data
 from ProductionCode.get_activity_by_category import get_list_of_subcategories
 from ProductionCode.get_activity_by_category import get_activities_from_subcategory
 app = Flask(__name__)
