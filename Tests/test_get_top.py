@@ -22,6 +22,9 @@ class TestGetTop(unittest.TestCase):
             cl.main()
         except ValueError:
             print("Usage: python3 cl.py --age <age from 15-85> --top")
+        finally:
+            sys.stdout = sys.__stdout__   # Restore original stdout
+        return sys.stdout.getvalue()
 
     #patch where the function is looked up not where it's defined
     @patch("ProductionCode.get_top_by_age.load_data")
