@@ -60,6 +60,14 @@ class TestCL(unittest.TestCase):
         self.assertEqual(['Interior_cleaning', 'Laundry',
             'Sewing_repairing_&_maintaining_textiles',
             'Storing_interior_hh_items_inc._food'], result)
+        
+    @patch("ProductionCode.get_activity_by_category.get_activities_from_subcategory")
+    def test_invalid_get_activities_from_subcategory(self, mock_get_activities_from_subcategory):
+        '''tests get_activity_from_subcategory from get_activity_by_category
+        test if the function returns '''
+        mock_get_activities_from_subcategory.return_value = [None]
+        result = get_activities_from_subcategory(None
+        self.assertEqual(None, result)
 
     #Acceptance Tests for user story 2:
     def output_usage(self, args, expected_error_message):
