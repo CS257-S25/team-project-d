@@ -54,6 +54,13 @@ class TestGetTop(unittest.TestCase):
             "T050103": 3
         })
 
+    def test_invalid_row_for_activity(self):
+        ''''tests the process_row_for_activity function
+        by verifying it raises a ValueError for invalid data'''
+        row = {"age":"23", "T050101": "5", "T050102": "1", "T050103": "invalid"}
+        with self.assertRaises(ValueError):
+            process_row_for_activity(row)
+
     def test_get_top_activity_from_rows(self):
         '''tests the get_top_activity_from_row function
         veriifies the method returns the top activity for the rows given'''
