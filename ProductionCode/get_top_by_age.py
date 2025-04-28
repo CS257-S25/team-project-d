@@ -113,3 +113,4 @@ def get_most_common_top_activity(age):
         most_common_activity = top_activities.most_common(1)[0][0]
         activity = get_activity_name(most_common_activity)
         return most_common_activity, activity #activity, most_common_activity
+    return None, None
