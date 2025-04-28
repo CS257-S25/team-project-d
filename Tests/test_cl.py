@@ -25,6 +25,8 @@ class TestCL(unittest.TestCase):
         test if the function returns T01 for the category Personal Care Activities'''
         mock_get_category_from_data.return_value = "T01" #might not be needed
         self.assertEqual('T01', get_category_from_data('Personal_Care_Activities'))
+        mock_get_category_from_data.return_value = "T18" #might not be needed
+        self.assertEqual('T18', get_category_from_data('Traveling'))
 
     @patch("ProductionCode.get_activity_by_category.load_subcategory_data")
     def test_get_list_of_subcategories(self, mock_load_sub_data):
