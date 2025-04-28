@@ -122,7 +122,7 @@ class TestGetTop(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             self.output_usage_for_age()
         self.assertEqual(cm.exception.code,2)
-        sys.argv = ["cl.py", "--age", "-5"]
+        sys.argv = ["cl.py", "--age", ""]
         with self.assertRaises(SystemExit) as cm:
             self.output_usage_for_age()
         self.assertEqual(cm.exception.code,2)
