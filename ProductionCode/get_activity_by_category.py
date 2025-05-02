@@ -40,6 +40,7 @@ def find_id_by_name(data_loader, name_key, target_name):
     data = data_loader()
     for row in data:
         if row[name_key] == target_name:
+            print(row['Activity_ID'])
             return row['Activity_ID']
     return None
 
@@ -74,7 +75,7 @@ def get_subcategory_from_data(subcategory):
     '''Purpose: gets the ID of the selected subcategory
     Args: subcategory: the subcategory to get the ID for
     Returns: the ID of the subcategory'''
-    subcategory_id = find_id_by_name(load_subcategory_data, 'Activity_Name', subcategory) 
+    subcategory_id = find_id_by_name(load_subcategory_data, 'Activity_Name', subcategory)
     if not subcategory_id:
         print("Usage: python3 cl.py --category <valid category> --subcategory " \
         "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")

@@ -2,7 +2,18 @@ CS257 S25
 
 Claire Holmes, Camila Mendoza, KD Meraz
 
-To run our command line interface, there are currently two features:
+**To run our Flask App, run python3 app.py from the command line.**
+
+The features of the app are the same as the command line interface. More details on how to access these features are on the homepage of the Flask website and are repeated here: 
+
+Homepage Instructions:
+1) TO GET the top activity for a certain age, go to /get-top/<age>
+2) TO GET a list of all category options, go to /get-all-categories 
+3) TO GET a list of subcategory options from a category, go to /get-subcategories/<category> 
+4) TO GET a list of activities from a subcategory, go to /get-activities/<category>/<subcategory>
+
+
+**To run our command line interface, there are currently two features:**
 
 1) Our code can tell the user the activity that participants of a certain age spend the most time doing:
 
@@ -14,7 +25,7 @@ python3 cl.py --age 20 --top
 
 *Note: this usage statement is for current test data*
 
-Usage: python3 cl.py --category <"Personal Care Activities" or "Household Activities">
+Usage: python3 cl.py --category <valid category>
 
 python3 cl.py --category "Household Activities"
 

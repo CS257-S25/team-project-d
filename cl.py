@@ -39,7 +39,6 @@ def validate_category(category, subcategory = None):
             "Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory> " \
             "\n reference python3 cl.py --category for valid subcategory inputs")
 
-
 def check_validity(args):
     '''checks if the category and subcategory are valid'''
     if args.category:

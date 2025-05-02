@@ -24,7 +24,7 @@ class TestCL(unittest.TestCase):
         '''tests the get_category_from_data function and Acceptance Test 1
         test if the function returns T01 for the category Personal Care Activities'''
         mock_get_category_from_data.return_value = "T01" #might not be needed
-        self.assertEqual('T01', get_category_from_data('Personal Care Activities'))
+        self.assertEqual('T01', get_category_from_data('Personal_Care_Activities'))
 
     @patch("ProductionCode.get_activity_by_category.load_subcategory_data")
     def test_get_list_of_subcategories(self, mock_load_sub_data):
@@ -33,28 +33,33 @@ class TestCL(unittest.TestCase):
         mock_load_sub_data.return_value = [
             {"Activity_ID": "T0201", "Activity_Name": "Housework"},
             {"Activity_ID": "T0202",
-                "Activity_Name":"Food & Drink Preparation/Presentation/Clean-Up"},
+                "Activity_Name":"Food_&_Drink_Preparation/Presentation/Clean-Up"},
             {"Activity_ID": "T0301", "Activity_Name": "rats"}
         ]
-        result = get_list_of_subcategories("Household Activities")
-        self.assertEqual(["Housework", "Food & Drink Preparation/Presentation/Clean-Up"], result)
+        result = get_list_of_subcategories("Household_Activities")
+        self.assertEqual(["Housework", "Food_&_Drink_Preparation/Presentation/Clean-Up"], result)
 
     @patch("shared_logic.get_the_subcategories")
     def test_get_the_subcategories(self, mock_get_the_subcategories):
         '''tests get_the_subcategories from shared_logic.py
         test if the function returns ['Sleeping', 'Grooming'] given the category name'''
         mock_get_the_subcategories.return_value = ['Sleeping', 'Grooming']
-        result = get_the_subcategories("Personal Care Activities")
-        self.assertEqual(['Sleeping', 'Grooming','Health-related self care',
-                          'Personal Activities','Personal Care Emergencies'], result)
+        result = get_the_subcategories("Personal_Care_Activities")
+        self.assertEqual(['Sleeping', 'Grooming','Health-related_self_care',
+                          'Personal_Activities','Personal_Care_Emergencies'], result)
 
     @patch("ProductionCode.get_activity_by_category.get_activities_from_subcategory")
     def test_get_activities_from_subcategory(self, mock_get_activities_from_subcategory):
         '''tests get_activity_from_subcategory from get_activity_by_category
-        test if the function returns ['Interior cleaning', 'Laundry'] given the subcategory name'''
-        mock_get_activities_from_subcategory.return_value = ['Interior cleaning', 'Laundry']
+        test if the function returns ['Interior_cleaning', 'Laundry', 
+        'Sewing_repairing_&_maintaining_textiles', 'Storing_interior_hh_items_inc._food'] 
+        given the subcategory name'''
+        mock_get_activities_from_subcategory.return_value = ['Interior_cleaning', 'Laundry',
+            'Sewing_repairing_&_maintaining_textiles', 'Storing_interior_hh_items_inc._food']
         result = get_activities_from_subcategory('Housework')
-        self.assertEqual(['Interior cleaning', 'Laundry'], result)
+        self.assertEqual(['Interior_cleaning', 'Laundry',
+            'Sewing_repairing_&_maintaining_textiles',
+            'Storing_interior_hh_items_inc._food'], result)
 
     #Acceptance Tests for user story 2:
     def output_usage(self, args, expected_error_message):
@@ -80,7 +85,7 @@ class TestCL(unittest.TestCase):
     def test_invalid_subcategory(self):
         '''test an invalid subcategory for Acceptance Test 3
         '''
-        args= ["cl.py", "--category", "Household Activities", "--subcategory", "Astronaut"]
+        args= ["cl.py", "--category", "Household_Activities", "--subcategory", "Astronaut"]
         expected_error_message = "Usage: python3 cl.py --category <valid category> --subcategory " \
             "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs"
         output = self.output_usage(args, expected_error_message)

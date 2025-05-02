@@ -8,59 +8,52 @@ class TestApp(unittest.TestCase):
         '''set up for testing'''
         app.config['TESTING']= True
         self.app = app.test_client()
-    
+
     def test_route_home(self):
         '''tests that the home route returns the correct thing'''
         response = self.app.get('/', follow_redirects=True)
-        self.assertEqual(b"This is the homepage:"\
-            b"1) TO GET the top activity for a certain age, go to /get-top/'<'age'>'"\
-            b".... Note: for dummy data age options are: 23, 57, 80, 71, 40, 56, 18 "\
-            b"2) TO GET a list of all category options, go to /get-all-categories "\
-            b"....  NOTE: for now you can only shoose these categories: "\
-            b"Personal Care Activities or Household Activities"\
-            b"3) TO GET a list of subcategory options from a category,"\
-            b" go to /get-subcategories/'<'category'>'"\
-            b"....  NOTE: for now lowkey just use Personal Care Activities as Category "\
-            b"becuase the test data is incomplete"\
-            b"4) TO GET a list of activities from a subcategory, "\
-            b"go to /get-activities/'<'category'>'/'<'subcategory'>'"\
-            b"....  NOTE: basically choose Personal Care Activities and Sleeping "\
-            b"because of incomplete test data", response.data )
-    
+        self.assertEqual(b"This is the homepage: "\
+            b" 1) TO GET the top activity for a certain age, go to /get-top/'<'age'>'"\
+            b" 2) TO GET a list of all category options, go to /get-all-categories "\
+            b" 3) TO GET a list of subcategory options from a category, "\
+            b"go to /get-subcategories/'<'category'>' "\
+            b" 4) TO GET a list of activities from a subcategory, "\
+            b"go to /get-activities/'<'category'>'/'<'subcategory'>'", response.data )
+
     def test_route_top_by_age(self):
         '''tests that the route to get top by age returns the right thing, given age 23'''
         response = self.app.get('/get-top/23', follow_redirects=True)
-        self.assertEqual(b"the top activity for people age 23 is T020901", response.data)
+        self.assertEqual(b"the top activity for people age 23 is T050101", response.data)
 
     def test_get_all_categories(self):
         '''tests that the route to get all categories returns the correct thing'''
         response = self.app.get('/get-all-categories', follow_redirects=True)
-        self.assertEqual(b"the categoy options are: "
-            b"['Personal Care Activities', 'Household Activities', " \
-            b"'Caring For & Helping Household (HH) Members', " \
-            b"'Caring For & Helping Nonhousehold (NonHH) Members', " \
-            b"'Work & Work-Related Activities', 'Education', " \
-            b"'Consumer Purchases', 'Professional & Personal Care Services', " \
-            b"'Household Services', 'Government Services & Civic Obligations', " \
-            b"'Eating and Drinking', " \
-            b"'Socializing, Relaxing, and Leisure', 'Sports, Exercise, & Recreation', " \
-            b"'Religious and Spiritual Activities', " \
-            b"'Volunteer Activities', 'Telephone Calls', 'Traveling']", response.data)
+        self.assertEqual(b"The category options are: " \
+            b"['Personal_Care_Activities', 'Household_Activities', " \
+            b"'Caring_For_&_Helping_Household_(HH)_Members', " \
+            b"'Caring_For_&_Helping_Nonhousehold_(NonHH)_Members', " \
+            b"'Work_&_Work-Related_Activities', 'Education', " \
+            b"'Consumer_Purchases', 'Professional_&_Personal_Care_Services', " \
+            b"'Household_Services', 'Government_Services_&_Civic_Obligations', " \
+            b"'Eating_and_Drinking', " \
+            b"'Socializing_Relaxing_and_Leisure', 'Sports_Exercise_&_Recreation', " \
+            b"'Religious_and_Spiritual_Activities', " \
+            b"'Volunteer_Activities', 'Telephone_Calls', 'Traveling']", response.data)
 
     def test_get_subcategories_for_category(self):
         '''tets that the route to get subcatefories given a category returns the right thing '''
-        response = self.app.get('/get-subcategories/Personal Care Activities',
+        response = self.app.get('/get-subcategories/Personal_Care_Activities',
                                 follow_redirects=True)
-        self.assertEqual(b"these are the subcategories: "
-        b"['Sleeping', 'Grooming', 'Health-related self care', " \
-        b"'Personal Activities', 'Personal Care Emergencies'] "
-        b"for Personal Care Activities", response.data)
+        self.assertEqual(b"These are the subcategories: "
+        b"['Sleeping', 'Grooming', 'Health-related_self_care', " \
+        b"'Personal_Activities', 'Personal_Care_Emergencies'] "
+        b"for Personal_Care_Activities", response.data)
 
     def test_get_activities_from_sub(self):
         '''tests that the route to get activities returns the correct thing '''
-        response = self.app.get('/get-activities/Personal Care Activities/Sleeping',
+        response = self.app.get('/get-activities/Personal_Care_Activities/Sleeping',
                                 follow_redirects=True)
-        self.assertEqual(b"here are the activities for Sleeping in Personal Care Activities: "
+        self.assertEqual(b"here are the activities for Sleeping in Personal_Care_Activities: "
         b"['Sleeping', 'Sleeplessness']", response.data)
 
     def assert_404(self, route):
@@ -80,25 +73,25 @@ class TestApp(unittest.TestCase):
     def test_missing_age(self):
         '''test for missing_age route'''
         self.check_missing_route('/get-top/',
-                                "please include an age, ex: /get-top/23" ) 
+                                "Please include an age, ex: /get-top/23" ) 
 
     def test_missing_category(self):
         '''test for missing_category route'''
         self.check_missing_route('/get-subcategories/',
-                                "please include a category, " \
-                                "ex: /get-subcategories/Personal Care Activities")
+                                "Please include a category, " \
+                                "ex: /get-subcategories/Personal_Care_Activities")
 
     def test_missing_cat_and_sub(self):
         '''test for missing_cat_and_sub route'''
         self.check_missing_route('/get-activities/',
-                                "please include a category and a subcategory, " \
-                                "ex: /get-activities/Personal Care activities/Sleeping" ) 
+                                "Please include a category and a subcategory, " \
+                                "ex: /get-activities/Personal_Care_Activities/Sleeping" ) 
     #def test_missing_subcategory(self):
         #'''test for missing_subcategory'''
-        #response = self.app.get('/get-activities/Personal Care Activities/')
+        #response = self.app.get('/get-activities/Personal_Care_Activities/')
         #self.assertEqual(response.status_code, 200)
         #self.assertIn(b"please include subcategory, " \
-            #b"ex: /get-activities/Personal Care activities/Sleeping", response.data)
+            #b"ex: /get-activities/Personal_Care_Activities/Sleeping", response.data)
     #def test_invalid_inputs(self):
         #response = self.app.get("/get-top/eighteen")
         #self.assertEqual(response.status_code. 200) if i add to app.py a test valid age thing

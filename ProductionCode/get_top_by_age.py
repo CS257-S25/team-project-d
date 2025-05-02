@@ -57,12 +57,8 @@ def process_row_for_activity(row):
     activity_hours = {}
     for key in row:
         if key not in excluded_columns and row[key] != "NA":
-            try:
-                row[key] = float(row[key]) #handle scientific notation
-                activity_hours[key] = int(row[key])
-            except ValueError:
-                print(f"ValueError: could not convert {row[key]} to int for key {key}")
-                continue
+            row[key] = float(row[key]) #handle scientific notation
+            activity_hours[key] = int(row[key])
     return activity_hours
 
 def get_top_activity_from_row(activity_hours):
@@ -90,10 +86,10 @@ def get_activity_name(activity_id):
     arg activity_ID: the id of the activity to find
     return: the name of the activity
     '''
-    categories = load_data("Data/Activities_All_Data.csv")
+    categories = load_data("Data/Activities_data.csv")
     for row in categories:
-        if row['Activity ID'] == activity_id:
-            return row['Activity Name']
+        if row['Activity_ID'] == activity_id:
+            return row['Activity_Name']
     return "invalid Activity ID"
 
 def get_most_common_top_activity(age):
@@ -113,3 +109,4 @@ def get_most_common_top_activity(age):
         most_common_activity = top_activities.most_common(1)[0][0]
         activity = get_activity_name(most_common_activity)
         return most_common_activity, activity #activity, most_common_activity
+    return None

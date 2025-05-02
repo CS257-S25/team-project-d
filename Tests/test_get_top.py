@@ -17,11 +17,15 @@ class TestGetTop(unittest.TestCase):
         '''helper method to call main from cl
         returns: usage message (str)
         simplifies repeated calls to main'''
-        sys.stdout = StringIO()
+        output = StringIO()
+        sys.stdout = output
         try:
             cl.main()
         except ValueError:
             print("Usage: python3 cl.py --age <age from 15-85> --top")
+        finally:
+            sys.stdout = sys.__stdout__   # Restore original stdout
+        return output.getvalue()
 
     #patch where the function is looked up not where it's defined
     @patch("ProductionCode.get_top_by_age.load_data")
@@ -49,6 +53,13 @@ class TestGetTop(unittest.TestCase):
             "T050102": 1,
             "T050103": 3
         })
+
+    def test_invalid_row_for_activity(self):
+        ''''tests the process_row_for_activity function
+        by verifying it raises a ValueError for invalid data'''
+        row = {"age":"23", "T050101": "5", "T050102": "1", "T050103": "invalid"}
+        with self.assertRaises(ValueError):
+            process_row_for_activity(row)
 
     def test_get_top_activity_from_rows(self):
         '''tests the get_top_activity_from_row function
@@ -86,7 +97,7 @@ class TestGetTop(unittest.TestCase):
             {"age":"23", "T050101": "5", "T050102": "1", "T050103": "3"}
         ]
         result = get_most_common_top_activity(23)
-        self.assertEqual(result, ("T050101",'Work, main job' ))
+        self.assertEqual(result, ("T050101",'Work_main_job' ))
 
     #Acceptance tests for User Story 1:
     @patch('ProductionCode.get_top_by_age.load_data')
@@ -94,9 +105,9 @@ class TestGetTop(unittest.TestCase):
     def test_acceptance_valid_age(self, mock_get_matching_rows, mock_load_data):
         '''test if the function returns the correct category ID and number of times it is top'''
         mock_load_data.return_value = [
-            {"Activity ID": "T050101", "Activity Name": "Work, main job"},
-            {"Activity ID": "T050102", "Activity Name": "Other work"},
-            {"Activity ID": "T050103", "Activity Name": "Another work"}
+            {"Activity_ID": "T050101", "Activity_Name": "Work_main_job"},
+            {"Activity_ID": "T050102", "Activity_Name": "Other_work"},
+            {"Activity_ID": "T050103", "Activity_Name": "Another_work"}
         ]
         mock_get_matching_rows.return_value = [
             {"age": "23", "T050101": "5", "T050102": "1", "T050103": "1"},
@@ -108,13 +119,19 @@ class TestGetTop(unittest.TestCase):
         cl.main()
 
         output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, "('T050101', 'Work, main job')")
+        self.assertEqual(output, "('T050101', 'Work_main_job')")
 
     def test_acceptance_invalid_age_format(self):
         '''test if the function returns usage statement for invalid age format'''
         sys.argv = ["cl.py", "--age", "eighteen"]
         with self.assertRaises(SystemExit):
             self.output_usage_for_age()
+
+    def test_acceptance_invalid_age(self):
+        '''test if the function returns usage statement for invalid age'''
+        sys.argv = ["cl.py", "--age", "82"]
+        print(f"test to fix error: {self.output_usage_for_age}")
+        self.assertIn("No data available for age 82", self.output_usage_for_age())
 
     def test_acceptance_invalid_age_range(self):# the range is 15-85
         '''test if the function returns usage statement for invalid age range'''

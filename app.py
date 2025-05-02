@@ -4,7 +4,6 @@ file: app.py
 from flask import Flask, request
 from ProductionCode.get_top_by_age import get_most_common_top_activity
 from ProductionCode.get_activity_by_category import load_category_data
-from ProductionCode.get_activity_by_category import get_category_from_data
 from ProductionCode.get_activity_by_category import get_list_of_subcategories
 from ProductionCode.get_activity_by_category import get_activities_from_subcategory
 app = Flask(__name__)
@@ -15,14 +14,10 @@ def homepage():
     return "This is the homepage: "\
     " 1) TO GET the top activity for a certain age, go to /get-top/'<'age'>'"\
     " 2) TO GET a list of all category options, go to /get-all-categories "\
-    "....  NOTE: for now you can only shoose these categories: "\
-    "Personal Care Activities or Household Activities"\
     " 3) TO GET a list of subcategory options from a category, "\
     "go to /get-subcategories/'<'category'>' "\
-    "....  NOTE: for now you can only shoose these categories: "\
-    "Personal Care Activities or Household Activities"\
     " 4) TO GET a list of activities from a subcategory, "\
-    "go to /get-activities/'<'category'>'/'<'subcategory'>'"\
+    "go to /get-activities/'<'category'>'/'<'subcategory'>'"
 
 @app.route('/get-top/<age>')
 def get_top_by_age(age):
@@ -40,7 +35,9 @@ def missing_age():
 def get_all_categories():
     '''returns a list of category options'''
     data_for_get_category = load_category_data()
-    category_list =get_category_from_data(data_for_get_category)
+    category_list = []
+    for row in data_for_get_category:
+        category_list.append(row['Category'])
     return "The category options are: " + str(category_list)
 
 @app.route('/get-subcategories/<category>')
@@ -53,7 +50,7 @@ def get_subcategories_for_category(category):
 @app.route('/get-subcategories/')
 def missing_category():
     '''returns a message if you forgot to add a /category'''
-    return "Please include a category, ex: /get-subcategories/Personal Care Activities", 200
+    return "Please include a category, ex: /get-subcategories/Personal_Care_Activities", 200
 
 @app.route('/get-activities/<category>/<subcategory>')
 def get_activities_from_sub(category, subcategory):
@@ -67,13 +64,13 @@ def get_activities_from_sub(category, subcategory):
 def missing_cat_and_sub():
     '''returns a message if you forgot to add a category and subcategory'''
     return "Please include a category and a subcategory, " \
-        "ex: /get-activities/Personal Care activities/Sleeping"
+        "ex: /get-activities/Personal_Care_Activities/Sleeping"
 
 @app.route('/get-activities/<category>/')
-def missing_subcategory(category):
+def missing_subcategory(_category):
     '''returns a message if you forgot to add a subcategory'''
     return "Please include a subcategory, " \
-        "ex: /get-activities/Personal Care activities/Sleeping"
+        "ex: /get-activities/Personal_Care_Activities/Sleeping"
 
 @app.errorhandler(404)
 def page_not_found(e):

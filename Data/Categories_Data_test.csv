@@ -1,18 +1,17 @@
-Activity_ID,Category
-T01,Personal Care Activities
-T02,Household Activities
-T03,Caring For & Helping Household (HH) Members
-T04,Caring For & Helping Nonhousehold (NonHH) Members
-T05,Work & Work-Related Activities
+T01,Personal_Care_Activities
+T02,Household_Activities
+T03,Caring_For_&_Helping_Household_(HH)_Members
+T04,Caring_For_&_Helping_Nonhousehold_(NonHH)_Members
+T05,Work_&_Work-Related_Activities
 T06,Education
-T07,Consumer Purchases
-T08,Professional & Personal Care Services
-T09,Household Services
-T10,Government Services & Civic Obligations
-T11,Eating and Drinking
-T12,"Socializing, Relaxing, and Leisure"
-T13,"Sports, Exercise, & Recreation"
-T14,Religious and Spiritual Activities
-T15,Volunteer Activities
-T16,Telephone Calls
+T07,Consumer_Purchases
+T08,Professional_&_Personal_Care_Services
+T09,Household_Services
+T10,Government_Services_&_Civic_Obligations
+T11,Eating_and_Drinking
+T12,Socializing_Relaxing_and_Leisure
+T13,Sports_Exercise_&_Recreation
+T14,Religious_and_Spiritual_Activities
+T15,Volunteer_Activities
+T16,Telephone_Calls
 T18,Traveling
