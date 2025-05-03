@@ -1,7 +1,7 @@
 '''Connects to the database'''
 import sys
 import psycopg2
-from ProductionCode import psqlConfig as config
+from ProductionCode import psql_config as config
 
 class DataSource:
     '''Class to connect to database and create sql table'''
