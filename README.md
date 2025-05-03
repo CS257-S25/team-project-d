@@ -2,7 +2,18 @@ CS257 S25
 
 Claire Holmes, Camila Mendoza, KD Meraz
 
-**To run our Flask App, run python3 app.py from the command line.**
+**Copy statements for SQL database tables.**
+**After creating data tables, run our SQL-based Flask App by running app.py from the command line.**
+
+\copy activities FROM 'Data/Activities_data.csv' DELIMITER ',' CSV
+
+\copy subcategory FROM 'Data/SubCategories_data.csv' DELIMITER ',' CSV
+
+\copy category FROM 'Data/Categories_data_test.csv' DELIMITER ',' CSV
+
+\copy data FROM 'Data/teamproject22-23_database.csv' DELIMITER ',' CSV
+
+**To run our python-based Flask App, run python3 app_OG.py from the command line.**
 
 The features of the app are the same as the command line interface. More details on how to access these features are on the homepage of the Flask website and are repeated here: 
 
@@ -34,13 +45,3 @@ Usage: python3 cl.py --category <valid category> --subcategory <valid subcategor
 *reference python3 cl.py --category for valid subcategory inputs because they change based on the category*
 
 python3 cl.py --category "Household Activities" --subcategory "Housework"
-
-Command Line for copying table: 
-
-\copy activities FROM 'Data/Activities_data.csv' DELIMITER ',' CSV
-
-\copy subcategory FROM 'Data/SubCategories_data.csv' DELIMITER ',' CSV
-
-\copy category FROM 'Data/Categories_data_test.csv' DELIMITER ',' CSV
-
-\copy data FROM 'Data/teamproject22-23_database.csv' DELIMITER ',' CSV
