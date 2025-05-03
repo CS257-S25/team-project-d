@@ -38,6 +38,9 @@ python3 cl.py --category "Household Activities" --subcategory "Housework"
 Command Line for copying table: 
 
 \copy activities FROM 'Data/Activities_data.csv' DELIMITER ',' CSV
+
 \copy subcategory FROM 'Data/SubCategories_data.csv' DELIMITER ',' CSV
-\copy category FROM 'Data/Categories_data.csv' DELIMITER ',' CSV
+
+\copy category FROM 'Data/Categories_data_test.csv' DELIMITER ',' CSV
+
 \copy data FROM 'Data/teamproject22-23_database.csv' DELIMITER ',' CSV
