@@ -1,6 +1,7 @@
-'''file: test_app.py'''
+'''Tests app_OG.py for all of the python code Flask app
+file: test_app.py'''
 import unittest
-from app import app
+from app_OG import app
 
 class TestApp(unittest.TestCase):
     '''class for tests for app.py'''
