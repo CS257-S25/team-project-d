@@ -40,6 +40,7 @@ class DataSource:
         return self.get_correct_list(id, query)
 
     def get_correct_list(self, id, query):
+        '''Helper method for getting lists of categories, subcategories, or activities'''
         try:
             cursor = self.connection.cursor()
             level_id = str(id)
