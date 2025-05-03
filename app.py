@@ -6,6 +6,8 @@ from ProductionCode.get_top_by_age import get_most_common_top_activity
 from ProductionCode.get_activity_by_category import load_category_data
 from ProductionCode.get_activity_by_category import get_list_of_subcategories
 from ProductionCode.get_activity_by_category import get_activities_from_subcategory
+from ProductionCode.datasource import DataSource
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -83,6 +85,14 @@ def python_bug(e):
     ''' returns a message to let you know if there's an internal error/bug'''
     base_url = request.host_url.rstrip('/')
     return f"{e} Further information on correct inputs can be found on the homepage at: {base_url}"
+
+###################################
+def database_call():
+    test = DataSource()
+    print("CALL YOUR DATASOURCE METHOD HERE")
+    results = test.get_subcategory_list()
+    results2 = test.get_activity_list()
+    print(f"here are the subcategories for T01: {results}, here are the activities for T0101: {results2}")
 
 if __name__ == '__main__':
     app.run()
