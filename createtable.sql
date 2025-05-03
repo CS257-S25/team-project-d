@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS activities;
 CREATE TABLE activities(
   activities_ID text,
   activities text
-)
+);
 
 DROP TABLE IF EXISTS data;
 CREATE TABLE data (
