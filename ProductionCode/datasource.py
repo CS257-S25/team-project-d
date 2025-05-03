@@ -33,6 +33,11 @@ class DataSource:
         query = "SELECT * FROM subcategory WHERE subcategory_ID LIKE %s"
         return self.get_correct_list(id,query)
 
+    def get_category_list(self):
+        '''Gets the list of categories available'''
+        id = ''
+        query = "SELECT * FROM category WHERE category_ID LIKE %s"
+        return self.get_correct_list(id, query)
 
     def get_correct_list(self, id, query):
         try:
