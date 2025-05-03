@@ -3,8 +3,10 @@ THIS IS THE FLASK APP FOR THE SQL DATABASE
 file: app.py
 '''
 from flask import Flask, request
-from ProductionCode.datasource import get_activity_list, get_subcategory_list, get_top_by_age
+from ProductionCode.datasource import DataSource
 app = Flask(__name__)
+
+test = DataSource()
 
 @app.route('/')
 def homepage():
@@ -32,11 +34,8 @@ def missing_age():
 @app.route('/get-all-categories')
 def get_all_categories():
     '''returns a list of category options'''
-    data_for_get_category = load_category_data()
-    category_list = []
-    for row in data_for_get_category:
-        category_list.append(row['Category'])
-    return "The category options are: " + str(category_list)
+    data_for_get_category = test.get_category_list()
+    return "The category options are: " + str(data_for_get_category)
 
 @app.route('/get-subcategories/<category>')
 def get_subcategories_for_category(category):
