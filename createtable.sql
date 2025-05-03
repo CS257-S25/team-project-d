@@ -340,5 +340,5 @@ CREATE TABLE data (
   T0181401 int,
   T0181501 int,
   T0181601 int,
-  T0181801 int,
+  T0181801 int
 );
