@@ -1,13 +1,9 @@
 '''
+THIS IS THE FLASK APP FOR THE SQL DATABASE
 file: app.py
 '''
 from flask import Flask, request
-from ProductionCode.get_top_by_age import get_most_common_top_activity
-from ProductionCode.get_activity_by_category import load_category_data
-from ProductionCode.get_activity_by_category import get_list_of_subcategories
-from ProductionCode.get_activity_by_category import get_activities_from_subcategory
-from ProductionCode.datasource import DataSource
-
+from ProductionCode.datasource import get_activity_list, get_subcategory_list, get_top_by_age
 app = Flask(__name__)
 
 @app.route('/')
@@ -25,7 +21,7 @@ def homepage():
 def get_top_by_age(age):
     '''param: age, the age you want to see the top category for
     returns a string that gives the information for the top activity for an age group'''
-    top= get_most_common_top_activity(age)[0]
+    top= get_top_by_age(age)[0]
     return "the top activity for people age " + str(age) + " is " + str(top)
 
 @app.route('/get-top/')
@@ -46,7 +42,7 @@ def get_all_categories():
 def get_subcategories_for_category(category):
     ''' param: category, the category you want more info about(subcategories for)
     returns a list of subcategories for a given category'''
-    sub_list = get_list_of_subcategories(category)
+    sub_list = get_subcategory_list(category)
     return f"These are the subcategories: {sub_list} for {category}"
 
 @app.route('/get-subcategories/')
@@ -59,7 +55,7 @@ def get_activities_from_sub(category, subcategory):
     ''' param: category, the category you want to look at 
     param: subcategory, the subcategory you want more info about (activities for)
     returns a list of activities from a subcategory'''
-    activities = get_activities_from_subcategory(subcategory)
+    activities = get_activity_list(subcategory)
     return f"here are the activities for {subcategory} in {category}: {activities}"
 
 @app.route('/get-activities/')
@@ -85,14 +81,3 @@ def python_bug(e):
     ''' returns a message to let you know if there's an internal error/bug'''
     base_url = request.host_url.rstrip('/')
     return f"{e} Further information on correct inputs can be found on the homepage at: {base_url}"
-
-###################################
-def database_call():
-    test = DataSource()
-    print("CALL YOUR DATASOURCE METHOD HERE")
-    results = test.get_subcategory_list()
-    results2 = test.get_activity_list()
-    print(f"here are the subcategories for T01: {results}, here are the activities for T0101: {results2}")
-
-if __name__ == '__main__':
-    app.run()
