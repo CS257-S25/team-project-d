@@ -80,3 +80,6 @@ def python_bug(e):
     ''' returns a message to let you know if there's an internal error/bug'''
     base_url = request.host_url.rstrip('/')
     return f"{e} Further information on correct inputs can be found on the homepage at: {base_url}"
+
+if __name__ == '__main__':
+     app.run()
