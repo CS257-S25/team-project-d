@@ -18,19 +18,19 @@ def load_category_data():
     '''Purpose: loads the general categories data from the file
     Args: None
     Returns: a list of dicitionaries containing the categories data from the file'''
-    return load_data("Data/Categories_Data_test.csv")
+    return load_data("Data/Categories_Data.csv")
 
 def load_subcategory_data():
     '''Purpose: loads the subcategories data from the file
     Args: None
     Returns: a list of dicitionaries containing the subcategories data from the file'''
-    return load_data("Data/SubCategories_data.csv")
+    return load_data("Data/Subcategories_Data.csv")
 
 def load_activity_data():
     '''Purpose: loads the activities data from the file
     Args: None
     Returns: a list of dicitionaries containing the activities data from the file'''
-    return load_data("Data/Activities_data.csv")
+    return load_data("Data/Activities_Data.csv")
 
 def find_id_by_name(data_loader, name_key, target_name):
     '''helper function to reduce repeated code to fin an Activity_ID by name

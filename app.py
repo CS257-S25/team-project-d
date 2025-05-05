@@ -1,12 +1,12 @@
 '''
+THIS IS THE FLASK APP FOR THE SQL DATABASE
 file: app.py
 '''
 from flask import Flask, request
-from ProductionCode.get_top_by_age import get_most_common_top_activity
-from ProductionCode.get_activity_by_category import load_category_data
-from ProductionCode.get_activity_by_category import get_list_of_subcategories
-from ProductionCode.get_activity_by_category import get_activities_from_subcategory
+from ProductionCode.datasource import DataSource
 app = Flask(__name__)
+
+test = DataSource()
 
 @app.route('/')
 def homepage():
@@ -23,7 +23,7 @@ def homepage():
 def get_top_by_age(age):
     '''param: age, the age you want to see the top category for
     returns a string that gives the information for the top activity for an age group'''
-    top= get_most_common_top_activity(age)[0]
+    top= get_top_by_age(age)[0]
     return "the top activity for people age " + str(age) + " is " + str(top)
 
 @app.route('/get-top/')
@@ -34,17 +34,14 @@ def missing_age():
 @app.route('/get-all-categories')
 def get_all_categories():
     '''returns a list of category options'''
-    data_for_get_category = load_category_data()
-    category_list = []
-    for row in data_for_get_category:
-        category_list.append(row['Category'])
-    return "The category options are: " + str(category_list)
+    data_for_get_category = test.get_category_list()
+    return "The category options are: " + str(data_for_get_category)
 
 @app.route('/get-subcategories/<category>')
 def get_subcategories_for_category(category):
     ''' param: category, the category you want more info about(subcategories for)
     returns a list of subcategories for a given category'''
-    sub_list = get_list_of_subcategories(category)
+    sub_list = get_subcategory_list(category)
     return f"These are the subcategories: {sub_list} for {category}"
 
 @app.route('/get-subcategories/')
@@ -57,7 +54,7 @@ def get_activities_from_sub(category, subcategory):
     ''' param: category, the category you want to look at 
     param: subcategory, the subcategory you want more info about (activities for)
     returns a list of activities from a subcategory'''
-    activities = get_activities_from_subcategory(subcategory)
+    activities = get_activity_list(subcategory)
     return f"here are the activities for {subcategory} in {category}: {activities}"
 
 @app.route('/get-activities/')
@@ -85,4 +82,4 @@ def python_bug(e):
     return f"{e} Further information on correct inputs can be found on the homepage at: {base_url}"
 
 if __name__ == '__main__':
-    app.run()
+     app.run()
