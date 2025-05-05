@@ -15,8 +15,6 @@ CREATE TABLE activities(
   activities_ID text,
   activities text
 );
-<<<<<<< HEAD
-=======
 
 DROP TABLE IF EXISTS data;
 CREATE TABLE data (
@@ -349,4 +347,3 @@ CREATE TABLE data (
   T181601	int,
   T181801	int
 );
->>>>>>> 292cacc7e9956843ae60d8e473f5d7ccd4599fe7

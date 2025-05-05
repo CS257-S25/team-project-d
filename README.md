@@ -5,11 +5,11 @@ Claire Holmes, Camila Mendoza, KD Meraz
 **Copy statements for SQL database tables.**
 **After creating data tables, run our SQL-based Flask App by running app.py from the command line.**
 
-\copy activities FROM 'Data/Activities_data.csv' DELIMITER ',' CSV
+\copy activities FROM 'Data/Activities_Data_database.csv' DELIMITER ',' CSV
 
-\copy subcategory FROM 'Data/SubCategories_data.csv' DELIMITER ',' CSV
+\copy subcategory FROM 'Data/Subcategories_Data_database.csv' DELIMITER ',' CSV
 
-\copy category FROM 'Data/Categories_data_test.csv' DELIMITER ',' CSV
+\copy category FROM 'Data/Categories_Data_database.csv' DELIMITER ',' CSV
 
 \copy data FROM 'Data/teamproject22-23_database.csv' DELIMITER ',' CSV
 
