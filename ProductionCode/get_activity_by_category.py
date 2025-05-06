@@ -38,6 +38,7 @@ def find_id_by_name(data_loader, name_key, target_name):
     param: name_key, 
     paramL target_name, '''
     data = data_loader()
+    #select from table a sql call that is looking for that thing 
     for row in data:
         if row[name_key] == target_name:
             print(row['Activity_ID'])
@@ -98,5 +99,5 @@ def get_activities_from_subcategory(subcategory):
     Returns: a list of activities in the subcategory'''
     subcategory_id = get_subcategory_from_data(subcategory)
     activities = filter_by_prefix(load_activity_data, subcategory_id,
-                                  'Activity_Name', prefix_length=5)
+                                  'Activity Name', prefix_length=5)
     return activities
