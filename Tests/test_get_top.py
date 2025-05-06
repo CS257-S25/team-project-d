@@ -9,7 +9,7 @@ from ProductionCode.get_top_by_age import get_matching_rows
 from ProductionCode.get_top_by_age import process_row_for_activity, get_top_activity_from_row
 from ProductionCode.get_top_by_age import count_top_activites, get_most_common_top_activity
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 class TestGetTop(unittest.TestCase):
     '''class to test stuff from get_top_by_age'''

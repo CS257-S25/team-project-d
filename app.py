@@ -23,7 +23,7 @@ def homepage():
 def get_top_by_age(age):
     '''param: age, the age you want to see the top category for
     returns a string that gives the information for the top activity for an age group'''
-    top= get_top_by_age(age)[0]
+    top= test.get_top_by_age(age)
     return "the top activity for people age " + str(age) + " is " + str(top)
 
 @app.route('/get-top/')
@@ -41,8 +41,8 @@ def get_all_categories():
 def get_subcategories_for_category(category):
     ''' param: category, the category you want more info about(subcategories for)
     returns a list of subcategories for a given category'''
-    sub_list = get_subcategory_list(category)
-    return f"These are the subcategories: {sub_list} for {category}"
+    sub_list = test.get_subcategory_list(category)
+    return f"These are the subcategories for {category} : {sub_list}"
 
 @app.route('/get-subcategories/')
 def missing_category():
@@ -54,7 +54,7 @@ def get_activities_from_sub(category, subcategory):
     ''' param: category, the category you want to look at 
     param: subcategory, the subcategory you want more info about (activities for)
     returns a list of activities from a subcategory'''
-    activities = get_activity_list(subcategory)
+    activities = test.get_activity_list(subcategory)
     return f"here are the activities for {subcategory} in {category}: {activities}"
 
 @app.route('/get-activities/')
@@ -80,3 +80,6 @@ def python_bug(e):
     ''' returns a message to let you know if there's an internal error/bug'''
     base_url = request.host_url.rstrip('/')
     return f"{e} Further information on correct inputs can be found on the homepage at: {base_url}"
+
+if __name__ == '__main__':
+    app.run()
