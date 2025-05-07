@@ -68,7 +68,7 @@ class DataSource:
         param age: the age to find the top activity for'''
         try:
             cursor = self.connection.cursor()
-            cursor.execute ("SELECT MAX() FROM data WHERE age = %s", (age,))
+            cursor.execute ("SELECT (activity_id, %s) FROM transposed ORDER BY activity_id ASC LIMIT 1;", (str(age),))
 
         except psycopg2.Error as e:
             print ("Something went wrong when executing the query: ", e)
