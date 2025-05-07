@@ -8,24 +8,42 @@ app = Flask(__name__)
 
 test = DataSource()
 
+def directions_message():
+    '''message that is printed on homepage and error pages to tell the user what to do'''
+    base_url = request.host_url.rstrip('/')
+    message = " 1) TO GET the top activity for a certain age between 15 and 80,"\
+        " go to /get-top/'<'age'>'<br>"\
+        f" For example: {base_url}/get-top/23 <br>"\
+        " 2) TO COMPARE the top activity for a certain age from 2022/2023 to 2012/2013," \
+        " go to /compare/'<'age'>'/'<'activity'>'<br>"\
+        f" For example: {base_url}/compare/23/Sleeping <br> <br>"\
+        " To see all options, use any of the following: <br>" \
+        " A) TO GET a list of all category options, go to /get-all-categories <br>"\
+        " B) TO GET a list of subcategory options from a category,<br>"\
+        " go to /get-subcategories/'<'category'>' "\
+        " C) TO GET a list of activities from a subcategory,<br>"\
+        " go to /get-activities/'<'category'>'/'<'subcategory'>'" 
+    return message
+
 @app.route('/')
 def homepage():
     '''Purpose: Homepage provides instructions for what URL to go to see the data you choose'''
-    return "This is the homepage: "\
-    " 1) TO GET the top activity for a certain age, go to /get-top/'<'age'>'"\
-    " 2) TO GET a list of all category options, go to /get-all-categories "\
-    " 3) TO GET a list of subcategory options from a category, "\
-    "go to /get-subcategories/'<'category'>' "\
-    " 4) TO GET a list of activities from a subcategory, "\
-    "go to /get-activities/'<'category'>'/'<'subcategory'>'"
+    return "This is the homepage for the time use project! <br>" + directions_message()
 
 @app.route('/get-top/<age>')
 def get_top_by_age(age):
     '''param: age, the age you want to see the top category for
     returns a string that gives the information for the top activity for an age group'''
     age = str(age)
-    top= test.get_top_by_age(age)
-    return "the top activity for people age " + age + " is " + str(top)
+    top_id = test.get_top_by_age(age)
+    print(top_id)
+    print(top_id[0][0][1:8])
+    if "invalid age" in top_id:
+        return top_id
+    else: 
+        top_activity = test.get_id_from_name('activities', 'activities_ID', 'activities', str(top_id[0][0][1:8]))
+        print(top_activity)
+        return "the top activity for people age " + age + " is " + str(top_activity)
 
 @app.route('/get-top/')
 def missing_age():
@@ -76,21 +94,20 @@ def compare_activity_for_age(age, activity):
     param: activity, the activity you want to compare
     returns a string that gives the comparison for an age group'''
     age = str(age)
-    comparison = test.compare_ten_years_ago(age, activity)
-    return "for people age " + age + " they engaged in " + activity + str(comparison) + "in 2022 & 2023"
-
+    old = test.get_top_by_age(age, 'data_1213')[0][0][9:-1]
+    new = test.get_top_by_age(age)[0][0][9:-1]
+    return "For people age " + age + " they engaged in " + activity + " on average " + str(old) \
+        + " hours in 2022 & 2023 and " + str(new) + " hours in 2012 & 2013"
 
 @app.errorhandler(404)
 def page_not_found(e):
     '''returns error message if the page wasn't found'''
-    base_url = request.host_url.rstrip('/')
-    return f"{e} ... refer to homepage ({base_url}) for options "
+    return f"{e} <br>" + directions_message()
 
 @app.errorhandler(500)
 def python_bug(e):
     ''' returns a message to let you know if there's an internal error/bug'''
-    base_url = request.host_url.rstrip('/')
-    return f"{e} Further information on correct inputs can be found on the homepage at: {base_url}"
+    return f"{e} <br>"  + directions_message()
 
 if __name__ == '__main__':
-    app.run(port = 8000)
+    app.run()

@@ -74,7 +74,7 @@ class DataSource:
         returns the ID calue for the name or none'''
         try:
             cursor = self.connection.cursor()
-            query = f"SELECT {id_column} FROM {table} WHERE {name_column} = %s"
+            query = f"SELECT {id_column} FROM {table} WHERE {name_column} = %s;"
             cursor.execute(query, (name,))
             records = cursor.fetchone()
 
@@ -87,32 +87,18 @@ class DataSource:
             print(f"Error getting ID from {table}: ", e)
             return None
 
-    def get_top_by_age(self, age):
+    def get_top_by_age(self, age, table='data_2223'):
         '''finds the top activity for a given age
         param age: the age to find the top activity for'''
+        if int(age) not in range(15, 81):
+            return "invalid age, please use a number between 15 and 80"
         try:
             cursor = self.connection.cursor()
-            q = f'SELECT (activity_id, "{age}") FROM data_2223 ORDER BY activity_id ASC LIMIT 1;'
+            q = f'SELECT (activity_id, "{age}") FROM "{table}" ORDER BY activity_id ASC LIMIT 1;'
             cursor.execute(q)
             records = cursor.fetchall()
-            return records
-
-        except psycopg2.Error as e:
-            print ("Something went wrong when executing the query: ", e)
-            return None
-        
-    def compare_ten_years_ago(self, age, activity):
-        '''compares the activity for a given age to the activity for that age 10 years ago
-        param age: the age to find the top activity for
-        param activity: the activity to compare'''
-        try:
-            cursor = self.connection.cursor()
-            q1 = f'SELECT (activity_id, "{age}") FROM data_2223 ORDER BY activity_id ASC LIMIT 1;'
-            q2 = f'SELECT (activity_id, "{age}") FROM data_1213 ORDER BY activity_id ASC LIMIT 1;'
-            cursor.execute(q1)
-            cursor.execute(q2)
-            records = cursor.fetchall()
-            print(f"records: " + records)
+            if not records:
+                return "no data found for this age"
             return records
 
         except psycopg2.Error as e:
