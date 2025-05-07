@@ -110,4 +110,4 @@ def python_bug(e):
     return f"{e} <br>"  + directions_message()
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=7000)

@@ -74,13 +74,12 @@ class DataSource:
         returns the ID calue for the name or none'''
         try:
             cursor = self.connection.cursor()
-            query = f"SELECT {id_column} FROM {table} WHERE {name_column} = %s;", (name,)
-            cursor.execute(query)
+            cursor.execute(f"SELECT {name_column} FROM {table} WHERE {id_column} = '{name}';")
             records = cursor.fetchone()
 
             if records: 
                 #issue: returning ('T0101', 'Sleeping') want it to just return Sleeping
-                return records[0][1]
+                return records[0]
             else:
                 return None
         except psycopg2.Error as e: 
