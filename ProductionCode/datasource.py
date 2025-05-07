@@ -91,34 +91,51 @@ class DataSource:
         return q
     
     def turn_into_activityID_and_duration(self):
-        columns = activity_id_list()# put this list into another file and call it cuz why is it so long
-        
         sql_lines = []
+        print(columns)
         for col in columns: 
+            print(col)
             line = f"SELECT age, ROW_NUMBER() OVER() AS person_id, '{col}' AS activity_id, {col} AS duration FROM age_filtered"
             sql_lines.append(line)
 
+
         unpivot_sql = "\nUNION ALL\n".join(sql_lines)
-        q= "CREATE TEMP TABLE unpivoted AS\n" + unpivot_sql + ";"
+        q= f"CREATE TEMP TABLE unpivoted AS \n{unpivot_sql}"
         print(q)
         return q
     
     def find_max_activity_per_person(self):
-        q = "CREATE TEMP TABLE top_activity_per_person AS\
-            SELECT person_id, activity_id \
-            FROM unpivoted \
-            WHERE (person_id, duration) IN ( \
-                SELECT person_id, MAX(duration) \
-                FROM unpivoted \
-                GROUP BY person_id \
-            );"
+        # print("got here")
+        # q = "CREATE TEMP TABLE top_activity_per_person AS " \
+        #     "SELECT person_id, activity_id " \
+        #     "FROM unpivoted " \
+        #     "WHERE (person_id, duration) IN ( " \
+        #         "SELECT person_id, MAX(duration) " \
+        #         "FROM unpivoted " \
+        #         "GROUP BY person_id " \
+        #     ");"
+        # print(q)
+        # return q
+        q = "CREATE TEMP TABLE top_activity_per_person AS " \
+            "SELECT person_id, activity_id " \
+            "FROM (SELECT ROW_NUMBER() OVER () AS person_id, * " \
+            "FROM (SELECT ROW_NUMBER() OVER (PARTITION BY age_filtered.* ORDER BY (SELECT NULL)) AS person_id, " \
+            "activity_id, duration FROM unpivoted) sub) max_activities " \
+            "WHERE (person_id, duration IN (SELECT person_id, MAX(duration) " \
+            "FROM (SELECT ROW_NUMBER() OVER () AS person_id, * FROM unpivoted) "\
+            "grouped GROUP BY person_id);"
+        return q
+
+
+
 
     def count_most_frequent_top_activity(self):
-        q = "SELECT activity_id, COUNT(*) AS frequency \
-            FROM top_activity_per_person \
-            GROUP BY activity_id \
-            ORDER BY frequency DESC \
-            LIMIT 1;" 
+        print ("ruaaaa")
+        q = "SELECT activity_id, COUNT(*) AS frequency " \
+            "FROM top_activity_per_person " \
+            "GROUP BY activity_id " \
+            "ORDER BY frequency DESC " \
+            "LIMIT 1;" 
         return q
 
     def get_top_by_age(self, age):
@@ -132,7 +149,7 @@ class DataSource:
             cursor.execute(query1, (age,))
 
             #unpivot to activity_id and duration 
-            query2 = self.turn_into_activityID_and_duration
+            query2 = self.turn_into_activityID_and_duration()
             cursor.execute("DROP TABLE IF EXISTS unpivoted;")
             cursor.execute(query2)
 
@@ -140,11 +157,15 @@ class DataSource:
             query3 =self.find_max_activity_per_person()
             cursor.execute("DROP TABLE IF EXISTS top_activity_per_person;")
             cursor.execute(query3)
+            a = cursor.fetchall()
+            print(a)
 
             #count most frequent top activity
             query4 = self.count_most_frequent_top_activity()
+            print(query4)
             cursor.execute(query4)
-            records = cursor.fetchone()
+            records = cursor.fetchall()
+            print(records)
             return records
 
         except psycopg2.Error as e:
