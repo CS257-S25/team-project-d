@@ -23,20 +23,21 @@ class DataSource:
 
     def get_activity_list(self, subcategory):
         '''Get a list of activities given the subcategory'''
-        subcategory_id= self.get_id_from_name("subcategory", "subcategory_ID", "subcategory", subcategory)
-        
-        if not subcategory_id: 
+        subcategory_id= self.get_id_from_name("subcategory", 
+                                              "subcategory_ID", "subcategory", subcategory)
+
+        if not subcategory_id:
             print(f"subcategory name {subcategory} not found")
             return "not found "
 
         query = "SELECT * FROM activities WHERE activities_ID LIKE %s"
         return self.get_correct_list(subcategory_id,query)
-    
+
     def get_subcategory_list(self, category):
         '''Gets a list of subcategories with a given category'''
         category_id = self.get_id_from_name("category","category_ID", "category", category)
-        
-        if not category_id: 
+
+        if not category_id:
             print(f"category name {category} not found")
             return "not found "
 
@@ -62,15 +63,37 @@ class DataSource:
             print ("Something went wrong when executing the query: ", e)
             return None
         return records
+    
+    def get_id_from_name (self, table, id_column, name_column, name):
+        '''helper method to get an id from a name in a given table
+        params: 
+            table, the table name (ex. category, subcategory, activities)
+            id_column, the id column name (ex. 'category_ID') 
+            name_column, the name column to match (ex. 'category_Name')
+            name, the name to search for (ex. 'Personal Care Activities')
+        returns the ID calue for the name or none'''
+        try:
+            cursor = self.connection.cursor()
+            query = f"SELECT {id_column} FROM {table} WHERE {name_column} = %s"
+            cursor.execute(query, (name,))
+            records = cursor.fetchone()
+
+            if records: 
+                #issue: returning ('T0101', 'Sleeping') want it to just return Sleeping
+                return records[0]
+            else:
+                return None
+        except psycopg2.Error as e: 
+            print(f"Error getting ID from {table}: ", e)
+            return None
 
     def get_top_by_age(self, age):
         '''finds the top activity for a given age
         param age: the age to find the top activity for'''
         try:
             cursor = self.connection.cursor()
-            age_str = str(age)
-            query = f'SELECT (activity_id, "{age_str}") FROM transposed ORDER BY activity_id ASC LIMIT 1;'
-            cursor.execute(query)
+            q = f'SELECT (activity_id, "{age}") FROM transposed ORDER BY activity_id ASC LIMIT 1;'
+            cursor.execute(q)
             records = cursor.fetchall()
             return records
 
