@@ -63,25 +63,13 @@ class DataSource:
             return None
         return records
 
-    def get_id_from_name (self, table, id_column, name_column, name):
-        '''helper method to get an id from a name in a given table
-        params: 
-            table, the table name (ex. category, subcategory, activities)
-            id_column, the id column name (ex. 'category_ID') 
-            name_column, the name column to match (ex. 'category_Name')
-            name, the name to search for (ex. 'Personal Care Activities')
-        returns the ID calue for the name or none'''
+    def get_top_by_age(self, age):
+        '''finds the top activity for a given age
+        param age: the age to find the top activity for'''
         try:
             cursor = self.connection.cursor()
-            query = f"SELECT {id_column} FROM {table} WHERE {name_column} = %s"
-            cursor.execute(query, (name,))
-            records = cursor.fetchone()
+            cursor.execute ("SELECT MAX() FROM data WHERE age = %s", (age,))
 
-            if records: 
-                #issue: returning ('T0101', 'Sleeping') want it to just return Sleeping
-                return records[0]
-            else:
-                return None
-        except psycopg2.Error as e: 
-            print(f"Error getting ID from {table}: ", e)
+        except psycopg2.Error as e:
+            print ("Something went wrong when executing the query: ", e)
             return None
