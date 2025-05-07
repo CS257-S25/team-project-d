@@ -92,7 +92,7 @@ class DataSource:
         param age: the age to find the top activity for'''
         try:
             cursor = self.connection.cursor()
-            q = f'SELECT (activity_id, "{age}") FROM data_2233 ORDER BY activity_id ASC LIMIT 1;'
+            q = f'SELECT (activity_id, "{age}") FROM data_2223 ORDER BY activity_id ASC LIMIT 1;'
             cursor.execute(q)
             records = cursor.fetchall()
             return records
