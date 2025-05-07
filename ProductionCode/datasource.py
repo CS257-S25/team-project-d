@@ -63,110 +63,12 @@ class DataSource:
             return None
         return records
 
-    def get_id_from_name (self, table, id_column, name_column, name):
-        '''helper method to get an id from a name in a given table
-        params: 
-            table, the table name (ex. category, subcategory, activities)
-            id_column, the id column name (ex. 'category_ID') 
-            name_column, the name column to match (ex. 'category_Name')
-            name, the name to search for (ex. 'Personal Care Activities')
-        returns the ID calue for the name or none'''
-        try:
-            cursor = self.connection.cursor()
-            query = f"SELECT {id_column} FROM {table} WHERE {name_column} = %s"
-            cursor.execute(query, (name,))
-            records = cursor.fetchone()
-
-            if records: 
-                #issue: returning ('T0101', 'Sleeping') want it to just return Sleeping
-                return records[0]
-            else:
-                return None
-        except psycopg2.Error as e: 
-            print(f"Error getting ID from {table}: ", e)
-            return None
-
-    def query_filter_rows_for_age(self, age):
-        q= "CREATE TEMP TABLE age_filtered AS SELECT * FROM data WHERE age = %s;"
-        return q
-    
-    def turn_into_activityID_and_duration(self):
-        sql_lines = []
-        print(columns)
-        for col in columns: 
-            print(col)
-            line = f"SELECT age, ROW_NUMBER() OVER() AS person_id, '{col}' AS activity_id, {col} AS duration FROM age_filtered"
-            sql_lines.append(line)
-
-
-        unpivot_sql = "\nUNION ALL\n".join(sql_lines)
-        q= f"CREATE TEMP TABLE unpivoted AS \n{unpivot_sql}"
-        print(q)
-        return q
-    
-    def find_max_activity_per_person(self):
-        # print("got here")
-        # q = "CREATE TEMP TABLE top_activity_per_person AS " \
-        #     "SELECT person_id, activity_id " \
-        #     "FROM unpivoted " \
-        #     "WHERE (person_id, duration) IN ( " \
-        #         "SELECT person_id, MAX(duration) " \
-        #         "FROM unpivoted " \
-        #         "GROUP BY person_id " \
-        #     ");"
-        # print(q)
-        # return q
-        q = "CREATE TEMP TABLE top_activity_per_person AS " \
-            "SELECT person_id, activity_id " \
-            "FROM (SELECT ROW_NUMBER() OVER () AS person_id, * " \
-            "FROM (SELECT ROW_NUMBER() OVER (PARTITION BY age_filtered.* ORDER BY (SELECT NULL)) AS person_id, " \
-            "activity_id, duration FROM unpivoted) sub) max_activities " \
-            "WHERE (person_id, duration IN (SELECT person_id, MAX(duration) " \
-            "FROM (SELECT ROW_NUMBER() OVER () AS person_id, * FROM unpivoted) "\
-            "grouped GROUP BY person_id);"
-        return q
-
-
-
-
-    def count_most_frequent_top_activity(self):
-        print ("ruaaaa")
-        q = "SELECT activity_id, COUNT(*) AS frequency " \
-            "FROM top_activity_per_person " \
-            "GROUP BY activity_id " \
-            "ORDER BY frequency DESC " \
-            "LIMIT 1;" 
-        return q
-
     def get_top_by_age(self, age):
         '''finds the top activity for a given age
         param age: the age to find the top activity for'''
         try:
             cursor = self.connection.cursor()
-            #filter rows by age
-            query1 = self.query_filter_rows_for_age(age)
-            cursor.execute ("DROP TABLE IF EXISTS age_filtered;")
-            cursor.execute(query1, (age,))
-
-            #unpivot to activity_id and duration 
-            query2 = self.turn_into_activityID_and_duration()
-            cursor.execute("DROP TABLE IF EXISTS unpivoted;")
-            cursor.execute(query2)
-
-            #find top activity per person
-            query3 =self.find_max_activity_per_person()
-            cursor.execute("DROP TABLE IF EXISTS top_activity_per_person;")
-            cursor.execute(query3)
-            a = cursor.fetchall()
-            print(a)
-
-            #count most frequent top activity
-            query4 = self.count_most_frequent_top_activity()
-            print(query4)
-            cursor.execute(query4)
-            records = cursor.fetchall()
-            print(records)
-            return records
+            cursor.execute ("SELECT MAX() FROM data WHERE age = %s", (age,))
 
         except psycopg2.Error as e:
             print ("Something went wrong when executing the query: ", e)
