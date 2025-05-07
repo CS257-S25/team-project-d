@@ -11,7 +11,7 @@ Claire Holmes, Camila Mendoza, KD Meraz
 
 \copy category FROM 'Data/Categories_Data_database.csv' DELIMITER ',' CSV
 
-\copy data FROM 'Data/teamproject22-23_database.csv' DELIMITER ',' CSV
+\copy data_2223 FROM 'Data/averaged_by_age_22-23_transposed.csv' DELIMITER ',' CSV header
 
 **To run our python-based Flask App, run python3 app_OG.py from the command line.**
 

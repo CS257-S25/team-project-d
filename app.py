@@ -23,8 +23,9 @@ def homepage():
 def get_top_by_age(age):
     '''param: age, the age you want to see the top category for
     returns a string that gives the information for the top activity for an age group'''
+    age = str(age)
     top= test.get_top_by_age(age)
-    return "the top activity for people age " + str(age) + " is " + str(top)
+    return "the top activity for people age " + age + " is " + str(top)
 
 @app.route('/get-top/')
 def missing_age():
