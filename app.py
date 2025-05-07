@@ -82,4 +82,4 @@ def python_bug(e):
     return f"{e} Further information on correct inputs can be found on the homepage at: {base_url}"
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port = 8000)
