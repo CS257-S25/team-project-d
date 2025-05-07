@@ -71,7 +71,7 @@ def missing_subcategory(_category):
         "ex: /get-activities/Personal_Care_Activities/Sleeping"
 
 @app.route('/compare/<age>/<activity>')
-def get_top_by_age(age, activity):
+def compare_activity_for_age(age, activity):
     '''param: age, the age you want to compare the activity for
     param: activity, the activity you want to compare
     returns a string that gives the comparison for an age group'''
