@@ -92,9 +92,27 @@ class DataSource:
         param age: the age to find the top activity for'''
         try:
             cursor = self.connection.cursor()
-            q = f'SELECT (activity_id, "{age}") FROM transposed ORDER BY activity_id ASC LIMIT 1;'
+            q = f'SELECT (activity_id, "{age}") FROM data_2233 ORDER BY activity_id ASC LIMIT 1;'
             cursor.execute(q)
             records = cursor.fetchall()
+            return records
+
+        except psycopg2.Error as e:
+            print ("Something went wrong when executing the query: ", e)
+            return None
+        
+    def compare_ten_years_ago(self, age, activity):
+        '''compares the activity for a given age to the activity for that age 10 years ago
+        param age: the age to find the top activity for
+        param activity: the activity to compare'''
+        try:
+            cursor = self.connection.cursor()
+            q1 = f'SELECT (activity_id, "{age}") FROM data_2233 ORDER BY activity_id ASC LIMIT 1;'
+            q2 = f'SELECT (activity_id, "{age}") FROM data_1213 ORDER BY activity_id ASC LIMIT 1;'
+            cursor.execute(q1)
+            cursor.execute(q2)
+            records = cursor.fetchall()
+            print(f"records: " + records)
             return records
 
         except psycopg2.Error as e:

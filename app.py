@@ -70,6 +70,16 @@ def missing_subcategory(_category):
     return "Please include a subcategory, " \
         "ex: /get-activities/Personal_Care_Activities/Sleeping"
 
+@app.route('/compare/<age>/<activity>')
+def get_top_by_age(age, activity):
+    '''param: age, the age you want to compare the activity for
+    param: activity, the activity you want to compare
+    returns a string that gives the comparison for an age group'''
+    age = str(age)
+    comparison = test.compare_ten_years_ago(age, activity)
+    return "for people age " + age + " they engaged in " + activity + str(comparison) + "in 2022 & 2023"
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     '''returns error message if the page wasn't found'''
