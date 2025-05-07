@@ -107,7 +107,7 @@ class DataSource:
         param activity: the activity to compare'''
         try:
             cursor = self.connection.cursor()
-            q1 = f'SELECT (activity_id, "{age}") FROM data_2233 ORDER BY activity_id ASC LIMIT 1;'
+            q1 = f'SELECT (activity_id, "{age}") FROM data_2223 ORDER BY activity_id ASC LIMIT 1;'
             q2 = f'SELECT (activity_id, "{age}") FROM data_1213 ORDER BY activity_id ASC LIMIT 1;'
             cursor.execute(q1)
             cursor.execute(q2)
