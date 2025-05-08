@@ -54,7 +54,7 @@ def filter_by_prefix(data_loader, id_prefix, name_key, prefix_length=None):
     returns a list of names whose Activity_ID match the given prefix'''
     data = data_loader()
     results = []
-    key = name_key + '_ID'
+    key = name_key[:-5] + '_ID'
     for row in data:
         if prefix_length:
             prefix = row[key][:prefix_length]
