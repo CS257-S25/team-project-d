@@ -1,7 +1,11 @@
 '''Tests app_OG.py for all of the python code Flask app
 file: test_app.py'''
 import unittest
-from app_OG import app
+import psycopg2
+
+from app import get_subcategories_for_category, page_not_found, python_bug
+from app import get_activities_from_sub, compare_activity_for_age
+from app import missing_category, missing_cat_and_sub, missing_subcategory
 
 class TestApp(unittest.TestCase):
     '''class for tests for app.py'''
@@ -28,7 +32,7 @@ class TestApp(unittest.TestCase):
 
     def test_get_all_categories(self):
         '''tests that the route to get all categories returns the correct thing'''
-        response = self.app.get('/get-all-categories', follow_redirects=True)
+        response = get_all_categories
         self.assertEqual(b"The category options are: " \
             b"['Personal_Care_Activities', 'Household_Activities', " \
             b"'Caring_For_&_Helping_Household_(HH)_Members', " \
@@ -39,23 +43,31 @@ class TestApp(unittest.TestCase):
             b"'Eating_and_Drinking', " \
             b"'Socializing_Relaxing_and_Leisure', 'Sports_Exercise_&_Recreation', " \
             b"'Religious_and_Spiritual_Activities', " \
-            b"'Volunteer_Activities', 'Telephone_Calls', 'Traveling']", response.data)
+            b"'Volunteer_Activities', 'Telephone_Calls', 'Traveling']", response)
 
     def test_get_subcategories_for_category(self):
-        '''tets that the route to get subcatefories given a category returns the right thing '''
-        response = self.app.get('/get-subcategories/Personal_Care_Activities',
-                                follow_redirects=True)
-        self.assertEqual(b"These are the subcategories: "
-        b"['Sleeping', 'Grooming', 'Health-related_self_care', " \
-        b"'Personal_Activities', 'Personal_Care_Emergencies'] "
-        b"for Personal_Care_Activities", response.data)
+        '''tests that the route to get subcategories given a category returns the right thing '''
+        # connection = psycopg2.connect(database="teamd", user="teamd",
+        #     password="cup796happy", host="localhost")
+        # cursor = connection.cursor()
+        result = get_subcategories_for_category('Personal_Care_Activities')
+        # cursor.execute("SELECT * FROM category WHERE category_ID LIKE %s",
+        #     ('Personal_Care_Activities%',))
+        #result = cursor.fetchall()
+        print("result")
+        print(result)
+
+        self.assertEqual(b"These are the subcategories for Personal_Care_Activities : {sub_list}", result)
 
     def test_get_activities_from_sub(self):
         '''tests that the route to get activities returns the correct thing '''
-        response = self.app.get('/get-activities/Personal_Care_Activities/Sleeping',
-                                follow_redirects=True)
-        self.assertEqual(b"here are the activities for Sleeping in Personal_Care_Activities: "
-        b"['Sleeping', 'Sleeplessness']", response.data)
+        result = get_activities_from_sub('Personal_Care_Activities', 'Sleeping')
+        self.assertEqual(b"here are the activities for Sleeping in Personal_Care_Activities: " \
+            b"['Sleeping', 'Sleeplessness']", result)
+        # response = self.app.get('/get-activities/Personal_Care_Activities/Sleeping',
+        #                         follow_redirects=True)
+        # self.assertEqual(b"here are the activities for Sleeping in Personal_Care_Activities: "
+        # b"['Sleeping', 'Sleeplessness']", response.data)
 
     def assert_404(self, route):
         '''test to make sure error returns correct thing'''
