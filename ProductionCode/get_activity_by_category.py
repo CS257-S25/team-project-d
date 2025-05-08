@@ -54,7 +54,7 @@ def filter_by_prefix(data_loader, id_prefix, name_key, prefix_length=None):
     returns a list of names whose Activity_ID match the given prefix'''
     data = data_loader()
     results = []
-    key = name_key[:-5] + '_ID'
+    key = '_ID'
     for row in data:
         if prefix_length:
             prefix = row[key][:prefix_length]
@@ -90,7 +90,7 @@ def get_list_of_subcategories(category):
     category_id = get_category_from_data(category)
     if category_id:
         return filter_by_prefix(load_subcategory_data, category_id,
-                                'Activity_Name', prefix_length = len(category_id))
+                                'Subcategory', prefix_length = len(category_id))
     return []
 
 def get_activities_from_subcategory(subcategory):

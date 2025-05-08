@@ -62,7 +62,6 @@ class DataSource:
         except psycopg2.Error as e:
             print ("Something went wrong when executing the query: ", e)
             return None
-        return records
 
     def get_id_from_name(self, table, id_column, name_column, name):
         '''helper method to get a name from an id in a given table
