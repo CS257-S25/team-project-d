@@ -37,7 +37,7 @@ def find_id_by_name(data_loader, name_key, target_name):
     params: data_loader, the data you want to load
     param: name_key, 
     paramL target_name, '''
-    data = data_loader()
+    data = data_loader
     key = name_key + '_ID'
     for row in data:
         if row[key] == target_name:
@@ -52,7 +52,7 @@ def filter_by_prefix(data_loader, id_prefix, name_key, prefix_length=None):
     param: name_key, the key name in dict with the calue you want 
     param: prefix_length: how many char of Activity_ID to compare
     returns a list of names whose Activity_ID match the given prefix'''
-    data = data_loader()
+    data = data_loader
     results = []
     key = '_ID'
     for row in data:
