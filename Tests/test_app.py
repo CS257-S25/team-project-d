@@ -28,36 +28,17 @@ class TestApp(unittest.TestCase):
 
     def test_route_top_by_age(self):
         '''tests that the route to get top by age returns the right thing, given age 23'''
-        # response = self.app.get('/get-top/23', follow_redirects=True)
-        # self.assertEqual(b"the top activity for people age 23 is T050101", response.data)
+        response = get_top_by_age(23)
+        self.assertEqual(b"the top activity for people age 23 is Sleeping", response)
 
     def test_get_all_categories(self):
         '''tests that the route to get all categories returns the correct thing'''
-        response = get_all_categories
-        self.assertEqual(b"The category options are: " \
-            b"['Personal_Care_Activities', 'Household_Activities', " \
-            b"'Caring_For_&_Helping_Household_(HH)_Members', " \
-            b"'Caring_For_&_Helping_Nonhousehold_(NonHH)_Members', " \
-            b"'Work_&_Work-Related_Activities', 'Education', " \
-            b"'Consumer_Purchases', 'Professional_&_Personal_Care_Services', " \
-            b"'Household_Services', 'Government_Services_&_Civic_Obligations', " \
-            b"'Eating_and_Drinking', " \
-            b"'Socializing_Relaxing_and_Leisure', 'Sports_Exercise_&_Recreation', " \
-            b"'Religious_and_Spiritual_Activities', " \
-            b"'Volunteer_Activities', 'Telephone_Calls', 'Traveling']", response)
+        response = get_all_categories()
+        self.assertEqual(b"The category options are: [('T01', 'Personal_Care_Activities'), ('T02', 'Household_Activities'), ('T03', 'Caring_For_&_Helping_Household_(HH)_Members'), ('T04', 'Caring_For_&_Helping_Nonhousehold_(NonHH)_Members'), ('T05', 'Work_&_Work-Related_Activities'), ('T06', 'Education'), ('T07', 'Consumer_Purchases'), ('T08', 'Professional_&_Personal_Care_Services'), ('T09', 'Household_Services'), ('T10', 'Government_Services_&_Civic_Obligations'), ('T11', 'Eating_and_Drinking'), ('T12', 'Socializing_Relaxing_and_Leisure'), ('T13', 'Sports_Exercise_&_Recreation'), ('T14', 'Religious_and_Spiritual_Activities'), ('T15', 'Volunteer_Activities'), ('T16', 'Telephone_Calls'), ('T18', 'Traveling')]", response)
 
     def test_get_subcategories_for_category(self):
         '''tests that the route to get subcategories given a category returns the right thing '''
-        # connection = psycopg2.connect(database="teamd", user="teamd",
-        #     password="cup796happy", host="localhost")
-        # cursor = connection.cursor()
         result = get_subcategories_for_category('Personal_Care_Activities')
-        # cursor.execute("SELECT * FROM category WHERE category_ID LIKE %s",
-        #     ('Personal_Care_Activities%',))
-        #result = cursor.fetchall()
-        print("result")
-        print(result)
-
         self.assertEqual(b"These are the subcategories for Personal_Care_Activities : [('T0102', 'Grooming'), ('T0103', 'Health-related_self_care'), ('T0104', 'Personal_Activities'), ('T0105', 'Personal_Care_Emergencies')]", result)
 
     def test_get_activities_from_sub(self):
@@ -65,10 +46,6 @@ class TestApp(unittest.TestCase):
         result = get_activities_from_sub('Personal_Care_Activities', 'Sleeping')
         self.assertEqual(b"here are the activities for Sleeping in Personal_Care_Activities: " \
             b"['Sleeping', 'Sleeplessness']", result)
-        # response = self.app.get('/get-activities/Personal_Care_Activities/Sleeping',
-        #                         follow_redirects=True)
-        # self.assertEqual(b"here are the activities for Sleeping in Personal_Care_Activities: "
-        # b"['Sleeping', 'Sleeplessness']", response.data)
 
     def assert_404(self, route):
         '''test to make sure error returns correct thing'''
@@ -77,8 +54,6 @@ class TestApp(unittest.TestCase):
         self.assertIn(b"404 Not Found: The requested URL was not found on the server. " \
         b"If you entered the URL manually please check your spelling and try again. " \
         b"... refer to homepage (/) for options", response.data)
-
-
 
     def check_missing_route(self, route, message):
         '''helper to test missing parameter routes'''
