@@ -40,7 +40,7 @@ def find_id_by_name(data_loader, name_key, target_name):
     data = data_loader()
     key = name_key + '_ID'
     for row in data:
-        if row[name_key] == target_name:
+        if row[key] == target_name:
             print(row[key])
             return row[key]
     return None
