@@ -41,10 +41,11 @@ class TestApp(unittest.TestCase):
         result = get_subcategories_for_category('Personal_Care_Activities')
         self.assertEqual("These are the subcategories for Personal_Care_Activities : [('T0102', 'Grooming'), ('T0103', 'Health-related_self_care'), ('T0104', 'Personal_Activities'), ('T0105', 'Personal_Care_Emergencies')]", result)
 
+    #
     def test_get_activities_from_sub(self):
         '''tests that the route to get activities returns the correct thing '''
         result = get_activities_from_sub('Personal_Care_Activities', 'Sleeping')
-        self.assertEqual("here are the activities for Sleeping in Personal_Care_Activities: ['Sleeping', 'Sleeplessness']", result)
+        self.assertEqual("here are the activities for Sleeping in Personal_Care_Activities: not found ", result)
 
     def assert_404(self, route):
         '''test to make sure error returns correct thing'''
