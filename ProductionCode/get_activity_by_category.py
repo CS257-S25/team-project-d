@@ -37,8 +37,8 @@ def find_id_by_name(data_loader, name_key, target_name):
     params: data_loader, the data you want to load
     param: name_key, 
     paramL target_name, '''
-    data = data_loader
-    key = name_key[0:-5] + '_ID'
+    data = data_loader()
+    key = name_key + '_ID'
     for row in data:
         if row[name_key] == target_name:
             print(row[key])

@@ -23,7 +23,7 @@ class DataSource:
 
     def get_activity_list(self, subcategory):
         '''Get a list of activities given the subcategory'''
-        subcategory_id= self.get_id_from_name("subcategory", 
+        subcategory_id= self.get_id_from_name("subcategory",
                                               "subcategory_ID", "subcategory", subcategory)
 
         if not subcategory_id:
@@ -77,11 +77,11 @@ class DataSource:
             cursor.execute(f"SELECT {id_column} FROM {table} WHERE {name_column} = '{name}';")
             records = cursor.fetchone()
 
-            if records: 
+            if records:
                 return records[0]
-            else:
-                return None
-        except psycopg2.Error as e: 
+            
+            return None
+        except psycopg2.Error as e:
             print(f"Error getting activity from {table}: ", e)
             return None
 
@@ -98,11 +98,11 @@ class DataSource:
             cursor.execute(f"SELECT {name_column} FROM {table} WHERE {id_column} = '{id}';")
             records = cursor.fetchone()
 
-            if records: 
+            if records:
                 return records[0]
-            else:
-                return None
-        except psycopg2.Error as e: 
+            
+            return None
+        except psycopg2.Error as e:
             print(f"Error getting activity from {table}: ", e)
             return None
 
