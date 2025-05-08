@@ -89,7 +89,7 @@ def get_list_of_subcategories(category):
     Returns: a list of subcategories in the category'''
     category_id = get_category_from_data(category)
     if category_id:
-        return filter_by_prefix(load_subcategory_data, category_id,
+        return filter_by_prefix(load_subcategory_data(), category_id,
                                 'Subcategory', prefix_length = len(category_id))
     return []
 
@@ -99,6 +99,6 @@ def get_activities_from_subcategory(subcategory):
           subcategory: the subcategory to get the activities for
     Returns: a list of activities in the subcategory'''
     subcategory_id = get_subcategory_from_data(subcategory)
-    activities = filter_by_prefix(load_activity_data, subcategory_id,
+    activities = filter_by_prefix(load_activity_data(), subcategory_id,
                                   'Activity Name', prefix_length=5)
     return activities
