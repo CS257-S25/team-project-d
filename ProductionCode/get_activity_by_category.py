@@ -37,12 +37,12 @@ def find_id_by_name(data_loader, name_key, target_name):
     params: data_loader, the data you want to load
     param: name_key, 
     paramL target_name, '''
-    data = data_loader()
-    #select from table a sql call that is looking for that thing 
+    data = data_loader
+    key = name_key[0:-5] + '_ID'
     for row in data:
         if row[name_key] == target_name:
-            print(row['Activity_ID'])
-            return row['Activity_ID']
+            print(row[key])
+            return row[key]
     return None
 
 def filter_by_prefix(data_loader, id_prefix, name_key, prefix_length=None):
@@ -77,7 +77,7 @@ def get_subcategory_from_data(subcategory):
     '''Purpose: gets the ID of the selected subcategory
     Args: subcategory: the subcategory to get the ID for
     Returns: the ID of the subcategory'''
-    subcategory_id = find_id_by_name(load_subcategory_data, 'Activity_Name', subcategory)
+    subcategory_id = find_id_by_name(load_subcategory_data, 'Subcategory_Name', subcategory)
     if not subcategory_id:
         print("Usage: python3 cl.py --category <valid category> --subcategory " \
         "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
