@@ -88,7 +88,7 @@ class TestCL(unittest.TestCase):
         '''
         args= ["cl.py", "--category", "Household_Activities", "--subcategory", "Astronaut"]
         expected_error_message = "Usage: python3 cl.py --category <valid category> --subcategory " \
-            "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs"
+        "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs"
         output = self.output_usage(args, expected_error_message)
         self.assertIsNotNone(output)
 
