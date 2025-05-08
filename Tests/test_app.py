@@ -5,8 +5,8 @@ import psycopg2
 from app_OG import app
 
 from app import get_subcategories_for_category, page_not_found, python_bug
-from app import get_activities_from_sub, compare_activity_for_age
-from app import missing_category, missing_cat_and_sub, missing_subcategory
+from app import get_activities_from_sub, compare_activity_for_age, get_all_categories
+from app import missing_category, missing_cat_and_sub, missing_subcategory, get_top_by_age
 
 class TestApp(unittest.TestCase):
     '''class for tests for app.py'''
@@ -29,23 +29,22 @@ class TestApp(unittest.TestCase):
     def test_route_top_by_age(self):
         '''tests that the route to get top by age returns the right thing, given age 23'''
         response = get_top_by_age(23)
-        self.assertEqual(b"the top activity for people age 23 is Sleeping", response)
+        self.assertEqual("the top activity for people age 23 is Sleeping", response)
 
     def test_get_all_categories(self):
         '''tests that the route to get all categories returns the correct thing'''
         response = get_all_categories()
-        self.assertEqual(b"The category options are: [('T01', 'Personal_Care_Activities'), ('T02', 'Household_Activities'), ('T03', 'Caring_For_&_Helping_Household_(HH)_Members'), ('T04', 'Caring_For_&_Helping_Nonhousehold_(NonHH)_Members'), ('T05', 'Work_&_Work-Related_Activities'), ('T06', 'Education'), ('T07', 'Consumer_Purchases'), ('T08', 'Professional_&_Personal_Care_Services'), ('T09', 'Household_Services'), ('T10', 'Government_Services_&_Civic_Obligations'), ('T11', 'Eating_and_Drinking'), ('T12', 'Socializing_Relaxing_and_Leisure'), ('T13', 'Sports_Exercise_&_Recreation'), ('T14', 'Religious_and_Spiritual_Activities'), ('T15', 'Volunteer_Activities'), ('T16', 'Telephone_Calls'), ('T18', 'Traveling')]", response)
+        self.assertEqual("The category options are: [('T01', 'Personal_Care_Activities'), ('T02', 'Household_Activities'), ('T03', 'Caring_For_&_Helping_Household_(HH)_Members'), ('T04', 'Caring_For_&_Helping_Nonhousehold_(NonHH)_Members'), ('T05', 'Work_&_Work-Related_Activities'), ('T06', 'Education'), ('T07', 'Consumer_Purchases'), ('T08', 'Professional_&_Personal_Care_Services'), ('T09', 'Household_Services'), ('T10', 'Government_Services_&_Civic_Obligations'), ('T11', 'Eating_and_Drinking'), ('T12', 'Socializing_Relaxing_and_Leisure'), ('T13', 'Sports_Exercise_&_Recreation'), ('T14', 'Religious_and_Spiritual_Activities'), ('T15', 'Volunteer_Activities'), ('T16', 'Telephone_Calls'), ('T18', 'Traveling')]", response)
 
     def test_get_subcategories_for_category(self):
         '''tests that the route to get subcategories given a category returns the right thing '''
         result = get_subcategories_for_category('Personal_Care_Activities')
-        self.assertEqual(b"These are the subcategories for Personal_Care_Activities : [('T0102', 'Grooming'), ('T0103', 'Health-related_self_care'), ('T0104', 'Personal_Activities'), ('T0105', 'Personal_Care_Emergencies')]", result)
+        self.assertEqual("These are the subcategories for Personal_Care_Activities : [('T0102', 'Grooming'), ('T0103', 'Health-related_self_care'), ('T0104', 'Personal_Activities'), ('T0105', 'Personal_Care_Emergencies')]", result)
 
     def test_get_activities_from_sub(self):
         '''tests that the route to get activities returns the correct thing '''
         result = get_activities_from_sub('Personal_Care_Activities', 'Sleeping')
-        self.assertEqual(b"here are the activities for Sleeping in Personal_Care_Activities: " \
-            b"['Sleeping', 'Sleeplessness']", result)
+        self.assertEqual("here are the activities for Sleeping in Personal_Care_Activities: ['Sleeping', 'Sleeplessness']", result)
 
     def assert_404(self, route):
         '''test to make sure error returns correct thing'''
