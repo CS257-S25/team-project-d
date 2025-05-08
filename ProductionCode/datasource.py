@@ -79,7 +79,7 @@ class DataSource:
 
             if records:
                 return records[0]
-            
+
             return None
         except psycopg2.Error as e:
             print(f"Error getting activity from {table}: ", e)
@@ -100,7 +100,7 @@ class DataSource:
 
             if records:
                 return records[0]
-            
+
             return None
         except psycopg2.Error as e:
             print(f"Error getting activity from {table}: ", e)

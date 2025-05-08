@@ -36,14 +36,11 @@ def get_top_by_age(age):
     returns a string that gives the information for the top activity for an age group'''
     age = str(age)
     top_id = test.get_top_by_age(age)
-    print(top_id)
-    print(top_id[0][0][1:8])
     if "invalid age" in top_id:
         return top_id
-    else: 
-        top_activity = test.get_name_from_id('activities', 'activities_ID', 'activities', str(top_id[0][0][1:8]))
-        print(top_activity)
-        return "the top activity for people age " + age + " is " + str(top_activity)
+    activity = str(top_id[0][0][1:8])
+    top_activity = test.get_name_from_id('activities', 'activities_ID', 'activities', activity)
+    return "the top activity for people age " + age + " is " + str(top_activity)
 
 @app.route('/get-top/')
 def missing_age():
