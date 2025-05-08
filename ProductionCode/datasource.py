@@ -63,27 +63,47 @@ class DataSource:
             print ("Something went wrong when executing the query: ", e)
             return None
         return records
-    
-    def get_id_from_name (self, table, id_column, name_column, name):
-        '''helper method to get an id from a name in a given table
+
+    def get_id_from_name(self, table, id_column, name_column, name):
+        '''helper method to get a name from an id in a given table
         params: 
             table, the table name (ex. category, subcategory, activities)
             id_column, the id column name (ex. 'category_ID') 
             name_column, the name column to match (ex. 'category_Name')
-            name, the name to search for (ex. 'Personal Care Activities')
-        returns the ID calue for the name or none'''
+            id, the id to search for (ex. 'Personal Care Activities')
+        returns the value for the id or none'''
         try:
             cursor = self.connection.cursor()
-            cursor.execute(f"SELECT {name_column} FROM {table} WHERE {id_column} = '{name}';")
+            cursor.execute(f"SELECT {id_column} FROM {table} WHERE {name_column} = '{name}';")
             records = cursor.fetchone()
 
             if records: 
-                #issue: returning ('T0101', 'Sleeping') want it to just return Sleeping
                 return records[0]
             else:
                 return None
         except psycopg2.Error as e: 
-            print(f"Error getting ID from {table}: ", e)
+            print(f"Error getting activity from {table}: ", e)
+            return None
+
+    def get_name_from_id(self, table, id_column, name_column, id):
+        '''helper method to get a name from an id in a given table
+        params: 
+            table, the table name (ex. category, subcategory, activities)
+            id_column, the id column name (ex. 'category_ID') 
+            name_column, the name column to match (ex. 'category_Name')
+            id, the id to search for (ex. 'Personal Care Activities')
+        returns the value for the id or none'''
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute(f"SELECT {name_column} FROM {table} WHERE {id_column} = '{id}';")
+            records = cursor.fetchone()
+
+            if records: 
+                return records[0]
+            else:
+                return None
+        except psycopg2.Error as e: 
+            print(f"Error getting activity from {table}: ", e)
             return None
 
     def get_top_by_age(self, age, table='data_2223'):

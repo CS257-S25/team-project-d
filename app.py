@@ -41,7 +41,7 @@ def get_top_by_age(age):
     if "invalid age" in top_id:
         return top_id
     else: 
-        top_activity = test.get_id_from_name('activities', 'activities_ID', 'activities', str(top_id[0][0][1:8]))
+        top_activity = test.get_name_from_id('activities', 'activities_ID', 'activities', str(top_id[0][0][1:8]))
         print(top_activity)
         return "the top activity for people age " + age + " is " + str(top_activity)
 
@@ -110,4 +110,4 @@ def python_bug(e):
     return f"{e} <br>"  + directions_message()
 
 if __name__ == '__main__':
-    app.run(port=7000)
+    app.run()
