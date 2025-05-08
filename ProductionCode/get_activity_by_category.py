@@ -54,11 +54,12 @@ def filter_by_prefix(data_loader, id_prefix, name_key, prefix_length=None):
     returns a list of names whose Activity_ID match the given prefix'''
     data = data_loader()
     results = []
+    key = name_key + '_ID'
     for row in data:
         if prefix_length:
-            prefix = row['Activity_ID'][:prefix_length]
+            prefix = row[key][:prefix_length]
         else:
-            prefix = row['Activity_ID']
+            prefix = row[key]
         if prefix == id_prefix:
             results.append(row[name_key])
     return results
@@ -67,7 +68,7 @@ def get_category_from_data(category):
     '''Purpose: gets the category ID from the selected category
     Args: category: the category to get the ID for
     Returns: the ID of the category'''
-    category_id = find_id_by_name(load_category_data, 'Category', category)
+    category_id = find_id_by_name(load_category_data(), 'Category', category)
     if not category_id:
         print("Usage: python3 cl.py --category <valid category>")
     return category_id
