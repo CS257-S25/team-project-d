@@ -2,7 +2,7 @@
 file: test_app.py'''
 import unittest
 import psycopg2
-from app_OG import app
+from app import app
 
 from app import get_subcategories_for_category, page_not_found, python_bug
 from app import get_activities_from_sub, compare_activity_for_age, get_all_categories
