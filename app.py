@@ -34,13 +34,10 @@ def homepage():
 def get_top_by_age(age):
     '''param: age, the age you want to see the top category for
     returns a string that gives the information for the top activity for an age group'''
-    age = str(age)
-    top_id = test.get_top_by_age(age)
-    if "invalid age" in top_id:
-        return top_id
-    activity = str(top_id[0][0][1:8])
-    top_activity = test.get_name_from_id('activities', 'activities_ID', 'activities', activity)
-    return "the top activity for people age " + age + " is " + str(top_activity)
+    top = test.get_top_by_age(age)
+    if "invalid age" in top:
+        return top
+    return "the top activity for people age " + age + " is " + str(top)
 
 @app.route('/get-top/')
 def missing_age():
@@ -90,11 +87,9 @@ def compare_activity_for_age(age, activity):
     '''param: age, the age you want to compare the activity for
     param: activity, the activity you want to compare
     returns a string that gives the comparison for an age group'''
-    age = str(age)
-    old = test.get_top_by_age(age, 'data_1213')[0][0][9:-1]
-    new = test.get_top_by_age(age)[0][0][9:-1]
-    return "For people age " + age + " they engaged in " + activity + " on average " + str(old) \
-        + " hours in 2022 & 2023 and " + str(new) + " hours in 2012 & 2013"
+    hours = test.compare_by_age(age, activity)
+    return "For people age " + age + " they engaged in " + activity + " on average " + \
+        + str(hours[0]) + " hours in 2022 & 2023 and " + str(hours[1]) + " hours in 2012 & 2013"
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -107,4 +102,4 @@ def python_bug(e):
     return f"{e} <br>"  + directions_message()
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=4000)
