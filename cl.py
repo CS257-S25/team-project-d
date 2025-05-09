@@ -4,10 +4,9 @@ The eventual location for the command line interface (CLI) for the project.
 This will be the entry point for the project when run from the command line.
 '''
 import argparse
-from ProductionCode.get_activity_by_category import get_activities_from_subcategory
-from ProductionCode.get_activity_by_category import get_list_of_subcategories
-from ProductionCode.get_top_by_age import get_most_common_top_activity
-from shared_logic import get_the_subcategories
+from ProductionCode.datasource import get_subcategory_list
+from ProductionCode.datasource import get_activity_list
+from ProductionCode.datasource import get_top_by_age
 
 class InvalidCategoryError(Exception):
     '''exception raised for invalid category or subcategory'''
@@ -27,11 +26,9 @@ def get_parsed_arguments():
 
     return args
 
-
-# UPDATE FOR DATABASE
 def validate_category(category, subcategory = None):
     '''helper method for check valid category and subcategory'''
-    valid_subcategories = get_list_of_subcategories(category)
+    valid_subcategories = get_subcategory_list(category)
 
     if not valid_subcategories:
         raise InvalidCategoryError("Usage: python3 cl.py --category <valid category>")
@@ -50,17 +47,17 @@ def main():
     '''main function for the command line interface'''
     args = get_parsed_arguments()
 
-    # UPDATE FOR DATABASE
     if args.age is not None and args.top is not None:
-        most_common_top_activity = get_most_common_top_activity(args.age)
+        most_common_top_activity = get_top_by_age(args.age)
         print(most_common_top_activity)
 
     elif args.category is not None and args.subcategory is not None:
-        list_of_activities = get_activities_from_subcategory(args.subcategory)
+        list_of_activities = get_activity_list(args.subcategory)
         print(list_of_activities)
 
     elif args.category is not None:
-        list_of_subcategories = get_the_subcategories(args.category)
+        list_of_subcategories = get_subcategory_list(args.category)
         print(list_of_subcategories)
+
 if __name__ == "__main__":
     main()
