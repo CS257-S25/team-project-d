@@ -27,6 +27,8 @@ def get_parsed_arguments():
 
     return args
 
+
+# UPDATE FOR DATABASE
 def validate_category(category, subcategory = None):
     '''helper method for check valid category and subcategory'''
     valid_subcategories = get_list_of_subcategories(category)
@@ -48,6 +50,7 @@ def main():
     '''main function for the command line interface'''
     args = get_parsed_arguments()
 
+    # UPDATE FOR DATABASE
     if args.age is not None and args.top is not None:
         most_common_top_activity = get_most_common_top_activity(args.age)
         print(most_common_top_activity)
