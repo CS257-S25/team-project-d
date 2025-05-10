@@ -15,7 +15,7 @@ class TestApp(unittest.TestCase):
         self.mock_conn = MagicMock() 
         self.mock_cursor = self.mock_conn.cursor.return_value
 
-    @patch("app.homepage")
+    @patch("app.homepage.psycopg2.connect")
     def test_route_home(self, mock_homepage):
         '''tests that the home route returns the correct thing'''
         mock_homepage.return_value = self.mock_conn
@@ -44,17 +44,19 @@ class TestApp(unittest.TestCase):
         b"go to /get-subcategories/'<'category'>' C) TO GET a list of activities from a subcategory, "\
         b"go to /get-activities/'<'category'>'/'<'subcategory'>'", response.data )
 
-    @patch("app.get_top_by_age")
+    @patch("app.get_top_by_age.psycopg2.connect")
     def test_route_top_by_age(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given age 23'''
-        mock_get_top_by_age.return_value = "the top activity for people age 23 is Sleeping"
+        mock_get_top_by_age.return_value = self.mock_conn
+        self.mock_cursor.fetchall.return_value = "the top activity for people age 23 is Sleeping"
         response = get_top_by_age(23)
         self.assertEqual("the top activity for people age 23 is Sleeping", response)
 
-    @patch("app.get_all_categories")
+    @patch("app.get_all_categories.psycopg2.connect")
     def test_get_all_categories(self, mock_get_all_categories):
         '''tests that the route to get all categories returns the correct thing'''
-        mock_get_all_categories.return_value = "The category options are: ['Personal_Care_Activities', "\
+        mock_get_all_categories.return_value = self.mock_conn
+        self.mock_cursor.fetchall.return_value = "The category options are: ['Personal_Care_Activities', "\
         "'Household_Activities', 'Caring_For_&_Helping_Household_(HH)_Members', "\
         "'Caring_For_&_Helping_Nonhousehold_(NonHH)_Members', 'Work_&_Work-Related_Activities', "\
         "'Education', 'Consumer_Purchases', 'Professional_&_Personal_Care_Services', "\
@@ -70,19 +72,21 @@ class TestApp(unittest.TestCase):
         "'Sports_Exercise_&_Recreation', 'Religious_and_Spiritual_Activities', 'Volunteer_Activities', "\
         "'Telephone_Calls', 'Traveling']", response)
 
-    @patch("app.get_subcategories_for_category")
+    @patch("app.get_subcategories_for_category.psycopg2.connect")
     def test_get_subcategories_for_category(self, mock_get_subcategories_for_category):
         '''tests that the route to get subcategories given a category returns the right thing '''
-        mock_get_subcategories_for_category.return_value = "These are the subcategories for Personal_Care_Activities : "\
+        mock_get_subcategories_for_category.return_value = self.mock_conn
+        self.mock_cursor.fetchall.return_value = "These are the subcategories for Personal_Care_Activities : "\
         "['Sleeping', 'Grooming', 'Health-related_self_care', 'Personal_Activities', 'Personal_Care_Emergencies']"
         result = get_subcategories_for_category('Personal_Care_Activities')
         self.assertEqual("These are the subcategories for Personal_Care_Activities : "\
         "['Sleeping', 'Grooming', 'Health-related_self_care', 'Personal_Activities', 'Personal_Care_Emergencies']", result)
 
-    @patch("app.get_activities_from_sub")
+    @patch("app.get_activities_from_sub.psycopg2.connect")
     def test_get_activities_from_sub(self, mock_get_activities_from_sub):
         '''tests that the route to get activities returns the correct thing '''
-        mock_get_activities_from_sub.return_value = "here are the activities for Sleeping in Personal_Care_Activities: ['Sleeping', 'Sleeplessness']"
+        mock_get_activities_from_sub.return_value = self.mock_conn 
+        self.mock_cursor.fetchall.return_value = "here are the activities for Sleeping in Personal_Care_Activities: ['Sleeping', 'Sleeplessness']"
         result = get_activities_from_sub('Personal_Care_Activities', 'Sleeping')
         self.assertEqual("here are the activities for Sleeping in Personal_Care_Activities: ['Sleeping', 'Sleeplessness']", result)
 
