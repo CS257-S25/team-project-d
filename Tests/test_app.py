@@ -8,20 +8,16 @@ from app import get_subcategories_for_category, page_not_found, python_bug
 from app import get_activities_from_sub, compare_activity_for_age, get_all_categories
 from app import missing_category, missing_cat_and_sub, missing_subcategory, get_top_by_age
 
-with patch('psycopg2.connect') as mock_connect:
-    from app import app
-    
 class TestApp(unittest.TestCase):
     '''class for tests for app.py'''
-
     def setUp(self):
         '''set up for testing'''
         app.config['TESTING']= True
         self.app = app.test_client()
 
-
     @patch("app.homepage")
     def test_route_home(self, mock_homepage):
+        with patch('app.homepage') as mock_homepage:
         '''tests that the home route returns the correct thing'''
         mock_homepage.return_value = b"This is the homepage for the time use project! "\
         b"1) TO GET the top activity for a certain age between 15 and 80, go to /get-top/'<'age'>' "\
