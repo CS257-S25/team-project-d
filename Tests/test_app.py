@@ -5,7 +5,7 @@ import psycopg2
 from app import app
 from unittest.mock import patch
 
-from app import get_subcategories_for_category, page_not_found, python_bug
+from app import get_subcategories_for_category, page_not_found, python_bug, create_app
 from app import get_activities_from_sub, compare_activity_for_age, get_all_categories
 from app import missing_category, missing_cat_and_sub, missing_subcategory, get_top_by_age
 
@@ -15,8 +15,10 @@ class TestApp(unittest.TestCase):
 
     @patch('psycog2.connect')
     def test_db_connection(mock_connect):
+        app = create_app()
+        client = app.test_client()
         mock_connect.return_value = True
-        
+
     def setUp(self):
         '''set up for testing'''
         app.config['TESTING']= True
