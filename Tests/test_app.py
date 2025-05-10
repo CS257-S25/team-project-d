@@ -15,7 +15,7 @@ class TestApp(unittest.TestCase):
         self.mock_conn = MagicMock() 
         self.mock_cursor = self.mock_conn.cursor.return_value
 
-    @patch("app.homepage")
+    @patch("app.homepage.psycopg2.connect")
     def test_route_home(self, mock_homepage):
         '''tests that the home route returns the correct thing'''
         mock_homepage.return_value = self.mock_conn
