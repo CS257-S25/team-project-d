@@ -9,12 +9,19 @@ from app import get_subcategories_for_category, page_not_found, python_bug
 from app import get_activities_from_sub, compare_activity_for_age, get_all_categories
 from app import missing_category, missing_cat_and_sub, missing_subcategory, get_top_by_age
 
+
 class TestApp(unittest.TestCase):
     '''class for tests for app.py'''
+
+    @patch('psycog2.connect')
+    def test_db_connection(mock_connect):
+        mock_connect.return_value = True
+        
     def setUp(self):
         '''set up for testing'''
         app.config['TESTING']= True
         self.app = app.test_client()
+
 
     @patch("app.homepage")
     def test_route_home(self, mock_homepage):
