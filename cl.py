@@ -6,7 +6,6 @@ This will be the entry point for the project when run from the command line.
 import argparse
 import ProductionCode.datasource as datasource
 
-datasource = datasource.DataSource()
 
 class InvalidCategoryError(Exception):
     '''exception raised for invalid category or subcategory'''
@@ -31,6 +30,7 @@ def get_parsed_arguments():
 
 def validate_category(category, subcategory = None):
     '''helper method for check valid category and subcategory'''
+    datasource = datasource.DataSource()
     valid_subcategories = datasource.get_subcategory_list(category)
 
     if not valid_subcategories:
@@ -51,6 +51,7 @@ def check_validity(args):
 
 def validate_activity(activity):
     '''helper method to check if the activity is valid'''
+    datasource = datasource.DataSource()
     subcategory = datasource.get_subcategory_from_activity(activity)
     valid_activities = datasource.get_activity_list(subcategory)
     if activity not in valid_activities:
@@ -59,6 +60,7 @@ def validate_activity(activity):
 
 def main():
     '''main function for the command line interface'''
+    datasource = datasource.DataSource()
     args = get_parsed_arguments()
 
     if args.age is not None and args.top is not None:
