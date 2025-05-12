@@ -6,7 +6,7 @@ from unittest.mock import patch, MagicMock
 
 from app import get_subcategories_for_category, page_not_found, python_bug
 from app import get_activities_from_sub, compare_activity_for_age, get_all_categories
-from app import missing_category, missing_cat_and_sub, missing_subcategory, get_top_by_age
+from app import missing_category, missing_cat_and_sub, missing_subcategory, get_top_by_age, app
 
 class TestApp(unittest.TestCase):
     '''class for tests for app.py'''
@@ -14,6 +14,7 @@ class TestApp(unittest.TestCase):
         #create a mock connection and cursor
         self.mock_conn = MagicMock() 
         self.mock_cursor = self.mock_conn.cursor.return_value
+        self.app = app.test.client()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_home(self, mock_homepage):
