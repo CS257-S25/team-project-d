@@ -28,8 +28,9 @@ class TestCL(unittest.TestCase):
     def test_get_parsed_arguments(self):
         '''tests the get_parsed_arguments function'''
         #mock_get_parsed_arguments.return_value = self.mock_conn
-        # Mock the command line arguments   
-        process = subprocess.run(['cl.py', '--category', 'Personal_Care_Activities'])
+        # Mock the command line arguments
+        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+        process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
         # Call the function to test
         #response = get_parsed_arguments()
         # Check if the response is as expected
