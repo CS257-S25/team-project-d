@@ -30,8 +30,8 @@ def get_parsed_arguments():
 
 def validate_category(category, subcategory = None):
     '''helper method for check valid category and subcategory'''
-    datasource = datasource.DataSource()
-    valid_subcategories = datasource.get_subcategory_list(category)
+    source = datasource.DataSource()
+    valid_subcategories = source.get_subcategory_list(category)
 
     if not valid_subcategories:
         raise InvalidCategoryError("Usage: python3 cl.py --category <valid category>")
@@ -51,34 +51,34 @@ def check_validity(args):
 
 def validate_activity(activity):
     '''helper method to check if the activity is valid'''
-    datasource = datasource.DataSource()
-    subcategory = datasource.get_subcategory_from_activity(activity)
-    valid_activities = datasource.get_activity_list(subcategory)
+    source = datasource.DataSource()
+    subcategory = source.get_subcategory_from_activity(activity)
+    valid_activities = source.get_activity_list(subcategory)
     if activity not in valid_activities:
         raise InvalidCategoryError(
             "Usage: python3 cl.py --compare <age 15-80> --activity <valid activity> ")
 
 def main():
     '''main function for the command line interface'''
-    datasource = datasource.DataSource()
+    source = datasource.DataSource()
     args = get_parsed_arguments()
 
     if args.age is not None and args.top is not None:
-        most_common_top_activity = datasource.get_top_by_age(args.age)
+        most_common_top_activity = source.get_top_by_age(args.age)
         print(most_common_top_activity)
 
     elif args.compare is not None and args.activity is not None:
-        hours = datasource.compare_by_age(args.compare, args.activity)
+        hours = source.compare_by_age(args.compare, args.activity)
         print(f"For people age " + str(args.compare) + " they engaged in " + str(args.activity) \
             + " on average " + str(hours[0]) \
             + " hours in 2022 & 2023 and " + str(hours[1]) + " hours in 2012 & 2013")
 
     elif args.category is not None and args.subcategory is not None:
-        list_of_activities = datasource.get_activity_list(args.subcategory)
+        list_of_activities = source.get_activity_list(args.subcategory)
         print(list_of_activities)
 
     elif args.category is not None:
-        list_of_subcategories = datasource.get_subcategory_list(args.category)
+        list_of_subcategories = source.get_subcategory_list(args.category)
         print(list_of_subcategories)
 
 if __name__ == "__main__":
