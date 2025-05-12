@@ -27,21 +27,9 @@ class TestCL(unittest.TestCase):
 
     def test_get_parsed_arguments(self):
         '''tests the get_parsed_arguments function'''
-        #mock_get_parsed_arguments.return_value = self.mock_conn
-        # Mock the command line arguments
         script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
         process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
-        # Call the function to test
-        #response = get_parsed_arguments()
-        # Check if the response is as expected
         self.assertEqual(process.returncode, 0)
-        # self.assertEqual(response.category, 'Personal_Care_Activities')
-        # # Check if the other arguments are None
-        # self.assertIsNone(response.subcategory)
-        # self.assertIsNone(response.activity)
-        # self.assertIsNone(response.age)
-        # self.assertIsNone(response.compare)
-        # self.assertIsNone(response.top)
         
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_validate_category(self, mock_validate_category):
