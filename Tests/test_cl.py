@@ -28,7 +28,7 @@ class TestCL(unittest.TestCase):
         '''tests the get_parsed_arguments function'''
         mock_get_parsed_arguments.return_value = self.mock_conn
         # Mock the command line arguments   
-        sys.argv = ['cl.py', '--category', 'Personal_Care_Activities']
+        self.mock_cursor.fetchall.return_value = ['cl.py', '--category', 'Personal_Care_Activities']
         # Call the function to test
         response = get_parsed_arguments()
         # Check if the response is as expected
