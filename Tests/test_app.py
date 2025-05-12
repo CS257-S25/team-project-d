@@ -14,7 +14,7 @@ class TestApp(unittest.TestCase):
         #create a mock connection and cursor
         self.mock_conn = MagicMock() 
         self.mock_cursor = self.mock_conn.cursor.return_value
-        self.app = app.test.client()
+        self.app = app.test_client()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_home(self, mock_homepage):
