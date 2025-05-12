@@ -6,7 +6,6 @@ from flask import Flask, request
 from ProductionCode.datasource import DataSource
 app = Flask(__name__)
 
-test = DataSource()
 
 def directions_message():
     '''message that is printed on homepage and error pages to tell the user what to do'''
@@ -34,6 +33,7 @@ def homepage():
 def get_top_by_age(age):
     '''param: age, the age you want to see the top category for
     returns a string that gives the information for the top activity for an age group'''
+    test = DataSource()
     top = test.get_top_by_age(age)
     if "invalid age" in top:
         return top
@@ -47,6 +47,7 @@ def missing_age():
 @app.route('/get-all-categories')
 def get_all_categories():
     '''returns a list of category options'''
+    test = DataSource()
     data_for_get_category = test.get_category_list()
     return "The category options are: " + str(data_for_get_category)
 
@@ -54,6 +55,7 @@ def get_all_categories():
 def get_subcategories_for_category(category):
     ''' param: category, the category you want more info about(subcategories for)
     returns a list of subcategories for a given category'''
+    test = DataSource()
     sub_list = test.get_subcategory_list(category)
     return f"These are the subcategories for {category} : {sub_list}"
 
@@ -67,6 +69,7 @@ def get_activities_from_sub(category, subcategory):
     ''' param: category, the category you want to look at 
     param: subcategory, the subcategory you want more info about (activities for)
     returns a list of activities from a subcategory'''
+    test = DataSource()
     activities = test.get_activity_list(subcategory)
     return f"here are the activities for {subcategory} in {category}: {activities}"
 
@@ -87,6 +90,7 @@ def compare_activity_for_age(age, activity):
     '''param: age, the age you want to compare the activity for
     param: activity, the activity you want to compare
     returns a string that gives the comparison for an age group'''
+    test = DataSource()
     hours = test.compare_by_age(age, activity)
     return "For people age " + age + " they engaged in " + activity + " on average " + \
         + str(hours[0]) + " hours in 2022 & 2023 and " + str(hours[1]) + " hours in 2012 & 2013"
