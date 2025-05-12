@@ -15,7 +15,7 @@ class TestApp(unittest.TestCase):
         self.mock_conn = MagicMock() 
         self.mock_cursor = self.mock_conn.cursor.return_value
 
-    @patch("app.homepage.psycopg2.connect")
+    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_home(self, mock_homepage):
         '''tests that the home route returns the correct thing'''
         mock_homepage.return_value = self.mock_conn
@@ -44,7 +44,7 @@ class TestApp(unittest.TestCase):
         b"go to /get-subcategories/'<'category'>' C) TO GET a list of activities from a subcategory, "\
         b"go to /get-activities/'<'category'>'/'<'subcategory'>'", response.data )
 
-    @patch("app.get_top_by_age.psycopg2.connect")
+    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_top_by_age(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given age 23'''
         mock_get_top_by_age.return_value = self.mock_conn
@@ -52,7 +52,7 @@ class TestApp(unittest.TestCase):
         response = get_top_by_age(23)
         self.assertEqual("the top activity for people age 23 is Sleeping", response)
 
-    @patch("app.get_all_categories.psycopg2.connect")
+    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_all_categories(self, mock_get_all_categories):
         '''tests that the route to get all categories returns the correct thing'''
         mock_get_all_categories.return_value = self.mock_conn
@@ -72,7 +72,7 @@ class TestApp(unittest.TestCase):
         "'Sports_Exercise_&_Recreation', 'Religious_and_Spiritual_Activities', 'Volunteer_Activities', "\
         "'Telephone_Calls', 'Traveling']", response)
 
-    @patch("app.get_subcategories_for_category.psycopg2.connect")
+    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_subcategories_for_category(self, mock_get_subcategories_for_category):
         '''tests that the route to get subcategories given a category returns the right thing '''
         mock_get_subcategories_for_category.return_value = self.mock_conn
@@ -82,7 +82,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual("These are the subcategories for Personal_Care_Activities : "\
         "['Sleeping', 'Grooming', 'Health-related_self_care', 'Personal_Activities', 'Personal_Care_Emergencies']", result)
 
-    @patch("app.get_activities_from_sub.psycopg2.connect")
+    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_activities_from_sub(self, mock_get_activities_from_sub):
         '''tests that the route to get activities returns the correct thing '''
         mock_get_activities_from_sub.return_value = self.mock_conn 
