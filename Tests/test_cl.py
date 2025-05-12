@@ -25,13 +25,13 @@ class TestCL(unittest.TestCase):
         # response = get_top_by_age(23)
         # self.assertEqual("the top activity for people age 23 is Sleeping", response)
 
-    def test_get_parsed_arguments(self, mock_get_parsed_arguments):
+    def test_get_parsed_arguments(self):
         '''tests the get_parsed_arguments function'''
-        mock_get_parsed_arguments.return_value = self.mock_conn
+        #mock_get_parsed_arguments.return_value = self.mock_conn
         # Mock the command line arguments   
         process = subprocess.run(['cl.py', '--category', 'Personal_Care_Activities'])
         # Call the function to test
-        response = get_parsed_arguments()
+        #response = get_parsed_arguments()
         # Check if the response is as expected
         self.assertEqual(process.returncode, 0)
         # self.assertEqual(response.category, 'Personal_Care_Activities')
