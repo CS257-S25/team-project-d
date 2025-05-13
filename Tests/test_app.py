@@ -83,10 +83,15 @@ class TestApp(unittest.TestCase):
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_activities_from_sub(self, mock_get_activities_from_sub):
         '''tests that the route to get activities returns the correct thing '''
-        mock_get_activities_from_sub.return_value = ['Sleeping', 'Sleeplessness']
-        response = self.app.get('/get-activities/Personal_Care_Activities/Sleeping')
-        self.assertEqual(response.status_code, 200)
-        self.assertIn("Here are the activities for Sleeping in Personal_Care_Activities", response.data.decode())
+        mock_get_activities_from_sub.return_value = self.mock_conn
+        self.mock_cursor.fetchall.return_value = [
+            ("T010101", "Sleeping"),
+            ("T010102", "Sleeplessness")
+            ]
+        result = get_activities_from_sub("Personal_Care_Activities", "Sleeping")
+        self.assertEqual()
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Here are the activities for Sleeping in Personal_Care_Activities", result)
 
     def assert_404(self, route):
         '''test to make sure error returns correct thing'''
