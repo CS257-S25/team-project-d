@@ -11,7 +11,7 @@ from app import app
 from cl import get_parsed_arguments, validate_category, check_validity
 from cl import validate_activity, main
 
-#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 class TestCL(unittest.TestCase):
     '''Test class for the command line interface (CLI) for the project.'''
