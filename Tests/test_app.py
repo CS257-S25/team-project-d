@@ -87,12 +87,19 @@ class TestApp(unittest.TestCase):
         self.mock_cursor.fetchall.return_value = [
             ("T010101", "Sleeping"),
             ("T010102", "Sleeplessness")
-            ]
-        result = get_activities_from_sub("Personal_Care_Activities", "Sleeping")
-        self.assertEqual()
-        self.assertEqual(result.status_code, 200)
-        self.assertIn("Here are the activities for Sleeping in Personal_Care_Activities", result)
+        ]
+        #result = get_activities_from_sub("Personal_Care_Activities", "Sleeping")
+        #self.assertEqual()
+        #self.assertEqual(result.status_code, 200)
+        #self.assertIn("Here are the activities for Sleeping in Personal_Care_Activities", result)
+        response = self.app.get('/get-activities/Personal_Care_Activities/Sleeping')
 
+        self.assertEqual(response.status_code, 200)
+        decoded = response.data.decode()
+        self.assertIn("here are the activities for Sleeping in Personal_Care_Activities", decoded)
+        self.assertIn("Sleeping", decoded)
+        self.assertIn("Sleeplessness", decoded)
+        
     def assert_404(self, route):
         '''test to make sure error returns correct thing'''
         response = self.app.get(route)
