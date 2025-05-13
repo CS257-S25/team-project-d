@@ -33,6 +33,39 @@ class TestCL(unittest.TestCase):
     def test_validate_category_invalid(self):
         pass
 
+    
+    @patch("cl.datasource.DataSource")
+    @patch("cl.get_parsed_arguments")
+    def test_main_top_activity(self, mock_get_args, mock_datasource_class):
+        '''tests the main function'''
+    
+        #fake CLI args
+        mock_args= MagicMock()
+        mock_args.age = 23
+        mock_args.top = True
+        mock_args.category = None
+        mock_args.subcategory = None 
+        mock_args.compare = None
+        mock_args.activity = None
+
+        # this can be a helper used in several methods
+        mock_instance= MagicMock()
+        mock_instance.get_top_by_age.return_value = "Sleeping"
+        mock_datasource_class.return_value = mock_instance
+        
+        with patch("builtins.print") as mock_print:
+            cl.main()
+            mock_print.assert_called_once_with("Sleeping")
+
+    ####################################################
+    ##########     EVERYTHING BELOW IS OK     ##########
+    ####################################################
+    def test_get_parsed_arguments(self):
+        '''tests the get_parsed_arguments function'''
+        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+        process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
+        self.assertEqual(process.returncode, 0)
+    
     @patch("cl.datasource.DataSource")
     def test_validate_category_valid(self, mock_datasource_class):
         '''tests the validate_category function'''
@@ -46,36 +79,6 @@ class TestCL(unittest.TestCase):
             self.fail("validate_category() raised InvalidCategoryError")
         
         mock_instance.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
-
-    @patch("cl.datasource.DataSource")
-    @patch("cl.get_parsed_arguments")
-    def test_main_top_activity(self,mock_main_top_activity, mock_get_args):
-        '''tests the main function'''
-        mock_main_top_activity.return_value = self.mock_conn
-        self.mock_conn.get_top_by_age.return_value = "Sleeping"
-
-        #fake CLI args
-        mock_args= MagicMock()
-        mock_args.age = 23
-        mock_args.top = True
-        mock_args.category = None
-        mock_args.subcategory = None 
-        mock_args.compare = None
-        mock_args.activity = None
-
-        mock_get_args.return_value = mock_args
-        with patch("builtins.print") as mock_print:
-            cl.main()
-            mock_print.assert_called_once_with("Sleeping")
-
-    ####################################################
-    ##########     EVERYTHING BELOW IS OK     ##########
-    ####################################################
-    def test_get_parsed_arguments(self):
-        '''tests the get_parsed_arguments function'''
-        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-        process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
-        self.assertEqual(process.returncode, 0)
 
     @patch("cl.validate_category")
     @patch("cl.validate_activity")
