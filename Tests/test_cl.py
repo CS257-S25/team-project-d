@@ -32,35 +32,35 @@ class TestCL(unittest.TestCase):
         script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
         process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
         self.assertEqual(process.returncode, 0)
-        
-    @patch("cl.datasource.DataSource")
-    def test_validate_category_valid(self, mock_validate_category):
-        '''tests the validate_category function'''
-        mock_validate_category.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = [('T01','Personal_Care_Activities')]
-        result = validate_category('Personal_Care_Activities')
-        self.assertEqual(result, 'Personal_Care_Activities')
-
-    @patch("cl.datasource.DataSource")
+    
+     @patch("cl.datasource.DataSource")
     def test_validate_activity(self, mock_validate_activity):
         '''tests the validate_activity function'''
         mock_validate_activity.return_value = self.mock_conn
         pass
 
+    @patch("cl.datasource.DataSource")
+    def test_validate_category_valid(self, mock_validate_category):
+        '''tests the validate_category function'''
+        mock_validate_category.get_subcategory_list.return_value = ["Sleeping", "Sleeplessness"]
+        try: 
+            cl.validate_category("Personal_Care_Activities", "Sleeping")
+        except cl.InvalidCategoryError:
+            self.fail("validate_category() raised InvalidCategoryError")
+        mock_validate_category.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
 
     @patch("cl.validate_category")
     @patch("cl.validate_activity")
-    def test_check_validity(self, mock_validate_activity, mock_validate_category, mock_check_validity):
+    def test_check_validity(self, mock_validate_activity, mock_validate_category):
         '''tests the check_validity function'''
         args= argparse.Namespace(category= 'Personal_Care_Activities', subcategory = 'Sleeping',activity='Sleeping', age= None, top= None, compare= None )
         cl.check_validity(args)
         mock_validate_category.assert_called_once_with('Personal_Care_Activities', 'Sleeping')
         mock_validate_activity.assert_called_once_with("Sleeping")
-        mock_check_validity.return_value = self.mock_conn
-        pass
 
     @patch("cl.datasource.DataSource")
-    def test_main_top_activity(self, mock_get_args, mock_main_top_activity):
+    @patch("cl.get_parsed_arguments")
+    def test_main_top_activity(self,mock_main_top_activity, mock_get_args):
         '''tests the main function'''
         mock_main_top_activity.return_value = self.mock_conn
         self.mock_conn.get_top_by_age.return_value = "Sleeping"
