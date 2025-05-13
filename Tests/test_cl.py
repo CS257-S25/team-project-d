@@ -36,7 +36,7 @@ class TestCL(unittest.TestCase):
         '''tests the validate_category function'''
         mock_validate_category.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = [('T01','Personal_Care_Activities')]
-        print(f"here: " + self.mock_cursor.fetchall.return_value)
+        print(f"here: {self.mock_cursor.fetchall.return_value}")
         result = validate_category('Personal_Care_Activities')
         print(f"result: {result}")
         self.assertEqual(result, 'Personal_Care_Activities')
