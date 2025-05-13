@@ -32,11 +32,19 @@ class TestCL(unittest.TestCase):
             cl.validate_activity("Sleeping")
         except cl.InvalidCategoryError:
             self.fail("validate_activity() raised InvalidCategoryError")
-        
-        # mock_instance.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
     
-    def test_validate_activity_invalid(self):
-        pass
+    @patch("cl.datasource.DataSource")
+    def test_validate_activity_invalid(self, mock_datasource_class):
+        mock_instance= MagicMock()
+        mock_instance.get_activity_list.return_value = ["Carleton"]
+        mock_datasource_class.return_value = mock_instance
+
+        try: 
+            cl.validate_activity("Carleton")
+        except cl.InvalidCategoryError:
+            self.fail("validate_activity() raised InvalidCategoryError")
+
+        mock_instance.get_activity_list.assert_called_once_with("Carleton")
 
     def test_validate_category_invalid(self):
         pass
