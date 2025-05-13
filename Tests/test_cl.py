@@ -45,37 +45,29 @@ class TestCL(unittest.TestCase):
     @patch.object(sys, 'argv', ['cl.py', '--age', '23'])
     def test_get_parsed_age(self, mock_check_validity):
         args = get_parsed_arguments()
-        self.assertEqual(args.age, '23')
+        self.assertEqual(args.age, 23)
         mock_check_validity.assert_called_once_with(args)
 
+    @patch('cl.check_validity')
+    @patch.object(sys, 'argv', ['cl.py', '--subcategory', 'Sleeping'])
+    def test_get_parsed_subcategory(self, mock_check_validity):
+        args = get_parsed_arguments()
+        self.assertEqual(args.subcategory, 'Sleeping')
+        mock_check_validity.assert_called_once_with(args)
 
-    # def test_get_parsed_age(self):
-    #     '''tests the get_parsed_arguments function'''
-    #     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-    #     process = subprocess.run([sys.executable, script_path, '--age', '23'], capture_output=True, text=True)
-    #     print(f"age process: {process}")
-    #     self.assertEqual(process.returncode, 0)
+    @patch('cl.check_validity')
+    @patch.object(sys, 'argv', ['cl.py', '--compare', '23'])
+    def test_get_parsed_compare(self, mock_check_validity):
+        args = get_parsed_arguments()
+        self.assertEqual(args.compare, 23)
+        mock_check_validity.assert_called_once_with(args)
 
-    # def test_get_parsed_subcategory(self):
-    #     '''tests the get_parsed_arguments function'''
-    #     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-    #     process = subprocess.run([sys.executable, script_path, '--subcateogry', 'Sleeping'], capture_output=True, text=True)
-    #     print(f"subcategory process: {process}")
-    #     self.assertEqual(process.returncode, 0)
-
-    # def test_get_parsed_compare(self):
-    #     '''tests the get_parsed_arguments function'''
-    #     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-    #     process = subprocess.run([sys.executable, script_path, '--compare', '23'], capture_output=True, text=True)
-    #     print(f"compare process: {process}")
-    #     self.assertEqual(process.returncode, 0)
-
-    # def test_get_parsed_activity(self):
-    #     '''tests the get_parsed_arguments function'''
-    #     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-    #     process = subprocess.run([sys.executable, script_path, '--Activity', 'Laundry'], capture_output=True, text=True)
-    #     print(f"activity process: {process}")
-    #     self.assertEqual(process.returncode, 0)
+    @patch('cl.check_validity')
+    @patch.object(sys, 'argv', ['cl.py', '--activity', 'Sleeping'])
+    def test_get_parsed_activity(self, mock_check_validity):
+        args = get_parsed_arguments()
+        self.assertEqual(args.activity, 'Sleeping')
+        mock_check_validity.assert_called_once_with(args)
     
     @patch("cl.datasource.DataSource")
     def test_validate_category_valid(self, mock_datasource_class):
