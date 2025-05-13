@@ -96,8 +96,12 @@ def compare_activity_for_age(age, activity):
 
     if not isinstance(hours, (tuple, list)) or len(hours) != 2:
         return f"Error: unexpected result from compare_by_age -> {hours}"
-    
-    return f"For people age {age} they engaged in {activity} on average {hours[0]} hours in 2022 & 2023 and {hours[1]} hours in 2012 & 2013"
+
+    return (
+    f"For people age {age} they engaged in {activity} on average {hours[0]} hours "
+    f"in 2022 & 2023 and {hours[1]} hours in 2012 & 2013"
+    )
+
 @app.errorhandler(404)
 def page_not_found(e):
     '''returns error message if the page wasn't found'''

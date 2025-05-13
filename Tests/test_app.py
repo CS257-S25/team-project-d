@@ -100,10 +100,9 @@ class TestApp(unittest.TestCase):
         self.mock_cursor.fetchall.return_value= [
             (559, 552)
         ]
-        response = compare_activity_for_age("23")
-        self.assertEqual("For people age 23 they engaged in grooming on average nhours in 2022 & 2023 and ohours in 2012 & 2013", response)
+        response = compare_activity_for_age("23", "Sleeping")
+        self.assertEqual("For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013", response)
 
-    
     def assert_404(self, route): # I think this one is not really accurate anymore 
         '''test to make sure error returns correct thing'''
         response = self.app.get(route)
