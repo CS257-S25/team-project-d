@@ -57,7 +57,7 @@ def get_subcategories_for_category(category):
     returns a list of subcategories for a given category'''
     test = DataSource()
     sub_list = test.get_subcategory_list(category)
-    return f"These are the subcategories for {category} : {sub_list}"
+    return f"These are the subcategories for {category}: {sub_list}"
 
 @app.route('/get-subcategories/')
 def missing_category():
