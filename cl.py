@@ -49,11 +49,9 @@ def validate_activity(activity):
     source = datasource.DataSource()
     subcategory = source.get_subcategory_from_activity(activity)
     valid_activities = source.get_activity_list(subcategory)
-    print("valid activities are: ", valid_activities)
     if activity not in valid_activities:
         raise InvalidCategoryError(
             "Usage: python3 cl.py --compare <age 15-80> --activity <valid activity> ")
-    print("activity is valid")
 
 def main():
     '''main function for the command line interface'''
