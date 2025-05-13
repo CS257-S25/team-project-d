@@ -48,6 +48,7 @@ class TestCL(unittest.TestCase):
 
         mock_instance.get_activity_list.assert_called_once()
 
+    @patch("cl.datasource.DataSource")
     def test_validate_category_invalid(self, mock_datasource_class):
         '''tests the validate_category function'''
         mock_instance= MagicMock()
