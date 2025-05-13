@@ -69,8 +69,13 @@ class TestApp(unittest.TestCase):
     def test_get_subcategories_for_category(self, mock_get_subcategories_for_category):
         '''tests that the route to get subcategories given a category returns the right thing '''
         mock_get_subcategories_for_category.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = "These are the subcategories for Personal_Care_Activities : "\
-        "['Sleeping', 'Grooming', 'Health-related_self_care', 'Personal_Activities', 'Personal_Care_Emergencies']"
+        self.mock_cursor.fetchall.return_value = [
+            ('T0101', 'Sleeping'),
+            ('T0102', 'Grooming'),
+            ('T0103', 'Health-related_self_care'),
+            ('T0104', 'Personal_Activities'),
+            ('T0105', 'Personal_Care_Emergencies')
+        ]
         result = get_subcategories_for_category('Personal_Care_Activities')
         self.assertEqual("These are the subcategories for Personal_Care_Activities : "\
         "['Sleeping', 'Grooming', 'Health-related_self_care', 'Personal_Activities', 'Personal_Care_Emergencies']", result)
