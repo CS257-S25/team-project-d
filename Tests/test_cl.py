@@ -60,13 +60,24 @@ class TestCL(unittest.TestCase):
         pass
 
     @patch("cl.datasource.DataSource")
-    def test_main_top_activity(self, mock_main_top_activity):
+    def test_main_top_activity(self, mock_get_args, mock_main_top_activity):
         '''tests the main function'''
-        mock_main_top_activity.return_value = "Sleeping"
-        test_args = ['cl.py', '--age', '23', '--top']
-        with patch('sys.argv', test_args), patch('builtins.print') as mock_print: 
+        mock_main_top_activity.return_value = self.mock_conn
+        self.mock_conn.get_top_by_age.return_value = "Sleeping"
+
+        #fake CLI args
+        mock_args= MagicMock()
+        mock_args.age = 23
+        mock_args.top = True
+        mock_args.category = None
+        mock_args.subcategory = None 
+        mock_args.compare = None
+        mock_args,activity = None
+
+        mock_get_args.return_value = mock_args
+        with patch("builtins.print") as mock_print:
             cl.main()
-            mock_print.assert_called_with("Sleeping")
+            mock_print.assert_called_once_with("Sleeping")
 
 if __name__ == '__main__':
     unittest.main()
