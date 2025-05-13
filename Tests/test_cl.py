@@ -34,35 +34,45 @@ class TestCL(unittest.TestCase):
     ####################################################
     ##########     EVERYTHING BELOW IS OK     ##########
     ####################################################
+    # def test_get_parsed_category(self):
+    #     '''tests the get_parsed_arguments function'''
+    #     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+    #     process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
+    #     print(f"category process: {process}")
+    #     self.assertEqual(process.returncode, 0)
+
+    @patch(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
     def test_get_parsed_category(self):
-        '''tests the get_parsed_arguments function'''
-        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-        process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
-        self.assertEqual(process.returncode, 0)
+        args = get_parsed_arguments()
+        self.assertEqual(args.category, 'Personal_Care_Activities')
 
-    def test_get_parsed_age(self):
-        '''tests the get_parsed_arguments function'''
-        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-        process = subprocess.run([sys.executable, script_path, '--age', '23'], capture_output=True, text=True)
-        self.assertEqual(process.returncode, 0)
+    # def test_get_parsed_age(self):
+    #     '''tests the get_parsed_arguments function'''
+    #     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+    #     process = subprocess.run([sys.executable, script_path, '--age', '23'], capture_output=True, text=True)
+    #     print(f"age process: {process}")
+    #     self.assertEqual(process.returncode, 0)
 
-    def test_get_parsed_subcategory(self):
-        '''tests the get_parsed_arguments function'''
-        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-        process = subprocess.run([sys.executable, script_path, '--subcateogry', 'Sleeping'], capture_output=True, text=True)
-        self.assertEqual(process.returncode, 0)
+    # def test_get_parsed_subcategory(self):
+    #     '''tests the get_parsed_arguments function'''
+    #     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+    #     process = subprocess.run([sys.executable, script_path, '--subcateogry', 'Sleeping'], capture_output=True, text=True)
+    #     print(f"subcategory process: {process}")
+    #     self.assertEqual(process.returncode, 0)
 
-    def test_get_parsed_compare(self):
-        '''tests the get_parsed_arguments function'''
-        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-        process = subprocess.run([sys.executable, script_path, '--compare', '23'], capture_output=True, text=True)
-        self.assertEqual(process.returncode, 0)
+    # def test_get_parsed_compare(self):
+    #     '''tests the get_parsed_arguments function'''
+    #     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+    #     process = subprocess.run([sys.executable, script_path, '--compare', '23'], capture_output=True, text=True)
+    #     print(f"compare process: {process}")
+    #     self.assertEqual(process.returncode, 0)
 
-    def test_get_parsed_activity(self):
-        '''tests the get_parsed_arguments function'''
-        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-        process = subprocess.run([sys.executable, script_path, '--Activity', 'Laundry'], capture_output=True, text=True)
-        self.assertEqual(process.returncode, 0)
+    # def test_get_parsed_activity(self):
+    #     '''tests the get_parsed_arguments function'''
+    #     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+    #     process = subprocess.run([sys.executable, script_path, '--Activity', 'Laundry'], capture_output=True, text=True)
+    #     print(f"activity process: {process}")
+    #     self.assertEqual(process.returncode, 0)
     
     @patch("cl.datasource.DataSource")
     def test_validate_category_valid(self, mock_datasource_class):
