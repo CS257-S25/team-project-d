@@ -48,13 +48,21 @@ class TestCL(unittest.TestCase):
 
         mock_instance.get_activity_list.assert_called_once()
 
-    def test_validate_category_invalid(self):
-        pass
+    def test_validate_category_invalid(self, mock_datasource_class):
+        '''tests the validate_category function'''
+        mock_instance= MagicMock()
+        mock_instance.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
+        mock_datasource_class.return_value = mock_instance
+
+        with self.assertRaises(cl.InvalidCategoryError):
+            cl.validate_category("Personal_Care_Activities", "Sleeping")
+
+        mock_instance.get_subcategory_list.assert_called_once()
 
     def test_main_compare(self): 
         pass
     
-    def test_main_category_subcategiry(self):
+    def test_main_category_subcategory(self):
         pass
 
     def test_main_category_only(self):
