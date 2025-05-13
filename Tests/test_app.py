@@ -25,16 +25,18 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/', follow_redirects=True)
         self.assertEqual(
             response.data, 
-            b"This is the homepage for the time use project! "\
-            b"1) TO GET the top activity for a certain age between 15 and 80, go to /get-top/'<'age'>' "\
-            b"For example: http://127.0.0.1:5000/get-top/23 "\
-            b"2) TO COMPARE the top activity for a certain age from 2022/2023 to 2012/2013, go to /compare/'<'age'>'/'<'activity'>' "\
-            b"For example: http://127.0.0.1:5000/compare/23/Sleeping "\
-            b"To see all options, use any of the following: "\
-            b"A) TO GET a list of all category options, go to /get-all-categories "\
-            b"B) TO GET a list of subcategory options from a category, "\
-            b"go to /get-subcategories/'<'category'>' C) TO GET a list of activities from a subcategory, "\
-            b"go to /get-activities/'<'category'>'/'<'subcategory'>'"
+            b" 1) TO GET the top activity for a certain age between 15 and 80,"\
+            b" go to /get-top/'<'age'>'<br>"\
+            b" For example:  http://127.0.0.1:5000/get-top/23 <br>"\
+            b" 2) TO COMPARE the top activity for a certain age from 2022/2023 to 2012/2013," \
+            b" go to /compare/'<'age'>'/'<'activity'>'<br>"\
+            b" For example: http://127.0.0.1:5000/compare/23/Sleeping <br> <br>"\
+            b" To see all options, use any of the following: <br>" \
+            b" A) TO GET a list of all category options, go to /get-all-categories <br>"\
+            b" B) TO GET a list of subcategory options from a category,<br>"\
+            b" go to /get-subcategories/'<'category'>' "\
+            b" C) TO GET a list of activities from a subcategory,<br>"\
+            b" go to /get-activities/'<'category'>'/'<'subcategory'>'" 
         )
 
     @patch("ProductionCode.datasource.psycopg2.connect")
