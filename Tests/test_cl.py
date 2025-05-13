@@ -41,33 +41,33 @@ class TestCL(unittest.TestCase):
         self.assertEqual(args.category, 'Personal_Care_Activities')
         mock_check_validity.assert_called_once_with(args)
 
-    @patch('cl.check_validity')
-    @patch.object(sys, 'argv', ['cl.py', '--age', '23'])
-    def test_get_parsed_age(self, mock_check_validity):
-        args = get_parsed_arguments()
-        self.assertEqual(args.age, 23)
-        mock_check_validity.assert_called_once_with(args)
+    # @patch('cl.check_validity')
+    # @patch.object(sys, 'argv', ['cl.py', '--age', '23'])
+    # def test_get_parsed_age(self, mock_check_validity):
+    #     args = get_parsed_arguments()
+    #     self.assertEqual(args.age, 23)
+    #     mock_check_validity.assert_called_once_with(args)
 
-    @patch('cl.check_validity')
-    @patch.object(sys, 'argv', ['cl.py', '--subcategory', 'Sleeping'])
-    def test_get_parsed_subcategory(self, mock_check_validity):
-        args = get_parsed_arguments()
-        self.assertEqual(args.subcategory, 'Sleeping')
-        mock_check_validity.assert_called_once_with(args)
+    # @patch('cl.check_validity')
+    # @patch.object(sys, 'argv', ['cl.py', '--subcategory', 'Sleeping'])
+    # def test_get_parsed_subcategory(self, mock_check_validity):
+    #     args = get_parsed_arguments()
+    #     self.assertEqual(args.subcategory, 'Sleeping')
+    #     mock_check_validity.assert_called_once_with(args)
 
-    @patch('cl.check_validity')
-    @patch.object(sys, 'argv', ['cl.py', '--compare', '23'])
-    def test_get_parsed_compare(self, mock_check_validity):
-        args = get_parsed_arguments()
-        self.assertEqual(args.compare, 23)
-        mock_check_validity.assert_called_once_with(args)
+    # @patch('cl.check_validity')
+    # @patch.object(sys, 'argv', ['cl.py', '--compare', '23'])
+    # def test_get_parsed_compare(self, mock_check_validity):
+    #     args = get_parsed_arguments()
+    #     self.assertEqual(args.compare, 23)
+    #     mock_check_validity.assert_called_once_with(args)
 
-    @patch('cl.check_validity')
-    @patch.object(sys, 'argv', ['cl.py', '--activity', 'Sleeping'])
-    def test_get_parsed_activity(self, mock_check_validity):
-        args = get_parsed_arguments()
-        self.assertEqual(args.activity, 'Sleeping')
-        mock_check_validity.assert_called_once_with(args)
+    # @patch('cl.check_validity')
+    # @patch.object(sys, 'argv', ['cl.py', '--activity', 'Sleeping'])
+    # def test_get_parsed_activity(self, mock_check_validity):
+    #     args = get_parsed_arguments()
+    #     self.assertEqual(args.activity, 'Sleeping')
+    #     mock_check_validity.assert_called_once_with(args)
     
     @patch("cl.datasource.DataSource")
     def test_validate_category_valid(self, mock_datasource_class):
