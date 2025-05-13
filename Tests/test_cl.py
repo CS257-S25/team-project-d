@@ -41,7 +41,7 @@ class TestCL(unittest.TestCase):
     #     print(f"category process: {process}")
     #     self.assertEqual(process.returncode, 0)
 
-    @patch(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
+    @patch.object(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
     def test_get_parsed_category(self):
         args = get_parsed_arguments()
         self.assertEqual(args.category, 'Personal_Care_Activities')
