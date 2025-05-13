@@ -35,7 +35,9 @@ class TestCL(unittest.TestCase):
     def test_validate_category(self, mock_validate_category):
         '''tests the validate_category function'''
         mock_validate_category.return_value = self.mock_conn
-        pass
+        self.mock_cursor.fetchall.return_value = [('Personal_Care_Activities',)]
+        result = validate_category('Personal_Care_Activities')
+        self.assertEqual(result, 'Personal_Care_Activities')
 
     def test_check_validity(self, mock_check_validity):
         '''tests the check_validity function'''

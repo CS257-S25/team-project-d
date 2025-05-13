@@ -6,10 +6,7 @@ from flask import Flask, request
 from ProductionCode.datasource import DataSource
 app = Flask(__name__)
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 07d9fdebb6e5785f1167fc9481e2ce4d2f115b07
 def directions_message():
     '''message that is printed on homepage and error pages to tell the user what to do'''
     base_url = request.host_url.rstrip('/')
