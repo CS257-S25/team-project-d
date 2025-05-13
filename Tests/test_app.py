@@ -42,7 +42,9 @@ class TestApp(unittest.TestCase):
     def test_route_top_by_age(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given age 23'''
         mock_get_top_by_age.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = "the top activity for people age 23 is Sleeping"
+        self.mock_cursor.fetchall.return_value = [
+            ('Sleeping',)
+        ]
         response = get_top_by_age(23)
         self.assertEqual("the top activity for people age 23 is Sleeping", response)
 
