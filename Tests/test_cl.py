@@ -55,7 +55,7 @@ class TestCL(unittest.TestCase):
         mock_datasource_class.return_value = mock_instance
 
         with self.assertRaises(cl.InvalidCategoryError):
-            cl.validate_category("Personal_Care_Activities", "Sleeping")
+            cl.validate_category("Invalid_category", "invalid_subcategory")
 
         mock_instance.get_subcategory_list.assert_called_once()
 
