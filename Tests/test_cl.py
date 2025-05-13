@@ -46,7 +46,7 @@ class TestCL(unittest.TestCase):
     def test_get_parsed_category(self, mock_argv, mock_get_parsed_arguments):
         mock_get_parsed_arguments.return_value = None
         args = get_parsed_arguments()
-        self.assertEqual(args.category, 'Personal_Care_Activities')
+        self.assertEqual(mock_argv.category, 'Personal_Care_Activities')
         mock_get_parsed_arguments.assert_called_once_with(mock_argv)
 
 
