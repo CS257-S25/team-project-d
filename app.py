@@ -6,6 +6,10 @@ from flask import Flask, request
 from ProductionCode.datasource import DataSource
 app = Flask(__name__)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07d9fdebb6e5785f1167fc9481e2ce4d2f115b07
 def directions_message():
     '''message that is printed on homepage and error pages to tell the user what to do'''
     base_url = request.host_url.rstrip('/')
@@ -36,7 +40,7 @@ def get_top_by_age(age):
     top = test.get_top_by_age(age)
     if "invalid age" in top:
         return top
-    return "the top activity for people age " + age + " is " + str(top)
+    return f"the top activity for people age {age} is {top}"
 
 @app.route('/get-top/')
 def missing_age():
