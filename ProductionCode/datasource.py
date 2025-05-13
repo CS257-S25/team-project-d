@@ -138,9 +138,15 @@ class DataSource:
             print(f"Error getting subcategory from activities: ", e)
             return None
 
+    #need to make some of these functions use helpers to keep at 1 level abs
     def get_top_by_age(self, age):
         '''finds the top activity for a given age
         param age: the age to find the top activity for'''
+        try: 
+            age= int(age)
+        except ValueError:
+            return "invalid age, please use a number between 15 and 80"
+
         if age not in range(15, 81):
             return "invalid age, please use a number between 15 and 80"
         try:
@@ -163,6 +169,11 @@ class DataSource:
         '''finds the time spent on an activity for a given age in 2022-2023 and 10 years before
         param age: the age to find the top activity for
         param activity: the activity to find the time spent on'''
+        try: 
+            age= int(age)
+        except ValueError:
+            return "invalid age, please use a number between 15 and 80"
+            
         if age not in range(15, 81):
             return "invalid age, please use a number between 15 and 80"
         try:
