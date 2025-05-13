@@ -33,7 +33,6 @@ class TestCL(unittest.TestCase):
     def test_validate_category_invalid(self):
         pass
 
-    @patch("cl.datasource.DataSource")
     @patch("cl.datasource.DataSource.get_subcategory_list")
     def test_validate_category_valid(self, mock_get_subcategory_list):
         '''tests the validate_category function'''
@@ -43,7 +42,8 @@ class TestCL(unittest.TestCase):
             cl.validate_category("Personal_Care_Activities", "Sleeping")
         except cl.InvalidCategoryError:
             self.fail("validate_category() raised InvalidCategoryError")
-        mock_validate_category.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
+        
+        mock_get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
 
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments")
