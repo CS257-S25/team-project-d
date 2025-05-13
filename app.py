@@ -92,6 +92,7 @@ def compare_activity_for_age(age, activity):
     returns a string that gives the comparison for an age group'''
     test = DataSource()
     hours = test.compare_by_age(age, activity)
+    print( hours)
     return "For people age " + age + " they engaged in " + activity + " on average " + \
         + str(hours[0]) + " hours in 2022 & 2023 and " + str(hours[1]) + " hours in 2012 & 2013"
 

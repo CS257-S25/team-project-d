@@ -1,18 +1,21 @@
 '''Tests app_OG.py for all of the python code Flask app
 file: test_app.py'''
 import unittest
-import psycopg2
 from unittest.mock import patch, MagicMock
+from app import get_subcategories_for_category
+from app import  compare_activity_for_age, get_all_categories
+from app import get_top_by_age, app
 
-from app import get_subcategories_for_category, page_not_found, python_bug
-from app import get_activities_from_sub, compare_activity_for_age, get_all_categories
-from app import missing_category, missing_cat_and_sub, missing_subcategory, get_top_by_age, app
+# unused imports that i deletet: page_not_found, python_bug, get_activities_from_sub
+# continued: compare_activity_for_age, missing_category, missing_cat_and_sub, missing_subcategory
 
+
+#PROBABLY NEED TO ADD MORE EDGE CASES AND ACCEPTANCE TESTS 
 class TestApp(unittest.TestCase):
     '''class for tests for app.py'''
     def setUp(self):
         #create a mock connection and cursor
-        self.mock_conn = MagicMock() 
+        self.mock_conn = MagicMock()
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
@@ -22,7 +25,7 @@ class TestApp(unittest.TestCase):
         mock_homepage.return_value = self.mock_conn
         response = self.app.get('/', follow_redirects=True)
         self.assertEqual(
-            response.data, 
+            response.data,
             b"This is the homepage for the time use project! <br>"\
             b" 1) TO GET the top activity for a certain age between 15 and 80,"\
             b" go to /get-top/'<'age'>'<br>"\
@@ -53,7 +56,7 @@ class TestApp(unittest.TestCase):
         '''tests that the route to get all categories returns the correct thing'''
         mock_get_all_categories.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = [
-            ("T01", 'Personal_Care_Activities'), 
+            ("T01", 'Personal_Care_Activities'),
             ("T02", 'Household_Activities')
         ]
         response = get_all_categories()
@@ -73,7 +76,8 @@ class TestApp(unittest.TestCase):
         ]
         result = get_subcategories_for_category('Personal_Care_Activities')
         self.assertEqual("These are the subcategories for Personal_Care_Activities : "\
-        "['Sleeping', 'Grooming', 'Health-related_self_care', 'Personal_Activities', 'Personal_Care_Emergencies']", result)
+        "['Sleeping', 'Grooming', 'Health-related_self_care',"\
+        "'Personal_Activities', 'Personal_Care_Emergencies']", result)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_activities_from_sub(self, mock_get_activities_from_sub):
@@ -91,7 +95,17 @@ class TestApp(unittest.TestCase):
         self.assertIn("Sleeping", decoded)
         self.assertIn("Sleeplessness", decoded)
 
-    def assert_404(self, route):
+    #@patch("ProductionCode.datasource.psycopg2.connect")   
+    #def test_compare_activity_for_age(self, mock_compare_activity_for_age):
+        #mock_compare_activity_for_age.return_value = self.mock_conn
+        #self.mock_cursor.fetchall.return_value= [
+            #(8.0, 6.5)
+        #]
+        #response = compare_activity_for_age("23")
+        #self.assertEqual("", response)
+
+    
+    def assert_404(self, route): # I think this one is not really accurate anymore 
         '''test to make sure error returns correct thing'''
         response = self.app.get(route)
         self.assertEqual(response.status_code, 404)
@@ -121,12 +135,4 @@ class TestApp(unittest.TestCase):
         self.check_missing_route('/get-activities/',
                                 "Please include a category and a subcategory, " \
                                 "ex: /get-activities/Personal_Care_Activities/Sleeping" ) 
-    #def test_missing_subcategory(self):
-        #'''test for missing_subcategory'''
-        #response = self.app.get('/get-activities/Personal_Care_Activities/')
-        #self.assertEqual(response.status_code, 200)
-        #self.assertIn(b"please include subcategory, " \
-            #b"ex: /get-activities/Personal_Care_Activities/Sleeping", response.data)
-    #def test_invalid_inputs(self):
-        #response = self.app.get("/get-top/eighteen")
-        #self.assertEqual(response.status_code. 200) if i add to app.py a test valid age thing
+    
