@@ -94,14 +94,14 @@ class TestApp(unittest.TestCase):
         self.assertIn("Sleeping", decoded)
         self.assertIn("Sleeplessness", decoded)
 
-    #@patch("ProductionCode.datasource.psycopg2.connect")   
-    #def test_compare_activity_for_age(self, mock_compare_activity_for_age):
-        #mock_compare_activity_for_age.return_value = self.mock_conn
-        #self.mock_cursor.fetchall.return_value= [
-            #(8.0, 6.5)
-        #]
-        #response = compare_activity_for_age("23")
-        #self.assertEqual("", response)
+    @patch("ProductionCode.datasource.psycopg2.connect")   
+    def test_compare_activity_for_age(self, mock_compare_activity_for_age):
+        mock_compare_activity_for_age.return_value = self.mock_conn
+        self.mock_cursor.fetchall.return_value= [
+            (559, 552)
+        ]
+        response = compare_activity_for_age("23")
+        self.assertEqual("For people age 23 they engaged in grooming on average nhours in 2022 & 2023 and ohours in 2012 & 2013", response)
 
     
     def assert_404(self, route): # I think this one is not really accurate anymore 

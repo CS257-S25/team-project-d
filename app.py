@@ -92,10 +92,12 @@ def compare_activity_for_age(age, activity):
     returns a string that gives the comparison for an age group'''
     test = DataSource()
     hours = test.compare_by_age(age, activity)
-    print( hours)
-    return "For people age " + age + " they engaged in " + activity + " on average " + \
-        + str(hours[0]) + " hours in 2022 & 2023 and " + str(hours[1]) + " hours in 2012 & 2013"
+    print("DEBUG - hours from compare_by_age:", hours)
 
+    if not isinstance(hours, (tuple, list)) or len(hours) != 2:
+        return f"Error: unexpected result from compare_by_age -> {hours}"
+    
+    return f"For people age {age} they engaged in {activity} on average {hours[0]} hours in 2022 & 2023 and {hours[1]} hours in 2012 & 2013"
 @app.errorhandler(404)
 def page_not_found(e):
     '''returns error message if the page wasn't found'''
