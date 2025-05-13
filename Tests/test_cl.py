@@ -37,11 +37,10 @@ class TestCL(unittest.TestCase):
     ##########     EVERYTHING BELOW IS OK     ##########
     ####################################################
     @patch("cl.datasource.DataSource")
-    def test_validate_category_valid(self, mock_validate_category):
+    @patch("cl.datasource.get_subcategory_list")
+    def test_validate_category_valid(self, mock_get_subcategory_list):
         '''tests the validate_category function'''
-        mock_validate_category.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
-        
-        print("Mock get_subcategory_list return value:", mock_data_source.get_subcategory_list.return_value)
+        mock_get_subcategory_list.return_value = ["Sleeping", "Grooming"]
 
         try: 
             cl.validate_category("Personal_Care_Activities", "Sleeping")
@@ -49,7 +48,6 @@ class TestCL(unittest.TestCase):
             self.fail("validate_category() raised InvalidCategoryError")
         mock_validate_category.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
         
-        print("Mock get_subcategory_list was called with:", mock_data_source.get_subcategory_list.call_args)
 
     @patch("cl.validate_category")
     @patch("cl.validate_activity")
