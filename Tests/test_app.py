@@ -98,7 +98,8 @@ class TestApp(unittest.TestCase):
     def test_compare_activity_for_age(self, mock_compare_activity_for_age):
         mock_compare_activity_for_age.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value= [
-            (559, 552)
+            (559,),
+            (552,)
         ]
         response = compare_activity_for_age("23", "Sleeping")
         self.assertEqual("For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013", response)
