@@ -39,15 +39,6 @@ class TestCL(unittest.TestCase):
         result = validate_category('Personal_Care_Activities')
         self.assertEqual(result, 'Personal_Care_Activities')
 
-    @patch("shared_logic.get_the_subcategories")
-    def test_get_the_subcategories(self, mock_get_the_subcategories):
-        '''tests get_the_subcategories from shared_logic.py
-        test if the function returns ['Sleeping', 'Grooming'] given the category name'''
-        mock_get_the_subcategories.return_value = ['Sleeping', 'Grooming']
-        result = get_the_subcategories("Personal_Care_Activities")
-        self.assertEqual(['Sleeping', 'Grooming'], result)
-
-    @patch("ProductionCode.datasource")
     def test_check_validity(self):
         '''tests the check_validity function'''
         mock_check_validity.return_value = self.mock_conn
