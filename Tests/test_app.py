@@ -25,7 +25,7 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/', follow_redirects=True)
         self.assertEqual(
             response.data, 
-            b"This is the homepage for the time use project! <br>""
+            b"This is the homepage for the time use project! <br>"\
             b" 1) TO GET the top activity for a certain age between 15 and 80,"\
             b" go to /get-top/'<'age'>'<br>"\
             b" For example:  http://127.0.0.1:5000/get-top/23 <br>"\
