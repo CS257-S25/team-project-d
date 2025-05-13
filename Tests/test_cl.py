@@ -31,26 +31,26 @@ class TestCL(unittest.TestCase):
         process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
         self.assertEqual(process.returncode, 0)
         
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource")
     def test_validate_category(self, mock_validate_category):
         '''tests the validate_category function'''
         mock_validate_category.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = [('Personal_Care_Activities',)]
+        self.mock_cursor.fetchall.return_value = [('T01','Personal_Care_Activities')]
         result = validate_category('Personal_Care_Activities')
         self.assertEqual(result, 'Personal_Care_Activities')
 
-    def test_check_validity(self, mock_check_validity):
+    def test_check_validity(self):
         '''tests the check_validity function'''
         mock_check_validity.return_value = self.mock_conn
         pass
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource")
     def test_validate_activity(self, mock_validate_activity):
         '''tests the validate_activity function'''
         mock_validate_activity.return_value = self.mock_conn
         pass
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource")
     def test_main(self, mock_main):
         '''tests the main function'''
         mock_main.return_value = self.mock_conn
