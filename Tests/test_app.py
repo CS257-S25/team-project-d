@@ -75,7 +75,7 @@ class TestApp(unittest.TestCase):
             ('T0105', 'Personal_Care_Emergencies')
         ]
         result = get_subcategories_for_category('Personal_Care_Activities')
-        self.assertEqual("These are the subcategories for Personal_Care_Activities : "\
+        self.assertEqual("These are the subcategories for Personal_Care_Activities :"\
         "['Sleeping', 'Grooming', 'Health-related_self_care',"\
         "'Personal_Activities', 'Personal_Care_Emergencies']", result)
 
