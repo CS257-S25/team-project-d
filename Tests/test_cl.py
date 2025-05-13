@@ -39,7 +39,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_category_valid(self, mock_validate_category):
         '''tests the validate_category function'''
-        mock_validate_category.get_subcategory_list.return_value = ["Sleeping", "Sleeplessness"]
+        mock_validate_category.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
         try: 
             cl.validate_category("Personal_Care_Activities", "Sleeping")
         except cl.InvalidCategoryError:
@@ -69,7 +69,7 @@ class TestCL(unittest.TestCase):
         mock_args.category = None
         mock_args.subcategory = None 
         mock_args.compare = None
-        mock_args,activity = None
+        mock_args.activity = None
 
         mock_get_args.return_value = mock_args
         with patch("builtins.print") as mock_print:
