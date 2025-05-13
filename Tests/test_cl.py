@@ -2,6 +2,7 @@
 import os
 import sys
 import unittest
+import argparse
 from io import StringIO
 from unittest.mock import patch, MagicMock
 import cl
@@ -32,7 +33,7 @@ class TestCL(unittest.TestCase):
         process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
         self.assertEqual(process.returncode, 0)
         
-    @patch("ProductionCode.datasource")
+    @patch("cl.datasource.Datasource")
     def test_validate_category_valid(self, mock_validate_category):
         '''tests the validate_category function'''
         mock_validate_category.return_value = self.mock_conn
@@ -40,7 +41,7 @@ class TestCL(unittest.TestCase):
         result = validate_category('Personal_Care_Activities')
         self.assertEqual(result, 'Personal_Care_Activities')
 
-    @patch("ProductionCode.datasource")
+    @patch("cl.datasource.Datasource")
     def test_validate_activity(self, mock_validate_activity):
         '''tests the validate_activity function'''
         mock_validate_activity.return_value = self.mock_conn
