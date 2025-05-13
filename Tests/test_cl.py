@@ -1,4 +1,4 @@
-'''This is the Test file to use'''
+'''File: test_cl.py'''
 import os
 import sys
 import unittest
@@ -25,6 +25,7 @@ class TestCL(unittest.TestCase):
         # response = get_top_by_age(23)
         # self.assertEqual("the top activity for people age 23 is Sleeping", response)
 
+    
     def test_get_parsed_arguments(self):
         '''tests the get_parsed_arguments function'''
         script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
@@ -32,17 +33,12 @@ class TestCL(unittest.TestCase):
         self.assertEqual(process.returncode, 0)
         
     @patch("ProductionCode.datasource")
-    def test_validate_category(self, mock_validate_category):
+    def test_validate_category_valid(self, mock_validate_category):
         '''tests the validate_category function'''
         mock_validate_category.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = [('T01','Personal_Care_Activities')]
         result = validate_category('Personal_Care_Activities')
         self.assertEqual(result, 'Personal_Care_Activities')
-
-    def test_check_validity(self):
-        '''tests the check_validity function'''
-        mock_check_validity.return_value = self.mock_conn
-        pass
 
     @patch("ProductionCode.datasource")
     def test_validate_activity(self, mock_validate_activity):
@@ -50,11 +46,26 @@ class TestCL(unittest.TestCase):
         mock_validate_activity.return_value = self.mock_conn
         pass
 
-    @patch("ProductionCode.datasource")
-    def test_main(self, mock_main):
-        '''tests the main function'''
-        mock_main.return_value = self.mock_conn
+
+    @patch("cl.validate_category")
+    @patch("cl.validate_activity")
+    def test_check_validity(self, mock_validate_activity, mock_validate_category):
+        '''tests the check_validity function'''
+        args= argparse.Namespace(category= 'Personal_Care_Activities', subcategory = 'Sleeping',activity='Sleeping', age= None, top= None, compare= None )
+        cl.check_validity(args)
+        mock_validate_category.assert_called_once_with('Personal_Care_Activities', 'Sleeping')
+        mock_validate_activity.assert_called_once_with("Sleeping")
+        mock_check_validity.return_value = self.mock_conn
         pass
+
+    @patch("cl.datasource.Datasource")
+    def test_main_top_activity(self, mock_main_top_activity):
+        '''tests the main function'''
+        mock_main_top_activity.return_value = "Sleeping"
+        test_args = ['cl.py', '--age', '23', '--top']
+        with patch('sys.argv', test_args), patch('builtins.print') as mock_print: 
+            cl.main()
+            mock_print.assert_called_with("Sleeping")
 
 if __name__ == '__main__':
     unittest.main()
