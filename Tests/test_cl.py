@@ -40,11 +40,16 @@ class TestCL(unittest.TestCase):
     def test_validate_category_valid(self, mock_validate_category):
         '''tests the validate_category function'''
         mock_validate_category.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
+        
+        print("Mock get_subcategory_list return value:", mock_data_source.get_subcategory_list.return_value)
+
         try: 
             cl.validate_category("Personal_Care_Activities", "Sleeping")
         except cl.InvalidCategoryError:
             self.fail("validate_category() raised InvalidCategoryError")
         mock_validate_category.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
+        
+        print("Mock get_subcategory_list was called with:", mock_data_source.get_subcategory_list.call_args)
 
     @patch("cl.validate_category")
     @patch("cl.validate_activity")
