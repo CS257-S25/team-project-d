@@ -34,18 +34,18 @@ class TestCL(unittest.TestCase):
     ####################################################
     ##########     EVERYTHING BELOW IS OK     ##########
     ####################################################
-    # def test_get_parsed_category(self):
-    #     '''tests the get_parsed_arguments function'''
-    #     script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-    #     process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
-    #     print(f"category process: {process}")
-    #     self.assertEqual(process.returncode, 0)
-
     @patch('cl.check_validity')
     @patch.object(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
     def test_get_parsed_category(self, mock_check_validity):
         args = get_parsed_arguments()
         self.assertEqual(args.category, 'Personal_Care_Activities')
+        mock_check_validity.assert_called_once_with(args)
+
+    @patch('cl.check_validity')
+    @patch.object(sys, 'argv', ['cl.py', '--age', '23'])
+    def test_get_parsed_age(self, mock_check_validity):
+        args = get_parsed_arguments()
+        self.assertEqual(args.age, '23')
         mock_check_validity.assert_called_once_with(args)
 
 
