@@ -37,12 +37,12 @@ def find_id_by_name(data_loader, name_key, target_name):
     params: data_loader, the data you want to load
     param: name_key, 
     paramL target_name, '''
-    data = data_loader()
-    #select from table a sql call that is looking for that thing 
+    data = data_loader
+    key = name_key + '_ID'
     for row in data:
-        if row[name_key] == target_name:
-            print(row['Activity_ID'])
-            return row['Activity_ID']
+        if row[key] == target_name:
+            print(row[key])
+            return row[key]
     return None
 
 def filter_by_prefix(data_loader, id_prefix, name_key, prefix_length=None):
@@ -52,13 +52,14 @@ def filter_by_prefix(data_loader, id_prefix, name_key, prefix_length=None):
     param: name_key, the key name in dict with the calue you want 
     param: prefix_length: how many char of Activity_ID to compare
     returns a list of names whose Activity_ID match the given prefix'''
-    data = data_loader()
+    data = data_loader
     results = []
+    key = name_key + '_ID'
     for row in data:
         if prefix_length:
-            prefix = row['Activity_ID'][:prefix_length]
+            prefix = row[key][:prefix_length]
         else:
-            prefix = row['Activity_ID']
+            prefix = row[key]
         if prefix == id_prefix:
             results.append(row[name_key])
     return results
@@ -67,7 +68,7 @@ def get_category_from_data(category):
     '''Purpose: gets the category ID from the selected category
     Args: category: the category to get the ID for
     Returns: the ID of the category'''
-    category_id = find_id_by_name(load_category_data, 'Category', category)
+    category_id = find_id_by_name(load_category_data(), 'Category', category)
     if not category_id:
         print("Usage: python3 cl.py --category <valid category>")
     return category_id
@@ -76,7 +77,7 @@ def get_subcategory_from_data(subcategory):
     '''Purpose: gets the ID of the selected subcategory
     Args: subcategory: the subcategory to get the ID for
     Returns: the ID of the subcategory'''
-    subcategory_id = find_id_by_name(load_subcategory_data, 'Activity_Name', subcategory)
+    subcategory_id = find_id_by_name(load_subcategory_data(), 'Subcategory', subcategory)
     if not subcategory_id:
         print("Usage: python3 cl.py --category <valid category> --subcategory " \
         "<valid subcategory> \n reference python3 cl.py --category for valid subcategory inputs")
@@ -88,8 +89,8 @@ def get_list_of_subcategories(category):
     Returns: a list of subcategories in the category'''
     category_id = get_category_from_data(category)
     if category_id:
-        return filter_by_prefix(load_subcategory_data, category_id,
-                                'Activity_Name', prefix_length = len(category_id))
+        return filter_by_prefix(load_subcategory_data(), category_id,
+                                'Subcategory', prefix_length = len(category_id))
     return []
 
 def get_activities_from_subcategory(subcategory):
@@ -98,6 +99,6 @@ def get_activities_from_subcategory(subcategory):
           subcategory: the subcategory to get the activities for
     Returns: a list of activities in the subcategory'''
     subcategory_id = get_subcategory_from_data(subcategory)
-    activities = filter_by_prefix(load_activity_data, subcategory_id,
-                                  'Activity Name', prefix_length=5)
+    activities = filter_by_prefix(load_activity_data(), subcategory_id,
+                                  'Activity', prefix_length=5)
     return activities
