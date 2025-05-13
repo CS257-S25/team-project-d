@@ -36,7 +36,8 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_activity_invalid(self, mock_datasource_class):
         mock_instance= MagicMock()
-        mock_instance.get_activity_list.return_value = ["Carleton"]
+        mock_instance.get_activity_list.return_value = "Usage: python3 " \
+            "cl.py --compare <age 15-80> --activity <valid activity>"
         mock_datasource_class.return_value = mock_instance
 
         with self.assertRaises(cl.InvalidCategoryError):

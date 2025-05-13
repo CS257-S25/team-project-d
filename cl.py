@@ -51,7 +51,7 @@ def validate_activity(activity):
     valid_activities = source.get_activity_list(subcategory)
     if activity not in valid_activities:
         raise InvalidCategoryError(
-            "Usage: python3 cl.py --compare <age 15-80> --activity <valid activity> ")
+            "Usage: python3 cl.py --compare <age 15-80> --activity <valid activity>")
 
 def main():
     '''main function for the command line interface'''
