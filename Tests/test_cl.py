@@ -35,10 +35,11 @@ class TestCL(unittest.TestCase):
     def test_validate_category(self, mock_validate_category):
         '''tests the validate_category function'''
         mock_validate_category.return_value = self.mock_conn
-        pass
-        # self.mock_cursor.fetchall.return_value = [('T01','Personal_Care_Activities')]
-        # result = validate_category('Personal_Care_Activities')
-        # self.assertEqual(result, 'Personal_Care_Activities')
+        self.mock_cursor.fetchall.return_value = [('T01','Personal_Care_Activities')]
+        print(f"here: " + self.mock_cursor.fetchall.return_value)
+        result = validate_category('Personal_Care_Activities')
+        print(f"result: {result}")
+        self.assertEqual(result, 'Personal_Care_Activities')
 
     @patch("ProductionCode.datasource")
     def test_check_validity(self, mock_check_validity):
