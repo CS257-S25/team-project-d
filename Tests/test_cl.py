@@ -22,9 +22,18 @@ class TestCL(unittest.TestCase):
         self.app = app.test_client()
 
     @patch("cl.datasource.DataSource")
-    def test_validate_activity_valid(self, mock_validate_activity):
+    def test_validate_activity_valid(self, mock_datasource_class):
         '''tests the validate_activity function'''
-        pass
+        mock_instance= MagicMock()
+        mock_instance.get_activity_list.return_value = ["Sleeping"]
+        mock_datasource_class.return_value = mock_instance
+
+        try: 
+            cl.validate_activitiy("Sleeping")
+        except cl.InvalidCategoryError:
+            self.fail("validate_activity() raised InvalidCategoryError")
+        
+        mock_instance.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
     
     def test_validate_activity_invalid(self):
         pass
