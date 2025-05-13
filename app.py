@@ -37,7 +37,7 @@ def get_top_by_age(age):
     top = test.get_top_by_age(age)
     if "invalid age" in top:
         return top
-    return "the top activity for people age " + age + " is " + f"{top}"
+    return f"the top activity for people age {age} is {top}"
 
 @app.route('/get-top/')
 def missing_age():
