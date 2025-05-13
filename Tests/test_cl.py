@@ -11,7 +11,7 @@ from app import app
 from cl import get_parsed_arguments, validate_category, check_validity
 from cl import validate_activity, main
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 class TestCL(unittest.TestCase):
     '''Test class for the command line interface (CLI) for the project.'''
@@ -21,24 +21,21 @@ class TestCL(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
-        # mock_get_top_by_age.return_value = self.mock_conn
-        # self.mock_cursor.fetchall.return_value = "the top activity for people age 23 is Sleeping"
-        # response = get_top_by_age(23)
-        # self.assertEqual("the top activity for people age 23 is Sleeping", response)
-
-    
     def test_get_parsed_arguments(self):
         '''tests the get_parsed_arguments function'''
         script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
         process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
         self.assertEqual(process.returncode, 0)
     
-     @patch("cl.datasource.DataSource")
+    @patch("cl.datasource.DataSource")
     def test_validate_activity(self, mock_validate_activity):
         '''tests the validate_activity function'''
         mock_validate_activity.return_value = self.mock_conn
         pass
 
+    ####################################################
+    ##########     EVERYTHING BELOW IS OK     ##########
+    ####################################################
     @patch("cl.datasource.DataSource")
     def test_validate_category_valid(self, mock_validate_category):
         '''tests the validate_category function'''
