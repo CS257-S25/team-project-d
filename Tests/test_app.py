@@ -57,21 +57,13 @@ class TestApp(unittest.TestCase):
     def test_get_all_categories(self, mock_get_all_categories):
         '''tests that the route to get all categories returns the correct thing'''
         mock_get_all_categories.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = "The category options are: ['Personal_Care_Activities', "\
-        "'Household_Activities', 'Caring_For_&_Helping_Household_(HH)_Members', "\
-        "'Caring_For_&_Helping_Nonhousehold_(NonHH)_Members', 'Work_&_Work-Related_Activities', "\
-        "'Education', 'Consumer_Purchases', 'Professional_&_Personal_Care_Services', "\
-        "'Household_Services', 'Government_Services_&_Civic_Obligations', 'Eating_and_Drinking', "\
-        "'Socializing_Relaxing_and_Leisure', 'Sports_Exercise_&_Recreation', 'Religious_and_Spiritual_Activities', "\
-        "'Volunteer_Activities', 'Telephone_Calls', 'Traveling']"
+        self.mock_cursor.fetchall.return_value = [
+            ("T01", 'Personal_Care_Activities'), 
+            ("T02", 'Household_Activities')
+        ]
         response = get_all_categories()
         self.assertEqual("The category options are: ['Personal_Care_Activities', "\
-        "'Household_Activities', 'Caring_For_&_Helping_Household_(HH)_Members', "\
-        "'Caring_For_&_Helping_Nonhousehold_(NonHH)_Members', 'Work_&_Work-Related_Activities', "\
-        "'Education', 'Consumer_Purchases', 'Professional_&_Personal_Care_Services', 'Household_Services', "\
-        "'Government_Services_&_Civic_Obligations', 'Eating_and_Drinking', 'Socializing_Relaxing_and_Leisure', "\
-        "'Sports_Exercise_&_Recreation', 'Religious_and_Spiritual_Activities', 'Volunteer_Activities', "\
-        "'Telephone_Calls', 'Traveling']", response)
+        "'Household_Activities']", response)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_subcategories_for_category(self, mock_get_subcategories_for_category):
