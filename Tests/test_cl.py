@@ -21,6 +21,76 @@ class TestCL(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
+    def test_main_compare(self): 
+        pass
+    
+    def test_main_category_subcategory(self):
+        pass
+
+    def test_main_category_only(self):
+        pass
+
+    
+    ####################################################
+    ##########     EVERYTHING BELOW IS OK     ##########
+    ####################################################
+    def test_get_parsed_category(self):
+        '''tests the get_parsed_arguments function'''
+        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+        process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
+        self.assertEqual(process.returncode, 0)
+
+    def test_get_parsed_age(self):
+        '''tests the get_parsed_arguments function'''
+        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+        process = subprocess.run([sys.executable, script_path, '--age', '23'], capture_output=True, text=True)
+        self.assertEqual(process.returncode, 0)
+
+    def test_get_parsed_subcategory(self):
+        '''tests the get_parsed_arguments function'''
+        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+        process = subprocess.run([sys.executable, script_path, '--subcateogry', 'Sleeping'], capture_output=True, text=True)
+        self.assertEqual(process.returncode, 0)
+
+    def test_get_parsed_compare(self):
+        '''tests the get_parsed_arguments function'''
+        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+        process = subprocess.run([sys.executable, script_path, '--compare', '23'], capture_output=True, text=True)
+        self.assertEqual(process.returncode, 0)
+
+    def test_get_parsed_activity(self):
+        '''tests the get_parsed_arguments function'''
+        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
+        process = subprocess.run([sys.executable, script_path, '--Activity', 'Laundry'], capture_output=True, text=True)
+        self.assertEqual(process.returncode, 0)
+    
+    @patch("cl.datasource.DataSource")
+    def test_validate_category_valid(self, mock_datasource_class):
+        '''tests the validate_category function'''
+        # this can be a helper used in several methods
+        mock_instance= MagicMock()
+        mock_instance.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
+        mock_datasource_class.return_value = mock_instance
+
+        try: 
+            cl.validate_category("Personal_Care_Activities", "Sleeping")
+        except cl.InvalidCategoryError:
+            self.fail("validate_category() raised InvalidCategoryError")
+        
+        mock_instance.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
+
+    @patch("cl.datasource.DataSource")
+    def test_validate_category_invalid(self, mock_datasource_class):
+        '''tests the validate_category function'''
+        mock_instance= MagicMock()
+        mock_instance.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
+        mock_datasource_class.return_value = mock_instance
+
+        with self.assertRaises(cl.InvalidCategoryError):
+            cl.validate_category("Invalid_category", "invalid_subcategory")
+
+        mock_instance.get_subcategory_list.assert_called_once()
+ 
     @patch("cl.datasource.DataSource")
     def test_validate_activity_valid(self, mock_datasource_class):
         '''tests the validate_activity function'''
@@ -47,52 +117,6 @@ class TestCL(unittest.TestCase):
             cl.validate_activity("Carleton")
 
         mock_instance.get_activity_list.assert_called_once()
-
-    @patch("cl.datasource.DataSource")
-    def test_validate_category_invalid(self, mock_datasource_class):
-        '''tests the validate_category function'''
-        mock_instance= MagicMock()
-        mock_instance.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
-        mock_datasource_class.return_value = mock_instance
-
-        with self.assertRaises(cl.InvalidCategoryError):
-            cl.validate_category("Invalid_category", "invalid_subcategory")
-
-        mock_instance.get_subcategory_list.assert_called_once()
-
-    def test_main_compare(self): 
-        pass
-    
-    def test_main_category_subcategory(self):
-        pass
-
-    def test_main_category_only(self):
-        pass
-
-    
-    ####################################################
-    ##########     EVERYTHING BELOW IS OK     ##########
-    ####################################################
-    def test_get_parsed_arguments(self):
-        '''tests the get_parsed_arguments function'''
-        script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
-        process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
-        self.assertEqual(process.returncode, 0)
-    
-    @patch("cl.datasource.DataSource")
-    def test_validate_category_valid(self, mock_datasource_class):
-        '''tests the validate_category function'''
-        # this can be a helper used in several methods
-        mock_instance= MagicMock()
-        mock_instance.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
-        mock_datasource_class.return_value = mock_instance
-
-        try: 
-            cl.validate_category("Personal_Care_Activities", "Sleeping")
-        except cl.InvalidCategoryError:
-            self.fail("validate_category() raised InvalidCategoryError")
-        
-        mock_instance.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
 
     @patch("cl.validate_category")
     @patch("cl.validate_activity")

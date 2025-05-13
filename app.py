@@ -92,7 +92,6 @@ def compare_activity_for_age(age, activity):
     returns a string that gives the comparison for an age group'''
     test = DataSource()
     hours = test.compare_by_age(age, activity)
-    print("DEBUG - hours from compare_by_age:", hours)
 
     if not isinstance(hours, (tuple, list)) or len(hours) != 2:
         return f"Error: unexpected result from compare_by_age -> {hours}"

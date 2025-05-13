@@ -154,7 +154,6 @@ class DataSource:
             q = f'SELECT (activity_id, "{age}") FROM data_2223 ORDER BY activity_id ASC LIMIT 1;'
             cursor.execute(q)
             records = cursor.fetchall()
-            print(f"records: {records}")
             if not records:
                 return "no data found for this age"
             activity = str(records[0][0][1:8])
