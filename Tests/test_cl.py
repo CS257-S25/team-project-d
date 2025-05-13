@@ -44,7 +44,8 @@ class TestCL(unittest.TestCase):
     @patch('cl.get_parsed_arguments')
     @patch.object(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
     def test_get_parsed_category(self, mock_get_parsed_arguments):
-        mock_get_parsed_arguments.return_value = None
+        mock_instance= MagicMock()
+        mock_get_parsed_arguments.return_value = mock_instance
         args = get_parsed_arguments()
         self.assertEqual(args.category, 'Personal_Care_Activities')
         mock_get_parsed_arguments.assert_called_once()
