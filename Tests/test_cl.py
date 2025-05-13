@@ -1,7 +1,8 @@
-'''This is the Test file to use'''
+'''File: test_cl.py'''
 import os
 import sys
 import unittest
+import argparse
 from io import StringIO
 from unittest.mock import patch, MagicMock
 import cl
@@ -20,20 +21,40 @@ class TestCL(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
-        # mock_get_top_by_age.return_value = self.mock_conn
-        # self.mock_cursor.fetchall.return_value = "the top activity for people age 23 is Sleeping"
-        # response = get_top_by_age(23)
-        # self.assertEqual("the top activity for people age 23 is Sleeping", response)
+    @patch("cl.datasource.DataSource")
+    def test_validate_activity_valid(self, mock_validate_activity):
+        '''tests the validate_activity function'''
+        pass
+    
+    def test_validate_activity_invalid(self):
+        pass
 
+    def test_validate_category_invalid(self):
+        pass
+
+    def test_main_compare(self): 
+        pass
+    
+    def test_main_category_subcategiry(self):
+        pass
+
+    def test_main_category_only(self):
+        pass
+
+    
+    ####################################################
+    ##########     EVERYTHING BELOW IS OK     ##########
+    ####################################################
     def test_get_parsed_arguments(self):
         '''tests the get_parsed_arguments function'''
         script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'cl.py'))
         process = subprocess.run([sys.executable, script_path, '--category', 'Personal_Care_Activities'], capture_output=True, text=True)
         self.assertEqual(process.returncode, 0)
-        
-    @patch("ProductionCode.datasource")
-    def test_validate_category(self, mock_validate_category):
+    
+    @patch("cl.datasource.DataSource")
+    def test_validate_category_valid(self, mock_datasource_class):
         '''tests the validate_category function'''
+<<<<<<< HEAD
         mock_validate_category.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = [('T01','Personal_Care_Activities')]
         print(f"here: {self.mock_cursor.fetchall.return_value}")
@@ -43,21 +64,51 @@ class TestCL(unittest.TestCase):
 
     @patch("ProductionCode.datasource")
     def test_check_validity(self, mock_check_validity):
+=======
+        # this can be a helper used in several methods
+        mock_instance= MagicMock()
+        mock_instance.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
+        mock_datasource_class.return_value = mock_instance
+
+        try: 
+            cl.validate_category("Personal_Care_Activities", "Sleeping")
+        except cl.InvalidCategoryError:
+            self.fail("validate_category() raised InvalidCategoryError")
+        
+        mock_instance.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
+
+    @patch("cl.validate_category")
+    @patch("cl.validate_activity")
+    def test_check_validity(self, mock_validate_activity, mock_validate_category):
+>>>>>>> 36016e7c41060eaaebd6ef83beb95157a9c62285
         '''tests the check_validity function'''
-        mock_check_validity.return_value = self.mock_conn
-        pass
+        args= argparse.Namespace(category= 'Personal_Care_Activities', subcategory = 'Sleeping',activity='Sleeping', age= None, top= None, compare= None )
+        cl.check_validity(args)
+        mock_validate_category.assert_called_once_with('Personal_Care_Activities', 'Sleeping')
+        mock_validate_activity.assert_called_once_with("Sleeping")
 
-    @patch("ProductionCode.datasource")
-    def test_validate_activity(self, mock_validate_activity):
-        '''tests the validate_activity function'''
-        mock_validate_activity.return_value = self.mock_conn
-        pass
-
-    @patch("ProductionCode.datasource")
-    def test_main(self, mock_main):
+    @patch("cl.datasource.DataSource")
+    @patch("cl.get_parsed_arguments")
+    def test_main_top_activity(self, mock_get_args, mock_datasource_class):
         '''tests the main function'''
-        mock_main.return_value = self.mock_conn
-        pass
+    
+        #fake CLI args
+        mock_args= MagicMock()
+        mock_args.age = 23
+        mock_args.top = True
+        mock_args.category = None
+        mock_args.subcategory = None 
+        mock_args.compare = None
+        mock_args.activity = None
+
+        # this can be a helper used in several methods
+        mock_instance= MagicMock()
+        mock_instance.get_top_by_age.return_value = "Sleeping"
+        mock_datasource_class.return_value = mock_instance
+
+        with patch("builtins.print") as mock_print:
+            cl.main()
+            mock_print.assert_called_once_with("Sleeping")
 
 if __name__ == '__main__':
     unittest.main()
