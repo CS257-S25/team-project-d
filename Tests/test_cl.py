@@ -41,14 +41,12 @@ class TestCL(unittest.TestCase):
     #     print(f"category process: {process}")
     #     self.assertEqual(process.returncode, 0)
 
-    @patch('cl.get_parsed_arguments')
+    @patch('cl.check_validity')
     @patch.object(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
-    def test_get_parsed_category(self, mock_get_parsed_arguments):
-        mock_instance= MagicMock()
-        mock_get_parsed_arguments.return_value = mock_instance
+    def test_get_parsed_category(self, mock_check_validity):
         args = get_parsed_arguments()
         self.assertEqual(args.category, 'Personal_Care_Activities')
-        mock_get_parsed_arguments.assert_called_once()
+        mock_check_validity.assert_called_once_with(args)
 
 
     # def test_get_parsed_age(self):
