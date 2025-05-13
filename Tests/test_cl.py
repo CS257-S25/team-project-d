@@ -54,17 +54,6 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_category_valid(self, mock_datasource_class):
         '''tests the validate_category function'''
-<<<<<<< HEAD
-        mock_validate_category.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = [('T01','Personal_Care_Activities')]
-        print(f"here: {self.mock_cursor.fetchall.return_value}")
-        result = validate_category('Personal_Care_Activities')
-        print(f"result: {result}")
-        self.assertEqual(result, 'Personal_Care_Activities')
-
-    @patch("ProductionCode.datasource")
-    def test_check_validity(self, mock_check_validity):
-=======
         # this can be a helper used in several methods
         mock_instance= MagicMock()
         mock_instance.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
@@ -80,7 +69,6 @@ class TestCL(unittest.TestCase):
     @patch("cl.validate_category")
     @patch("cl.validate_activity")
     def test_check_validity(self, mock_validate_activity, mock_validate_category):
->>>>>>> 36016e7c41060eaaebd6ef83beb95157a9c62285
         '''tests the check_validity function'''
         args= argparse.Namespace(category= 'Personal_Care_Activities', subcategory = 'Sleeping',activity='Sleeping', age= None, top= None, compare= None )
         cl.check_validity(args)
