@@ -39,7 +39,8 @@ class TestCL(unittest.TestCase):
         result = validate_category('Personal_Care_Activities')
         self.assertEqual(result, 'Personal_Care_Activities')
 
-    def test_check_validity(self):
+    @patch("ProductionCode.datasource")
+    def test_check_validity(self, mock_check_validity):
         '''tests the check_validity function'''
         mock_check_validity.return_value = self.mock_conn
         pass
