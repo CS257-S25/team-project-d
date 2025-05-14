@@ -3,6 +3,7 @@ import os
 import sys
 import unittest
 import argparse
+from argparse import Namespace
 from io import StringIO
 from unittest.mock import patch, MagicMock
 import cl
@@ -23,17 +24,14 @@ class TestCL(unittest.TestCase):
 
     @patch("cl.get_parsed_arguments")
     @patch("cl.datasource.DataSource")
-    def test_main_compare(self, mock_args, mock_datasource_class):
+    def test_main_compare(self, mock_get_args, mock_datasource_class):
         '''tests the main function'''
-        mock_instance = MagicMock()
-        mock_instance.age = None
-        mock_instance.top = None
-        mock_instance.category = None
-        mock_instance.subcategory = None 
-        mock_instance.compare = "23"
-        mock_instance.activity = "Sleeping"
-
-        mock_args.return_value = mock_instance
+        mock_args = Namespace(
+        age=None, top=None,
+        compare=23, activity="Sleeping",
+        category=None, subcategory=None
+    )
+        mock_get_args.return_value = mock_args
 
         mock_source = MagicMock()
         mock_source.compare_by_age.return_value = 559
