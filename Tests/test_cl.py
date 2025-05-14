@@ -21,7 +21,7 @@ class TestCL(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
-    def test_main_compare(self, mock_get_args, mock_datasource_class):
+    def test_main_compare(self, mock_datasource_class):
         '''tests the main function'''
         mock_instance = MagicMock()
         mock_instance.age = None
@@ -37,7 +37,7 @@ class TestCL(unittest.TestCase):
 
         with patch("builtins.print") as mock_print:
             cl.main()
-            mock_print.assert_called_once_with(str(559))  
+            mock_datasource_class.assert_called_once_with(str(559))  
         
     def test_main_category_subcategory(self):
         pass
