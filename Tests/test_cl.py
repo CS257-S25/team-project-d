@@ -29,7 +29,7 @@ class TestCL(unittest.TestCase):
         mock_instance.top = None
         mock_instance.category = None
         mock_instance.subcategory = None 
-        mock_instance.compare = 23
+        mock_instance.compare = "23"
         mock_instance.activity = "Sleeping"
 
         #mock_instance= MagicMock()
