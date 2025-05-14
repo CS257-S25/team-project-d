@@ -34,7 +34,7 @@ class TestCL(unittest.TestCase):
         mock_get_args.return_value = mock_args
 
         mock_source = MagicMock()
-        mock_source.compare_by_age.return_value = 559
+        mock_source.compare_by_age.return_value = (559,552)
         mock_datasource_class.return_value = mock_source
 
         with patch("builtins.print") as mock_print:
