@@ -21,6 +21,7 @@ class TestCL(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
+    @patch("cl.main")
     def test_main_compare(self, mock_datasource_class):
         '''tests the main function'''
         mock_instance = MagicMock()
