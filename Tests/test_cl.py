@@ -33,8 +33,10 @@ class TestCL(unittest.TestCase):
         mock_instance.compare = "23"
         mock_instance.activity = "Sleeping"
 
-        #mock_instance= MagicMock()
-        mock_instance.compare_by_age.return_value = 559
+        mock_args.return_value = mock_instance
+
+        mock_source = MagicMock()
+        mock_source.compare_by_age.return_value = 559
         mock_datasource_class.return_value = mock_instance
 
         with patch("builtins.print") as mock_print:
