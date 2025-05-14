@@ -22,7 +22,7 @@ class TestCL(unittest.TestCase):
         self.app = app.test_client()
 
     @patch("cl.datasource.DataSource")
-    @patch("cl.main")
+    @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_datasource_class):
         '''tests the main function'''
         mock_instance = MagicMock()
