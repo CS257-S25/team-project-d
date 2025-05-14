@@ -21,6 +21,7 @@ class TestCL(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
+    @patch("cl.datasource.DataSource")
     @patch("cl.main")
     def test_main_compare(self, mock_datasource_class):
         '''tests the main function'''
@@ -38,7 +39,7 @@ class TestCL(unittest.TestCase):
         mock_datasource_class.return_value = mock_instance
 
         with patch("builtins.print") as mock_print:
-            self.cl.main()
+            cl.main()
             mock_datasource_class.assert_called_once_with("For people age 23 they engaged in Sleeping "\
         "on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013")  
         
