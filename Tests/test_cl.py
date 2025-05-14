@@ -23,21 +23,21 @@ class TestCL(unittest.TestCase):
 
     def test_main_compare(self, mock_get_args, mock_datasource_class):
         '''tests the main function'''
-        mock_args = MagicMock()
-        mock_args.age = None
-        mock_args.top = None
-        mock_args.category = None
-        mock_args.subcategory = None 
-        mock_args.compare = 23
-        mock_args.activity = "Sleeping"
+        mock_instance = MagicMock()
+        mock_instance.age = None
+        mock_instance.top = None
+        mock_instance.category = None
+        mock_instance.subcategory = None 
+        mock_instance.compare = 23
+        mock_instance.activity = "Sleeping"
 
-        mock_instance= MagicMock()
-        mock_instance.compare_by_age.return_value = "Sleeping"
+        #mock_instance= MagicMock()
+        mock_instance.compare_by_age.return_value = str(559)
         mock_datasource_class.return_value = mock_instance
 
         with patch("builtins.print") as mock_print:
             cl.main()
-            mock_print.assert_called_once_with("Sleeping")  
+            mock_print.assert_called_once_with(str(559))  
         
     def test_main_category_subcategory(self):
         pass
