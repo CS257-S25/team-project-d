@@ -52,13 +52,28 @@ class TestCL(unittest.TestCase):
     )
         mock_get_args.return_value = mock_args
         mock_source = MagicMock()
-        mock_source.get_activity_list.return_value = ["Sleeping", "Grooming"]
+        mock_source.get_activity_list.return_value = ["Sleeping", "Sleeplessness"]
+        mock_datasource_class.return_value = mock_source
+        with patch("builtins.print") as mock_print:
+            cl.main()
+            mock_print.assert_called_once_with(["Sleeping", "Sleeplessness"])
+
+    @patch("cl.datasource.DataSource")
+    @patch("cl.get_parsed_arguments") 
+    def test_main_category_only(self, mock_get_args, mock_datasource_class):
+        '''tests the main function for category only'''
+        mock_args = Namespace(
+        age=None, top=None,
+        compare=None, activity=None,
+        category="Personal_Care_Activities", subcategory=None
+    )
+        mock_get_args.return_value = mock_args
+        mock_source = MagicMock()
+        mock_source.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
         mock_datasource_class.return_value = mock_source
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Grooming"])
-
-    def test_main_category_only(self):
         pass
 
     # def test_main_top_activity(self, mock_get_args, mock_datasource_class):
