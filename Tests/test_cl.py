@@ -39,7 +39,7 @@ class TestCL(unittest.TestCase):
         mock_datasource_class.return_value = mock_instance
 
         with patch("builtins.print") as mock_print:
-            mock_datasource_class.assert_called_once_with(main())  
+            mock_datasource_class.assert_called_once_with(mock_instance.main())  
         
     def test_main_category_subcategory(self):
         pass
