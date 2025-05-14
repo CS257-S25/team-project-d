@@ -21,8 +21,8 @@ class TestCL(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
-    @patch("cl.main()")
     @patch("cl.datasource.DataSource")
+    @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_args, mock_datasource_class):
         '''tests the main function'''
         mock_instance = MagicMock()
@@ -34,12 +34,12 @@ class TestCL(unittest.TestCase):
         mock_instance.activity = "Sleeping"
 
         #mock_instance= MagicMock()
-        mock_instance.compare_by_age.return_value = "For people age 23 they engaged in Sleeping "\
-        "on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013"
+        mock_instance.compare_by_age.return_value = 559
         mock_datasource_class.return_value = mock_instance
 
         with patch("builtins.print") as mock_print:
-            mock_datasource_class.assert_called_once_with(mock_instance.main())  
+            cl.main()
+            mock_print.assert_called_once_with(mock_instance.main())  
         
     def test_main_category_subcategory(self):
         pass
