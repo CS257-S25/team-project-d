@@ -1,11 +1,6 @@
-'''
-File: cl.py
-The eventual location for the command line interface (CLI) for the project.
-This will be the entry point for the project when run from the command line.
-'''
+''' File: cl.py '''
 import argparse
 import ProductionCode.datasource as datasource
-
 
 class InvalidCategoryError(Exception):
     '''exception raised for invalid category or subcategory'''
@@ -19,7 +14,7 @@ def get_parsed_arguments():
     parser.add_argument("--top", "-t", action='store_true', help="the top activity")
     parser.add_argument("--category", type=str, help="the category to get the activities for")
     parser.add_argument("--subcategory", type=str, help="the subcategory to get the activities for")
-    parser.add_argument("--compare", "-c", type=int, choices = range(15,81), 
+    parser.add_argument("--compare", "-c", type=int, choices = range(15,81),
                         help="the age (15-80) to compare the activity for")
     parser.add_argument("--activity", type=str, help="the activity to compare for a given age")
     args = parser.parse_args()
@@ -56,7 +51,7 @@ def validate_activity(activity):
     valid_activities = source.get_activity_list(subcategory)
     if activity not in valid_activities:
         raise InvalidCategoryError(
-            "Usage: python3 cl.py --compare <age 15-80> --activity <valid activity> ")
+            "Usage: python3 cl.py --compare <age 15-80> --activity <valid activity>")
 
 def main():
     '''main function for the command line interface'''
@@ -69,7 +64,7 @@ def main():
 
     elif args.compare is not None and args.activity is not None:
         hours = source.compare_by_age(args.compare, args.activity)
-        print(f"For people age " + str(args.compare) + " they engaged in " + str(args.activity) \
+        print("For people age " + str(args.compare) + " they engaged in " + str(args.activity) \
             + " on average " + str(hours[0]) \
             + " hours in 2022 & 2023 and " + str(hours[1]) + " hours in 2012 & 2013")
 
