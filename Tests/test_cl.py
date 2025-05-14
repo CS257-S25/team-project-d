@@ -39,7 +39,7 @@ class TestCL(unittest.TestCase):
 
         with patch("builtins.print") as mock_print:
             cl.main()
-            mock_print.assert_called_once_with(mock_instance.main())  
+        mock_print.assert_called_once_with("For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013")  
         
     def test_main_category_subcategory(self):
         pass
