@@ -21,7 +21,7 @@ class TestCL(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
-    @patch("cl.datasource.DataSource")
+    #@patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_print, mock_datasource_class):
         '''tests the main function'''
