@@ -125,12 +125,15 @@ class DataSource:
         returns the subcategory'''
         try:
             cursor = self.connection.cursor()
-            activity_id = self.get_id_from_name('activities', 'activities_ID', 'activities', activity)
-            cursor.execute(f"SELECT activities_ID FROM activities WHERE activities_ID = '{activity_id}';")
+            activity_id = self.get_id_from_name('activities', 'activities_ID',
+                                                'activities', activity)
+            cursor.execute(f"SELECT activities_ID FROM activities "\
+                           "WHERE activities_ID = '{activity_id}';")
             records = cursor.fetchone()
             if records:
                 subcategory_id = str(records[0][0:-2])
-                subcategory = self.get_name_from_id('subcategory', 'subcategory_ID', 'subcategory', subcategory_id)
+                subcategory = self.get_name_from_id('subcategory', 'subcategory_ID',
+                                                    'subcategory', subcategory_id)
                 return subcategory
 
             return None
@@ -142,7 +145,7 @@ class DataSource:
     def get_top_by_age(self, age):
         '''finds the top activity for a given age
         param age: the age to find the top activity for'''
-        try: 
+        try:
             age= int(age)
         except ValueError:
             return "invalid age, please use a number between 15 and 80"
@@ -157,7 +160,8 @@ class DataSource:
             if not records:
                 return "no data found for this age"
             activity = str(records[0][0][1:8])
-            top_activity = self.get_name_from_id('activities', 'activities_ID', 'activities', activity)
+            top_activity = self.get_name_from_id('activities', 'activities_ID', 
+                                                 'activities', activity)
             return top_activity
 
         except psycopg2.Error as e:
