@@ -65,7 +65,7 @@ def main():
     elif args.compare is not None and args.activity is not None:
         hours = source.compare_by_age(args.compare, args.activity)
         print("For people age " + str(args.compare) + " they engaged in " + str(args.activity) \
-            + " on average " + str(hours[0]) \
+            + " on average " + str(hours) \
             + " hours in 2022 & 2023 and " + str(hours[1]) + " hours in 2012 & 2013")
 
     elif args.category is not None and args.subcategory is not None:
