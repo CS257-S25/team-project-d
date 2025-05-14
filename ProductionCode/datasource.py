@@ -160,7 +160,7 @@ class DataSource:
             if not records:
                 return "no data found for this age"
             activity = str(records[0][0][1:8])
-            top_activity = self.get_name_from_id('activities', 'activities_ID', 
+            top_activity = self.get_name_from_id('activities', 'activities_ID',
                                                  'activities', activity)
             return top_activity
 
@@ -172,17 +172,18 @@ class DataSource:
         '''finds the time spent on an activity for a given age in 2022-2023 and 10 years before
         param age: the age to find the top activity for
         param activity: the activity to find the time spent on'''
-        try: 
+        try:
             age= int(age)
         except ValueError:
             return "invalid age, please use a number between 15 and 80"
-            
+
         if age not in range(15, 81):
             return "invalid age, please use a number between 15 and 80"
         try:
             cursor = self.connection.cursor()
-            activity_id = self.get_id_from_name('activities', 'activities_ID', 'activities', activity)
-            q_new = f'SELECT "{age}" FROM data_2223 WHERE activity_id = \'{activity_id}\'' 
+            activity_id = self.get_id_from_name('activities', 'activities_ID',
+                                                'activities', activity)
+            q_new = f'SELECT "{age}" FROM data_2223 WHERE activity_id = \'{activity_id}\''
             q_old = f'SELECT "{age}" FROM data_1213 WHERE activity_id = \'{activity_id}\''
             q = f"" + q_new + " UNION ALL " + q_old + ";"
             cursor.execute(q, (age, activity_id,))
