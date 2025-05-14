@@ -21,15 +21,50 @@ class TestCL(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
-    def test_main_compare(self): 
-        pass
-    
+    def test_main_compare(self, mock_get_args, mock_datasource_class):
+        '''tests the main function'''
+        mock_args = MagicMock()
+        mock_args.age = None
+        mock_args.top = None
+        mock_args.category = None
+        mock_args.subcategory = None 
+        mock_args.compare = 23
+        mock_args.activity = "Sleeping"
+
+        mock_instance= MagicMock()
+        mock_instance.compare_by_age.return_value = "Sleeping"
+        mock_datasource_class.return_value = mock_instance
+
+        with patch("builtins.print") as mock_print:
+            cl.main()
+            mock_print.assert_called_once_with("Sleeping")  
+        
     def test_main_category_subcategory(self):
         pass
 
     def test_main_category_only(self):
         pass
 
+    # def test_main_top_activity(self, mock_get_args, mock_datasource_class):
+    #     '''tests the main function'''
+    
+    #     #fake CLI args
+    #     mock_args= MagicMock()
+    #     mock_args.age = 23
+    #     mock_args.top = True
+    #     mock_args.category = None
+    #     mock_args.subcategory = None 
+    #     mock_args.compare = None
+    #     mock_args.activity = None
+
+    #     # this can be a helper used in several methods
+    #     mock_instance= MagicMock()
+    #     mock_instance.get_top_by_age.return_value = "Sleeping"
+    #     mock_datasource_class.return_value = mock_instance
+
+    #     with patch("builtins.print") as mock_print:
+    #         cl.main()
+    #         mock_print.assert_called_once_with("Sleeping")
     
     ####################################################
     ##########     EVERYTHING BELOW IS OK     ##########
