@@ -187,7 +187,8 @@ class DataSource:
                 return "no data found for this age"
             hours = (records[0][0], records[1][0])
             time = str(hours[0])
-            return time
+            time2 = str(hours[1])
+            return time, time2
 
         except psycopg2.Error as e:
             print ("Something went wrong when executing the query: ", e)
