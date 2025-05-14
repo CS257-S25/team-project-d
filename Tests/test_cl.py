@@ -48,8 +48,10 @@ class TestCL(unittest.TestCase):
     def test_validate_activity(self, mock_validate_activity):
         '''tests the validate_activity function'''
         mock_validate_activity.return_value = self.mock_conn
-        pass
-
+        self.mock_cursor.fetchall.return_value = [('Sleeping',)]
+        result = validate_activity('Sleeping')
+        self.assertEqual(result, 'Sleeping')
+        
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_main(self, mock_main):
         '''tests the main function'''
