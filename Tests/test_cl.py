@@ -25,7 +25,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_get_args, mock_datasource_class):
-        '''tests the main function'''
+        '''tests the main compare function'''
         mock_args = Namespace(
         age=None, top=None,
         compare=23, activity="Sleeping",
@@ -39,10 +39,24 @@ class TestCL(unittest.TestCase):
 
         with patch("builtins.print") as mock_print:
             cl.main()
-            mock_print.assert_called_once_with("For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013")  
-        
-    def test_main_category_subcategory(self):
-        pass
+            mock_print.assert_called_once_with("For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013")
+
+    @patch("cl.datasource.DataSource")
+    @patch("cl.get_parsed_arguments") 
+    def test_main_category_subcategory(self, mock_get_args, mock_datasource_class):
+        '''tests the main function for category and subcategory'''
+        mock_args = Namespace(
+        age=None, top=None,
+        compare=None, activity=None,
+        category="Personal_Care_Activities", subcategory="Sleeping"
+    )
+        mock_get_args.return_value = mock_args
+        mock_source = MagicMock()
+        mock_source.get_activity_list.return_value = ["Sleeping", "Grooming"]
+        mock_datasource_class.return_value = mock_source
+        with patch("builtins.print") as mock_print:
+            cl.main()
+            mock_print.assert_called_once_with(["Sleeping", "Grooming"])
 
     def test_main_category_only(self):
         pass
