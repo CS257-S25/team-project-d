@@ -74,7 +74,6 @@ class TestCL(unittest.TestCase):
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Grooming"])
-        pass
     
     ####################################################
     ##########     EVERYTHING BELOW IS OK     ##########
