@@ -33,12 +33,12 @@ class TestCL(unittest.TestCase):
         mock_instance.activity = "Sleeping"
 
         #mock_instance= MagicMock()
-        mock_instance.compare_by_age.return_value = str(559)
+        mock_instance.compare_by_age.return_value = "599"
         mock_datasource_class.return_value = mock_instance
 
         with patch("builtins.print") as mock_print:
             cl.main()
-            mock_datasource_class.assert_called_once_with(str(559))  
+            mock_datasource_class.assert_called_once_with("559")  
         
     def test_main_category_subcategory(self):
         pass
