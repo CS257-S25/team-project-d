@@ -1,0 +1,61 @@
+ <html>
+     <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
+        <title>{{ title }}</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     </head>
+
+     <body>
+        <h1>Welcome to the dummy {{ title }} page!</h1>
+
+        <nav>
+            <ul>
+                <li> <a href = "/"> Home </a></li>
+                <li> <a href = "/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
+            </ul>
+        </nav>
+
+        <p><strong>The top activities for people age {{age}} are: </strong> </p>
+
+        <ul> 
+            {% for activity in activities%}
+                <li> {{ activity }}</li>
+            {% endfor %}
+        </ul>
+
+       <canvas id="topActivityChart" width="400" height="200"></canvas>
+       <script> 
+            const ctx = document.getElementById('topActivityChart').getContext('2d');
+
+            const topActivityChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{ activities|tojson }},
+                    datasets: [{
+                        label: 'Average Hours',
+                        data: {{ times|tojson }},
+                        backgroundColor: 'rgba(55,20,88, 0.7)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title:{
+                                display: true,
+                                text: "Average Hours"
+                            }
+                        },
+                        x:{
+                            title:{
+                                display: true,
+                                text: "Activity"
+                            }
+                        }
+                    }
+                }
+            });
+       </script>
+     </body>
+ </html>

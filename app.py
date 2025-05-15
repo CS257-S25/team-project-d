@@ -2,48 +2,78 @@
 THIS IS THE FLASK APP FOR THE SQL DATABASE
 file: app.py
 '''
-from flask import Flask, request
+import os
+from flask import Flask, request, render_template
 from ProductionCode.datasource import DataSource
+from matplotlib import pyplot as plt
+import numpy as np
+import pandas as pd
+
 app = Flask(__name__)
 
-
-def directions_message():
-    '''message that is printed on homepage and error pages to tell the user what to do'''
-    base_url = request.host_url.rstrip('/')
-    message = " 1) TO GET the top activity for a certain age between 15 and 80,"\
-        " go to /get-top/'<'age'>'<br>"\
-        f" For example: {base_url}/get-top/23 <br>"\
-        " 2) TO COMPARE the top activity for a certain age from 2022/2023 to 2012/2013," \
-        " go to /compare/'<'age'>'/'<'activity'>'<br>"\
-        f" For example: {base_url}/compare/23/Sleeping <br> <br>"\
-        " To see all options, use any of the following: <br>" \
-        " A) TO GET a list of all category options, go to /get-all-categories <br>"\
-        " B) TO GET a list of subcategory options from a category,<br>"\
-        " go to /get-subcategories/'<'category'>' "\
-        " C) TO GET a list of activities from a subcategory,<br>"\
-        " go to /get-activities/'<'category'>'/'<'subcategory'>'" 
-    return message
-
+# TO DO: will need to change the test for this
 @app.route('/')
 def homepage():
     '''Purpose: Homepage provides instructions for what URL to go to see the data you choose'''
-    return "This is the homepage for the time use project! <br>" + directions_message()
+    return render_template('index.html', title = "Homepage")
 
-@app.route('/get-top/<age>')
-def get_top_by_age(age):
-    '''param: age, the age you want to see the top category for
-    returns a string that gives the information for the top activity for an age group'''
+#####################################################
+###########    Get Top Activity By Age    ###########
+#####################################################
+
+# TO DO: will need a test function in test app 
+@app.route('/get_top',  methods=['GET'] )
+def show_age_form():
+    '''display form to select an age
+    checks if they selected the get_top_by_age option and renders a template for age input
+    else return an error message'''
+
+    option =request.args.get('option')
+    
+    if option == 'get_top_by_age':
+        return render_template("age_form.html", title = "Get Top Activity by Age")
+    
+    return "invalid option selected.", 400
+
+@app.route('/show_top_activities', methods = ['GET'])
+def get_top_by_age():
+    ''' returns the information for the top activity for an age group'''
     test = DataSource()
-    top = test.get_top_by_age(age)
-    if "invalid age" in top:
-        return top
-    return f"the top activity for people age {age} is {top}"
+
+    age = request.args.get('age')
+    if not age:
+        return "Age not provided", 400
+
+    top_ids = test.get_top_by_age(age)
+
+    if "invalid age" in top_ids:
+        return top_ids
+    
+    top_activities, times = process_top(top_ids)
+  
+    return render_template("get_top.html",title= "Top Activity Result", age=age,
+                           activities=top_activities, times= times)
+
+# TO DO: will need a test function in test app 
+def process_top(top_ids):
+    '''returns activity names and times as two lists from top tuples'''
+    top_activities = []
+    times = []
+
+    for activity, hrs in top_ids:
+        hours= int(hrs)
+        top_activities.append(activity)
+        times.append(hours)
+    return top_activities, times
 
 @app.route('/get-top/')
 def missing_age():
     '''returns a message if you forgot to add a /age'''
     return "Please include an age, ex: /get-top/23", 200
 
+#####################################################
+###########        Get Cat/Sub/Act        ###########
+#####################################################
 @app.route('/get-all-categories')
 def get_all_categories():
     '''returns a list of category options'''
@@ -84,7 +114,9 @@ def missing_subcategory(_category):
     '''returns a message if you forgot to add a subcategory'''
     return "Please include a subcategory, " \
         "ex: /get-activities/Personal_Care_Activities/Sleeping"
-
+#####################################################
+###########            Compare            ###########
+#####################################################
 @app.route('/compare/<age>/<activity>')
 def compare_activity_for_age(age, activity):
     '''param: age, the age you want to compare the activity for
@@ -100,16 +132,19 @@ def compare_activity_for_age(age, activity):
     f"For people age {age} they engaged in {activity} on average {hours[0]} hours "
     f"in 2022 & 2023 and {hours[1]} hours in 2012 & 2013"
     )
-
+#####################################################
+###########             Errors            ###########
+#####################################################
+# TO DO: fix to have helpful 404 page
 @app.errorhandler(404)
 def page_not_found(e):
     '''returns error message if the page wasn't found'''
-    return f"{e} <br>" + directions_message()
+    return f"{e}"
 
 @app.errorhandler(500)
 def python_bug(e):
     ''' returns a message to let you know if there's an internal error/bug'''
-    return f"{e} <br>"  + directions_message()
+    return f"{e}"
 
 if __name__ == '__main__':
     app.run(debug=True, port=7000)
