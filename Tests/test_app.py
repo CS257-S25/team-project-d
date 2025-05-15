@@ -19,6 +19,7 @@ class TestApp(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
+    # TO DO: update this 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_home(self, mock_homepage):
         '''tests that the home route returns the correct thing'''

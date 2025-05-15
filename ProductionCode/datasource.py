@@ -20,7 +20,7 @@ class DataSource:
             print("Connection error: ", e)
             sys.exit()
         return connection
-
+    
     def get_activity_list(self, subcategory):
         '''Get a list of activities given the subcategory'''
         subcategory_id= self.get_id_from_name("subcategory",
@@ -141,33 +141,69 @@ class DataSource:
             print(f"Error getting subcategory from activities: ", e)
             return None
 
-    #need to make some of these functions use helpers to keep at 1 level abs
+    #####################################################
+    ###########    Get Top Activity By Age    ###########
+    #####################################################
+    # TO DO: need to make some of these functions use helpers to keep at 1 level abs
     def get_top_by_age(self, age):
         '''finds the top activity for a given age
         param age: the age to find the top activity for'''
-        try:
-            age= int(age)
-        except ValueError:
+        age = self.validate_age(age)
+        if age is None:
             return "invalid age, please use a number between 15 and 80"
 
-        if age not in range(15, 81):
-            return "invalid age, please use a number between 15 and 80"
+        records= self.get_top_records(age)
+        if records is None: 
+            return "No data found for this age :("
+            
+        top_activities = self.ids_to_names(records)
+
+        return top_activities
+
+    # Helpers!
+    def validate_age(self, age):
+        '''validate the age input and return as int if valid, else None'''
+        try:
+            age_int= int(age)
+        except ValueError:
+            return None
+
+        if age_int not in range(15, 81):
+            return None
+        return age_int
+    
+    def get_top_records(self,age):
+        '''Query the database to get the top 3 activities for given age
+        return list of tuples or None'''
         try:
             cursor = self.connection.cursor()
-            q = f'SELECT (activity_id, "{age}") FROM data_2223 ORDER BY activity_id ASC LIMIT 1;'
+            q = f'SELECT activity_id, "{age}" FROM data_2223 ORDER BY "{age}" DESC LIMIT 3;'
             cursor.execute(q)
             records = cursor.fetchall()
+            
             if not records:
                 return "no data found for this age"
-            activity = str(records[0][0][1:8])
-            top_activity = self.get_name_from_id('activities', 'activities_ID',
-                                                 'activities', activity)
-            return top_activity
+
+            return records
 
         except psycopg2.Error as e:
             print ("Something went wrong when executing the query: ", e)
             return None
 
+    def ids_to_names(self, records):
+        '''convert activity_id to activity names
+        return list of (name, hours)'''
+        top_activities= []
+    
+        for activity_id, hours in records: 
+            name = self.get_name_from_id('activities', 'activities_ID',
+                                            'activities', activity_id)
+            top_activities.append((name, hours))
+        return top_activities
+
+    #####################################################
+    ###########            Compare            ###########
+#   ####################################################
     def compare_by_age(self, age, activity):
         '''finds the time spent on an activity for a given age in 2022-2023 and 10 years before
         param age: the age to find the top activity for

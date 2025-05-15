@@ -1,0 +1,25 @@
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>{{title}}</h1>
+
+    <nav>
+        <ul>
+            <li> <a href = "/"> Home </a></li>
+            <li> <a href = "/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
+        </ul>
+    </nav>
+    <p> Are you curious to find out what the most common activity for your age group is? What about your grandma's age? </p>
+
+    <form action="/show_top_activities" method="get">
+        <label for="age"> <strong> Enter age (15 to 80): </strong></label>
+        <input type="text" id="age" name="age" required>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+</html>
