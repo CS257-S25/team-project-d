@@ -1,11 +1,10 @@
+ <!-- Keeping this incase we want a separatee thing and add pics/wikihow-->
  <html>
      <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
         <title>{{title}}</title>
      </head>
-
      <body>
-        <h1>Welcome to the {{title}} for Time Use Survey!</h1>
 
         <nav>
             <ul>
@@ -16,7 +15,17 @@
             </ul>
         </nav>
 
-        <p> Here is where there would be a descriptive text idk </p>
+        
+        <h2>Activities:</h2>
+        {% if activities %}
+            <ul>
+                {% for activity in activities %}
+                    <li>{{ activity }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p> No activities found; make sure you have selected a category and a subcategory... if you have, there are just no activities</p>
+        {% endif %}
 
      </body>
  </html>

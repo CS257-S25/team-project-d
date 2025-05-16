@@ -6,10 +6,6 @@ from app import get_subcategories_for_category
 from app import  compare_activity_for_age, get_all_categories
 from app import get_top_by_age, app
 
-# unused imports that i deletet: page_not_found, python_bug, get_activities_from_sub
-# continued: compare_activity_for_age, missing_category, missing_cat_and_sub, missing_subcategory
-
-
 #PROBABLY NEED TO ADD MORE EDGE CASES AND ACCEPTANCE TESTS 
 class TestApp(unittest.TestCase):
     '''class for tests for app.py'''
@@ -19,29 +15,12 @@ class TestApp(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
-    # TO DO: update this 
-    @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_route_home(self, mock_homepage):
-        '''tests that the home route returns the correct thing'''
-        mock_homepage.return_value = self.mock_conn
-        response = self.app.get('/', follow_redirects=True)
-        self.assertEqual(
-            response.data,
-            b"This is the homepage for the time use project! <br>"\
-            b" 1) TO GET the top activity for a certain age between 15 and 80,"\
-            b" go to /get-top/'<'age'>'<br>"\
-            b" For example: http://localhost/get-top/23 <br>"\
-            b" 2) TO COMPARE the top activity for a certain age from 2022/2023 to 2012/2013," \
-            b" go to /compare/'<'age'>'/'<'activity'>'<br>"\
-            b" For example: http://localhost/compare/23/Sleeping <br> <br>"\
-            b" To see all options, use any of the following: <br>" \
-            b" A) TO GET a list of all category options, go to /get-all-categories <br>"\
-            b" B) TO GET a list of subcategory options from a category,<br>"\
-            b" go to /get-subcategories/'<'category'>' "\
-            b" C) TO GET a list of activities from a subcategory,<br>"\
-            b" go to /get-activities/'<'category'>'/'<'subcategory'>'" 
-        )
-
+    #####################################################
+    ###########    Get Top Activity By Age    ###########
+    #####################################################
+    def test_show_app_form():
+        pass
+    
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_top_by_age(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given age 23'''
@@ -51,7 +30,17 @@ class TestApp(unittest.TestCase):
         ]
         response = get_top_by_age(23)
         self.assertEqual("the top activity for people age 23 is Sleeping", response)
-
+    
+    def test_process_top():
+        pass
+        
+    def test_missing_age(self):
+        '''test for missing_age route'''
+        self.check_missing_route('/get-top/',
+                                "Please include an age, ex: /get-top/23" ) 
+    #####################################################
+    ###########        Get Cat/Sub/Act        ###########
+    #####################################################
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_all_categories(self, mock_get_all_categories):
         '''tests that the route to get all categories returns the correct thing'''
@@ -95,6 +84,21 @@ class TestApp(unittest.TestCase):
         self.assertIn("Sleeping", decoded)
         self.assertIn("Sleeplessness", decoded)
 
+    def test_missing_category(self):
+        '''test for missing_category route'''
+        self.check_missing_route('/get-subcategories/',
+                                "Please include a category, " \
+                                "ex: /get-subcategories/Personal_Care_Activities")
+
+    def test_missing_cat_and_sub(self):
+        '''test for missing_cat_and_sub route'''
+        self.check_missing_route('/get-activities/',
+                                "Please include a category and a subcategory, " \
+                                "ex: /get-activities/Personal_Care_Activities/Sleeping" ) 
+    
+    #####################################################
+    ###########            Compare            ###########
+    #####################################################
     @patch("ProductionCode.datasource.psycopg2.connect")   
     def test_compare_activity_for_age(self, mock_compare_activity_for_age):
         mock_compare_activity_for_age.return_value = self.mock_conn
@@ -105,6 +109,10 @@ class TestApp(unittest.TestCase):
         response = compare_activity_for_age("23", "Sleeping")
         self.assertEqual("For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013", response)
 
+    #####################################################
+    ###########             Others            ###########
+    #####################################################
+    #TO DO: update this
     def assert_404(self, route): # I think this one is not really accurate anymore 
         '''test to make sure error returns correct thing'''
         response = self.app.get(route)
@@ -119,20 +127,27 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(message.encode(), response.data)
 
-    def test_missing_age(self):
-        '''test for missing_age route'''
-        self.check_missing_route('/get-top/',
-                                "Please include an age, ex: /get-top/23" ) 
+    # TO DO: update this 
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_route_home(self, mock_homepage):
+        '''tests that the home route returns the correct thing'''
+        mock_homepage.return_value = self.mock_conn
+        response = self.app.get('/', follow_redirects=True)
+        self.assertEqual(
+            response.data,
+            b"This is the homepage for the time use project! <br>"\
+            b" 1) TO GET the top activity for a certain age between 15 and 80,"\
+            b" go to /get-top/'<'age'>'<br>"\
+            b" For example: http://localhost/get-top/23 <br>"\
+            b" 2) TO COMPARE the top activity for a certain age from 2022/2023 to 2012/2013," \
+            b" go to /compare/'<'age'>'/'<'activity'>'<br>"\
+            b" For example: http://localhost/compare/23/Sleeping <br> <br>"\
+            b" To see all options, use any of the following: <br>" \
+            b" A) TO GET a list of all category options, go to /get-all-categories <br>"\
+            b" B) TO GET a list of subcategory options from a category,<br>"\
+            b" go to /get-subcategories/'<'category'>' "\
+            b" C) TO GET a list of activities from a subcategory,<br>"\
+            b" go to /get-activities/'<'category'>'/'<'subcategory'>'" 
+        )
 
-    def test_missing_category(self):
-        '''test for missing_category route'''
-        self.check_missing_route('/get-subcategories/',
-                                "Please include a category, " \
-                                "ex: /get-subcategories/Personal_Care_Activities")
 
-    def test_missing_cat_and_sub(self):
-        '''test for missing_cat_and_sub route'''
-        self.check_missing_route('/get-activities/',
-                                "Please include a category and a subcategory, " \
-                                "ex: /get-activities/Personal_Care_Activities/Sleeping" ) 
-    

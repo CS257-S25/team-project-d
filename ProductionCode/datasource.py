@@ -21,6 +21,9 @@ class DataSource:
             sys.exit()
         return connection
     
+    #####################################################
+    ###########        Get Cat/Sub/Act        ###########
+    #####################################################
     def get_activity_list(self, subcategory):
         '''Get a list of activities given the subcategory'''
         subcategory_id= self.get_id_from_name("subcategory",
@@ -28,7 +31,7 @@ class DataSource:
 
         if not subcategory_id:
             print(f"subcategory name {subcategory} not found")
-            return "not found "
+            return None
 
         query = "SELECT * FROM activities WHERE activities_ID LIKE %s"
         names = self.get_names_from_list(self.get_correct_list(subcategory_id,query))
@@ -39,7 +42,7 @@ class DataSource:
         category_id = self.get_id_from_name("category","category_ID", "category", category)
         if not category_id:
             print(f"category name {category} not found")
-            return "not found "
+            return None
 
         query = "SELECT * FROM subcategory WHERE subcategory_ID LIKE %s"
         names = self.get_names_from_list(self.get_correct_list(category_id,query))
@@ -86,6 +89,7 @@ class DataSource:
             print(f"Error getting activity from {table}: ", e)
             return None
 
+    #Helpers!
     def get_name_from_id(self, table, id_column, name_column, id):
         '''helper method to get a name from an id in a given table
         params: 
@@ -144,7 +148,7 @@ class DataSource:
     #####################################################
     ###########    Get Top Activity By Age    ###########
     #####################################################
-    # TO DO: need to make some of these functions use helpers to keep at 1 level abs
+    # TO DO: need to update test functions for these
     def get_top_by_age(self, age):
         '''finds the top activity for a given age
         param age: the age to find the top activity for'''
@@ -162,7 +166,7 @@ class DataSource:
 
     # Helpers!
     def validate_age(self, age):
-        '''validate the age input and return as int if valid, else None'''
+        '''Helper method to validate the age input and return as int if valid, else None'''
         try:
             age_int= int(age)
         except ValueError:
@@ -173,7 +177,7 @@ class DataSource:
         return age_int
     
     def get_top_records(self,age):
-        '''Query the database to get the top 3 activities for given age
+        '''Helper method to Query the database to get the top 3 activities for given age
         return list of tuples or None'''
         try:
             cursor = self.connection.cursor()
@@ -191,7 +195,7 @@ class DataSource:
             return None
 
     def ids_to_names(self, records):
-        '''convert activity_id to activity names
+        ''' Helper Method to convert activity_id to activity names
         return list of (name, hours)'''
         top_activities= []
     
@@ -203,7 +207,7 @@ class DataSource:
 
     #####################################################
     ###########            Compare            ###########
-#   ####################################################
+    #####################################################
     def compare_by_age(self, age, activity):
         '''finds the time spent on an activity for a given age in 2022-2023 and 10 years before
         param age: the age to find the top activity for

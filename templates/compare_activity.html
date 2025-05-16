@@ -1,11 +1,12 @@
  <html>
      <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
-        <title>{{title}}</title>
+        <title>{{ title }}</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
      </head>
 
      <body>
-        <h1>Welcome to the {{title}} for Time Use Survey!</h1>
+        <h1>Welcome to the {{ title }} page!</h1>
 
         <nav>
             <ul>
@@ -16,7 +17,12 @@
             </ul>
         </nav>
 
-        <p> Here is where there would be a descriptive text idk </p>
+        <p> For people age {{age}} they engaged in {{activity}} on average {{hours_0}} hours in 2022 & 2023 and {{hours_1}} hours in 2012 & 2013</p>
+
+        <!-- Then Generate a graph for both -->
+
+ 
+       
 
      </body>
  </html>

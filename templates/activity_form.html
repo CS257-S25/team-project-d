@@ -1,0 +1,58 @@
+ <html>
+     <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
+        <title>{{title}}</title>
+     </head>
+     <body>
+        <h1> {{ title }}</h1>
+
+        <nav>
+            <ul>
+                <li> <a href = "/"> Home </a></li>
+                <li> <a href = "/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
+                <li> <a href = "/compare?option=compare_activity_for_age"> Compare </a></li>
+                <li> <a href = "/find_activities?option=get_activities_results"> Find Activities</a> </a> </li>
+            </ul>
+        </nav>
+
+        <h2>Select a Category and Subcategory: </h2>
+        <form action="/show_find_activities" method="get">
+            <label for="category">Category:</label>
+            <select id="category" name="category" onchange="this.form.submit()">
+                <option value="">-- Select Category --</option>
+                {% for category in categories %}
+                    <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
+                {% endfor %}
+            </select>
+
+            <br><br>
+
+            <label for="subcategory">Subcategory:</label>
+            <select id="subcategory" name="subcategory">
+                <option value="">-- Select Subcategory --</option>
+                {% if subcategories %}
+                    {% for subcategory in subcategories %}
+                        <option value="{{ subcategory }}" {% if subcategory == selected_subcategory %}selected{% endif %}>{{ subcategory }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+
+            <br><br>
+
+            <input type="submit" value="Get Activities">
+        </form>
+
+        <h2>Activities:</h2>
+        {% if activities %}
+            <ul>
+                {% for activity in activities %}
+                    <li>{{ activity }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p> No activities found; make sure you have selected a category and a subcategory... if you have, there are just no activities</p>
+        {% endif %}
+
+        <!-- Note: figure out how to make it clear when you start changing either dropdown, or just put in different html-->
+     </body>
+ </html>

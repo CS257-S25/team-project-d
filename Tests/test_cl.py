@@ -22,6 +22,9 @@ class TestCL(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
+    #####################################################
+    ###########            Compare            ###########
+    #####################################################
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_get_args, mock_datasource_class):
@@ -41,6 +44,9 @@ class TestCL(unittest.TestCase):
             cl.main()
             mock_print.assert_called_once_with("For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013")
 
+    #####################################################
+    ###########        Get Cat/Sub/Act        ###########
+    #####################################################
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments") 
     def test_main_category_subcategory(self, mock_get_args, mock_datasource_class):
@@ -75,9 +81,6 @@ class TestCL(unittest.TestCase):
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Grooming"])
     
-    ####################################################
-    ##########     EVERYTHING BELOW IS OK     ##########
-    ####################################################
     @patch('cl.check_validity')
     @patch.object(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
     def test_get_parsed_args(self, mock_check_validity):
@@ -148,6 +151,10 @@ class TestCL(unittest.TestCase):
         mock_validate_category.assert_called_once_with('Personal_Care_Activities', 'Sleeping')
         mock_validate_activity.assert_called_once_with("Sleeping")
 
+    #####################################################
+    ###########    Get Top Activity By Age    ###########
+    #####################################################
+    #TO DO: Update these functions
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments")
     def test_main_top_activity(self, mock_get_args, mock_datasource_class):

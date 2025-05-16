@@ -5,9 +5,6 @@ file: app.py
 import os
 from flask import Flask, request, render_template
 from ProductionCode.datasource import DataSource
-from matplotlib import pyplot as plt
-import numpy as np
-import pandas as pd
 
 app = Flask(__name__)
 
@@ -114,28 +111,94 @@ def missing_subcategory(_category):
     '''returns a message if you forgot to add a subcategory'''
     return "Please include a subcategory, " \
         "ex: /get-activities/Personal_Care_Activities/Sleeping"
+
+#########################
+@app.route('/find_activities', methods = ['GET'])
+def show_activity_form():
+    '''display form '''
+    option =request.args.get('option')
+    
+    if option == 'get_activities_results':
+        test = DataSource()
+        categories= test.get_category_list()
+        #category, subcategory, categories, subcategories, activities = helper()
+        
+        return render_template("activity_form.html", title = "Find Activities", categories=categories)
+        #return render_template('activity_form.html', categories=categories, 
+                            #subcategories= subcategories, selected_category= category,
+                            #selected_subcategory=subcategory, activities=activities)
+
+    return "invalid option selected.", 400
+
+@app.route('/show_find_activities', methods = ['GET'])
+def get_activities_results():
+    '''display form to find activities'''
+    category= request.args.get('category')
+    subcategory = request.args.get('subcategory')
+
+    test= DataSource()
+    categories = test.get_category_list()
+    subcategories = test.get_subcategory_list(category)
+    activities = test.get_activity_list(subcategory)
+
+    # change to activity_results if separate page 
+    return render_template('activity_form.html', categories=categories, 
+                            subcategories= subcategories, selected_category= category,
+                            selected_subcategory=subcategory, activities=activities)
+
+def helper():
+    category= request.args.get('category')
+    subcategory = request.args.get('subcategory')
+
+    test= DataSource()
+    categories = test.get_category_list()
+    subcategories = test.get_subcategory_list(category)
+    activities = test.get_activity_list(subcategory)
+
+    return category, subcategory, categories, subcategories, activities
+
+
 #####################################################
 ###########            Compare            ###########
 #####################################################
-@app.route('/compare/<age>/<activity>')
-def compare_activity_for_age(age, activity):
+@app.route('/compare')
+def show_compare_form():
+    '''display form to select an age, activity, and year to compare
+    checks if they selected the compare_activity_for_age option and renders a template 
+    else return an error message'''
+
+    option =request.args.get('option')
+
+    if option == 'compare_activity_for_age':
+        return render_template("compare_form.html", title = "Compare 2022-23 to 2012-13")
+    
+    return "invalid option selected.", 400
+
+@app.route('/show_compare', methods = ['GET'])
+def compare_activity_for_age():
     '''param: age, the age you want to compare the activity for
     param: activity, the activity you want to compare
-    returns a string that gives the comparison for an age group'''
+    returns render template that gives the comparison for an age group'''
+    age= request.args.get('age')
+    activity= request.args.get('activity')
+
+
+    
     test = DataSource()
     hours = test.compare_by_age(age, activity)
 
     if not isinstance(hours, (tuple, list)) or len(hours) != 2:
         return f"Error: unexpected result from compare_by_age -> {hours}"
 
-    return (
-    f"For people age {age} they engaged in {activity} on average {hours[0]} hours "
-    f"in 2022 & 2023 and {hours[1]} hours in 2012 & 2013"
-    )
+    hours_0= hours[0]
+    hours_1 = hours[1]
+
+    return render_template('compare_activity.html', age=age, activity=activity, hours_0 = hours_0, hours_1=hours_1)
+
 #####################################################
 ###########             Errors            ###########
 #####################################################
-# TO DO: fix to have helpful 404 page
+# TO DO: fix to have helpful 404 page with instructions on how to correctly use the website features
 @app.errorhandler(404)
 def page_not_found(e):
     '''returns error message if the page wasn't found'''
