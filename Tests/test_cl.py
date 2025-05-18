@@ -67,13 +67,13 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments") 
     def test_main_category_only(self, mock_get_args, mock_datasource_class):
-        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None, "Personal_Care_Activities", None, ["Sleeping", "Grooming"])
+        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None, "Personal_Care_Activities", None, ["Sleeping", "Grooming"], "get_subcategory_list")
 
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Grooming"])
 
-    def main_helper_method(self, mock_get_args, mock_datasource_class, age, top, compare, activity, category, subcategory, answer_list):
+    def main_helper_method(self, mock_get_args, mock_datasource_class, age, top, compare, activity, category, subcategory, answer_list, list_type):
         '''helper method for the main function'''
         mock_args = Namespace(
         age=age, top=top,
@@ -82,8 +82,7 @@ class TestCL(unittest.TestCase):
         )
         mock_get_args.return_value = mock_args
         mock_source = MagicMock()
-        mock_source.get_activity_list.return_value = answer_list
-        mock_source.get_subcategory_list.return_value = answer_list
+        mock_source.list_type.return_value = answer_list
         mock_datasource_class.return_value = mock_source
 
     @patch('cl.check_validity')
