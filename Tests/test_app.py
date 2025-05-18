@@ -127,27 +127,36 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(message.encode(), response.data)
 
-    # TO DO: update this 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_route_home(self, mock_homepage):
-        '''tests that the home route returns the correct thing'''
+    def test_route_home_template(self, mock_homepage):
+        '''tests that the homeroute uses the correct template'''
         mock_homepage.return_value = self.mock_conn
-        response = self.app.get('/', follow_redirects=True)
-        self.assertEqual(
-            response.data,
-            b"This is the homepage for the time use project! <br>"\
-            b" 1) TO GET the top activity for a certain age between 15 and 80,"\
-            b" go to /get-top/'<'age'>'<br>"\
-            b" For example: http://localhost/get-top/23 <br>"\
-            b" 2) TO COMPARE the top activity for a certain age from 2022/2023 to 2012/2013," \
-            b" go to /compare/'<'age'>'/'<'activity'>'<br>"\
-            b" For example: http://localhost/compare/23/Sleeping <br> <br>"\
-            b" To see all options, use any of the following: <br>" \
-            b" A) TO GET a list of all category options, go to /get-all-categories <br>"\
-            b" B) TO GET a list of subcategory options from a category,<br>"\
-            b" go to /get-subcategories/'<'category'>' "\
-            b" C) TO GET a list of activities from a subcategory,<br>"\
-            b" go to /get-activities/'<'category'>'/'<'subcategory'>'" 
+        self.assertTemplateUsed(
+            self.app.get('/'),
+            'index.html'
         )
+
+    # # TO DO: update this 
+    # @patch("ProductionCode.datasource.psycopg2.connect")
+    # def test_route_home(self, mock_homepage):
+    #     '''tests that the home route returns the correct thing'''
+    #     mock_homepage.return_value = self.mock_conn
+    #     response = self.app.get('/', follow_redirects=True)
+    #     self.assertEqual(
+    #         response.data,
+    #         b"This is the homepage for the time use project! <br>"\
+    #         b" 1) TO GET the top activity for a certain age between 15 and 80,"\
+    #         b" go to /get-top/'<'age'>'<br>"\
+    #         b" For example: http://localhost/get-top/23 <br>"\
+    #         b" 2) TO COMPARE the top activity for a certain age from 2022/2023 to 2012/2013," \
+    #         b" go to /compare/'<'age'>'/'<'activity'>'<br>"\
+    #         b" For example: http://localhost/compare/23/Sleeping <br> <br>"\
+    #         b" To see all options, use any of the following: <br>" \
+    #         b" A) TO GET a list of all category options, go to /get-all-categories <br>"\
+    #         b" B) TO GET a list of subcategory options from a category,<br>"\
+    #         b" go to /get-subcategories/'<'category'>' "\
+    #         b" C) TO GET a list of activities from a subcategory,<br>"\
+    #         b" go to /get-activities/'<'category'>'/'<'subcategory'>'" 
+    #     )
 
 
