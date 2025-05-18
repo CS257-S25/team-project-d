@@ -28,7 +28,8 @@ class TestApp(unittest.TestCase):
     #####################################################
     ###########    Get Top Activity By Age    ###########
     #####################################################
-    def test_show_app_form():
+    def test_show_age_form():
+        
         pass
     
     @patch("ProductionCode.datasource.psycopg2.connect")
@@ -109,9 +110,24 @@ class TestApp(unittest.TestCase):
                                 "Please include a category and a subcategory, " \
                                 "ex: /get-activities/Personal_Care_Activities/Sleeping" ) 
     
+    def test_missing_subcategory(self):
+        pass
+
+    def test_show_activity_form():
+        pass
+
+    def test_get_activities_results():
+        pass
+
+    def test_helper():
+        pass
+    
     #####################################################
     ###########            Compare            ###########
     #####################################################
+    def test_show_compare_form():
+        pass
+
     @patch("ProductionCode.datasource.psycopg2.connect")   
     @patch("ProductionCode.datasource.DataSource.compare_by_age")
     def test_compare_activity_for_age(self, mock_compare_by_age, mock_compare_activity_for_age):
@@ -126,11 +142,17 @@ class TestApp(unittest.TestCase):
             b"For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013",
             response.data
         )
+    
+    def test_compare_activity_for_age_invalid():
+        pass
 
     #####################################################
     ###########             Others            ###########
     #####################################################
     #TO DO: update this
+    def test_page_not_found():
+        pass
+
     def assert_404(self, route): # I think this one is not really accurate anymore 
         '''test to make sure error returns correct thing'''
         response = self.app.get(route)
@@ -145,3 +167,6 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(message.encode(), response.data)
 
+    def test_main():
+        #unsure about this one
+        pass
