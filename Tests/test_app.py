@@ -19,9 +19,11 @@ class TestApp(unittest.TestCase):
     def test_route_home_template(self, mock_homepage):
         '''tests that the homeroute uses the correct template'''
         mock_homepage.return_value = self.mock_conn
+        response = self.app.get('/')
+        print(f"response: {response}")
         self.assertIn(
-            self.app.get('/'),
-            'index.html'
+            response.data,
+            b'Welcome to the'
         )
 
     #####################################################
