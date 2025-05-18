@@ -48,9 +48,9 @@ p {
 }
 
 button {
-    background-color: rgb(55,20,88);
-    color: rgb(236,233,205);
-    border: rgb(134,177,134);
+    background-color: rgb(236,233,205);
+    color: rgb(55,20,88);
+    border: rgb(55,20,88);
     padding: 10px 24px;
     text-align: center;
     display: inline-block;
