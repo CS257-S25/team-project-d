@@ -67,20 +67,27 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments") 
     def test_main_category_only(self, mock_get_args, mock_datasource_class):
-        '''tests the main function for category only'''
+        mock_datasource_class = self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None, "Personal_Care_Activities", None, ["Sleeping", "Grooming"])
+
+    with patch("builtins.print") as mock_print:
+        cl.main()
+        mock_print.assert_called_once_with(["Sleeping", "Grooming"])
+      
+    @patch("cl.datasource.DataSource")
+    @patch("cl.get_parsed_arguments")
+    def main_helper_method(self, mock_get_args, mock_datasource_class, age, top, compare, activity, category, subcategory, answer_list):
+        '''helper method for the main function'''
         mock_args = Namespace(
-        age=None, top=None,
-        compare=None, activity=None,
-        category="Personal_Care_Activities", subcategory=None
-    )
+        age=age, top=top,
+        compare=compare, activity=activity,
+        category=category, subcategory=subcategory
+        )
         mock_get_args.return_value = mock_args
         mock_source = MagicMock()
-        mock_source.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
+        mock_source.get_activity_list.return_value = answer_list
         mock_datasource_class.return_value = mock_source
-        with patch("builtins.print") as mock_print:
-            cl.main()
-            mock_print.assert_called_once_with(["Sleeping", "Grooming"])
-    
+        return mock_datasource_class
+
     @patch('cl.check_validity')
     @patch.object(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
     def test_get_parsed_args(self, mock_check_validity):
