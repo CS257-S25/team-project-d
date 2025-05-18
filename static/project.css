@@ -42,3 +42,13 @@ nav li a:hover {
     color: white;
     background-color:rgb(55,20,88);
 }
+
+button {
+    background-color: rgb(134,177,134);
+    color: rgb(55,20,88);
+    padding: 10px 24px;
+    text-align: center;
+    display: inline-block;
+    font-size: 28px;
+    margin: 4px 2px;
+}
