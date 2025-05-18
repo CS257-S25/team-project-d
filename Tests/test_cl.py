@@ -102,7 +102,7 @@ class TestCL(unittest.TestCase):
         
         mock_datasource_class.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
 
-    def validating_helper_method(mock_datasource_class, list_type, results, activities, activities_list):
+    def validating_helper_method(self, mock_datasource_class, list_type, results, activities, activities_list):
         '''helper method for the validate_category functions'''
         mock_instance= MagicMock()
         if list_type == "get_subcategory_list":
