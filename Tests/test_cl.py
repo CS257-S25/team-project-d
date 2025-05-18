@@ -123,10 +123,6 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_activity_valid(self, mock_datasource_class):
         '''tests the validate_activity function'''
-        # mock_instance= MagicMock()
-        # mock_instance.get_activity_list.return_value = ["Sleeping"]
-        # mock_instance.get_subcategory_from_activity.return_value = "T0101"
-        # mock_datasource_class.return_value = mock_instance
         self.validating_helper_method(mock_datasource_class, "get_activity_list", ["Sleeping"], True, "T0101")
 
         try: 
@@ -136,17 +132,18 @@ class TestCL(unittest.TestCase):
     
     @patch("cl.datasource.DataSource")
     def test_validate_activity_invalid(self, mock_datasource_class):
-        mock_instance= MagicMock()
-        mock_instance.get_activity_list.return_value = "Usage: python3 " \
-            "cl.py --compare <age 15-80> --activity <valid activity>"
-        mock_instance.get_activity_list.return_value = ["Sleeping"]
-        mock_instance.get_subcategory_from_activity.return_value = "Error getting subcategory from activities:"
-        mock_datasource_class.return_value = mock_instance
+        # mock_instance= MagicMock()
+        # mock_instance.get_activity_list.return_value = "Usage: python3 " \
+        #     "cl.py --compare <age 15-80> --activity <valid activity>"
+        # mock_instance.get_activity_list.return_value = ["Sleeping"]
+        # mock_instance.get_subcategory_from_activity.return_value = "Error getting subcategory from activities:"
+        # mock_datasource_class.return_value = mock_instance
+        self.validating_helper_method(mock_datasource_class, "get_activity_list", ["Sleeping"], True, "Error getting subcategory from activities:")
 
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_activity("Carleton")
 
-        mock_instance.get_activity_list.assert_called_once()
+        mock_datasource_class.return_value.get_activity_list.assert_called_once()
 
     @patch("cl.validate_category")
     @patch("cl.validate_activity")
