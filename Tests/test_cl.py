@@ -67,7 +67,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments") 
     def test_main_category_only(self, mock_get_args, mock_datasource_class):
-        mock_datasource_class = self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None, "Personal_Care_Activities", None, ["Sleeping", "Grooming"])
+        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None, "Personal_Care_Activities", None, ["Sleeping", "Grooming"])
 
     with patch("builtins.print") as mock_print:
         cl.main()
@@ -86,7 +86,6 @@ class TestCL(unittest.TestCase):
         mock_source = MagicMock()
         mock_source.get_activity_list.return_value = answer_list
         mock_datasource_class.return_value = mock_source
-        return mock_datasource_class
 
     @patch('cl.check_validity')
     @patch.object(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
