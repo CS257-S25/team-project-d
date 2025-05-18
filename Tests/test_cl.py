@@ -91,9 +91,6 @@ class TestCL(unittest.TestCase):
         '''tests the validate_category function'''
         # this can be a helper used in several methods
         self.validating_helper_method(mock_datasource_class, "get_subcategory_list", ["Sleeping", "Grooming"], None, None)
-        # mock_instance= MagicMock()
-        # mock_instance.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
-        # mock_datasource_class.return_value = mock_instance
 
         try: 
             cl.validate_category("Personal_Care_Activities", "Sleeping")
@@ -116,14 +113,12 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_category_invalid(self, mock_datasource_class):
         '''tests the validate_category function'''
-        mock_instance= MagicMock()
-        mock_instance.get_subcategory_list.return_value = ["Sleeping", "Grooming"]
-        mock_datasource_class.return_value = mock_instance
+        self.validating_helper_method(mock_datasource_class, "get_subcategory_list", ["Sleeping", "Grooming"], None, None)
 
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_category("Invalid_category", "invalid_subcategory")
 
-        mock_instance.get_subcategory_list.assert_called_once()
+        mock_datasource_class.return_value.get_subcategory_list.assert_called_once()
  
     @patch("cl.datasource.DataSource")
     def test_validate_activity_valid(self, mock_datasource_class):
