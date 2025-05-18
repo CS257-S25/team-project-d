@@ -15,6 +15,16 @@ class TestApp(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_route_home_template(self, mock_homepage):
+        '''tests that the homeroute uses the correct template'''
+        mock_homepage.return_value = self.mock_conn
+        response = self.app.get('/')
+        self.assertIn(
+            b'Welcome to the Homepage for Time Use Survey!',
+            response.data
+        )
+
     #####################################################
     ###########    Get Top Activity By Age    ###########
     #####################################################
@@ -28,8 +38,11 @@ class TestApp(unittest.TestCase):
         self.mock_cursor.fetchall.return_value = [
             ('Sleeping',)
         ]
-        response = get_top_by_age(23)
-        self.assertEqual("the top activity for people age 23 is Sleeping", response)
+        response = self.app.get('/show_top_activities?age=23')
+        self.assertIn(
+            b"The top activity for people age 23 are:",
+            response.data
+        )
     
     def test_process_top():
         pass
@@ -100,14 +113,19 @@ class TestApp(unittest.TestCase):
     ###########            Compare            ###########
     #####################################################
     @patch("ProductionCode.datasource.psycopg2.connect")   
-    def test_compare_activity_for_age(self, mock_compare_activity_for_age):
+    @patch("ProductionCode.datasource.DataSource.compare_by_age")
+    def test_compare_activity_for_age(self, mock_compare_by_age, mock_compare_activity_for_age):
         mock_compare_activity_for_age.return_value = self.mock_conn
+        mock_compare_by_age.return_value = (559, 552)
         self.mock_cursor.fetchall.return_value= [
             (559,),
             (552,)
         ]
-        response = compare_activity_for_age("23", "Sleeping")
-        self.assertEqual("For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013", response)
+        response = self.app.get('/show_compare?age=23&activity=Sleeping')
+        self.assertIn(
+            b"For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013",
+            response.data
+        )
 
     #####################################################
     ###########             Others            ###########
@@ -126,28 +144,4 @@ class TestApp(unittest.TestCase):
         response= self.app.get(route)
         self.assertEqual(response.status_code, 200)
         self.assertIn(message.encode(), response.data)
-
-    # TO DO: update this 
-    @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_route_home(self, mock_homepage):
-        '''tests that the home route returns the correct thing'''
-        mock_homepage.return_value = self.mock_conn
-        response = self.app.get('/', follow_redirects=True)
-        self.assertEqual(
-            response.data,
-            b"This is the homepage for the time use project! <br>"\
-            b" 1) TO GET the top activity for a certain age between 15 and 80,"\
-            b" go to /get-top/'<'age'>'<br>"\
-            b" For example: http://localhost/get-top/23 <br>"\
-            b" 2) TO COMPARE the top activity for a certain age from 2022/2023 to 2012/2013," \
-            b" go to /compare/'<'age'>'/'<'activity'>'<br>"\
-            b" For example: http://localhost/compare/23/Sleeping <br> <br>"\
-            b" To see all options, use any of the following: <br>" \
-            b" A) TO GET a list of all category options, go to /get-all-categories <br>"\
-            b" B) TO GET a list of subcategory options from a category,<br>"\
-            b" go to /get-subcategories/'<'category'>' "\
-            b" C) TO GET a list of activities from a subcategory,<br>"\
-            b" go to /get-activities/'<'category'>'/'<'subcategory'>'" 
-        )
-
 
