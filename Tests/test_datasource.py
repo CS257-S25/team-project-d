@@ -9,7 +9,6 @@ class TestDataSource(unittest.TestCase):
         #create a mock connection and cursor
         self.mock_conn = MagicMock()
         self.mock_cursor = self.mock_conn.cursor.return_value
-        self.datasource = datasource.test_client()
 
     def test_get_activity_list_error(self):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
