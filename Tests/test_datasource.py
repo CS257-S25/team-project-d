@@ -1,7 +1,7 @@
 '''tests for datasource.py'''
 import unittest
 from unittest.mock import MagicMock, patch
-from ProductionCode.datasource import datasource
+from ProductionCode.datasource import DataSource as datasource
 
 class TestDataSource(unittest.TestCase):
     '''class for tests for datasource.py'''
