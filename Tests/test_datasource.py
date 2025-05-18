@@ -10,6 +10,7 @@ class TestDataSource(unittest.TestCase):
         self.mock_conn = MagicMock()
         self.mock_cursor = self.mock_conn.cursor.return_value
 
+    @patch("datasource.get_id_from_name")
     def test_get_activity_list_error(self, mock_get_id_from_name):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
         # self.mock_conn.cursor.return_value.fetchall.return_value = ["testingggg????"]
