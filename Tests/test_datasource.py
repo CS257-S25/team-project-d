@@ -10,10 +10,10 @@ class TestDataSource(unittest.TestCase):
         self.mock_conn = MagicMock()
         self.mock_cursor = self.mock_conn.cursor.return_value
 
-    def test_get_activity_list_error(self):
+    def test_get_activity_list_error(self, mock_get_id_from_name):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
         # self.mock_conn.cursor.return_value.fetchall.return_value = ["testingggg????"]
-        mock_get_id_from_name = None
+        mock_get_id_from_name.return_value = None
         not_found = datasource.get_activity_list("invalid_subcategory")
         self.assertEqual(not_found, None)
 
