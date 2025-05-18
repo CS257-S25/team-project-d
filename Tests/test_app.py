@@ -117,10 +117,10 @@ class TestApp(unittest.TestCase):
             (559,),
             (552,)
         ]
-        # response = compare_activity_for_age()
+        response = self.app.get('/get-compare/23/Sleeping')
         self.assertIn(
-            self.app.get('/get-compare/23/Sleeping'),
-            b"For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013"
+            response.data,
+            "For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013"
         )
 
     #####################################################
