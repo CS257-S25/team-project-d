@@ -22,8 +22,8 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/')
         print(f"response: {response}")
         self.assertIn(
-            response.data,
-            b'Welcome to the'
+            b'Welcome to the Homepage for Time Use Survey!',
+            response.data
         )
 
     #####################################################
