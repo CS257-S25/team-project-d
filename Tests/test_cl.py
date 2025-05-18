@@ -29,16 +29,17 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_get_args, mock_datasource_class):
         '''tests the main compare function'''
-        mock_args = Namespace(
-        age=None, top=None,
-        compare=23, activity="Sleeping",
-        category=None, subcategory=None
-    )
-        mock_get_args.return_value = mock_args
+    #     mock_args = Namespace(
+    #     age=None, top=None,
+    #     compare=23, activity="Sleeping",
+    #     category=None, subcategory=None
+    # )
+        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, 23, "Sleeping", None, None, (559,552), "compare_by_age")
+        #mock_get_args.return_value = mock_args
 
-        mock_source = MagicMock()
-        mock_source.compare_by_age.return_value = (559,552)
-        mock_datasource_class.return_value = mock_source
+        # mock_source = MagicMock()
+        # mock_source.compare_by_age.return_value = (559,552)
+        # mock_datasource_class.return_value = mock_source
 
         with patch("builtins.print") as mock_print:
             cl.main()
@@ -79,6 +80,8 @@ class TestCL(unittest.TestCase):
                 mock_source.get_activity_list.return_value = answer_list
         elif list_type == "get_top_by_age":
                 mock_source.get_top_by_age.return_value = answer_list
+        elif list_type == "compare_by_age":
+                mock_source.compare_by_age.return_value = answer_list
         mock_datasource_class.return_value = mock_source
 
     @patch('cl.check_validity')
@@ -158,20 +161,6 @@ class TestCL(unittest.TestCase):
     def test_main_top_activity(self, mock_get_args, mock_datasource_class):
         '''tests the main function'''
         self.main_helper_method(mock_get_args, mock_datasource_class, 23, True, None, None, None, None, "Sleeping", "get_top_by_age")
-        #fake CLI args
-        # mock_args= MagicMock()
-        # mock_args.age = 23
-        # mock_args.top = True
-        # mock_args.category = None
-        # mock_args.subcategory = None 
-        # mock_args.compare = None
-        # mock_args.activity = None
-
-        # # this can be a helper used in several methods
-        # mock_instance= MagicMock()
-        # mock_instance.get_top_by_age.return_value = "Sleeping"
-        # mock_datasource_class.return_value = mock_instance
-
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with("Sleeping")
