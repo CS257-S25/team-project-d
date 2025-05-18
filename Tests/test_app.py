@@ -118,9 +118,9 @@ class TestApp(unittest.TestCase):
             (552,)
         ]
         response = self.app.get('/get-compare/23/Sleeping')
-        self.assertIn(
+        self.assertEqual(
             response.data,
-            "For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013"
+            b"For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013"
         )
 
     #####################################################
