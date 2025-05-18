@@ -38,8 +38,11 @@ class TestApp(unittest.TestCase):
         self.mock_cursor.fetchall.return_value = [
             ('Sleeping',)
         ]
-        response = get_top_by_age(23)
-        self.assertEqual("the top activity for people age 23 is Sleeping", response)
+        response = self.app.get('/show_top_activities?age=23')
+        self.assertIn(
+            b"The top activity for people age 23 are:",
+            response.data
+        )
     
     def test_process_top():
         pass
