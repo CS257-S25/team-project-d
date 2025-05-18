@@ -29,18 +29,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_get_args, mock_datasource_class):
         '''tests the main compare function'''
-    #     mock_args = Namespace(
-    #     age=None, top=None,
-    #     compare=23, activity="Sleeping",
-    #     category=None, subcategory=None
-    # )
         self.main_helper_method(mock_get_args, mock_datasource_class, None, None, 23, "Sleeping", None, None, (559,552), "compare_by_age")
-        #mock_get_args.return_value = mock_args
-
-        # mock_source = MagicMock()
-        # mock_source.compare_by_age.return_value = (559,552)
-        # mock_datasource_class.return_value = mock_source
-
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with("For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013")
@@ -65,25 +54,6 @@ class TestCL(unittest.TestCase):
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Grooming"])
 
-    def main_helper_method(self, mock_get_args, mock_datasource_class, age, top, compare, activity, category, subcategory, answer_list, list_type):
-        '''helper method for the main function'''
-        mock_args = Namespace(
-        age=age, top=top,
-        compare=compare, activity=activity,
-        category=category, subcategory=subcategory
-        )
-        mock_get_args.return_value = mock_args
-        mock_source = MagicMock()
-        if list_type == "get_subcategory_list":
-                mock_source.get_subcategory_list.return_value = answer_list
-        elif list_type == "get_activity_list":
-                mock_source.get_activity_list.return_value = answer_list
-        elif list_type == "get_top_by_age":
-                mock_source.get_top_by_age.return_value = answer_list
-        elif list_type == "compare_by_age":
-                mock_source.compare_by_age.return_value = answer_list
-        mock_datasource_class.return_value = mock_source
-
     @patch('cl.check_validity')
     @patch.object(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
     def test_get_parsed_args(self, mock_check_validity):
@@ -95,7 +65,6 @@ class TestCL(unittest.TestCase):
     def test_validate_category_valid(self, mock_datasource_class):
         '''tests the validate_category function'''
         self.validating_helper_method(mock_datasource_class, "get_subcategory_list", ["Sleeping", "Grooming"], None, None)
-
         try: 
             cl.validate_category("Personal_Care_Activities", "Sleeping")
         except cl.InvalidCategoryError:
@@ -107,7 +76,6 @@ class TestCL(unittest.TestCase):
     def test_validate_category_invalid(self, mock_datasource_class):
         '''tests the validate_category function'''
         self.validating_helper_method(mock_datasource_class, "get_subcategory_list", ["Sleeping", "Grooming"], None, None)
-
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_category("Invalid_category", "invalid_subcategory")
 
@@ -117,7 +85,6 @@ class TestCL(unittest.TestCase):
     def test_validate_activity_valid(self, mock_datasource_class):
         '''tests the validate_activity function'''
         self.validating_helper_method(mock_datasource_class, "get_activity_list", ["Sleeping"], True, "T0101")
-
         try: 
             cl.validate_activity("Sleeping")
         except cl.InvalidCategoryError:
@@ -126,22 +93,10 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_activity_invalid(self, mock_datasource_class):
         self.validating_helper_method(mock_datasource_class, "get_activity_list", ["Sleeping"], True, "Error getting subcategory from activities:")
-
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_activity("Carleton")
 
         mock_datasource_class.return_value.get_activity_list.assert_called_once()
-
-    def validating_helper_method(self, mock_datasource_class, list_type, results, activities, activities_list):
-        '''helper method for the validate_category functions'''
-        mock_instance= MagicMock()
-        if list_type == "get_subcategory_list":
-            mock_instance.get_subcategory_list.return_value = results
-        elif list_type == "get_activity_list":
-            mock_instance.get_activity_list.return_value = results    
-        if activities:
-            mock_instance.get_subcategory_from_activity.return_value = activities_list
-        mock_datasource_class.return_value = mock_instance
 
     @patch("cl.validate_category")
     @patch("cl.validate_activity")
@@ -164,6 +119,39 @@ class TestCL(unittest.TestCase):
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with("Sleeping")
+
+    #####################################################
+    ###########        Helper Methods         ###########
+    #####################################################
+    def main_helper_method(self, mock_get_args, mock_datasource_class, age, top, compare, activity, category, subcategory, answer_list, list_type):
+        '''helper method for the main function'''
+        mock_args = Namespace(
+        age=age, top=top,
+        compare=compare, activity=activity,
+        category=category, subcategory=subcategory
+        )
+        mock_get_args.return_value = mock_args
+        mock_source = MagicMock()
+        if list_type == "get_subcategory_list":
+                mock_source.get_subcategory_list.return_value = answer_list
+        elif list_type == "get_activity_list":
+                mock_source.get_activity_list.return_value = answer_list
+        elif list_type == "get_top_by_age":
+                mock_source.get_top_by_age.return_value = answer_list
+        elif list_type == "compare_by_age":
+                mock_source.compare_by_age.return_value = answer_list
+        mock_datasource_class.return_value = mock_source
+
+    def validating_helper_method(self, mock_datasource_class, list_type, results, activities, activities_list):
+        '''helper method for the validate_category functions'''
+        mock_instance= MagicMock()
+        if list_type == "get_subcategory_list":
+            mock_instance.get_subcategory_list.return_value = results
+        elif list_type == "get_activity_list":
+            mock_instance.get_activity_list.return_value = results    
+        if activities:
+            mock_instance.get_subcategory_from_activity.return_value = activities_list
+        mock_datasource_class.return_value = mock_instance
 
 if __name__ == '__main__':
     unittest.main()
