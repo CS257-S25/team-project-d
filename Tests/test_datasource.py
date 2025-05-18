@@ -13,7 +13,7 @@ class TestDataSource(unittest.TestCase):
     def test_get_activity_list_error(self):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
         self.mock_conn.cursor.return_value.fetchall.return_value = ["testingggg????"]
-        not_found = datasource.get_subcategory_list("invalid_subcategory")
+        not_found = datasource.get_activity_list("invalid_subcategory")
         self.assertEqual(not_found, None)
 
         
