@@ -107,7 +107,7 @@ class TestCL(unittest.TestCase):
         elif list_type == "get_activity_list":
             mock_instance.get_activity_list.return_value = results    
         if activities:
-            mock_instance.get_activity_list.return_value = activities_list
+            mock_instance.get_subcategory_from_activity.return_value = activities_list
         mock_datasource_class.return_value = mock_instance
 
     @patch("cl.datasource.DataSource")
@@ -123,10 +123,11 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_activity_valid(self, mock_datasource_class):
         '''tests the validate_activity function'''
-        mock_instance= MagicMock()
-        mock_instance.get_activity_list.return_value = ["Sleeping"]
-        mock_instance.get_subcategory_from_activity.return_value = "T0101"
-        mock_datasource_class.return_value = mock_instance
+        # mock_instance= MagicMock()
+        # mock_instance.get_activity_list.return_value = ["Sleeping"]
+        # mock_instance.get_subcategory_from_activity.return_value = "T0101"
+        # mock_datasource_class.return_value = mock_instance
+        self.validating_helper_method(mock_datasource_class, "get_activity_list", ["Sleeping"], True, "T0101")
 
         try: 
             cl.validate_activity("Sleeping")
