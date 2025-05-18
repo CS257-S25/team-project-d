@@ -72,9 +72,7 @@ class TestCL(unittest.TestCase):
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Grooming"])
-      
-    @patch("cl.datasource.DataSource")
-    @patch("cl.get_parsed_arguments")
+
     def main_helper_method(self, mock_get_args, mock_datasource_class, age, top, compare, activity, category, subcategory, answer_list):
         '''helper method for the main function'''
         mock_args = Namespace(
