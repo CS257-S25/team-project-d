@@ -51,15 +51,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments") 
     def test_main_category_subcategory(self, mock_get_args, mock_datasource_class):
         '''tests the main function for category and subcategory'''
-        mock_args = Namespace(
-        age=None, top=None,
-        compare=None, activity=None,
-        category="Personal_Care_Activities", subcategory="Sleeping"
-    )
-        mock_get_args.return_value = mock_args
-        mock_source = MagicMock()
-        mock_source.get_activity_list.return_value = ["Sleeping", "Sleeplessness"]
-        mock_datasource_class.return_value = mock_source
+        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None, "Personal_Care_Activities", "Sleeping", ["Sleeping", "Sleeplessness"], "get_activity_list")
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Sleeplessness"])
@@ -68,7 +60,6 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments") 
     def test_main_category_only(self, mock_get_args, mock_datasource_class):
         self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None, "Personal_Care_Activities", None, ["Sleeping", "Grooming"], "get_subcategory_list")
-
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Grooming"])
