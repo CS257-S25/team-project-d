@@ -83,6 +83,7 @@ class TestCL(unittest.TestCase):
         mock_get_args.return_value = mock_args
         mock_source = MagicMock()
         mock_source.get_activity_list.return_value = answer_list
+        mock_source.get_subcategory_list.return_value = answer_list
         mock_datasource_class.return_value = mock_source
 
     @patch('cl.check_validity')
