@@ -69,9 +69,9 @@ class TestCL(unittest.TestCase):
     def test_main_category_only(self, mock_get_args, mock_datasource_class):
         self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None, "Personal_Care_Activities", None, ["Sleeping", "Grooming"])
 
-    with patch("builtins.print") as mock_print:
-        cl.main()
-        mock_print.assert_called_once_with(["Sleeping", "Grooming"])
+        with patch("builtins.print") as mock_print:
+            cl.main()
+            mock_print.assert_called_once_with(["Sleeping", "Grooming"])
       
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments")
