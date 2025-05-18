@@ -67,7 +67,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments") 
     def test_main_category_only(self, mock_get_args, mock_datasource_class):
-        self.main_helper_method(None, None, None, None, "Personal_Care_Activities", None, ["Sleeping", "Grooming"])
+        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None, "Personal_Care_Activities", None, ["Sleeping", "Grooming"])
 
         with patch("builtins.print") as mock_print:
             cl.main()
@@ -75,7 +75,7 @@ class TestCL(unittest.TestCase):
       
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments")
-    def main_helper_method(self, age, top, compare, activity, category, subcategory, answer_list):
+    def main_helper_method(self, mock_get_args, mock_datasource_class, age, top, compare, activity, category, subcategory, answer_list):
         '''helper method for the main function'''
         mock_args = Namespace(
         age=age, top=top,
