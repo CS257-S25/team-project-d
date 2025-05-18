@@ -99,17 +99,6 @@ class TestCL(unittest.TestCase):
         
         mock_datasource_class.return_value.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
 
-    def validating_helper_method(self, mock_datasource_class, list_type, results, activities, activities_list):
-        '''helper method for the validate_category functions'''
-        mock_instance= MagicMock()
-        if list_type == "get_subcategory_list":
-            mock_instance.get_subcategory_list.return_value = results
-        elif list_type == "get_activity_list":
-            mock_instance.get_activity_list.return_value = results    
-        if activities:
-            mock_instance.get_subcategory_from_activity.return_value = activities_list
-        mock_datasource_class.return_value = mock_instance
-
     @patch("cl.datasource.DataSource")
     def test_validate_category_invalid(self, mock_datasource_class):
         '''tests the validate_category function'''
@@ -132,18 +121,23 @@ class TestCL(unittest.TestCase):
     
     @patch("cl.datasource.DataSource")
     def test_validate_activity_invalid(self, mock_datasource_class):
-        # mock_instance= MagicMock()
-        # mock_instance.get_activity_list.return_value = "Usage: python3 " \
-        #     "cl.py --compare <age 15-80> --activity <valid activity>"
-        # mock_instance.get_activity_list.return_value = ["Sleeping"]
-        # mock_instance.get_subcategory_from_activity.return_value = "Error getting subcategory from activities:"
-        # mock_datasource_class.return_value = mock_instance
         self.validating_helper_method(mock_datasource_class, "get_activity_list", ["Sleeping"], True, "Error getting subcategory from activities:")
 
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_activity("Carleton")
 
         mock_datasource_class.return_value.get_activity_list.assert_called_once()
+
+    def validating_helper_method(self, mock_datasource_class, list_type, results, activities, activities_list):
+        '''helper method for the validate_category functions'''
+        mock_instance= MagicMock()
+        if list_type == "get_subcategory_list":
+            mock_instance.get_subcategory_list.return_value = results
+        elif list_type == "get_activity_list":
+            mock_instance.get_activity_list.return_value = results    
+        if activities:
+            mock_instance.get_subcategory_from_activity.return_value = activities_list
+        mock_datasource_class.return_value = mock_instance
 
     @patch("cl.validate_category")
     @patch("cl.validate_activity")
