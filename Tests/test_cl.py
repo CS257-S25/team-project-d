@@ -82,7 +82,10 @@ class TestCL(unittest.TestCase):
         )
         mock_get_args.return_value = mock_args
         mock_source = MagicMock()
-        mock_source.list_type.return_value = answer_list
+        if list_type == "get_subcategory_list":
+                mock_source.get_subcategory_list.return_value = answer_list
+        elif list_type == "get_activity_list":
+                mock_source.get_activity_list.return_value = answer_list
         mock_datasource_class.return_value = mock_source
 
     @patch('cl.check_validity')
