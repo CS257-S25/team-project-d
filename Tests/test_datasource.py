@@ -15,7 +15,8 @@ class TestDataSource(unittest.TestCase):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
         # self.mock_conn.cursor.return_value.fetchall.return_value = ["testingggg????"]
         mock_get_id_from_name.return_value = None
-        not_found = datasource.get_activity_list("invalid_subcategory")
+        datasource_instance = datasource.DataSource()
+        not_found = datasource_instance.get_activity_list("invalid_subcategory")
         self.assertEqual(not_found, None)
 
         
