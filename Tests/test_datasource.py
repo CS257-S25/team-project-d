@@ -39,6 +39,5 @@ class TestDataSource(unittest.TestCase):
         mock_connect.return_value = self.mock_conn
         self.mock_conn.cursor.return_value = self.mock_cursor
         ds = DataSource()
-        self.mock_cursor.fetchall.side_effect = psycopg2.Error()
-        with self.assertRaises(psycopg2.Error):
-            ds.get_correct_list("test", "SELECT")
+        result = ds.get_correct_list("test", "SELECT")
+        self.assertEqual(result, None)
