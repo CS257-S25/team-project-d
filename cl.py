@@ -1,6 +1,6 @@
 ''' File: cl.py '''
 import argparse
-from ProductionCode.datasource import datasource
+from ProductionCode.datasource import DataSource as datasource
 
 class InvalidCategoryError(Exception):
     '''exception raised for invalid category or subcategory'''
