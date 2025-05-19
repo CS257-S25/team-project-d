@@ -35,7 +35,7 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.assert_not_called()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_get_correct_list(self, mock_connect):
+    def test_get_correct_list_error(self, mock_connect):
         '''tests the error is returned from get_correct_list when incorrect query'''
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.return_value = self.mock_cursor
@@ -46,7 +46,7 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.assert_called_once()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_get_id_from_name(self, mock_connect):
+    def test_get_id_from_name_error(self, mock_connect):
         '''tests the error is returned from get_id_from_name when incorrect query'''
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.execute.side_effect = psycopg2.Error()
@@ -56,11 +56,21 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.assert_called_once()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_get_name_from_id(self, mock_connect):
+    def test_get_name_from_id_error(self, mock_connect):
         '''tests the error is returned from get_id_from_name when incorrect query'''
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.execute.side_effect = psycopg2.Error()
         ds = DataSource()
         result = ds.get_name_from_id("test_table", "test_col_id", "test_column", "test_id")
+        self.assertEqual(result, None)
+        self.mock_cursor.execute.assert_called_once()
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_get_subcategory_from_activity_error(self, mock_connect):
+        '''tests the error is returned from get_id_from_name when incorrect query'''
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.execute.side_effect = psycopg2.Error()
+        ds = DataSource()
+        result = ds.get_subcategory_from_activity("test_activity")
         self.assertEqual(result, None)
         self.mock_cursor.execute.assert_called_once()
