@@ -10,7 +10,7 @@ class TestDataSource(unittest.TestCase):
         #create a mock connection and cursor
         self.mock_conn = MagicMock()
         self.mock_cursor = MagicMock()
-        self.mock_cursor = self.mock_conn.cursor.return_value
+        # self.mock_cursor = self.mock_conn.cursor.return_value
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_id_from_name")
@@ -81,7 +81,7 @@ class TestDataSource(unittest.TestCase):
     def test_get_subcategory_from_activity(self, mock_connect, mock_get_id_from_name, mock_get_name_from_id):
         '''tests the subcategory is returned from get_subcategory_from_activity when activity'''
         mock_connect.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = self.mock_cursor
+        mock_connect.cursor.return_value = self.mock_cursor
         mock_get_id_from_name.return_value = "T0101"
         mock_get_name_from_id.return_value = "Sleeping"
         ds = DataSource()
