@@ -36,7 +36,8 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/show_top_activities?age=23')
         #self.assertEqual(response.status_code, 200)
         self.assertIn(b"Top Activity Result", response.data)
-    
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_top_by_age_invalid(self):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         response = self.app.get('/show_top_activities?age=')
