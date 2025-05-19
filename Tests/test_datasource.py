@@ -1,7 +1,7 @@
 '''tests for datasource.py'''
 import unittest
-import psycopg2
 from unittest.mock import MagicMock, patch
+import psycopg2
 from ProductionCode.datasource import DataSource
 
 class TestDataSource(unittest.TestCase):
@@ -90,7 +90,8 @@ class TestDataSource(unittest.TestCase):
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_id_from_name")
     @patch("ProductionCode.datasource.DataSource.get_name_from_id")
-    def test_get_subcategory_from_activity(self, mock_get_name_from_id, mock_get_id_from_name, mock_connect):
+    def test_get_subcategory_from_activity(self, mock_get_name_from_id, 
+                                           mock_get_id_from_name, mock_connect):
         '''tests the subcategory is returned from get_subcategory_from_activity when activity'''
         mock_connect.return_value = self.mock_conn
         mock_connect.cursor.return_value = self.mock_cursor
