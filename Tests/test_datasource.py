@@ -9,6 +9,7 @@ class TestDataSource(unittest.TestCase):
     def setUp(self):
         #create a mock connection and cursor
         self.mock_conn = MagicMock()
+        self.mock_cursor = MagicMock()
         self.mock_cursor = self.mock_conn.cursor.return_value
 
     @patch("ProductionCode.datasource.psycopg2.connect")
@@ -45,10 +46,10 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.assert_called_once()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_get_id_from_name(self, mock_connect):
+    def test_get_id_from_name(self, mock_connect, mock_cursor):
         '''tests the error is returned from get_id_from_name when incorrect query'''
         mock_connect.return_value = self.mock_conn
-        self.mock_cursor.return_value = self.mock_cursor
+        mock_cursor.return_value = self.mock_cursor
         self.mock_cursor.fetchall.side_effect = psycopg2.Error()
         ds = DataSource()
         result = ds.get_id_from_name("test_table", "test_id", "test_column", "test_name")
