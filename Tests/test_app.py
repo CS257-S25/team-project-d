@@ -40,7 +40,7 @@ class TestApp(unittest.TestCase):
     #     response = get_top_by_age(23)
     #     self.assertEqual("the top activity for people age 23 is Sleeping", response)
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_route_top_by_age(self):
+    def test_route_top_by_age(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given age 23'''
         response = self.app.get('/show_top_activities?age=23')
         #self.assertEqual(response.status_code, 200)
