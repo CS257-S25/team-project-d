@@ -15,7 +15,7 @@ class TestDataSource(unittest.TestCase):
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_names_from_list")
     @patch("ProductionCode.datasource.DataSource.get_id_from_name")
-    def test_get_activity_list(self, mock_get_id_from_name, mock_get_names_from_list,mock_connect):
+    def test_get_activity_list(self, mock_get_id_from_name, mock_get_names_from_list, mock_connect):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
         mock_get_id_from_name.return_value = "T0101"
         mock_get_names_from_list.return_value = ["Sleeping", "Sleeplessness"]
@@ -137,6 +137,17 @@ class TestDataSource(unittest.TestCase):
         ds = DataSource()
         result = ds.compare_by_age(100, "test_activity")
         self.assertEqual(result, "invalid age, please use a number between 15 and 80")
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource.DataSource.get_id_from_name")
+    def test_compare_by_age(self, mock_get_id_from_name, mock_connect):
+        '''tests the correct error message for get_activity_list when subcategory is not found'''
+        mock_get_id_from_name.return_value = "T010101"
+        mock_connect.return_value = self.mock_conn
+        ds = DataSource()
+        result = ds.compare_by_age(23, "Sleeping")
+        print(f"compare by age result: {result}")
+        self.assertEqual(result, (559, 552))
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_compare_by_age_error(self, mock_connect):
