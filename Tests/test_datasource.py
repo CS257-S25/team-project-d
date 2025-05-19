@@ -13,13 +13,15 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
 
     @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource.DataSource.get_names_from_list")
     @patch("ProductionCode.datasource.DataSource.get_id_from_name")
-    def test_get_activity_list(self, mock_get_id_from_name, mock_connect):
+    def test_get_activity_list(self, mock_get_id_from_name, mock_get_names_from_list,mock_connect):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
-        mock_get_id_from_name.return_value = (["Sleeping", "Sleeplessness"])
+        mock_get_id_from_name.return_value = "T0101"
+        mock_get_names_from_list.return_value = ["Sleeping", "Sleeplessness"]
         mock_connect.return_value = self.mock_conn
         ds = DataSource()
-        not_found = ds.get_activity_list(["Sleeping", "Sleeplessness"])
+        not_found = ds.get_activity_list("Sleeping")
         print(f"not_found: {not_found}")
         self.assertEqual(not_found, ["Sleeping", "Sleeplessness"])
 
