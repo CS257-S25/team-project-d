@@ -42,4 +42,4 @@ class TestDataSource(unittest.TestCase):
         ds = DataSource()
         result = ds.get_correct_list("test", "SELECT")
         self.assertEqual(result, None)
-        self.mock_cursor.execute.assert_not_called()
+        self.mock_cursor.execute.assert_called_once()
