@@ -40,4 +40,4 @@ class TestDataSource(unittest.TestCase):
         ds = DataSource()
         self.mock_cursor.fetchall.return_value = psycopg2.Error
         with self.assertRaises(psycopg2.Error):
-            ds.get_correct_list("test", "SELECT * FROM test WHERE id LIKE %s")
+            ds.get_correct_list("test", "SELECT")
