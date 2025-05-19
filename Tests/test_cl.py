@@ -4,13 +4,10 @@ import sys
 import unittest
 import argparse
 from argparse import Namespace
-
 from unittest.mock import patch, MagicMock
 import cl
-
 from app import app
 from cl import get_parsed_arguments
-from cl import validate_activity
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -33,8 +30,8 @@ class TestCL(unittest.TestCase):
                                 "Sleeping", None, None, (559,552), "compare_by_age")
         with patch("builtins.print") as mock_print:
             cl.main()
-            mock_print.assert_called_once_with("For people age 23 they engaged in Sleeping on average 559 hours"\
-                                            " in 2022 & 2023 and 552 hours in 2012 & 2013")
+            mock_print.assert_called_once_with("For people age 23 they engaged in"\
+                        " Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013")
 
     #####################################################
     ###########        Get Cat/Sub/Act        ###########
