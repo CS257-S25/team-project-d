@@ -141,14 +141,27 @@ class TestDataSource(unittest.TestCase):
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_id_from_name")
     def test_compare_by_age(self, mock_get_id_from_name, mock_connect):
-        '''tests the correct error message for get_activity_list when subcategory is not found'''
+        '''tests the correct result for compare_by_age'''
         mock_get_id_from_name.return_value = "T010101"
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = [[559], [552]]
         ds = DataSource()
         result = ds.compare_by_age(23, "Sleeping")
-        print(f"compare by age result: {result}")
         self.assertEqual(result, (559, 552))
+        self.mock_cursor.execute.assert_called_once()
+        self.mock_cursor.fetchall.assert_called_once()
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource.DataSource.get_id_from_name")
+    def test_compare_by_age_no_data(self, mock_get_id_from_name, mock_connect):
+        '''tests the correct error message for compare_by_age when no data found'''
+        mock_get_id_from_name.return_value = "T010101"
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.fetchall.return_value = None
+        ds = DataSource()
+        result = ds.compare_by_age(23, "Sleeping")
+        print(f"compare by age result: {result}")
+        self.assertEqual(result, "no data found for this age")
         self.mock_cursor.execute.assert_called_once()
         self.mock_cursor.fetchall.assert_called_once()
 
