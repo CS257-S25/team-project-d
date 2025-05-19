@@ -21,9 +21,8 @@ class TestDataSource(unittest.TestCase):
         mock_get_names_from_list.return_value = ["Sleeping", "Sleeplessness"]
         mock_connect.return_value = self.mock_conn
         ds = DataSource()
-        not_found = ds.get_activity_list("Sleeping")
-        print(f"not_found: {not_found}")
-        self.assertEqual(not_found, ["Sleeping", "Sleeplessness"])
+        result = ds.get_activity_list("Sleeping")
+        self.assertEqual(result, ["Sleeping", "Sleeplessness"])
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_id_from_name")
