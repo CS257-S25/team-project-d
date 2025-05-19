@@ -51,6 +51,6 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.return_value = self.mock_cursor
         self.mock_cursor.fetchall.side_effect = psycopg2.Error()
         ds = DataSource()
-        result = ds.get_correct_list("test_table", "test_id", "test_column", "test_name")
+        result = ds.get_id_from_name("test_table", "test_id", "test_column", "test_name")
         self.assertEqual(result, None)
         self.mock_cursor.execute.assert_called_once()
