@@ -21,8 +21,8 @@ class TestApp(unittest.TestCase):
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_show_app_form(self):
         '''test that the app form shows up correctly'''
-        response = self.app.get('/get_top/23')
-        self.assertIn(b"Sleeping\nWork_main_job\nTelevision_and_movies_(not_religious)", response.data)
+        response = self.app.get('/get_top?option=get_top_by_age')
+        self.assertIn(b"Get Top Activity by Age", response.data)
         self.assertIn(b"Submit", response.data)
 
     def test_show_app_form_invalid(self):
