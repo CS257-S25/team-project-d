@@ -55,11 +55,11 @@ class DataSource:
         names = self.get_names_from_list(self.get_correct_list(id_,query))
         return names
 
-    def get_correct_list(self, id, query):
+    def get_correct_list(self, id_,query):
         '''Helper method for getting lists of categories, subcategories, or activities'''
         try:
             cursor = self.connection.cursor()
-            level_id = str(id)
+            level_id = str(id_)
             pattern = level_id + '%'
             cursor.execute(query, (pattern,))
             records = cursor.fetchall()
@@ -90,7 +90,7 @@ class DataSource:
             return None
 
     #Helpers!
-    def get_name_from_id(self, table, id_column, name_column, id):
+    def get_name_from_id(self, table, id_column, name_column, id_):
         '''helper method to get a name from an id in a given table
         params: 
             table, the table name (ex. category, subcategory, activities)
@@ -100,7 +100,7 @@ class DataSource:
         returns the value for the id or none'''
         try:
             cursor = self.connection.cursor()
-            cursor.execute(f"SELECT \"{name_column}\" FROM {table} WHERE {id_column} = '{id}';")
+            cursor.execute(f"SELECT \"{name_column}\" FROM {table} WHERE {id_column} = '{id_}';")
             records = cursor.fetchall()
 
             if records:
@@ -123,7 +123,7 @@ class DataSource:
             names.append(name)
         return names
 
-    def get_subcategory_from_activity(self, activity):
+    def get_subcategory_from_activity(self):
         '''helper method to get the subcategory from an activity
         params: activity, the activity to search for
         returns the subcategory'''
@@ -198,7 +198,7 @@ class DataSource:
         ''' Helper Method to convert activity_id to activity names
         return list of (name, hours)'''
         top_activities= []
- 
+
         for activity_id, hours in records:
             name = self.get_name_from_id('activities', 'activities_ID',
                                             'activities', activity_id)
