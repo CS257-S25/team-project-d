@@ -46,10 +46,9 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.assert_called_once()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_get_id_from_name(self, mock_connect, mock_cursor):
+    def test_get_id_from_name(self, mock_connect):
         '''tests the error is returned from get_id_from_name when incorrect query'''
         mock_connect.return_value = self.mock_conn
-        mock_cursor.return_value = self.mock_cursor
         self.mock_cursor.fetchall.side_effect = psycopg2.Error()
         ds = DataSource()
         result = ds.get_id_from_name("test_table", "test_id", "test_column", "test_name")
