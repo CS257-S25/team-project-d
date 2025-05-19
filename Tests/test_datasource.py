@@ -62,7 +62,6 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.fetchall.return_value = ([["Personal_Care_Activities",],])
         ds = DataSource()
         result = ds.get_name_from_id("category", "Category_ID", "Category_Name", "T01")
-        print(f"result test get name from id: {result}")
         self.assertEqual(result, "Personal_Care_Activities")
         self.mock_cursor.execute.assert_called_once()
 
@@ -74,6 +73,20 @@ class TestDataSource(unittest.TestCase):
         ds = DataSource()
         result = ds.get_name_from_id("test_table", "test_col_id", "test_column", "test_id")
         self.assertEqual(result, None)
+        self.mock_cursor.execute.assert_called_once()
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource.DataSource.get_id_from_name")
+    @patch("ProductionCode.datasource.DataSource.get_name_from_id")
+    def test_get_subcategory_from_activity(self, mock_connect, mock_get_id_from_name, mock_get_name_from_id):
+        '''tests the subcategory is returned from get_subcategory_from_activity when activity'''
+        mock_connect.return_value = self.mock_conn
+        mock_get_id_from_name.return_value = "T0101"
+        mock_get_name_from_id.return_value = "Sleeping"
+        ds = DataSource()
+        result = ds.get_subcategory_from_activity("Sleeplessness")
+        print(f"result ig: {result}")
+        self.assertEqual(result, "Sleeping")
         self.mock_cursor.execute.assert_called_once()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
