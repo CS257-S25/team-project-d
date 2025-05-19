@@ -1,5 +1,6 @@
 '''tests for datasource.py'''
 import unittest
+import psycopg2
 from unittest.mock import MagicMock, patch
 from ProductionCode.datasource import DataSource
 
@@ -31,4 +32,11 @@ class TestDataSource(unittest.TestCase):
         not_found = ds.get_subcategory_list("invalid_category")
         self.assertEqual(not_found, None)
         self.mock_cursor.execute.assert_not_called()
-        
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_get_correct_list(self, mock_connect):
+        '''tests the correct list is returned from get_correct_list'''
+        mock_connect.return_value = self.mock_conn
+        ds = DataSource()
+        with self.assertRaises(psycopg2.Error):
+            ds.get_correct_list("test", "SELECT * FROM test WHERE id LIKE %s")
