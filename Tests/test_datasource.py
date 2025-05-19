@@ -120,7 +120,8 @@ class TestDataSource(unittest.TestCase):
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_compare_by_age_invalid_age(self, mock_connect):
-        '''tests the error is returned from get_top_records when incorrect query'''
+        '''tests the invalid age message is returned from 
+        get_top_records when age isn't a number'''
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.execute.side_effect = psycopg2.Error()
         ds = DataSource()
@@ -129,9 +130,19 @@ class TestDataSource(unittest.TestCase):
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_compare_by_age_out_of_range(self, mock_connect):
-        '''tests the error is returned from get_top_records when incorrect query'''
+        '''tests the invalid age message is returned from 
+        get_top_records when age is out of range'''
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.execute.side_effect = psycopg2.Error()
         ds = DataSource()
         result = ds.compare_by_age(100, "test_activity")
         self.assertEqual(result, "invalid age, please use a number between 15 and 80")
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_compare_by_age_error(self, mock_connect):
+        '''tests the error is returned from compare_by_age when incorrect query'''
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.execute.side_effect = psycopg2.Error()
+        ds = DataSource()
+        result = ds.compare_by_age(25, "test_activity")
+        self.assertEqual(result, None)
