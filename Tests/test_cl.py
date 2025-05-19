@@ -4,13 +4,13 @@ import sys
 import unittest
 import argparse
 from argparse import Namespace
-from io import StringIO
+
 from unittest.mock import patch, MagicMock
 import cl
-import subprocess
+
 from app import app
-from cl import get_parsed_arguments, validate_category, check_validity
-from cl import validate_activity, main
+from cl import get_parsed_arguments
+from cl import validate_activity
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -42,8 +42,8 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_category_subcategory(self, mock_get_args, mock_datasource_class):
         '''tests the main function for category and subcategory'''
-        self.main_helper_method(mock_get_args, mock_datasource_class, None,
-                                None, None, None, "Personal_Care_Activities", "Sleeping", ["Sleeping", "Sleeplessness"], "get_activity_list")
+        self.main_helper_method(mock_get_args, mock_datasource_class, None,None, None, None,
+                                "Personal_Care_Activities", "Sleeping", ["Sleeping", "Sleeplessness"], "get_activity_list")
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Sleeplessness"])
@@ -51,8 +51,10 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     @patch("cl.get_parsed_arguments")
     def test_main_category_only(self, mock_get_args, mock_datasource_class):
+        '''test the category args section of main'''
         self.main_helper_method(mock_get_args, mock_datasource_class, None, None,
-                                None, None, "Personal_Care_Activities", None, ["Sleeping", "Grooming"], "get_subcategory_list")
+                                None, None, "Personal_Care_Activities",
+                                None, ["Sleeping", "Grooming"], "get_subcategory_list")
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Grooming"])
@@ -60,6 +62,7 @@ class TestCL(unittest.TestCase):
     @patch('cl.check_validity')
     @patch.object(sys, 'argv', ['cl.py', '--category', 'Personal_Care_Activities'])
     def test_get_parsed_args(self, mock_check_validity):
+        '''Tests to make sure args are parsed correctly'''
         args = get_parsed_arguments()
         self.assertEqual(args.category, 'Personal_Care_Activities')
         mock_check_validity.assert_called_once_with(args)
@@ -74,7 +77,8 @@ class TestCL(unittest.TestCase):
         except cl.InvalidCategoryError:
             self.fail("validate_category() raised InvalidCategoryError")
 
-        mock_datasource_class.return_value.get_subcategory_list.assert_called_once_with("Personal_Care_Activities")
+        x= "Personal_Care_Activities"
+        mock_datasource_class.return_value.get_subcategory_list.assert_called_once_with(x)
 
     @patch("cl.datasource.DataSource")
     def test_validate_category_invalid(self, mock_datasource_class):
@@ -95,11 +99,12 @@ class TestCL(unittest.TestCase):
             cl.validate_activity("Sleeping")
         except cl.InvalidCategoryError:
             self.fail("validate_activity() raised InvalidCategoryError")
-   
+
     @patch("cl.datasource.DataSource")
     def test_validate_activity_invalid(self, mock_datasource_class):
         self.validating_helper_method(mock_datasource_class,
-                                "get_activity_list", ["Sleeping"], True, "Error getting subcategory from activities:")
+                                "get_activity_list", ["Sleeping"], True,
+                                "Error getting subcategory from activities:")
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_activity("Carleton")
 
@@ -110,7 +115,8 @@ class TestCL(unittest.TestCase):
     def test_check_validity(self, mock_validate_activity, mock_validate_category):
         '''tests the check_validity function'''
         args= argparse.Namespace(category= 'Personal_Care_Activities',
-                                subcategory = 'Sleeping',activity='Sleeping', age= None, top= None, compare= None )
+                                subcategory = 'Sleeping',activity='Sleeping',
+                                age= None, top= None, compare= None )
         cl.check_validity(args)
         mock_validate_category.assert_called_once_with('Personal_Care_Activities', 'Sleeping')
         mock_validate_activity.assert_called_once_with("Sleeping")
@@ -132,7 +138,8 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########        Helper Methods         ###########
     #####################################################
-    def main_helper_method(self, mock_get_args, mock_datasource_class, age, top, compare, activity, category, subcategory, answer_list, list_type):
+    def main_helper_method(self, mock_get_args, mock_datasource_class, age,
+    top, compare, activity, category, subcategory, answer_list, list_type):
         '''helper method for the main function'''
         mock_args = Namespace(
         age=age, top=top,
@@ -151,7 +158,8 @@ class TestCL(unittest.TestCase):
             mock_source.compare_by_age.return_value = answer_list
         mock_datasource_class.return_value = mock_source
 
-    def validating_helper_method(self, mock_datasource_class, list_type, results, activities, activities_list):
+    def validating_helper_method(self, mock_datasource_class, list_type, 
+    results, activities, activities_list):
         '''helper method for the validate_category functions'''
         mock_instance= MagicMock()
         if list_type == "get_subcategory_list":
