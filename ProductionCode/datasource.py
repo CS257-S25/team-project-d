@@ -50,9 +50,9 @@ class DataSource:
 
     def get_category_list(self):
         '''Gets the list of categories available'''
-        id = ''
+        id_= ''
         query = "SELECT * FROM category WHERE category_ID LIKE %s"
-        names = self.get_names_from_list(self.get_correct_list(id,query))
+        names = self.get_names_from_list(self.get_correct_list(id_,query))
         return names
 
     def get_correct_list(self, id, query):
@@ -118,7 +118,7 @@ class DataSource:
         returns a list of names'''
         names = []
         for id_name in list_of_id_name:
-            id = str(id_name[0])
+            #id = str(id_name[0])
             name = str(id_name[1])
             names.append(name)
         return names
@@ -129,8 +129,8 @@ class DataSource:
         returns the subcategory'''
         try:
             cursor = self.connection.cursor()
-            activity_id = self.get_id_from_name('activities', 'activities_ID',
-                                                'activities', activity)
+           #activity_id = self.get_id_from_name('activities', 'activities_ID',
+                                               #'activities', activity)
             cursor.execute("SELECT activities_ID FROM activities "\
                            "WHERE activities_ID = '{activity_id}';")
             records = cursor.fetchone()
@@ -225,7 +225,7 @@ class DataSource:
                                                 'activities', activity)
             q_new = f'SELECT "{age}" FROM data_2223 WHERE activity_id = \'{activity_id}\''
             q_old = f'SELECT "{age}" FROM data_1213 WHERE activity_id = \'{activity_id}\''
-            q = f"" + q_new + " UNION ALL " + q_old + ";"
+            q = "" + q_new + " UNION ALL " + q_old + ";"
             cursor.execute(q, (age, activity_id,))
             records = cursor.fetchall()
             if not records:
