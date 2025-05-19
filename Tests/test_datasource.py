@@ -59,7 +59,7 @@ class TestDataSource(unittest.TestCase):
     def test_get_name_from_id(self, mock_connect):
         '''tests the name is returned from get_id_from_name when given id'''
         mock_connect.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = ("Personal_Care_Activities")
+        self.mock_cursor.fetchall.return_value = (["Personal_Care_Activities"])
         ds = DataSource()
         result = ds.get_name_from_id("category", "Category_ID", "Category_Name", "T01")
         print(f"result test get name from id: {result}")
