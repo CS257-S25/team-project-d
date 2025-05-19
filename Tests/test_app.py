@@ -18,7 +18,6 @@ class TestApp(unittest.TestCase):
     #####################################################
     ###########    Get Top Activity By Age    ###########
     #####################################################
-    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_show_app_form(self):
         '''test that the app form shows up correctly'''
         response = self.app.get('/get_top?option=get_top_by_age')
