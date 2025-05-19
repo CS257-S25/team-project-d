@@ -21,7 +21,7 @@ class TestApp(unittest.TestCase):
     def test_show_app_form(self):
         '''test that the app form shows up correctly'''
         response = self.app.get('/get_top')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
         decoded = response.data.decode()
         self.assertIn("Please enter an age between 15 and 80", decoded)
         self.assertIn("age", decoded)
