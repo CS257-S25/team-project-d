@@ -56,6 +56,16 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.assert_called_once()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_get_name_from_id(self, mock_connect):
+        '''tests the name is returned from get_id_from_name when given id'''
+        mock_connect.return_value = self.mock_conn
+        ds = DataSource()
+        result = ds.get_name_from_id("category", "Category_ID", "Category_Name", "T01")
+        print(f"result test get name from id: {result}")
+        self.assertEqual(result, "Personal_Care_Activities")
+        self.mock_cursor.execute.assert_called_once()
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_name_from_id_error(self, mock_connect):
         '''tests the error is returned from get_id_from_name when incorrect query'''
         mock_connect.return_value = self.mock_conn
@@ -73,4 +83,3 @@ class TestDataSource(unittest.TestCase):
         ds = DataSource()
         result = ds.get_subcategory_from_activity("test_activity")
         self.assertEqual(result, None)
-        # self.mock_cursor.execute.assert_called()
