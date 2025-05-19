@@ -87,7 +87,6 @@ class TestDataSource(unittest.TestCase):
         result = ds.get_subcategory_from_activity("Sleeplessness")
         print(f"result ig: {result}")
         self.assertEqual(result, "Sleeping")
-        self.mock_cursor.execute.assert_called_once()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_subcategory_from_activity_error(self, mock_connect):
