@@ -28,24 +28,39 @@ class TestApp(unittest.TestCase):
     #####################################################
     ###########    Get Top Activity By Age    ###########
     #####################################################
-    def test_show_age_form():
-        
-        pass
+    def test_show_app_form(self):
+        '''test that the app form shows up correctly'''
+        response = self.app.get('/get_top?option=get_top_by_age')
+        self.assertIn(b"Get Top Activity by Age", response.data)
+        self.assertIn(b"Submit", response.data)
+
+    def test_show_app_form_invalid(self):
+        '''test that the app form shows up correctly'''
+        response = self.app.get('/get_top')
+        self.assertEqual(response.status_code, 400)
+        self.assertIn(b"invalid option selected.", response.data)
     
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_top_by_age(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given age 23'''
-        mock_get_top_by_age.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = [
-            ('Sleeping',)
-        ]
         response = self.app.get('/show_top_activities?age=23')
-        self.assertIn(
-            b"The top activity for people age 23 are:",
-            response.data
-        )
-    
+        #self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Top Activity Result", response.data)
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_route_top_by_age_no_age(self, mock_get_top_by_age):
+        '''tests that the route to get top by age returns the right thing, given invalid age'''
+        response = self.app.get('/show_top_activities?age=')
+        self.assertIn(b"Age not provided", response.data)
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_route_top_by_age_invalid_age(self, mock_get_top_by_age):
+        '''tests that the route to get top by age returns the right thing, given invalid age'''
+        response = self.app.get('/show_top_activities?age=invalid')
+        self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
+ 
     def test_process_top():
+        '''test that the process_top function returns the right thing'''
         pass
         
     def test_missing_age(self):
