@@ -117,3 +117,12 @@ class TestDataSource(unittest.TestCase):
         ds = DataSource()
         result = ds.get_top_records("test_activities")
         self.assertEqual(result, None)
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_compare_by_age_error(self, mock_connect):
+        '''tests the error is returned from get_top_records when incorrect query'''
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.execute.side_effect = psycopg2.Error()
+        ds = DataSource()
+        result = ds.compare_by_age("test_age", "test_activity")
+        self.assertEqual(result, None)
