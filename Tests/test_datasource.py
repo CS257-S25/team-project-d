@@ -49,6 +49,7 @@ class TestDataSource(unittest.TestCase):
     def test_get_id_from_name(self, mock_connect):
         '''tests the error is returned from get_id_from_name when incorrect query'''
         mock_connect.return_value = self.mock_conn
+        self.mock_cursor.execute.return_value = None
         self.mock_cursor.fetchall.side_effect = psycopg2.Error()
         ds = DataSource()
         result = ds.get_id_from_name("test_table", "test_id", "test_column", "test_name")
