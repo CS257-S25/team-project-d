@@ -166,7 +166,7 @@ def show_compare_form():
 
     if option == 'compare_activity_for_age':
         return render_template("compare_form.html", title = "Compare 2022-23 to 2012-13")
-  
+
     return "invalid option selected.", 400
 
 @app.route('/show_compare', methods = ['GET'])
