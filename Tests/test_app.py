@@ -38,7 +38,7 @@ class TestApp(unittest.TestCase):
         self.assertIn(b"Top Activity Result", response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_route_top_by_age_invalid(self):
+    def test_route_top_by_age_invalid(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         response = self.app.get('/show_top_activities?age=')
         self.assertIn(b"Age not provided", response.data)
