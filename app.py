@@ -121,7 +121,8 @@ def show_activity_form():
         test = DataSource()
         categories= test.get_category_list()
 
-        return render_template("activity_form.html", title = "Find Activities", categories=categories)
+        return render_template("activity_form.html",
+                    title = "Find Activities", categories=categories)
 
     return "invalid option selected.", 400
 
@@ -136,8 +137,7 @@ def get_activities_results():
     subcategories = test.get_subcategory_list(category)
     activities = test.get_activity_list(subcategory)
 
-    # change to activity_results if separate page 
-    return render_template('activity_form.html', categories=categories, 
+    return render_template('activity_form.html', categories=categories,
                             subcategories= subcategories, selected_category= category,
                             selected_subcategory=subcategory, activities=activities)
 
@@ -166,7 +166,7 @@ def show_compare_form():
 
     if option == 'compare_activity_for_age':
         return render_template("compare_form.html", title = "Compare 2022-23 to 2012-13")
-    
+  
     return "invalid option selected.", 400
 
 @app.route('/show_compare', methods = ['GET'])
@@ -186,7 +186,8 @@ def compare_activity_for_age():
     hours_0= hours[0]
     hours_1 = hours[1]
 
-    return render_template('compare_activity.html', age=age, activity=activity, hours_0 = hours_0, hours_1=hours_1)
+    return render_template('compare_activity.html', age=age,
+                        activity=activity, hours_0 = hours_0, hours_1=hours_1)
 
 #####################################################
 ###########             Errors            ###########
