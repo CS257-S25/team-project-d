@@ -144,6 +144,7 @@ class TestDataSource(unittest.TestCase):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
         mock_get_id_from_name.return_value = "T010101"
         mock_connect.return_value = self.mock_conn
+        mock_connect.cursor.return_value = self.mock_cursor
         ds = DataSource()
         result = ds.compare_by_age(23, "Sleeping")
         print(f"compare by age result: {result}")
