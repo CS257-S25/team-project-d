@@ -96,7 +96,7 @@ class DataSource:
             table, the table name (ex. category, subcategory, activities)
             id_column, the id column name (ex. 'category_ID') 
             name_column, the name column to match (ex. 'category_Name')
-            id, the id to search for (ex. 'Personal Care Activities')
+            id, the id to search for (ex. 'T01')
         returns the value for the id or none'''
         try:
             cursor = self.connection.cursor()
