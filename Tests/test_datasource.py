@@ -81,7 +81,7 @@ class TestDataSource(unittest.TestCase):
     def test_get_subcategory_from_activity(self, mock_connect, mock_get_id_from_name, mock_get_name_from_id):
         '''tests the subcategory is returned from get_subcategory_from_activity when activity'''
         mock_connect.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = "test"
+        self.mock_cursor.fetchall.return_value = self.mock_cursor
         mock_get_id_from_name.return_value = "T0101"
         mock_get_name_from_id.return_value = "Sleeping"
         ds = DataSource()
