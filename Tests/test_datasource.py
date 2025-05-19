@@ -54,3 +54,13 @@ class TestDataSource(unittest.TestCase):
         result = ds.get_id_from_name("test_table", "test_id", "test_column", "test_name")
         self.assertEqual(result, None)
         self.mock_cursor.execute.assert_called_once()
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_get_name_from_id(self, mock_connect):
+        '''tests the error is returned from get_id_from_name when incorrect query'''
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.execute.side_effect = psycopg2.Error()
+        ds = DataSource()
+        result = ds.get_name_from_id("test_table", "test_col_id", "test_column", "test_id")
+        self.assertEqual(result, None)
+        self.mock_cursor.execute.assert_called_once()
