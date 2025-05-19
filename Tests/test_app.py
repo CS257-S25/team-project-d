@@ -47,8 +47,10 @@ class TestApp(unittest.TestCase):
     def test_route_top_by_age_invalid_age(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         response = self.app.get('/show_top_activities?age=invalid')
-        self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)    
+        self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
+ 
     def test_process_top():
+        '''test that the process_top function returns the right thing'''
         pass
         
     def test_missing_age(self):
