@@ -125,7 +125,7 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.side_effect = psycopg2.Error()
         ds = DataSource()
         result = ds.compare_by_age("test_age", "test_activity")
-        self.assertEqual(result, None)
+        self.assertEqual(result, "invalid age, please use a number between 15 and 80")
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_compare_by_age_out_of_range(self, mock_connect):
@@ -134,5 +134,4 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.side_effect = psycopg2.Error()
         ds = DataSource()
         result = ds.compare_by_age(100, "test_activity")
-        print(f"out of range ageresult: {result}")
-        self.assertEqual(result, None)
+        self.assertEqual(result, "invalid age, please use a number between 15 and 80")
