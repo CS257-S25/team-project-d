@@ -37,6 +37,7 @@ class TestDataSource(unittest.TestCase):
     def test_get_correct_list(self, mock_connect):
         '''tests the correct list is returned from get_correct_list'''
         mock_connect.return_value = self.mock_conn
+        self.mock_cursor.return_value = self.mock_cursor
         self.mock_cursor.fetchall.side_effect = psycopg2.Error()
         ds = DataSource()
         result = ds.get_correct_list("test", "SELECT")
