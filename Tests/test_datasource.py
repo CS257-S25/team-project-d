@@ -10,7 +10,7 @@ class TestDataSource(unittest.TestCase):
         #create a mock connection and cursor
         self.mock_conn = MagicMock()
         self.mock_cursor = MagicMock()
-        # self.mock_cursor = self.mock_conn.cursor.return_value
+        self.mock_cursor = self.mock_conn.cursor.return_value
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_id_from_name")
