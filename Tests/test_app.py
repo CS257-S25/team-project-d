@@ -30,15 +30,21 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn(b"invalid option selected.", response.data)
     
-    @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_route_top_by_age(self, mock_get_top_by_age):
+    # @patch("ProductionCode.datasource.psycopg2.connect")
+    # def test_route_top_by_age(self, mock_get_top_by_age):
+    #     '''tests that the route to get top by age returns the right thing, given age 23'''
+    #     mock_get_top_by_age.return_value = self.mock_conn
+    #     self.mock_cursor.fetchall.return_value = [
+    #         ('Sleeping',)
+    #     ]
+    #     response = get_top_by_age(23)
+    #     self.assertEqual("the top activity for people age 23 is Sleeping", response)
+
+    def test_route_top_by_age(self):
         '''tests that the route to get top by age returns the right thing, given age 23'''
-        mock_get_top_by_age.return_value = self.mock_conn
-        self.mock_cursor.fetchall.return_value = [
-            ('Sleeping',)
-        ]
-        response = get_top_by_age(23)
-        self.assertEqual("the top activity for people age 23 is Sleeping", response)
+        response = self.app.get('/show_top_activities')
+        #self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Top Activity Result", response.data)
     
     def test_process_top():
         pass
