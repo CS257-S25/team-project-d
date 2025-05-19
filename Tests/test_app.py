@@ -18,15 +18,18 @@ class TestApp(unittest.TestCase):
     #####################################################
     ###########    Get Top Activity By Age    ###########
     #####################################################
+    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_show_app_form(self):
+        '''test that the app form shows up correctly'''
+        response = self.app.get('/show_top_activities?age=23')
+        self.assertIn(b"Sleeping\nWork_main_job\nTelevision_and_movies_(not_religious)", response.data)
+        self.assertIn(b"Submit", response.data)
+
+    def test_show_app_form_invalid(self):
         '''test that the app form shows up correctly'''
         response = self.app.get('/get_top')
         self.assertEqual(response.status_code, 400)
-        decoded = response.data.decode()
-        self.assertIn("Please enter an age between 15 and 80", decoded)
-        self.assertIn("age", decoded)
-        self.assertIn("submit", decoded)
-        self.assertIn("get_top_by_age", decoded)
+        self.assertIn(b"invalid option selected.", response.data)
     
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_top_by_age(self, mock_get_top_by_age):
