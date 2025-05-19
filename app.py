@@ -122,7 +122,7 @@ def show_activity_form():
         categories= test.get_category_list()
         #category, subcategory, categories, subcategories, activities = helper()
 
-        return render_template("activity_form.html", 
+        return render_template("activity_form.html",
                                title = "Find Activities", categories=categories)
         #return render_template('activity_form.html', categories=categories,
                             #subcategories= subcategories, selected_category= category,
@@ -192,7 +192,7 @@ def compare_activity_for_age():
     hours_0= hours[0]
     hours_1 = hours[1]
 
-    return render_template('compare_activity.html', age=age, 
+    return render_template('compare_activity.html', age=age,
                            activity=activity, hours_0 = hours_0, hours_1=hours_1)
 
 #####################################################
