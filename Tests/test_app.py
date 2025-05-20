@@ -141,9 +141,11 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/find_activities')
         self.assertEqual(response.status_code, 400)
 
-    def test_get_activities_results():
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_get_activities_results(self):
         '''test that the get activities results function returns the right thing'''
-        pass
+        response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=')
+        self.assertIn(b"Please include a subcategory, ex: /get-activities/Personal_Care_Activities/Sleeping", response.data)        
 
     def test_helper():
         pass
