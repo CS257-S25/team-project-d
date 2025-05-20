@@ -203,7 +203,7 @@ def compare_activity_for_age():
 @app.errorhandler(404)
 def page_not_found(e):
     '''returns error message if the page wasn't found'''
-    return f"{e} "
+    return f"{e}"
 
 @app.errorhandler(500)
 def python_bug(e):
