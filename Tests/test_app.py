@@ -144,12 +144,14 @@ class TestApp(unittest.TestCase):
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_category_list")
     @patch("ProductionCode.datasource.DataSource.get_subcategory_list")
+    @patch("ProductionCode.datasource.DataSource.get_activity_list")
     def test_get_activities_results(self, mock_get_category, mock_get_subcategory, 
-                                    mock_get_activities_results):
+                                    mock_get_activity, mock_get_activities_results):
         '''test that the get activities results function returns the right thing'''
         mock_get_activities_results.return_value = self.mock_conn
-        mock_get_category.return_value = "Personal_Care_Activities"
-        mock_get_subcategory.return_value = "Sleeping"
+        mock_get_category.return_value = ["Personal_Care_Activities"]
+        mock_get_subcategory.return_value = ["Sleeping"]
+        mock_get_activity.return_value = ["Sleeping", "Sleeplessness"]
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
         self.assertIn(b"Sleeping", response.data)
         self.assertIn(b"Sleeplessness", response.data)
