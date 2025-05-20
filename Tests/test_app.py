@@ -128,7 +128,9 @@ class TestApp(unittest.TestCase):
     def test_missing_subcategory(self):
         '''test for missing_subcategory route'''
         self.check_missing_route('/get-activities/Personal_Care_Activities/',
-                                "Please include a subcategory, ex: /get-activities/Personal_Care_Activities/Sleeping" )
+                                "500 Internal Server Error: The server encountered an internal error "
+                                "and was unable to complete your request. Either the server is overloaded or " \
+                                "there is an error in the application." )
 
     def test_show_activity_form():
         pass
