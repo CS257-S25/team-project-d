@@ -192,7 +192,7 @@ class TestApp(unittest.TestCase):
         '''test to make sure error returns correct thing'''
         response = self.app.get('/invalid_route')
         self.assertEqual(response.data, b"404 Not Found: The requested URL was not found on the " \
-        "server. If you entered the URL manually please check your spelling and try again.")
+        b"server. If you entered the URL manually please check your spelling and try again.")
 
     def assert_404(self, route):
         '''test to make sure error returns correct thing'''
