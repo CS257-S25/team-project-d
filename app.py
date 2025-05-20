@@ -156,6 +156,7 @@ def helper():
     subcategories = test.get_subcategory_list(category)
     activities = test.get_activity_list(subcategory)
 
+    print(f"helper: {category}, {subcategory}, {categories}, {subcategories}, {activities}")
     return category, subcategory, categories, subcategories, activities
 
 

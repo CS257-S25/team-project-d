@@ -151,8 +151,8 @@ class TestApp(unittest.TestCase):
         mock_get_category.return_value = "Personal_Care_Activities"
         mock_get_subcategory.return_value = "Sleeping"
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
-        self.assertIn("Sleeping", response.data)
-        self.assertIn("Sleeplessness", response.data)
+        self.assertIn(b"Sleeping", response.data)
+        self.assertIn(b"Sleeplessness", response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_category_list")
