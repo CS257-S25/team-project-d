@@ -147,8 +147,14 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
         self.assertIn(b"Sleeping, Sleeplessness", response.data)
 
-    def test_helper():
-        pass
+    def test_helper(self):
+        '''test that the helper function returns the right thing'''
+        self.mock_cursor.fetchall.return_value = [
+            ("T010101", "Sleeping"),
+            ("T010102", "Sleeplessness")
+        ]
+        result = self.helper()
+        self.assertEqual(result, "Sleeping, Sleeplessness")
     
     #####################################################
     ###########            Compare            ###########
