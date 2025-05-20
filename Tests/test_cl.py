@@ -150,6 +150,7 @@ class TestCL(unittest.TestCase):
         compare=things[3], activity=things[4],
         category=things[5], subcategory=things[6]
         )
+        mock_get_args = things[0]
         mock_get_args.return_value = mock_args
         answer_list = things[8]
         list_type = things[9]
@@ -179,3 +180,4 @@ class TestCL(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    
