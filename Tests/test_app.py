@@ -147,7 +147,7 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
         self.assertIn(b"Sleeping, Sleeplessness", response.data)
 
-    @patch("Flask.request.args.get")
+    @patch("flask.request.args.get")
     def test_helper(self, mock_get):
         '''test that the helper function returns the right thing'''
         # Mock the return value of the helper function
@@ -189,6 +189,7 @@ class TestApp(unittest.TestCase):
             b"For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013",
             response.data
         )
+
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.compare_by_age")
     def test_compare_activity_for_age_invalid(self, mock_compare_by_age, mock_compare_activity_for_age):
