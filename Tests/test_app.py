@@ -150,7 +150,10 @@ class TestApp(unittest.TestCase):
     def test_helper(self):
         '''test that the helper function returns the right thing'''
         # Mock the return value of the helper function
-
+        self.mock_cursor.fetchall.return_value = [
+            ("T010101", "Sleeping"),
+            ("T010102", "Sleeplessness")
+        ]
         # Call the helper 
         result = helper()
 
