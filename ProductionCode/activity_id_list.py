@@ -1,5 +1,3 @@
-'''file: activity_id_list.py'''
-
 columns = ["T010101",
   "T010102",
   "T010201",

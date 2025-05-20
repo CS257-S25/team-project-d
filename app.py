@@ -17,7 +17,7 @@ def homepage():
 ###########    Get Top Activity By Age    ###########
 #####################################################
 
-
+# TO DO: will need a test function in test app
 @app.route('/get_top',  methods=['GET'] )
 def show_age_form():
     '''display form to select an age
@@ -50,7 +50,7 @@ def get_top_by_age():
     return render_template("get_top.html",title= "Top Activity Result", age=age,
                            activities=top_activities, times= times)
 
-
+# TO DO: will need a test function in test app
 def process_top(top_ids):
     '''returns activity names and times as two lists from top tuples'''
     top_activities = []
@@ -120,9 +120,13 @@ def show_activity_form():
     if option == 'get_activities_results':
         test = DataSource()
         categories= test.get_category_list()
+        #category, subcategory, categories, subcategories, activities = helper()
 
-        return render_template("activity_form.html",
-                    title = "Find Activities", categories=categories)
+        return render_template("activity_form.html", title = "Find Activities",
+                               categories=categories)
+        #return render_template('activity_form.html', categories=categories,
+                            #subcategories= subcategories, selected_category= category,
+                            #selected_subcategory=subcategory, activities=activities)
 
     return "invalid option selected.", 400
 
@@ -137,12 +141,13 @@ def get_activities_results():
     subcategories = test.get_subcategory_list(category)
     activities = test.get_activity_list(subcategory)
 
+    # change to activity_results if separate page
     return render_template('activity_form.html', categories=categories,
                             subcategories= subcategories, selected_category= category,
                             selected_subcategory=subcategory, activities=activities)
 
 def helper():
-    '''helper for the category functions'''
+    '''helper method to get the category, subcategory, and activities'''
     category= request.args.get('category')
     subcategory = request.args.get('subcategory')
 
@@ -152,6 +157,7 @@ def helper():
     activities = test.get_activity_list(subcategory)
 
     return category, subcategory, categories, subcategories, activities
+
 
 #####################################################
 ###########            Compare            ###########
@@ -186,8 +192,8 @@ def compare_activity_for_age():
     hours_0= hours[0]
     hours_1 = hours[1]
 
-    return render_template('compare_activity.html', age=age,
-                        activity=activity, hours_0 = hours_0, hours_1=hours_1)
+    return render_template('compare_activity.html', age=age, activity=activity,
+                           hours_0 = hours_0, hours_1=hours_1)
 
 #####################################################
 ###########             Errors            ###########

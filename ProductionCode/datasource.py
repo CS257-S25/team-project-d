@@ -2,7 +2,7 @@
 import sys
 import psycopg2
 from ProductionCode import psql_config as config
-#from ProductionCode.activity_id_list import columns
+from ProductionCode.activity_id_list import columns
 
 class DataSource:
     '''Class to connect to database and create sql table'''
@@ -20,7 +20,7 @@ class DataSource:
             print("Connection error: ", e)
             sys.exit()
         return connection
-
+    
     #####################################################
     ###########        Get Cat/Sub/Act        ###########
     #####################################################
@@ -50,16 +50,16 @@ class DataSource:
 
     def get_category_list(self):
         '''Gets the list of categories available'''
-        id_= ''
+        id = ''
         query = "SELECT * FROM category WHERE category_ID LIKE %s"
-        names = self.get_names_from_list(self.get_correct_list(id_,query))
+        names = self.get_names_from_list(self.get_correct_list(id,query))
         return names
 
-    def get_correct_list(self, id_,query):
+    def get_correct_list(self, id, query):
         '''Helper method for getting lists of categories, subcategories, or activities'''
         try:
             cursor = self.connection.cursor()
-            level_id = str(id_)
+            level_id = str(id)
             pattern = level_id + '%'
             cursor.execute(query, (pattern,))
             records = cursor.fetchall()
@@ -90,7 +90,7 @@ class DataSource:
             return None
 
     #Helpers!
-    def get_name_from_id(self, table, id_column, name_column, id_):
+    def get_name_from_id(self, table, id_column, name_column, id):
         '''helper method to get a name from an id in a given table
         params: 
             table, the table name (ex. category, subcategory, activities)
@@ -100,7 +100,7 @@ class DataSource:
         returns the value for the id or none'''
         try:
             cursor = self.connection.cursor()
-            cursor.execute(f"SELECT \"{name_column}\" FROM {table} WHERE {id_column} = '{id_}';")
+            cursor.execute(f"SELECT \"{name_column}\" FROM {table} WHERE {id_column} = '{id}';")
             records = cursor.fetchall()
 
             if records:
@@ -118,20 +118,20 @@ class DataSource:
         returns a list of names'''
         names = []
         for id_name in list_of_id_name:
-            #id = str(id_name[0])
+            id = str(id_name[0])
             name = str(id_name[1])
             names.append(name)
         return names
 
-    def get_subcategory_from_activity(self):
+    def get_subcategory_from_activity(self, activity):
         '''helper method to get the subcategory from an activity
         params: activity, the activity to search for
         returns the subcategory'''
         try:
             cursor = self.connection.cursor()
-           #activity_id = self.get_id_from_name('activities', 'activities_ID',
-                                               #'activities', activity)
-            cursor.execute("SELECT activities_ID FROM activities "\
+            activity_id = self.get_id_from_name('activities', 'activities_ID',
+                                                'activities', activity)
+            cursor.execute(f"SELECT activities_ID FROM activities "\
                            "WHERE activities_ID = '{activity_id}';")
             records = cursor.fetchone()
             if records:
@@ -142,7 +142,7 @@ class DataSource:
 
             return None
         except psycopg2.Error as e:
-            print("Error getting subcategory from activities: ", e)
+            print(f"Error getting subcategory from activities: ", e)
             return None
 
     #####################################################
@@ -157,9 +157,9 @@ class DataSource:
             return "invalid age, please use a number between 15 and 80"
 
         records= self.get_top_records(age)
-        if records is None:
+        if records is None: 
             return "No data found for this age :("
-
+            
         top_activities = self.ids_to_names(records)
 
         return top_activities
@@ -175,7 +175,7 @@ class DataSource:
         if age_int not in range(15, 81):
             return None
         return age_int
-
+    
     def get_top_records(self,age):
         '''Helper method to Query the database to get the top 3 activities for given age
         return list of tuples or None'''
@@ -184,7 +184,7 @@ class DataSource:
             q = f'SELECT activity_id, "{age}" FROM data_2223 ORDER BY "{age}" DESC LIMIT 3;'
             cursor.execute(q)
             records = cursor.fetchall()
-
+            
             if not records:
                 return "no data found for this age"
 
@@ -198,8 +198,8 @@ class DataSource:
         ''' Helper Method to convert activity_id to activity names
         return list of (name, hours)'''
         top_activities= []
-
-        for activity_id, hours in records:
+    
+        for activity_id, hours in records: 
             name = self.get_name_from_id('activities', 'activities_ID',
                                             'activities', activity_id)
             top_activities.append((name, hours))
@@ -225,7 +225,7 @@ class DataSource:
                                                 'activities', activity)
             q_new = f'SELECT "{age}" FROM data_2223 WHERE activity_id = \'{activity_id}\''
             q_old = f'SELECT "{age}" FROM data_1213 WHERE activity_id = \'{activity_id}\''
-            q = "" + q_new + " UNION ALL " + q_old + ";"
+            q = f"" + q_new + " UNION ALL " + q_old + ";"
             cursor.execute(q, (age, activity_id,))
             records = cursor.fetchall()
             if not records:
