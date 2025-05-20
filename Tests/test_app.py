@@ -188,8 +188,10 @@ class TestApp(unittest.TestCase):
             response.data
         )
     
-    def test_compare_activity_for_age_invalid():
-        pass
+    def test_compare_activity_for_age_invalid(self):
+        '''test that the compare activity for age function returns the right thing'''
+        response = self.app.get('/show_compare?age=invalid&activity=Sleeping')
+        self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
 
     #####################################################
     ###########             Others            ###########
