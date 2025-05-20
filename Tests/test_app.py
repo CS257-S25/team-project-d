@@ -13,7 +13,7 @@ class TestApp(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
-    def check_missing_route(self, route, message):
+    def check_missing_route_helper(self, route, message):
         '''helper to test missing parameter routes'''
         response= self.app.get(route)
         self.assertEqual(response.status_code, 200)
@@ -26,8 +26,7 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/')
         self.assertIn(
             b'Welcome to the Homepage for Time Use Survey!', response.data)
-        
-    
+
     #####################################################
     ###########        Get Cat/Sub/Act        ###########
     #####################################################
@@ -77,19 +76,19 @@ class TestApp(unittest.TestCase):
 
     def test_missing_category(self):
         '''test for missing_category route'''
-        self.check_missing_route('/get-subcategories/',
+        self.check_missing_route_helper('/get-subcategories/',
                                 "Please include a category, " \
                                 "ex: /get-subcategories/Personal_Care_Activities")
 
     def test_missing_cat_and_sub(self):
         '''test for missing_cat_and_sub route'''
-        self.check_missing_route('/get-activities/',
+        self.check_missing_route_helper('/get-activities/',
                                 "Please include a category and a subcategory, " \
                                 "ex: /get-activities/Personal_Care_Activities/Sleeping" ) 
 
     def test_missing_subcategory(self):
         '''test for missing_subcategory route'''
-        self.check_missing_route('/get-activities/Personal_Care_Activities/',
+        self.check_missing_route_helper('/get-activities/Personal_Care_Activities/',
                                 "Please include a subcategory, " \
                                 "ex: /get-activities/Personal_Care_Activities/Sleeping" )
 
@@ -121,7 +120,6 @@ class TestApp(unittest.TestCase):
         self.assertIn(b"Sleeping", response.data)
         self.assertIn(b"Sleeplessness", response.data)
 
-
     #####################################################
     ###########             Others            ###########
     #####################################################
@@ -139,4 +137,3 @@ class TestApp(unittest.TestCase):
         self.assertIn(b"404 Not Found: The requested URL was not found on the server. " \
         b"If you entered the URL manually please check your spelling and try again. " \
         b"... refer to homepage (/) for options", response.data)
-
