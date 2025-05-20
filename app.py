@@ -2,6 +2,7 @@
 THIS IS THE FLASK APP FOR THE SQL DATABASE
 file: app.py
 '''
+import os
 from flask import Flask, request, render_template
 from ProductionCode.datasource import DataSource
 
@@ -17,7 +18,7 @@ def homepage():
 ###########    Get Top Activity By Age    ###########
 #####################################################
 
-
+# TO DO: will need a test function in test app 
 @app.route('/get_top',  methods=['GET'] )
 def show_age_form():
     '''display form to select an age
@@ -25,10 +26,10 @@ def show_age_form():
     else return an error message'''
 
     option =request.args.get('option')
-
+    
     if option == 'get_top_by_age':
         return render_template("age_form.html", title = "Get Top Activity by Age")
-
+    
     return "invalid option selected.", 400
 
 @app.route('/show_top_activities', methods = ['GET'])
@@ -44,13 +45,13 @@ def get_top_by_age():
 
     if "invalid age" in top_ids:
         return top_ids
-
+    
     top_activities, times = process_top(top_ids)
-
+  
     return render_template("get_top.html",title= "Top Activity Result", age=age,
                            activities=top_activities, times= times)
 
-
+# TO DO: will need a test function in test app 
 def process_top(top_ids):
     '''returns activity names and times as two lists from top tuples'''
     top_activities = []
@@ -116,13 +117,16 @@ def missing_subcategory(_category):
 def show_activity_form():
     '''display form '''
     option =request.args.get('option')
-
+    
     if option == 'get_activities_results':
         test = DataSource()
         categories= test.get_category_list()
-
-        return render_template("activity_form.html",
-                    title = "Find Activities", categories=categories)
+        #category, subcategory, categories, subcategories, activities = helper()
+        
+        return render_template("activity_form.html", title = "Find Activities", categories=categories)
+        #return render_template('activity_form.html', categories=categories, 
+                            #subcategories= subcategories, selected_category= category,
+                            #selected_subcategory=subcategory, activities=activities)
 
     return "invalid option selected.", 400
 
@@ -137,12 +141,12 @@ def get_activities_results():
     subcategories = test.get_subcategory_list(category)
     activities = test.get_activity_list(subcategory)
 
-    return render_template('activity_form.html', categories=categories,
+    # change to activity_results if separate page 
+    return render_template('activity_form.html', categories=categories, 
                             subcategories= subcategories, selected_category= category,
                             selected_subcategory=subcategory, activities=activities)
 
 def helper():
-    '''helper for the category functions'''
     category= request.args.get('category')
     subcategory = request.args.get('subcategory')
 
@@ -152,6 +156,7 @@ def helper():
     activities = test.get_activity_list(subcategory)
 
     return category, subcategory, categories, subcategories, activities
+
 
 #####################################################
 ###########            Compare            ###########
@@ -166,7 +171,7 @@ def show_compare_form():
 
     if option == 'compare_activity_for_age':
         return render_template("compare_form.html", title = "Compare 2022-23 to 2012-13")
-
+    
     return "invalid option selected.", 400
 
 @app.route('/show_compare', methods = ['GET'])
@@ -177,6 +182,8 @@ def compare_activity_for_age():
     age= request.args.get('age')
     activity= request.args.get('activity')
 
+
+    
     test = DataSource()
     hours = test.compare_by_age(age, activity)
 
@@ -186,8 +193,7 @@ def compare_activity_for_age():
     hours_0= hours[0]
     hours_1 = hours[1]
 
-    return render_template('compare_activity.html', age=age,
-                        activity=activity, hours_0 = hours_0, hours_1=hours_1)
+    return render_template('compare_activity.html', age=age, activity=activity, hours_0 = hours_0, hours_1=hours_1)
 
 #####################################################
 ###########             Errors            ###########
