@@ -131,7 +131,7 @@ class TestApp(unittest.TestCase):
                                 "Please include a subcategory, ex: /get-activities/Personal_Care_Activities/Sleeping" )
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_show_activity_form(self):
+    def test_show_activity_form(self, mock_show_activity_form):
         '''test that the activity form shows up correctly'''
         response = self.app.get('/find_activities?option=get_activities_results')
         self.assertIn(b"Find Activities", response.data)
