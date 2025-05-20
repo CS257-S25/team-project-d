@@ -147,9 +147,11 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
         self.assertIn(b"Sleeping, Sleeplessness", response.data)
 
-    def test_helper(self):
+    @patch("Flask.request.args.get")
+    def test_helper(self, mock_get):
         '''test that the helper function returns the right thing'''
         # Mock the return value of the helper function
+        mock_get.return_value = "Sleeping"
         self.mock_cursor.fetchall.return_value = [
             ("T010101", "Sleeping"),
             ("T010102", "Sleeplessness")
