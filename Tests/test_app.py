@@ -59,9 +59,9 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/show_top_activities?age=invalid')
         self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
  
-    def test_process_top(self):
-        '''test that the process_top function returns the right thing'''
-        pass
+    # def test_process_top(self):
+    #     '''test that the process_top function returns the right thing'''
+    #     pass
         
     def test_missing_age(self):
         '''test for missing_age route'''
@@ -164,9 +164,9 @@ class TestApp(unittest.TestCase):
         '''test that the helper function returns the right thing'''
         # Mock the return value of the helper function
         mock_helper.return_value = self.mock_conn
-        mock_get_category.return_value = "Personal_Care_Activities"
-        mock_get_subcategory.return_value = "Sleeping"
-        mock_get_activity.return_value = "Sleeping, Sleeplessness"
+        mock_get_category.return_value = ["Personal_Care_Activities"]
+        mock_get_subcategory.return_value = ["Sleeping"]
+        mock_get_activity.return_value = ["Sleeping, Sleeplessness"]
 
         # Call the helper 
         result = helper()
@@ -238,6 +238,6 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(message.encode(), response.data)
 
-    def test_main(self):
-        #unsure about this one
-        pass
+    # def test_main(self):
+    #     #unsure about this one
+    #     pass
