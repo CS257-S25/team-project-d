@@ -4,13 +4,10 @@ import sys
 import unittest
 import argparse
 from argparse import Namespace
-# from io import StringIO
 from unittest.mock import patch, MagicMock
 import cl
-# import subprocess
 from app import app
 from cl import get_parsed_arguments
-# from cl import validate_activity, main, validate_category, check_validity
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -29,8 +26,13 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_get_args, mock_datasource_class):
         '''tests the main compare function'''
-        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, 23,
-                                "Sleeping", None, None, (559,552), "compare_by_age")
+        mock_get_args = Namespace(
+            compare= 23, activity="Sleeping")
+        mock_get_args.return_value = mock_get_args
+        mock_source = MagicMock()
+        mock_source.compare_by_age.return_value = (559,552)
+        mock_datasource_class.return_value = mock_source
+        
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with("For people age 23 they engaged in Sleeping on " \
