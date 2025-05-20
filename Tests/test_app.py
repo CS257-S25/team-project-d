@@ -145,7 +145,7 @@ class TestApp(unittest.TestCase):
     def test_get_activities_results(self, mock_get_activities_results):
         '''test that the get activities results function returns the right thing'''
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=')
-        self.assertIn(b"Please include a subcategory, ex: /get-activities/Personal_Care_Activities/Sleeping", response.data)        
+        self.assertIn(b"Please include a subcategory, ex: /get-activities/Personal_Care_Activities/Sleeping", response)        
 
     def test_helper():
         pass
