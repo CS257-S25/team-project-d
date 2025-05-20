@@ -192,7 +192,7 @@ class TestApp(unittest.TestCase):
     def test_compare_activity_for_age_invalid(self, mock_compare_by_age, mock_compare_activity_for_age):
         '''test that the compare activity for age function returns the right thing'''
         response = self.app.get('/show_compare?age=invalid&activity=Sleeping')
-        self.assertIn(b"Error: unexpected result from compare_by_age -> <MagicMock name='compare_by_age()' id='140027865187920'>", response.data)
+        self.assertIn(b"Error: unexpected result from compare_by_age -> <MagicMock name='compare_by_age()' id='140456051035600'>", response.data)
 
     #####################################################
     ###########             Others            ###########
