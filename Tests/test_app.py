@@ -169,9 +169,10 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/compare')
         self.assertEqual(response.status_code, 400)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")   
+    @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.compare_by_age")
     def test_compare_activity_for_age(self, mock_compare_by_age, mock_compare_activity_for_age):
+        '''test that the compare activity for age function returns the right hours and message'''
         mock_compare_activity_for_age.return_value = self.mock_conn
         mock_compare_by_age.return_value = (559, 552)
         self.mock_cursor.fetchall.return_value= [(559,), (552,)]
