@@ -1,7 +1,7 @@
 '''tests for datasource.py'''
 import unittest
-import psycopg2
 from unittest.mock import MagicMock, patch
+import psycopg2
 from ProductionCode.datasource import DataSource
 
 class TestDataSource(unittest.TestCase):
@@ -11,6 +11,18 @@ class TestDataSource(unittest.TestCase):
         self.mock_conn = MagicMock()
         self.mock_cursor = MagicMock()
         self.mock_cursor = self.mock_conn.cursor.return_value
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource.DataSource.get_names_from_list")
+    @patch("ProductionCode.datasource.DataSource.get_id_from_name")
+    def test_get_activity_list(self, mock_get_id_from_name, mock_get_names_from_list, mock_connect):
+        '''tests the correct error message for get_activity_list when subcategory is not found'''
+        mock_get_id_from_name.return_value = "T0101"
+        mock_get_names_from_list.return_value = ["Sleeping", "Sleeplessness"]
+        mock_connect.return_value = self.mock_conn
+        ds = DataSource()
+        result = ds.get_activity_list("Sleeping")
+        self.assertEqual(result, ["Sleeping", "Sleeplessness"])
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_id_from_name")
@@ -78,7 +90,8 @@ class TestDataSource(unittest.TestCase):
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_id_from_name")
     @patch("ProductionCode.datasource.DataSource.get_name_from_id")
-    def test_get_subcategory_from_activity(self, mock_get_name_from_id, mock_get_id_from_name, mock_connect):
+    def test_get_subcategory_from_activity(self, mock_get_name_from_id,
+                                           mock_get_id_from_name, mock_connect):
         '''tests the subcategory is returned from get_subcategory_from_activity when activity'''
         mock_connect.return_value = self.mock_conn
         mock_connect.cursor.return_value = self.mock_cursor
@@ -104,4 +117,60 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.side_effect = psycopg2.Error()
         ds = DataSource()
         result = ds.get_top_records("test_activities")
+        self.assertEqual(result, None)
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_compare_by_age_invalid_age(self, mock_connect):
+        '''tests the invalid age message is returned from 
+        get_top_records when age isn't a number'''
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.execute.side_effect = psycopg2.Error()
+        ds = DataSource()
+        result = ds.compare_by_age("test_age", "test_activity")
+        self.assertEqual(result, "invalid age, please use a number between 15 and 80")
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_compare_by_age_out_of_range(self, mock_connect):
+        '''tests the invalid age message is returned from 
+        get_top_records when age is out of range'''
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.execute.side_effect = psycopg2.Error()
+        ds = DataSource()
+        result = ds.compare_by_age(100, "test_activity")
+        self.assertEqual(result, "invalid age, please use a number between 15 and 80")
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource.DataSource.get_id_from_name")
+    def test_compare_by_age(self, mock_get_id_from_name, mock_connect):
+        '''tests the correct result for compare_by_age'''
+        mock_get_id_from_name.return_value = "T010101"
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.fetchall.return_value = [[559], [552]]
+        ds = DataSource()
+        result = ds.compare_by_age(23, "Sleeping")
+        self.assertEqual(result, (559, 552))
+        self.mock_cursor.execute.assert_called_once()
+        self.mock_cursor.fetchall.assert_called_once()
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource.DataSource.get_id_from_name")
+    def test_compare_by_age_no_data(self, mock_get_id_from_name, mock_connect):
+        '''tests the correct error message for compare_by_age when no data found'''
+        mock_get_id_from_name.return_value = "T010101"
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.fetchall.return_value = None
+        ds = DataSource()
+        result = ds.compare_by_age(23, "Sleeping")
+        print(f"compare by age result: {result}")
+        self.assertEqual(result, "no data found for this age")
+        self.mock_cursor.execute.assert_called_once()
+        self.mock_cursor.fetchall.assert_called_once()
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_compare_by_age_error(self, mock_connect):
+        '''tests the error is returned from compare_by_age when incorrect query'''
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.execute.side_effect = psycopg2.Error()
+        ds = DataSource()
+        result = ds.compare_by_age(25, "test_activity")
         self.assertEqual(result, None)

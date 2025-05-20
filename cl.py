@@ -1,6 +1,6 @@
 ''' File: cl.py '''
 import argparse
-import ProductionCode.datasource as datasource
+from ProductionCode import datasource
 
 class InvalidCategoryError(Exception):
     '''exception raised for invalid category or subcategory'''
@@ -47,7 +47,7 @@ def check_validity(args):
 def validate_activity(activity):
     '''helper method to check if the activity is valid'''
     source = datasource.DataSource()
-    subcategory = source.get_subcategory_from_activity(activity)
+    subcategory = source.get_subcategory_from_activity()
     valid_activities = source.get_activity_list(subcategory)
     if activity not in valid_activities:
         raise InvalidCategoryError(
