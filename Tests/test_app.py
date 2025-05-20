@@ -156,14 +156,15 @@ class TestApp(unittest.TestCase):
         self.assertIn(b"Sleeping", response.data)
         self.assertIn(b"Sleeplessness", response.data)
 
-    @patch("app.request.args.get")
+    @patch("app.request")
     @patch("ProductionCode.datasource.DataSource.get_category_list")
     @patch("ProductionCode.datasource.DataSource.get_subcategory_list")
     @patch("ProductionCode.datasource.DataSource.get_activity_list")
-    def test_helper(self, mock_get_category, mock_get_subcategory, mock_get_activity, mock_args_get):
+    def test_helper(self, mock_get_category, mock_get_subcategory, mock_get_activity, mock_request):
         '''test that the helper function returns the right thing'''
         # Mock the return value of the helper function
-        mock_args_get.side_effect = ["Personal_Care_Activities", "Sleeping"]
+        mock_request.args = MagicMock()
+        mock_request.args.get.side_effect = ["Personal_Care_Activities", "Sleeping"]
         mock_get_category.return_value = ["Personal_Care_Activities"]
         mock_get_subcategory.return_value = ["Sleeping"]
         mock_get_activity.return_value = ["Sleeping, Sleeplessness"]
