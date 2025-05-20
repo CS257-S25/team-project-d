@@ -50,16 +50,16 @@ class DataSource:
 
     def get_category_list(self):
         '''Gets the list of categories available'''
-        id = ''
+        category_id = ''
         query = "SELECT * FROM category WHERE category_ID LIKE %s"
-        names = self.get_names_from_list(self.get_correct_list(id,query))
+        names = self.get_names_from_list(self.get_correct_list(category_id, query))
         return names
 
-    def get_correct_list(self, id, query):
+    def get_correct_list(self, list_id, query):
         '''Helper method for getting lists of categories, subcategories, or activities'''
         try:
             cursor = self.connection.cursor()
-            level_id = str(id)
+            level_id = str(list_id)
             pattern = level_id + '%'
             cursor.execute(query, (pattern,))
             records = cursor.fetchall()
@@ -90,7 +90,7 @@ class DataSource:
             return None
 
     #Helpers!
-    def get_name_from_id(self, table, id_column, name_column, id):
+    def get_name_from_id(self, table, id_column, name_column, id_find):
         '''helper method to get a name from an id in a given table
         params: 
             table, the table name (ex. category, subcategory, activities)
@@ -100,7 +100,7 @@ class DataSource:
         returns the value for the id or none'''
         try:
             cursor = self.connection.cursor()
-            cursor.execute(f"SELECT \"{name_column}\" FROM {table} WHERE {id_column} = '{id}';")
+            cursor.execute(f"SELECT \"{name_column}\" FROM {table} WHERE {id_column} = '{id_find}';")
             records = cursor.fetchall()
 
             if records:
@@ -118,7 +118,6 @@ class DataSource:
         returns a list of names'''
         names = []
         for id_name in list_of_id_name:
-            id = str(id_name[0])
             name = str(id_name[1])
             names.append(name)
         return names
