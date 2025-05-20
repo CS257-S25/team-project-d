@@ -170,7 +170,8 @@ class TestApp(unittest.TestCase):
 
         # Call the helper 
         result = helper()
-
+        print(f"result of test helper?: {result}")
+        
         # Assert the result is as expected
         self.assertIn("Sleeping", result)
         self.assertIn("Sleeplessness", result)
