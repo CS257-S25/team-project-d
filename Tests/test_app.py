@@ -37,19 +37,19 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn(b"invalid option selected.", response.data)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    # @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_top_by_age(self):
         '''tests that the route to get top by age returns the right thing, given age 23'''
         response = self.app.get('/show_top_activities?age=23')
         self.assertIn(b"Top Activity Result", response.data)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    # @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_top_by_age_no_age(self):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         response = self.app.get('/show_top_activities?age=')
         self.assertIn(b"Age not provided", response.data)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    # @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_top_by_age_invalid_age(self):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         response = self.app.get('/show_top_activities?age=invalid')
@@ -125,7 +125,7 @@ class TestApp(unittest.TestCase):
                                 "Please include a subcategory, " \
                                 "ex: /get-activities/Personal_Care_Activities/Sleeping" )
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    # @patch("ProductionCode.datasource.psycopg2.connect")
     def test_show_activity_form(self):
         '''test that the activity form shows up correctly'''
         response = self.app.get('/find_activities?option=get_activities_results')
@@ -177,9 +177,9 @@ class TestApp(unittest.TestCase):
             b"and 552 hours in 2012 & 2013",
             response.data)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
-    @patch("ProductionCode.datasource.DataSource.compare_by_age")
-    def test_compare_activity_for_age_invalid(self):
+    # @patch("ProductionCode.datasource.psycopg2.connect")
+    # @patch("ProductionCode.datasource.DataSource.compare_by_age")
+    def test_compare_activity_for_age_invalid(self,):
         '''test that the compare activity for age function returns the right thing'''
         response = self.app.get('/show_compare?age=invalid&activity=Sleeping')
         self.assertIn(b"Error: unexpected result from compare_by_age", response.data)
