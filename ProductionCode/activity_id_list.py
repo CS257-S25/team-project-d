@@ -1,3 +1,5 @@
+'''list of all activity ids for the production code'''
+
 columns = ["T010101",
   "T010102",
   "T010201",
