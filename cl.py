@@ -57,7 +57,7 @@ def main():
     source = datasource.DataSource()
     args = get_parsed_arguments()
 
-    if args.age is not None and args.top is not None:
+    if args.age is not None:
         most_common_top_activity = source.get_top_by_age(args.age)
         print(most_common_top_activity)
 
