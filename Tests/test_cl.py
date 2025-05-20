@@ -4,13 +4,10 @@ import sys
 import unittest
 import argparse
 from argparse import Namespace
-# from io import StringIO
 from unittest.mock import patch, MagicMock
 import cl
-# import subprocess
 from app import app
 from cl import get_parsed_arguments
-# from cl import validate_activity, main, validate_category, check_validity
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -29,7 +26,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_get_args, mock_datasource_class):
         '''tests the main compare function'''
-        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, 23,
+        self.main_helper_method(mock_get_args, mock_datasource_class, None, 23,
                                 "Sleeping", None, None, (559,552), "compare_by_age")
         with patch("builtins.print") as mock_print:
             cl.main()
@@ -43,7 +40,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_category_subcategory(self, mock_get_args, mock_datasource_class):
         '''tests the main function for category and subcategory'''
-        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None,
+        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None,
                                 "Personal_Care_Activities", "Sleeping",
                                 ["Sleeping", "Sleeplessness"], "get_activity_list")
         with patch("builtins.print") as mock_print:
@@ -54,7 +51,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_category_only(self, mock_get_args, mock_datasource_class):
         '''tests the main function for category only'''
-        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None,
+        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None,
                                 "Personal_Care_Activities", None, ["Sleeping", "Grooming"],
                                 "get_subcategory_list")
         with patch("builtins.print") as mock_print:
@@ -130,7 +127,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_top_activity(self, mock_get_args, mock_datasource_class):
         '''tests the main function'''
-        self.main_helper_method(mock_get_args, mock_datasource_class, 23, True,
+        self.main_helper_method(mock_get_args, mock_datasource_class, 23,
                                 None, None, None, None, "Sleeping", "get_top_by_age")
         with patch("builtins.print") as mock_print:
             cl.main()
@@ -139,11 +136,11 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########        Helper Methods         ###########
     #####################################################
-    def main_helper_method(self, mock_get_args, mock_datasource_class, age, top, compare,
+    def main_helper_method(self, mock_get_args, mock_datasource_class, age, compare,
                            activity, category, subcategory, answer_list, list_type):
         '''helper method for the main function'''
         mock_args = Namespace(
-        age=age, top=top,
+        age=age,
         compare=compare, activity=activity,
         category=category, subcategory=subcategory
         )
