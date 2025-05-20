@@ -59,7 +59,7 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/show_top_activities?age=invalid')
         self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
  
-    def test_process_top():
+    def test_process_top(self):
         '''test that the process_top function returns the right thing'''
         pass
         
@@ -142,7 +142,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_get_activities_results(self, mock_get_activities_results):
+    def test_get_activities_results(self):
         '''test that the get activities results function returns the right thing'''
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
         self.assertIn(b"Sleeping, Sleeplessness", response.data)
@@ -225,6 +225,6 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(message.encode(), response.data)
 
-    def test_main():
+    def test_main(self):
         #unsure about this one
         pass
