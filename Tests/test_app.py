@@ -147,7 +147,6 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
         self.assertIn(b"Sleeping, Sleeplessness", response.data)
 
-    @patch("app.helper")
     def test_helper(self, mock_helper):
         '''test that the helper function returns the right thing'''
         # Mock the return value of the helper function
