@@ -152,8 +152,8 @@ class TestCL(unittest.TestCase):
         )
         mock_get_args = things[0]
         mock_get_args.return_value = mock_args
-        answer_list = things[8]
-        list_type = things[9]
+        answer_list = things[7]
+        list_type = things[8]
         mock_source = MagicMock()
 
         if list_type == "get_subcategory_list":
@@ -180,4 +180,3 @@ class TestCL(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    
