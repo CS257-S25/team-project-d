@@ -130,8 +130,11 @@ class TestApp(unittest.TestCase):
         self.check_missing_route('/get-activities/Personal_Care_Activities/',
                                 "Please include a subcategory, ex: /get-activities/Personal_Care_Activities/Sleeping" )
 
-    def test_show_activity_form():
-        pass
+    def test_show_activity_form(self):
+        '''test that the activity form shows up correctly'''
+        response = self.app.get('/find_activities')
+        self.assertIn(b"Find Activities", response.data)
+        self.assertIn(b"Submit", response.data)
 
     def test_get_activities_results():
         '''test that the get activities results function returns the right thing'''
