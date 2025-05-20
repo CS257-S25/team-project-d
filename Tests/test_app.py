@@ -23,7 +23,7 @@ class TestApp(unittest.TestCase):
         self.assertIn(
             b'Welcome to the Homepage for Time Use Survey!',
             response.data
-        )
+        ) 
 
     #####################################################
     ###########    Get Top Activity By Age    ###########
