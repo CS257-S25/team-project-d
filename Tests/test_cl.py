@@ -156,7 +156,7 @@ class TestCL(unittest.TestCase):
             mock_source.compare_by_age.return_value = answer_list
         mock_datasource_class.return_value = mock_source
 
-    def validating_helper_method(self, mock_datasource_class, list_type,
+    def validating_helper_method(mock_datasource_class, list_type,
                                  results, activities, activities_list):
         '''helper method for the validate_category functions'''
         mock_instance= MagicMock()
