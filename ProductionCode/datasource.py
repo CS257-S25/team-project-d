@@ -130,8 +130,8 @@ class DataSource:
             cursor = self.connection.cursor()
             activity_id = self.get_id_from_name('activities', 'activities_ID',
                                                 'activities', activity)
-            cursor.execute(f"SELECT activities_ID FROM activities "\
-                           "WHERE activities_ID = '{activity_id}';")
+            cursor.execute("SELECT activities_ID FROM activities "\
+                           f"WHERE activities_ID = '{activity_id}';")
             records = cursor.fetchone()
             if records:
                 subcategory_id = str(records[0][0:-2])
@@ -141,7 +141,7 @@ class DataSource:
 
             return None
         except psycopg2.Error as e:
-            print(f"Error getting subcategory from activities: ", e)
+            print(f"Error getting subcategory from activities: {e}")
             return None
 
     #####################################################
@@ -224,7 +224,7 @@ class DataSource:
                                                 'activities', activity)
             q_new = f'SELECT "{age}" FROM data_2223 WHERE activity_id = \'{activity_id}\''
             q_old = f'SELECT "{age}" FROM data_1213 WHERE activity_id = \'{activity_id}\''
-            q = f"" + q_new + " UNION ALL " + q_old + ";"
+            q = q_new + " UNION ALL " + q_old + ";"
             cursor.execute(q, (age, activity_id,))
             records = cursor.fetchall()
             if not records:
