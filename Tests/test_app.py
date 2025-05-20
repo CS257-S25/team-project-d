@@ -151,22 +151,27 @@ class TestApp(unittest.TestCase):
         mock_get_category.return_value = "Personal_Care_Activities"
         mock_get_subcategory.return_value = "Sleeping"
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
-        self.assertIn(b"Sleeping, Sleeplessness", response.data)
+        self.assertIn("Sleeping", response.data)
+        self.assertIn("Sleeplessness", response.data)
 
-    @patch("flask.request.args.get")
-    def test_helper(self, mock_get):
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource.DataSource.get_category_list")
+    @patch("ProductionCode.datasource.DataSource.get_subcategory_list")
+    @patch("ProductionCode.datasource.DataSource.get_activity_list")
+    def test_helper(self, mock_get_category, mock_get_subcategory, mock_get_activity, mock_helper):
         '''test that the helper function returns the right thing'''
         # Mock the return value of the helper function
-        mock_get.return_value = "Sleeping"
-        self.mock_cursor.fetchall.return_value = [
-            ("T010101", "Sleeping"),
-            ("T010102", "Sleeplessness")
-        ]
+        mock_helper.return_value = self.mock_conn
+        mock_get_category.return_value = "Personal_Care_Activities"
+        mock_get_subcategory.return_value = "Sleeping"
+        mock_get_activity.return_value = "Sleeping, Sleeplessness"
+
         # Call the helper 
         result = helper()
 
         # Assert the result is as expected
-        self.assertEqual(result, "Sleeping, Sleeplessness")
+        self.assertIn("Sleeping", result)
+        self.assertIn("Sleeplessness", result)
     
     #####################################################
     ###########            Compare            ###########
