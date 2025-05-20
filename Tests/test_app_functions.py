@@ -12,12 +12,6 @@ class TestApp(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
 
-    def check_missing_route(self, route, message):
-        '''helper to test missing parameter routes'''
-        response= self.app.get(route)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(message.encode(), response.data)
-
     #####################################################
     ###########    Get Top Activity By Age    ###########
     #####################################################
@@ -56,8 +50,10 @@ class TestApp(unittest.TestCase):
 
     def test_missing_age(self):
         '''test for missing_age route'''
-        self.check_missing_route('/get-top/',
-                                "Please include an age, ex: /get-top/23" ) 
+        response= self.app.get('/get-top/')
+        message = "Please include an age, ex: /get-top/23"
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(message.encode(), response.data)
 
     #####################################################
     ###########            Compare            ###########
