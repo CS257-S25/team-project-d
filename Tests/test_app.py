@@ -174,7 +174,7 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/show_compare?age=23&activity=Sleeping')
         self.assertIn(
             b"For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 " \
-            "and 552 hours in 2012 & 2013",
+            b"and 552 hours in 2012 & 2013",
             response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
