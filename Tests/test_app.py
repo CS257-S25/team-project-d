@@ -38,8 +38,3 @@ class TestApp(unittest.TestCase):
         b"If you entered the URL manually please check your spelling and try again. " \
         b"... refer to homepage (/) for options", response.data)
 
-    def check_missing_route(self, route, message):
-        '''helper to test missing parameter routes'''
-        response= self.app.get(route)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(message.encode(), response.data)

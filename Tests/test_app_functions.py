@@ -1,5 +1,5 @@
 '''Tests app.py for the functions (get top, compare, get activities) of the Flask app
-file: test_app.py'''
+file: test_app_functions.py'''
 import unittest
 from unittest.mock import patch, MagicMock
 from app import get_subcategories_for_category
@@ -12,6 +12,12 @@ class TestApp(unittest.TestCase):
         self.mock_conn = MagicMock()
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
+
+    def check_missing_route(self, route, message):
+        '''helper to test missing parameter routes'''
+        response= self.app.get(route)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(message.encode(), response.data)
 
     #####################################################
     ###########    Get Top Activity By Age    ###########
