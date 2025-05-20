@@ -198,8 +198,13 @@ class TestApp(unittest.TestCase):
     ###########             Others            ###########
     #####################################################
     #TO DO: update this
-    def test_page_not_found():
-        pass
+    def test_page_not_found(self):
+        '''test to make sure error returns correct thing'''
+        response = self.app.get('/invalid_route')
+        self.assertEqual(response.status_code, 404)
+        self.assertIn(b"404 Not Found: The requested URL was not found on the server. " \
+        b"If you entered the URL manually please check your spelling and try again. " \
+        b"... refer to homepage (/) for options", response.data)
 
     def assert_404(self, route): # I think this one is not really accurate anymore 
         '''test to make sure error returns correct thing'''
