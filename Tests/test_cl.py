@@ -69,7 +69,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_category_valid(self, mock_datasource_class):
         '''tests the validate_category function'''
-        self.validating_helper_method(mock_datasource_class, "get_subcategory_list",
+        self.validating_helper_method("get_subcategory_list",
                                       ["Sleeping", "Grooming"], None, None)
         try:
             cl.validate_category("Personal_Care_Activities", "Sleeping")
@@ -82,17 +82,15 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_category_invalid(self, mock_datasource_class):
         '''tests the validate_category function'''
-        self.validating_helper_method(mock_datasource_class,
-                                      "get_subcategory_list", ["Sleeping", "Grooming"], None, None)
+        self.validating_helper_method("get_subcategory_list", ["Sleeping", "Grooming"], None, None)
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_category("Invalid_category", "invalid_subcategory")
 
         mock_datasource_class.return_value.get_subcategory_list.assert_called_once()
 
-    @patch("cl.datasource.DataSource")
-    def test_validate_activity_valid(self, mock_datasource_class):
+    def test_validate_activity_valid(self):
         '''tests the validate_activity function'''
-        self.validating_helper_method(mock_datasource_class, "get_activity_list", ["Sleeping"],
+        self.validating_helper_method("get_activity_list", ["Sleeping"],
                                       True, "T0101")
         try:
             cl.validate_activity("Sleeping")
@@ -102,7 +100,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_activity_invalid(self, mock_datasource_class):
         '''tests the validate_activity function returns an error for invalid activity'''
-        self.validating_helper_method(mock_datasource_class, "get_activity_list", ["Sleeping"],
+        self.validating_helper_method("get_activity_list", ["Sleeping"],
                                       True, "Error getting subcategory from activities:")
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_activity("Carleton")
@@ -156,6 +154,7 @@ class TestCL(unittest.TestCase):
             mock_source.compare_by_age.return_value = answer_list
         mock_datasource_class.return_value = mock_source
 
+    @patch("cl.datasource.DataSource")
     def validating_helper_method(self, mock_datasource_class, list_type,
                                  results, activities, activities_list):
         '''helper method for the validate_category functions'''
