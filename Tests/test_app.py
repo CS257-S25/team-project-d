@@ -3,7 +3,7 @@ file: test_app.py'''
 import unittest
 from unittest.mock import patch, MagicMock
 from app import get_subcategories_for_category
-from app import  compare_activity_for_age, get_all_categories
+from app import  compare_activity_for_age, get_all_categories, helper
 from app import get_top_by_age, app
 
 #PROBABLY NEED TO ADD MORE EDGE CASES AND ACCEPTANCE TESTS 
