@@ -189,7 +189,7 @@ class TestApp(unittest.TestCase):
         )
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.compare_by_age")
-    def test_compare_activity_for_age_invalid(self):
+    def test_compare_activity_for_age_invalid(self, mock_compare_by_age, mock_compare_activity_for_age):
         '''test that the compare activity for age function returns the right thing'''
         response = self.app.get('/show_compare?age=invalid&activity=Sleeping')
         self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
