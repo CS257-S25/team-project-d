@@ -151,6 +151,7 @@ class TestCL(unittest.TestCase):
         category=things[5], subcategory=things[6]
         )
         mock_get_args = things[0]
+        mock_datasource_class = things[1]
         mock_get_args.return_value = mock_args
         answer_list = things[7]
         list_type = things[8]
