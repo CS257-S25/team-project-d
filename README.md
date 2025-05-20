@@ -20,9 +20,9 @@ Claire Holmes, Camila Mendoza, KD Meraz
 
 1) Our code can tell the user the activity that participants of a certain age spend the most time doing:
 
-Usage: python3 cl.py --age <age from 15-80> --top
+Usage: python3 cl.py --age <age from 15-80>
 
-python3 cl.py --age 20 --top
+python3 cl.py --age 20
 
 2) Our code can tell the user the number of average hours that a certain age spent on an activity in 2022-2023 compared to 2012-2013.
 
