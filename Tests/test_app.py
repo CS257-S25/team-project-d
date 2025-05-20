@@ -153,7 +153,7 @@ class TestApp(unittest.TestCase):
         # Mock the return value of the helper function
         mock_helper.return_value = "Sleeping, Sleeplessness"
 
-        # Call the helper function
+        # Call the helper 
         result = helper()
 
         # Assert the result is as expected
