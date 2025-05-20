@@ -2,7 +2,6 @@
 import sys
 import psycopg2
 from ProductionCode import psql_config as config
-from ProductionCode.activity_id_list import columns
 
 class DataSource:
     '''Class to connect to database and create sql table'''
@@ -100,7 +99,8 @@ class DataSource:
         returns the value for the id or none'''
         try:
             cursor = self.connection.cursor()
-            cursor.execute(f"SELECT \"{name_column}\" FROM {table} WHERE {id_column} = '{id_find}';")
+            cursor.execute(f"SELECT \"{name_column}\" FROM {table} " \
+                           f"WHERE {id_column} = '{id_find}';")
             records = cursor.fetchall()
 
             if records:
