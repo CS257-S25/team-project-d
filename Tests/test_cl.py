@@ -147,9 +147,9 @@ class TestCL(unittest.TestCase):
         '''helper method for the main function'''
         #mock_get_args, mock_datasource_class, age, top, compare,activity, category, subcategory, answer_list, list_type
         mock_args = Namespace(
-        things[2]=age, things[3]=top,
-        things[4]=compare, things[5]=activity,
-        things[6]=category, things[7]=subcategory
+        things[2]==age, things[3]==top,
+        things[4]==compare, things[5]==activity,
+        things[6]==category, things[7]==subcategory
         )
         mock_get_args.return_value = mock_args
         mock_source = MagicMock()
