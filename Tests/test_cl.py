@@ -86,7 +86,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource.DataSource")
     def test_validate_category_invalid(self, mock_datasource_class):
         '''tests the validate_category function'''
-        self.validating_helper_method(mock_datasource_class, 
+        self.validating_helper_method(mock_datasource_class,
                                       ["sub", "Sleeping", "Grooming"], None, None)
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_category("Invalid_category", "invalid_subcategory")
