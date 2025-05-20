@@ -163,7 +163,7 @@ class TestApp(unittest.TestCase):
     #####################################################
     ###########            Compare            ###########
     #####################################################
-    def test_show_compare_form(self, mock_show_compare_form):
+    def test_show_compare_form(self):
         '''test that the compare form shows up correctly'''
         response = self.app.get('/compare?option=compare_activity_for_age')
         self.assertIn(b"Compare 2022-23 to 2012-13", response.data)
