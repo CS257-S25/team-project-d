@@ -142,8 +142,9 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_get_activities_results(self):
+    def test_get_activities_results(self, mock_get_activities_results):
         '''test that the get activities results function returns the right thing'''
+        mock_get_activities_results.return_value = self.mock_conn
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
         self.assertIn(b"Sleeping, Sleeplessness", response.data)
 
