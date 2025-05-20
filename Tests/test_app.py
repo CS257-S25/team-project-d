@@ -128,7 +128,7 @@ class TestApp(unittest.TestCase):
     def test_missing_subcategory(self):
         '''test for missing_subcategory route'''
         self.check_missing_route('/get-activities/Personal_Care_Activities/',
-                                "Please include a subcategory, ex: /get-activities/Personal_Care_Activities/Sleeping'" )
+                                "Please include a subcategory, ex: /get-activities/Personal_Care_Activities/Sleeping" )
 
     def test_show_activity_form():
         pass
