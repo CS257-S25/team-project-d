@@ -167,6 +167,11 @@ class TestApp(unittest.TestCase):
         '''test that the compare form shows up correctly'''
         response = self.app.get('/compare?option=compare_activity_for_age')
         self.assertIn(b"Compare 2022-23 to 2012-13", response.data)
+    
+    def test_show_compare_form_invalid(self):
+        '''test that the compare form shows up correctly'''
+        response = self.app.get('/compare')
+        self.assertEqual(response.status_code, 400)
 
     @patch("ProductionCode.datasource.psycopg2.connect")   
     @patch("ProductionCode.datasource.DataSource.compare_by_age")
