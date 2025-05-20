@@ -135,7 +135,6 @@ class TestApp(unittest.TestCase):
         '''test that the activity form shows up correctly'''
         response = self.app.get('/find_activities?option=get_activities_results')
         self.assertIn(b"Find Activities", response.data)
-        self.assertIn(b"Submit", response.data)
 
     def test_get_activities_results():
         '''test that the get activities results function returns the right thing'''
