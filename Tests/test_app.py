@@ -204,9 +204,20 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.data, b"404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.")
 
     def test_python_bug(self):
-        '''test to make sure error returns correct thing'''
-        response = self.app.get('/python_bug')
+        '''test the 500 error handler'''
+        # Simulate a route that raises an internal server error
+        @self.app.application.route('/trigger_500')
+        def trigger_500():
+            raise Exception("Simulated internal server error")
+
+        # Make a request to the route that triggers the 500 error
+        response = self.app.get('/trigger_500')
+
+        # Assert the status code is 500
         self.assertEqual(response.status_code, 500)
+
+        # Assert the response contains the error message
+        self.assertIn(b"Simulated internal server error", response.data)
 
     def assert_404(self, route): # I think this one is not really accurate anymore 
         '''test to make sure error returns correct thing'''
