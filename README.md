@@ -41,3 +41,4 @@ Usage: python3 cl.py --category <valid category> --subcategory <valid subcategor
 *reference python3 cl.py --category for valid subcategory inputs because they change based on the category*
 
 python3 cl.py --category "Household_Activities" --subcategory "Housework"
+
