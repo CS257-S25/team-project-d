@@ -29,6 +29,7 @@ class TestCL(unittest.TestCase):
         things = [mock_get_args, mock_datasource_class, None, 23,
                                 "Sleeping", None, None, (559,552), "compare_by_age"]
         self.main_helper_method(things)
+
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with("For people age 23 they engaged in Sleeping on " \
@@ -140,7 +141,7 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########        Helper Methods         ###########
     #####################################################
-    def main_helper_method(self, things):
+    def main_helper_method(self, things, mock_get_args, mock_datasource_class):
         '''helper method for the main function'''
         #mock_get_args, mock_datasource_class, age, compare,
                            #activity, category, subcategory, answer_list, list_type
@@ -150,7 +151,10 @@ class TestCL(unittest.TestCase):
         category=things[5], subcategory=things[6]
         )
         mock_get_args.return_value = mock_args
+        answer_list = things[8]
+        list_type = things[9]
         mock_source = MagicMock()
+
         if list_type == "get_subcategory_list":
             mock_source.get_subcategory_list.return_value = answer_list
         elif list_type == "get_activity_list":
