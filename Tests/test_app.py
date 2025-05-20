@@ -58,15 +58,12 @@ class TestApp(unittest.TestCase):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         response = self.app.get('/show_top_activities?age=invalid')
         self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
- 
-    # def test_process_top(self):
-    #     '''test that the process_top function returns the right thing'''
-    #     pass
         
     def test_missing_age(self):
         '''test for missing_age route'''
         self.check_missing_route('/get-top/',
                                 "Please include an age, ex: /get-top/23" ) 
+
     #####################################################
     ###########        Get Cat/Sub/Act        ###########
     #####################################################
@@ -156,27 +153,6 @@ class TestApp(unittest.TestCase):
         self.assertIn(b"Sleeping", response.data)
         self.assertIn(b"Sleeplessness", response.data)
 
-    # @patch("app.request")
-    # @patch("ProductionCode.datasource.DataSource.get_category_list")
-    # @patch("ProductionCode.datasource.DataSource.get_subcategory_list")
-    # @patch("ProductionCode.datasource.DataSource.get_activity_list")
-    # def test_helper(self, mock_get_category, mock_get_subcategory, mock_get_activity, mock_request):
-    #     '''test that the helper function returns the right thing'''
-    #     # Mock the return value of the helper function
-    #     mock_request.args = MagicMock()
-    #     mock_request.args.get.side_effect = ["Personal_Care_Activities", "Sleeping"]
-    #     mock_get_category.return_value = ["Personal_Care_Activities"]
-    #     mock_get_subcategory.return_value = ["Sleeping"]
-    #     mock_get_activity.return_value = ["Sleeping, Sleeplessness"]
-
-    #     # Call the helper 
-    #     result = helper()
-    #     print(f"result of test helper?: {result}")
-        
-    #     # Assert the result is as expected
-    #     self.assertIn("Sleeping", result)
-    #     self.assertIn("Sleeplessness", result)
-    
     #####################################################
     ###########            Compare            ###########
     #####################################################
@@ -221,11 +197,6 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/invalid_route')
         self.assertEqual(response.data, b"404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.")
 
-    # def test_python_bug(self):
-    #     '''test to make sure error returns correct thing'''
-    #     response = self.app.get('/python_bug')
-    #     self.assertEqual(response.status_code, 200)
-
     def assert_404(self, route): # I think this one is not really accurate anymore 
         '''test to make sure error returns correct thing'''
         response = self.app.get(route)
@@ -239,7 +210,3 @@ class TestApp(unittest.TestCase):
         response= self.app.get(route)
         self.assertEqual(response.status_code, 200)
         self.assertIn(message.encode(), response.data)
-
-    # def test_main(self):
-    #     #unsure about this one
-    #     pass
