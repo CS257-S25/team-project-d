@@ -22,7 +22,7 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/')
         self.assertIn(
             b'Welcome to the Homepage for Time Use Survey!',
-            response.data
+            response.data 
         )
 
     #####################################################
