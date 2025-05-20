@@ -130,6 +130,7 @@ class TestApp(unittest.TestCase):
         self.check_missing_route('/get-activities/Personal_Care_Activities/',
                                 "Please include a subcategory, ex: /get-activities/Personal_Care_Activities/Sleeping" )
 
+    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_show_activity_form(self):
         '''test that the activity form shows up correctly'''
         response = self.app.get('/find_activities?option=get_activities_results')
