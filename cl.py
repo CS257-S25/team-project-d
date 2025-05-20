@@ -11,7 +11,6 @@ def get_parsed_arguments():
     parser = argparse.ArgumentParser(description="Get the top activity for a given age group")
     parser.add_argument("--age", "-a", type=int, choices = range(15,81),
                          help="the age (15-80) to get the top activity for")
-    parser.add_argument("--top", "-t", action='store_true', help="the top activity")
     parser.add_argument("--category", type=str, help="the category to get the activities for")
     parser.add_argument("--subcategory", type=str, help="the subcategory to get the activities for")
     parser.add_argument("--compare", "-c", type=int, choices = range(15,81),
