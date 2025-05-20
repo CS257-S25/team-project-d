@@ -3,10 +3,9 @@ file: test_app.py'''
 import unittest
 from unittest.mock import patch, MagicMock
 from app import get_subcategories_for_category
-from app import  compare_activity_for_age, get_all_categories, helper
-from app import get_top_by_age, app
+from app import  get_all_categories, app
 
-#PROBABLY NEED TO ADD MORE EDGE CASES AND ACCEPTANCE TESTS 
+#PROBABLY NEED TO ADD MORE EDGE CASES AND ACCEPTANCE TESTS
 class TestApp(unittest.TestCase):
     '''class for tests for app.py'''
     def setUp(self):
@@ -21,9 +20,7 @@ class TestApp(unittest.TestCase):
         mock_homepage.return_value = self.mock_conn
         response = self.app.get('/')
         self.assertIn(
-            b'Welcome to the Homepage for Time Use Survey!',
-            response.data 
-        )
+            b'Welcome to the Homepage for Time Use Survey!', response.data)
 
     #####################################################
     ###########    Get Top Activity By Age    ###########
@@ -39,26 +36,25 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/get_top')
         self.assertEqual(response.status_code, 400)
         self.assertIn(b"invalid option selected.", response.data)
-    
+
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_route_top_by_age(self, mock_get_top_by_age):
+    def test_route_top_by_age(self):
         '''tests that the route to get top by age returns the right thing, given age 23'''
         response = self.app.get('/show_top_activities?age=23')
-        #self.assertEqual(response.status_code, 200)
         self.assertIn(b"Top Activity Result", response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_route_top_by_age_no_age(self, mock_get_top_by_age):
+    def test_route_top_by_age_no_age(self):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         response = self.app.get('/show_top_activities?age=')
         self.assertIn(b"Age not provided", response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_route_top_by_age_invalid_age(self, mock_get_top_by_age):
+    def test_route_top_by_age_invalid_age(self):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         response = self.app.get('/show_top_activities?age=invalid')
         self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
-        
+
     def test_missing_age(self):
         '''test for missing_age route'''
         self.check_missing_route('/get-top/',
@@ -92,7 +88,8 @@ class TestApp(unittest.TestCase):
         ]
         result = get_subcategories_for_category('Personal_Care_Activities')
         self.assertEqual("These are the subcategories for Personal_Care_Activities: "\
-        "['Sleeping', 'Grooming', 'Health-related_self_care', 'Personal_Activities', 'Personal_Care_Emergencies']", result)
+        "['Sleeping', 'Grooming', 'Health-related_self_care', 'Personal_Activities', " \
+        "'Personal_Care_Emergencies']", result)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_activities_from_sub(self, mock_get_activities_from_sub):
@@ -121,14 +118,15 @@ class TestApp(unittest.TestCase):
         self.check_missing_route('/get-activities/',
                                 "Please include a category and a subcategory, " \
                                 "ex: /get-activities/Personal_Care_Activities/Sleeping" ) 
-    
+
     def test_missing_subcategory(self):
         '''test for missing_subcategory route'''
         self.check_missing_route('/get-activities/Personal_Care_Activities/',
-                                "Please include a subcategory, ex: /get-activities/Personal_Care_Activities/Sleeping" )
+                                "Please include a subcategory, " \
+                                "ex: /get-activities/Personal_Care_Activities/Sleeping" )
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_show_activity_form(self, mock_show_activity_form):
+    def test_show_activity_form(self):
         '''test that the activity form shows up correctly'''
         response = self.app.get('/find_activities?option=get_activities_results')
         self.assertIn(b"Find Activities", response.data)
@@ -142,14 +140,15 @@ class TestApp(unittest.TestCase):
     @patch("ProductionCode.datasource.DataSource.get_category_list")
     @patch("ProductionCode.datasource.DataSource.get_subcategory_list")
     @patch("ProductionCode.datasource.DataSource.get_activity_list")
-    def test_get_activities_results(self, mock_get_category, mock_get_subcategory, 
+    def test_get_activities_results(self, mock_get_category, mock_get_subcategory,
                                     mock_get_activity, mock_get_activities_results):
         '''test that the get activities results function returns the right thing'''
         mock_get_activities_results.return_value = self.mock_conn
         mock_get_category.return_value = ["Personal_Care_Activities"]
         mock_get_subcategory.return_value = ["Sleeping"]
         mock_get_activity.return_value = ["Sleeping", "Sleeplessness"]
-        response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
+        response = self.app.get(
+            '/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
         self.assertIn(b"Sleeping", response.data)
         self.assertIn(b"Sleeplessness", response.data)
 
@@ -160,7 +159,7 @@ class TestApp(unittest.TestCase):
         '''test that the compare form shows up correctly'''
         response = self.app.get('/compare?option=compare_activity_for_age')
         self.assertIn(b"Compare 2022-23 to 2012-13", response.data)
-    
+
     def test_show_compare_form_invalid(self):
         '''test that the compare form shows up correctly'''
         response = self.app.get('/compare')
@@ -171,19 +170,16 @@ class TestApp(unittest.TestCase):
     def test_compare_activity_for_age(self, mock_compare_by_age, mock_compare_activity_for_age):
         mock_compare_activity_for_age.return_value = self.mock_conn
         mock_compare_by_age.return_value = (559, 552)
-        self.mock_cursor.fetchall.return_value= [
-            (559,),
-            (552,)
-        ]
+        self.mock_cursor.fetchall.return_value= [(559,), (552,)]
         response = self.app.get('/show_compare?age=23&activity=Sleeping')
         self.assertIn(
-            b"For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 and 552 hours in 2012 & 2013",
-            response.data
-        )
+            b"For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 " \
+            "and 552 hours in 2012 & 2013",
+            response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.compare_by_age")
-    def test_compare_activity_for_age_invalid(self, mock_compare_by_age, mock_compare_activity_for_age):
+    def test_compare_activity_for_age_invalid(self):
         '''test that the compare activity for age function returns the right thing'''
         response = self.app.get('/show_compare?age=invalid&activity=Sleeping')
         self.assertIn(b"Error: unexpected result from compare_by_age", response.data)
@@ -195,9 +191,10 @@ class TestApp(unittest.TestCase):
     def test_page_not_found(self):
         '''test to make sure error returns correct thing'''
         response = self.app.get('/invalid_route')
-        self.assertEqual(response.data, b"404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.")
+        self.assertEqual(response.data, b"404 Not Found: The requested URL was not found on the " \
+        "server. If you entered the URL manually please check your spelling and try again.")
 
-    def assert_404(self, route): # I think this one is not really accurate anymore 
+    def assert_404(self, route):
         '''test to make sure error returns correct thing'''
         response = self.app.get(route)
         self.assertEqual(response.status_code, 404)
