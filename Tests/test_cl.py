@@ -26,9 +26,9 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_get_args, mock_datasource_class):
         '''tests the main compare function'''
-        mock_get_args = Namespace(
+        mock_args = Namespace(
             compare= 23, activity="Sleeping")
-        mock_get_args.return_value = mock_get_args
+        mock_get_args.return_value = mock_args
         mock_source = MagicMock()
         mock_source.compare_by_age.return_value = (559,552)
         mock_datasource_class.return_value = mock_source
