@@ -142,9 +142,14 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    def test_get_activities_results(self, mock_get_activities_results):
+    @patch("flask.request.args.get")
+    @patch("flask.request.args.get")
+    def test_get_activities_results(self, mock_get_category, mock_get_subcategory, 
+                                    mock_get_activities_results):
         '''test that the get activities results function returns the right thing'''
         mock_get_activities_results.return_value = self.mock_conn
+        mock_get_category.return_value = "Personal_Care_Activities"
+        mock_get_subcategory.return_value = "Sleeping"
         response = self.app.get('/show_find_activities?category=Personal_Care_Activities&subcategory=Sleeping')
         self.assertIn(b"Sleeping, Sleeplessness", response.data)
 
