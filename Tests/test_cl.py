@@ -29,8 +29,9 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_get_args, mock_datasource_class):
         '''tests the main compare function'''
-        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, 23,
-                                "Sleeping", None, None, (559,552), "compare_by_age")
+        things = [mock_get_args, mock_datasource_class, None, None, 23,
+                                "Sleeping", None, None, (559,552), "compare_by_age"]
+        self.main_helper_method(things)
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with("For people age 23 they engaged in Sleeping on " \
@@ -43,9 +44,10 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_category_subcategory(self, mock_get_args, mock_datasource_class):
         '''tests the main function for category and subcategory'''
-        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None,
+        things = [mock_get_args, mock_datasource_class, None, None, None, None,
                                 "Personal_Care_Activities", "Sleeping",
-                                ["Sleeping", "Sleeplessness"], "get_activity_list")
+                                ["Sleeping", "Sleeplessness"], "get_activity_list"]
+        self.main_helper_method(things)
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Sleeplessness"])
@@ -54,9 +56,10 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_category_only(self, mock_get_args, mock_datasource_class):
         '''tests the main function for category only'''
-        self.main_helper_method(mock_get_args, mock_datasource_class, None, None, None, None,
+        things = [mock_get_args, mock_datasource_class, None, None, None, None,
                                 "Personal_Care_Activities", None, ["Sleeping", "Grooming"],
-                                "get_subcategory_list")
+                                "get_subcategory_list"]
+        self.main_helper_method(things)
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Grooming"])
@@ -130,8 +133,9 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_top_activity(self, mock_get_args, mock_datasource_class):
         '''tests the main function'''
-        self.main_helper_method(mock_get_args, mock_datasource_class, 23, True,
-                                None, None, None, None, "Sleeping", "get_top_by_age")
+        things = [mock_get_args, mock_datasource_class, 23, True,
+                                None, None, None, None, "Sleeping", "get_top_by_age"]
+        self.main_helper_method(things)
         with patch("builtins.print") as mock_print:
             cl.main()
             mock_print.assert_called_once_with("Sleeping")
@@ -139,13 +143,13 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########        Helper Methods         ###########
     #####################################################
-    def main_helper_method(self, mock_get_args, mock_datasource_class, age, top, compare,
-                           activity, category, subcategory, answer_list, list_type):
+    def main_helper_method(self, things):
         '''helper method for the main function'''
+        #mock_get_args, mock_datasource_class, age, top, compare,activity, category, subcategory, answer_list, list_type
         mock_args = Namespace(
-        age=age, top=top,
-        compare=compare, activity=activity,
-        category=category, subcategory=subcategory
+        things[2]=age, things[3]=top,
+        things[4]=compare, things[5]=activity,
+        things[6]=category, things[7]=subcategory
         )
         mock_get_args.return_value = mock_args
         mock_source = MagicMock()
