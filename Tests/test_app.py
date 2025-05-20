@@ -153,7 +153,7 @@ class TestApp(unittest.TestCase):
             ("T010101", "Sleeping"),
             ("T010102", "Sleeplessness")
         ]
-        result = self.helper()
+        result = helper(self.mock_cursor.fetchall())
         self.assertEqual(result, "Sleeping, Sleeplessness")
     
     #####################################################
