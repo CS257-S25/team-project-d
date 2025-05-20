@@ -141,7 +141,7 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########        Helper Methods         ###########
     #####################################################
-    def main_helper_method(self, things, mock_get_args, mock_datasource_class):
+    def main_helper_method(self, things):
         '''helper method for the main function'''
         #mock_get_args, mock_datasource_class, age, compare,
                            #activity, category, subcategory, answer_list, list_type
