@@ -22,13 +22,8 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/')
         self.assertIn(
             b'Welcome to the Homepage for Time Use Survey!',
-<<<<<<< HEAD
-            response.data
-        ) 
-=======
             response.data 
         )
->>>>>>> e8ff647984d1b3889931f7a68e241fcf0c5ebc89
 
     #####################################################
     ###########    Get Top Activity By Age    ###########
