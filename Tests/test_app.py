@@ -163,11 +163,10 @@ class TestApp(unittest.TestCase):
     #####################################################
     ###########            Compare            ###########
     #####################################################
-    @patch("ProductionCode.datasource.psycopg2.connect")
     def test_show_compare_form(self, mock_show_compare_form):
         '''test that the compare form shows up correctly'''
         response = self.app.get('/compare?option=compare_activity_for_age')
-        self.assertIn(b"Compare Activity by Age", response.data)
+        self.assertIn(b"Compare 2022-23 to 2012-13", response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")   
     @patch("ProductionCode.datasource.DataSource.compare_by_age")
