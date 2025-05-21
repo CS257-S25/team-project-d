@@ -159,7 +159,7 @@ class DataSource:
         if records is None:
             return "No data found for this age :("
 
-        top_activities = self.ids_to_names(records)
+        top_activities = self.convert_ids_to_names(records)
 
         return top_activities
 
@@ -193,7 +193,7 @@ class DataSource:
             print ("Something went wrong when executing the query: ", e)
             return None
 
-    def ids_to_names(self, records):
+    def convert_ids_to_names(self, records):
         ''' Helper Method to convert activity_id to activity names
         return list of (name, hours)'''
         top_activities= []
