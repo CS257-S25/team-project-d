@@ -132,10 +132,8 @@ def show_compare_form():
     checks if they selected the compare_activity_for_age option and renders a template 
     else return an error message'''
     option =request.args.get('option')
-
     if option == 'compare_activity_for_age':
         return render_template("compare_form.html", title = "Compare 2022-23 to 2012-13")
-
     return "invalid option selected.", 400
 
 @app.route('/show_compare', methods = ['GET'])
@@ -147,14 +145,10 @@ def compare_activity_for_age():
     activity= request.args.get('activity')
     test = DataSource()
     hours = test.compare_by_age(age, activity)
-
     if not isinstance(hours, (tuple, list)) or len(hours) != 2:
         return f"Error: unexpected result from compare_by_age -> {hours}"
-
-    hours_0= hours[0]
-    hours_1 = hours[1]
     return render_template('compare_activity.html', age=age, activity=activity,
-                           hours_0 = hours_0, hours_1=hours_1)
+                           hours_0 = hours[0], hours_1=hours[1])
 
 #####################################################
 ###########             Errors            ###########
@@ -171,4 +165,4 @@ def python_bug(e):
     return f"{e}"
 
 if __name__ == '__main__':
-    app.run(debug=True, port=7000)
+    app.run(debug=True, port=5138)
