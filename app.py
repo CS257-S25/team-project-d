@@ -7,7 +7,6 @@ from ProductionCode.datasource import DataSource
 
 app = Flask(__name__)
 
-# TO DO: will need to change the test for this
 @app.route('/')
 def homepage():
     '''Purpose: Homepage provides instructions for what URL to go to see the data you choose'''
@@ -16,46 +15,34 @@ def homepage():
 #####################################################
 ###########    Get Top Activity By Age    ###########
 #####################################################
-
-# TO DO: will need a test function in test app
 @app.route('/get_top',  methods=['GET'] )
 def show_age_form():
     '''display form to select an age
     checks if they selected the get_top_by_age option and renders a template for age input
     else return an error message'''
-
     option =request.args.get('option')
-
     if option == 'get_top_by_age':
         return render_template("age_form.html", title = "Get Top Activity by Age")
-
     return "invalid option selected.", 400
 
 @app.route('/show_top_activities', methods = ['GET'])
 def get_top_by_age():
     ''' returns the information for the top activity for an age group'''
     test = DataSource()
-
     age = request.args.get('age')
     if not age:
         return "Age not provided", 400
-
     top_ids = test.get_top_by_age(age)
-
     if "invalid age" in top_ids:
         return top_ids
-
     top_activities, times = process_top(top_ids)
-
     return render_template("get_top.html",title= "Top Activity Result", age=age,
                            activities=top_activities, times= times)
 
-# TO DO: will need a test function in test app
 def process_top(top_ids):
     '''returns activity names and times as two lists from top tuples'''
     top_activities = []
     times = []
-
     for activity, hrs in top_ids:
         hours= int(hrs)
         top_activities.append(activity)
@@ -116,18 +103,11 @@ def missing_subcategory(category):
 def show_activity_form():
     '''display form '''
     option =request.args.get('option')
-
     if option == 'get_activities_results':
         test = DataSource()
         categories= test.get_category_list()
-        #category, subcategory, categories, subcategories, activities = helper()
-
         return render_template("activity_form.html", title = "Find Activities",
                                categories=categories)
-        #return render_template('activity_form.html', categories=categories,
-                            #subcategories= subcategories, selected_category= category,
-                            #selected_subcategory=subcategory, activities=activities)
-
     return "invalid option selected.", 400
 
 @app.route('/show_find_activities', methods = ['GET'])
@@ -135,30 +115,13 @@ def get_activities_results():
     '''display form to find activities'''
     category= request.args.get('category')
     subcategory = request.args.get('subcategory')
-
     test= DataSource()
     categories = test.get_category_list()
     subcategories = test.get_subcategory_list(category)
     activities = test.get_activity_list(subcategory)
-
-    # change to activity_results if separate page
     return render_template('activity_form.html', categories=categories,
                             subcategories= subcategories, selected_category= category,
                             selected_subcategory=subcategory, activities=activities)
-
-def helper():
-    '''helper method to get the category, subcategory, and activities'''
-    category= request.args.get('category')
-    subcategory = request.args.get('subcategory')
-
-    test= DataSource()
-    categories = test.get_category_list()
-    subcategories = test.get_subcategory_list(category)
-    activities = test.get_activity_list(subcategory)
-
-    print(f"helper: {category}, {subcategory}, {categories}, {subcategories}, {activities}")
-    return category, subcategory, categories, subcategories, activities
-
 
 #####################################################
 ###########            Compare            ###########
@@ -168,7 +131,6 @@ def show_compare_form():
     '''display form to select an age, activity, and year to compare
     checks if they selected the compare_activity_for_age option and renders a template 
     else return an error message'''
-
     option =request.args.get('option')
 
     if option == 'compare_activity_for_age':
@@ -183,7 +145,6 @@ def compare_activity_for_age():
     returns render template that gives the comparison for an age group'''
     age= request.args.get('age')
     activity= request.args.get('activity')
-
     test = DataSource()
     hours = test.compare_by_age(age, activity)
 
@@ -192,7 +153,6 @@ def compare_activity_for_age():
 
     hours_0= hours[0]
     hours_1 = hours[1]
-
     return render_template('compare_activity.html', age=age, activity=activity,
                            hours_0 = hours_0, hours_1=hours_1)
 
