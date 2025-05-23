@@ -155,7 +155,7 @@ class TestCL(unittest.TestCase):
 
         mock_get_args.return_value = mock_args
 
-        mock_source = mock_source_return_value(answer_list, list_type)
+        mock_source = self.mock_source_return_value(answer_list, list_type)
 
         mock_datasource_class.return_value = mock_source
 
