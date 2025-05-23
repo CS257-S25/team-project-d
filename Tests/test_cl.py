@@ -14,7 +14,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 class TestCL(unittest.TestCase):
     '''Test class for the command line interface (CLI) for the project.'''
     def setUp(self):
-        #create a mock connection and cursor
         self.mock_conn = MagicMock()
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
@@ -147,22 +146,17 @@ class TestCL(unittest.TestCase):
         compare=parameter_list[3], activity=parameter_list[4],
         category=parameter_list[5], subcategory=parameter_list[6]
         )
-
         mock_get_args = parameter_list[0]
         mock_datasource_class = parameter_list[1]
         answer_list = parameter_list[7]
         list_type = parameter_list[8]
 
         mock_get_args.return_value = mock_args
-
         mock_source = self.mock_source_return_value(answer_list, list_type)
-
         mock_datasource_class.return_value = mock_source
 
-
-    #TODO this will probably need a better name 
     def mock_source_return_value(self, answer_list, list_type):
-        '''helper '''
+        '''helper to  mock source return value based on list_type '''
         mock_source = MagicMock()
 
         if list_type == "get_subcategory_list":
