@@ -219,7 +219,7 @@ class DataSource:
         if age not in range(15, 81):
             return "invalid age, please use a number between 15 and 80"
         try:
-            hours = self.compare_by_age_hours(self, age, activity)
+            hours = self.compare_by_age_hours(age, activity)
             return hours
 
         except psycopg2.Error as e:
