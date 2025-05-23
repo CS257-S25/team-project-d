@@ -225,7 +225,7 @@ class DataSource:
         except psycopg2.Error as e:
             print ("Something went wrong when executing the query: ", e)
             return None
-    
+
     def compare_by_age_hours(self, age, activity):
         '''finds the time spent on an activity for a given age in 2022-2023 and 10 years before'''
         cursor = self.connection.cursor()
@@ -237,7 +237,7 @@ class DataSource:
             return "no data found for this age"
         hours = (records[0][0], records[1][0])
         return hours
-    
+
     def create_query_for_compare(self, age, activity_id):
         '''Helper method to create the query for comparing the activity
         param age: the age to find the top activity for
