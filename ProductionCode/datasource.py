@@ -238,7 +238,7 @@ class DataSource:
         hours = (records[0][0], records[1][0])
         return hours
     
-    def create_query_for_compare(age, activity_id):
+    def create_query_for_compare(self, age, activity_id):
         '''Helper method to create the query for comparing the activity
         param age: the age to find the top activity for
         param activity_id: the activity id to find the time spent on'''
