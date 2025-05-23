@@ -151,19 +151,6 @@ class TestDataSource(unittest.TestCase):
         self.assertEqual(result, (559, 552))
         self.mock_cursor.execute.assert_called_once()
         self.mock_cursor.fetchall.assert_called_once()
-    
-    # @patch("ProductionCode.datasource.psycopg2.connect")
-    # @patch("ProductionCode.datasource.DataSource.get_id_from_name")
-    # def test_compare_by_age_hours(self, mock_get_id_from_name, mock_connect):
-    #     '''tests the correct result for compare_by_age when hours are returned'''
-    #     mock_get_id_from_name.return_value = "T010101"
-    #     mock_connect.return_value = self.mock_conn
-    #     self.mock_cursor.fetchall.return_value = [[559], [552]]
-    #     ds = DataSource()
-    #     result = ds.compare_by_age(23, "Sleeping", True)
-    #     self.assertEqual(result, (559/60, 552/60))
-    #     self.mock_cursor.execute.assert_called_once()
-    #     self.mock_cursor.fetchall.assert_called_once()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_id_from_name")
