@@ -73,7 +73,7 @@ class TestDataSource(unittest.TestCase):
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = ([["Personal Care Activities",],])
         ds = DataSource()
-        result = ds.get_name_from_id("category", "Category_ID", "Category_Name", "T01")
+        result = ds.get_name_from_id("category", "Category ID", "Category Name", "T01")
         self.assertEqual(result, "Personal Care Activities")
         self.mock_cursor.execute.assert_called_once()
 
