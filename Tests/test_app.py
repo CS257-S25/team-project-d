@@ -35,12 +35,12 @@ class TestApp(unittest.TestCase):
         '''tests that the route to get all categories returns the correct thing'''
         mock_get_all_categories.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = [
-            ("T01", 'Personal_Care_Activities'),
-            ("T02", 'Household_Activities')
+            ("T01", 'Personal Care Activities'),
+            ("T02", 'Household Activities')
         ]
         response = get_all_categories()
-        self.assertEqual("The category options are: ['Personal_Care_Activities', "\
-        "'Household_Activities']", response)
+        self.assertEqual("The category options are: ['Personal Care Activities', "\
+        "'Household Activities']", response)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_subcategories_for_category(self, mock_get_subcategories_for_category):
@@ -49,14 +49,14 @@ class TestApp(unittest.TestCase):
         self.mock_cursor.fetchall.return_value = [
             ('T0101', 'Sleeping'),
             ('T0102', 'Grooming'),
-            ('T0103', 'Health-related_self_care'),
-            ('T0104', 'Personal_Activities'),
-            ('T0105', 'Personal_Care_Emergencies')
+            ('T0103', 'Health-related self care'),
+            ('T0104', 'Personal Activities'),
+            ('T0105', 'Personal Care Emergencies')
         ]
         result = get_subcategories_for_category('Personal_Care_Activities')
         self.assertEqual("These are the subcategories for Personal_Care_Activities: "\
-        "['Sleeping', 'Grooming', 'Health-related_self_care', 'Personal_Activities', " \
-        "'Personal_Care_Emergencies']", result)
+        "['Sleeping', 'Grooming', 'Health-related self care', 'Personal Activities', " \
+        "'Personal Care Emergencies']", result)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_activities_from_sub(self, mock_get_activities_from_sub):
