@@ -6,7 +6,7 @@
      </head>
 
      <body>
-        <h1>Welcome to the {{ title }} page!</h1>
+        <h1>Compare Results</h1>
 
         <nav>
             <ul>
@@ -17,9 +17,30 @@
             </ul>
         </nav>
 
-        <p> For people age {{age}} they engaged in {{activity}} on average {{hours_0}} hours in 2022 & 2023 and {{hours_1}} hours in 2012 & 2013</p>
+        <h3> People aged {{age}} engaged in {{activity}} on average {{hours_0}} hours in 2022 & 2023 and {{hours_1}} hours in 2012 & 2013</h3>
 
-        <!-- Then Generate a graph for both -->
+        <!-- Then Generate a  bar graph-->
+
+        <div id="compare-data" ></div>
+
+        <canvas id="CompareChart" width="400" height="200" ></canvas>
+
+        <script>
+            const compareData = {
+                age: "{{ age }}",
+                activity: "{{ activity }}",
+                hours_0: {{ hours_0 }},
+                hours_1: {{ hours_1 }}
+            };
+        
+        </script>
+
+        <script src="{{ url_for('static', filename= 'compare_chart.js') }}"></script>
+        
+        <!-- add alt text -->
+
+        <button><a href="/compare?option=compare_activity_for_age"> &larr; Compare Another</a></button>
+
 
  
        

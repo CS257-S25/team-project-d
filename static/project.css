@@ -10,6 +10,7 @@ body {
     margin-left: 5%;
     margin-right: 5%;
     background-color: rgb(236,233,205);
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 img{
@@ -48,12 +49,14 @@ p {
 }
 
 button {
-    background-color: rgb(236,233,205);
+    background-color: rgb(146, 183, 150);
     color: rgb(55,20,88);
     border: rgb(55,20,88);
-    padding: 10px 24px;
+    padding: 10px 10px;
     text-align: center;
     display: inline-block;
-    font-size: 20px;
+    font-size: 15px;
     margin: 4px 2px;
 }
+
+

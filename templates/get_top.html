@@ -6,7 +6,7 @@
      </head>
 
      <body>
-        <h1>Welcome to the dummy {{ title }} page!</h1>
+        <h1> {{ title }}s </h1>
 
         <nav>
             <ul>
@@ -17,24 +17,26 @@
             </ul>
         </nav>
 
-        <p><b>The top activities for people age {{age}} are: </b> </p>
+        <h3><b>The top activities for people age {{age}} are: </b> </h3>
 
         <ul> 
             {% for activity in activities%}
                 <li> {{ activity }}</li>
             {% endfor %}
         </ul>
-        <!-- fix this statement -->
-        <p>Here is a helpful vizualization for ... hover to see how many hours ...  </p>
+     
+        <p>Here is a helpful vizualization for this data. Hover over the bars to see how many hours were spent doing each activity  </p>
 
-        <div id="chart-data"
+        <div id="get_top-data"
             data-labels='{{ activities|tojson }}'
             data-times='{{ times|tojson }}'></div>
 
-        <canvas id="topActivityChart" width="400" height="200"></canvas>
+        <canvas id="topActivityChart" width="400" height="200" ></canvas>
 
         <script src="{{ url_for('static', filename= 'get_top_chart.js') }}"></script>
         <!-- add alt text -->
                
+        <button><a href="/get_top?option=get_top_by_age"> &larr; Try Another Age Group</a></button>
+
      </body>
  </html>

@@ -14,8 +14,11 @@
             <li> <a href = "/find_activities?option=get_activities_results"> Find Activities</a> </a> </li>
         </ul>
     </nav>
-
-    <h2> Select Age, Activity, and Years of Interest </h2>
+    <p> Have you ever wondered how much time on average a person of your age spent doing Laundry 10 years ago? What about Playing baseball? 
+        <br><br>
+        Fill out this form to find out! <p>
+    
+    <h2> Select Age and Activity of Interest </h2>
 
     <form action="/show_compare" method="get">
         <!-- Age -->
@@ -27,20 +30,10 @@
         <label for="activity"> <strong> Choose an Activity: </strong></label>
         <input type="text" id="activity" name="activity" required>
 
-        <p>Need help chooseing an activity? Checkout our Activity Searcher feature: 
+        <p>Need help choosing an activity? Checkout our Activity Searcher feature: 
         <a href = "/find_activities?option=get_activities_results"> Find Activities </a> </p>
 
         <br>
-        <!-- Years -->
-
-        <p> <b> choose 2 years to compare: </b></p>
-
-        <input type="checkbox" id="years1" name="years1" value="2022-23">
-        <label for="years1"> 2022-23</label><br>
-        <input type="checkbox" id="years2" name="years2" value="2012-13">
-        <label for="years2"> 2012-13</label>
-        
-        <br><br>
         <input type="submit" value="Submit">
     </form>
     
