@@ -42,6 +42,7 @@ Our website enables muddling through because there are not a large amount of aff
 ---------------------------------------------------------------------------
 
 **TD3: Copy statements for SQL database tables.**
+
 **TD3: After creating data tables, run our SQL-based Flask App by running app.py from the command line.**
 
 \copy activities FROM 'Data/Activities_Data.csv' DELIMITER ',' CSV header
