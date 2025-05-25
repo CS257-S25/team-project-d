@@ -35,8 +35,8 @@ class TestApp(unittest.TestCase):
         '''tests that the route to get all categories returns the correct thing'''
         mock_get_all_categories.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = [
-            ("T01", 'Personal_Care_Activities'),
-            ("T02", 'Household_Activities')
+            ("T01", 'Personal Care Activities'),
+            ("T02", 'Household Activities')
         ]
         response = get_all_categories()
         self.assertEqual("The category options are: ['Personal Care Activities', "\
