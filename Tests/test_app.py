@@ -39,8 +39,8 @@ class TestApp(unittest.TestCase):
             ("T02", 'Household_Activities')
         ]
         response = get_all_categories()
-        self.assertEqual("The category options are: ['Personal_Care_Activities', "\
-        "'Household_Activities']", response)
+        self.assertEqual("The category options are: ['Personal Care Activities', "\
+        "'Household Activities']", response)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_get_subcategories_for_category(self, mock_get_subcategories_for_category):
