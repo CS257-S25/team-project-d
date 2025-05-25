@@ -24,40 +24,17 @@
                 <li> {{ activity }}</li>
             {% endfor %}
         </ul>
+        <!-- fix this statement -->
+        <p>Here is a helpful vizualization for ... hover to see how many hours ...  </p>
 
-       <canvas id="topActivityChart" width="400" height="200"></canvas>
-       <script> 
-            const ctx = document.getElementById('topActivityChart').getContext('2d');
+        <div id="chart-data"
+            data-labels='{{ activities|tojson }}'
+            data-times='{{ times|tojson }}'></div>
 
-            const topActivityChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: {{ activities|tojson }},
-                    datasets: [{
-                        label: 'Average Hours',
-                        data: {{ times|tojson }},
-                        backgroundColor: 'rgba(55,20,88, 0.7)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title:{
-                                display: true,
-                                text: "Average Hours"
-                            }
-                        },
-                        x:{
-                            title:{
-                                display: true,
-                                text: "Activity"
-                            }
-                        }
-                    }
-                }
-            });
-       </script>
+        <canvas id="topActivityChart" width="400" height="200"></canvas>
+
+        <script src="{{ url_for('static', filename= 'get_top_chart.js') }}"></script>
+        <!-- add alt text -->
+               
      </body>
  </html>
