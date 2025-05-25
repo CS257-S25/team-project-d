@@ -1,3 +1,5 @@
+Chart.defaults.font.family = "Georgia, 'Times New Roman', Times, serif";
+
 document.addEventListener("DOMContentLoaded", function () {
     const ctx = document.getElementById('CompareChart').getContext('2d');
 

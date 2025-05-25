@@ -44,8 +44,8 @@ Page where change was made: static folder
 What we did to adress the issue:created get_top_chart.js and compare_chart.js to keep html as just structural things
 
 Usability Issue: fonts should be consistent 
-Page where change was made: project.css
-What we did to adress the issue:changed the font of the body in css to make sure all pages have a consistent font
+Page where change was made: project.css, get_top_chart.js, compare_chart.js
+What we did to adress the issue:changed the font of the body in css to make sure all pages have a consistent font. globally changed the font in both js functions to same font as ecerything else
 
 Usability Issue: website should be polished and professional; plots should have better labels  
 Page where change was made: get_top_chart.js and compare_chart.js
@@ -114,3 +114,5 @@ Usage: python3 cl.py --category <valid category> --subcategory <valid subcategor
 
 python3 cl.py --category "Household_Activities" --subcategory "Housework"
 
+## 
+Thanks to W3Schools html help 
