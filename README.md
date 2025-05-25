@@ -2,6 +2,27 @@ CS257 S25
 
 Claire Holmes, Camila Mendoza, KD Meraz
 
+---------------------------------------------------------------------------
+
+**TD5: Code Design Improvements**
+
+*The Long Method:*
+
+Our first refactoring focused on shortening one of our method’s lines of code. The main issue with having a long method is its understability; oftentimes, more lines of code makes it harder for other people to understand the method’s purpose. Additionally, more lines means more proneness to the duplication of code and a weaker structure to further build the code. 
+
+The method we restructured is called compare_by_age (starting in line 210), located in datasource.py under the ProductionCode folder. Our method used to be longer than ten lines and served multiple purposes: connecting to the database, accessing our tables to create queries, and executing the queries for our desired output. 
+
+To solve our code smell, we decided to turn the function into three. The compare_by_age (line 210), would be considered our main function, having a try and exempt to recognize valid inputs, and return our desired output. Inside compare_by_age, the method compare_by_age_hours is called. This method connects to the database, gathers the information inputted by the user, and gets the desired output through the data tables; it outputs the amount of time spent on an activity given the age in 2022-2023. To reduce the lines of code required for multiple queries, we created a helper method called create_query_for_compare, which takes in the selected age and activity, and returns a single query line to execute.
+
+*Dead Code:*
+
+Our second refactoring of our code was identifying and deleting unnecessary files in our repository. Having dead code in a directory, where most files depend on each other, can make it difficult to find problems with the code. Furthermore, other file methods that are not supposed to use old code, might still access them without the coder’s knowledge.
+
+The following files were previously used by our python production or old database code that are no longer in use: Data/teamproject12-13.csv, Data/teamproject22-23FINAL_updatedpls.csv, Data/teamproject22-23_database.csv, templates/activity_results.html.
+
+After deleting all of these files, we ensured none of the newer code was dependent on them, and checked that every method was functional in its intended way.
+
+
 --------------------------------------------------------------
 
 **TD4: Scanability, Satisficing, & Muddling Through**
