@@ -15,6 +15,9 @@
             </ul>
         </nav>
 
+        <p> Find activities by category and subcategory. 
+            Whether you're searching for something specific or just looking for inspiration, we've got you covered! </p>
+
         <h2>Select a Category and Subcategory: </h2>
         <form action="/show_find_activities" method="get">
             <label for="category">Category:</label>
@@ -50,9 +53,11 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p> No activities found; make sure you have selected a category and a subcategory... if you have, there are just no activities</p>
+            <p> No activities found; make sure you have selected a category and a subcategory ... 
+                if you have, there are just no activities in this Category/Subcategory </p>
         {% endif %}
 
-        <!-- Note: figure out how to make it clear when you start changing either dropdown, or just put in different html-->
+        <button><a href="/find_activities?option=get_activities_results"> Clear Dropdowns </a></button>
+        
      </body>
  </html>
