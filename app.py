@@ -22,12 +22,16 @@ def show_age_form():
     else return an error message'''
     option =request.args.get('option')
     if option == 'get_top_by_age':
-        return render_template("age_form.html", title = "Get Top Activity by Age")
+        return render_template(
+            "age_form.html", 
+            title = "Get Top Activity by Age"
+        )
     return "invalid option selected.", 400
 
 @app.route('/show_top_activities', methods = ['GET'])
 def get_top_by_age():
     ''' returns the information for the top activity for an age group'''
+    #TODO we should maybe not call it test, maybe change to database to make it more clear
     test = DataSource()
     age = request.args.get('age')
     if not age:
@@ -147,22 +151,25 @@ def compare_activity_for_age():
     hours = test.compare_by_age(age, activity)
     if not isinstance(hours, (tuple, list)) or len(hours) != 2:
         return f"Error: unexpected result from compare_by_age -> {hours}"
+    #TODO change hours_0 and hours_1 to be more useful/understandab;e
     return render_template('compare_activity.html', age=age, activity=activity,
                            hours_0 = hours[0], hours_1=hours[1])
 
 #####################################################
 ###########             Errors            ###########
 #####################################################
-# TO DO: fix to have helpful 404 page with instructions on how to correctly use the website features
+# TODO: fix to have helpful 404 page with instructions on how to correctly use the website features
 @app.errorhandler(404)
 def page_not_found(e):
     '''returns error message if the page wasn't found'''
-    return f"{e}"
+    print(e)
+    return render_template('404.html')
 
 @app.errorhandler(500)
 def python_bug(e):
     ''' returns a message to let you know if there's an internal error/bug'''
-    return f"{e}"
+    print(e)
+    return render_template ('500.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5138)
