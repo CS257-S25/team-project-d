@@ -163,7 +163,7 @@ def compare_activity_for_age():
 def page_not_found(e):
     '''returns error message if the page wasn't found'''
     print(e)
-    return render_template('404.html')
+    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
 
 @app.errorhandler(500)
 def python_bug(e):
