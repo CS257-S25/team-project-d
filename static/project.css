@@ -59,4 +59,13 @@ button {
     margin: 4px 2px;
 }
 
+a {
+    color: rgb(55,20,88);
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+    text-decoration: underline;
+}
 
