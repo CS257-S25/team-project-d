@@ -1,34 +1,38 @@
- <html>
-     <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
-        <title>{{title}}</title>
-     </head>
+<html>
 
-     <body>
-        <h1> The Hobby Clock!</h1>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
+    <title>{{title}}</title>
+</head>
 
-        <nav>
-            <ul>
-                <li> <a href = "/"> Home </a></li>
-                <li> <a href = "/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
-                <li> <a href = "/compare?option=compare_activity_for_age"> Compare </a></li>
-                <li> <a href = "/find_activities?option=get_activities_results"> Find Activities</a> </a> </li>
-            </ul>
-        </nav>
-            
-        <h2> This website can show you the top 3 activities for a certain age 
-            and allows you to compare the amount of time spent doing an activity for an age across decades. 
-            Further information on available data can be found on the Find Activities page. </h2>
-        
-        
-        <p> This website is based on the American Time Use Survey (ATUS) data from the Bureau of 
-            Labor Statistics.The ATUS is a survey that collects data on how people in the United 
-            States spend their time.</p>
+<body>
+    <h1> The Hobby Clock!</h1>
 
-        <form>
-            <button><a href="/get_top?option=get_top_by_age">Find Top Activities By Age!</a></button>
-            <button><a href="/compare?option=compare_activity_for_age">Start Comparing!</a></button>
-        </form>
+    <nav>
+        <ul>
+            <li> <a href="/"> Home </a></li>
+            <li> <a href="/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
+            <li> <a href="/compare?option=compare_activity_for_age"> Compare </a></li>
+            <li> <a href="/find_activities?option=get_activities_results"> Find Activities</a> 
+            </a> </li>
+        </ul>
+    </nav>
 
-     </body>
- </html>
+    <h2> This website can show you the top 3 activities for a certain age
+        and allows you to compare the amount of time spent doing an activity for an age across 
+        decades. Further information on available data can be found on the Find Activities page. 
+    </h2>
+
+
+    <p> This website is based on the American Time Use Survey (ATUS) data from the Bureau of
+        Labor Statistics.The ATUS is a survey that collects data on how people in the United
+        States spend their time.</p>
+
+    <form>
+        <button><a href="/get_top?option=get_top_by_age">Find Top Activities By Age!</a></button>
+        <button><a href="/compare?option=compare_activity_for_age">Start Comparing!</a></button>
+    </form>
+
+</body>
+
+</html>
