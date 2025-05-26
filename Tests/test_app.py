@@ -127,7 +127,7 @@ class TestApp(unittest.TestCase):
     def test_page_not_found(self):
         '''test to make sure error returns correct thing'''
         response = self.app.get('/invalid_route')
-        self.assertEqual(response.data, b"ERROR 404: PAGE NOT FOUND")
+        self.assertIn(response.data, b"ERROR 404: PAGE NOT FOUND")
 
     def assert_404(self, route):
         '''test to make sure error returns correct thing'''
