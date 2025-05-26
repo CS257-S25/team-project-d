@@ -1,42 +1,45 @@
- <html>
-     <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
-        <title>{{ title }}</title>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     </head>
+<html>
 
-     <body>
-        <h1> {{ title }}s </h1>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
+    <title>{{ title }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 
-        <nav>
-            <ul>
-                <li> <a href = "/"> Home </a></li>
-                <li> <a href = "/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
-                <li> <a href = "/compare?option=compare_activity_for_age"> Compare </a></li>
-                <li> <a href = "/find_activities?option=get_activities_results"> Find Activities</a> </a> </li>
-            </ul>
-        </nav>
+<body>
+    <h1> {{ title }}s </h1>
 
-        <h3><b>The top activities for people age {{age}} are: </b> </h3>
-
-        <ul> 
-            {% for activity in activities%}
-                <li> {{ activity }}</li>
-            {% endfor %}
+    <nav>
+        <ul>
+            <li> <a href="/"> Home </a></li>
+            <li> <a href="/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
+            <li> <a href="/compare?option=compare_activity_for_age"> Compare </a></li>
+            <li> <a href="/find_activities?option=get_activities_results"> Find Activities
+            </a> </a> </li>
         </ul>
-     
-        <p>Here is a helpful vizualization for this data. Hover over the bars to see how many hours were spent doing each activity  </p>
+    </nav>
 
-        <div id="get_top-data"
-            data-labels='{{ activities|tojson }}'
-            data-times='{{ times|tojson }}'></div>
+    <h3><b>The top activities for people age {{age}} are: </b> </h3>
 
-        <canvas id="topActivityChart" width="400" height="200" ></canvas>
+    <ul>
+        {% for activity in activities%}
+        <li> {{ activity }}</li>
+        {% endfor %}
+    </ul>
 
-        <script src="{{ url_for('static', filename= 'get_top_chart.js') }}"></script>
-        <!-- add alt text -->
-               
-        <button><a href="/get_top?option=get_top_by_age"> &larr; Try Another Age Group</a></button>
+    <p>Here is a helpful vizualization for this data. Hover over the bars to see how many 
+        hours were spent doing each activity </p>
 
-     </body>
- </html>
+    <div id="get_top-data" data-labels='{{ activities|tojson }}' data-times='{{ times|tojson }}'>
+    </div>
+
+    <canvas id="topActivityChart" width="400" height="200"></canvas>
+
+    <script src="{{ url_for('static', filename= 'get_top_chart.js') }}"></script>
+    <!-- add alt text -->
+
+    <button><a href="/get_top?option=get_top_by_age"> &larr; Try Another Age Group</a></button>
+
+</body>
+
+</html>
