@@ -24,8 +24,7 @@ class TestApp(unittest.TestCase):
         '''tests that the homeroute uses the correct template'''
         mock_homepage.return_value = self.mock_conn
         response = self.app.get('/')
-        self.assertIn(
-            b'Welcome to the Homepage for Time Use Survey!', response.data)
+        self.assertIn(b'The Hobby Clock', response.data)
 
     #####################################################
     ###########        Get Cat/Sub/Act        ###########
@@ -127,8 +126,8 @@ class TestApp(unittest.TestCase):
     def test_page_not_found(self):
         '''test to make sure error returns correct thing'''
         response = self.app.get('/invalid_route')
-        self.assertEqual(response.data, b"404 Not Found: The requested URL was not found on the " \
-        b"server. If you entered the URL manually please check your spelling and try again.")
+        self.assertIn(b"Use the Navigation Bar across the top of the " \
+            b"page to access our two functions", response.data)
 
     def assert_404(self, route):
         '''test to make sure error returns correct thing'''
