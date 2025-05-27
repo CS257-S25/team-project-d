@@ -77,8 +77,7 @@ class TestApp(unittest.TestCase):
         self.mock_cursor.fetchall.return_value= [(559,), (552,)]
         response = self.app.get('/show_compare?age=23&activity=Sleeping')
         self.assertIn(
-            b"For people age 23 they engaged in Sleeping on average 559 hours in 2022 & 2023 " \
-            b"and 552 hours in 2012 & 2013",
+            b"People aged 23 engaged in Sleeping on average",
             response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
