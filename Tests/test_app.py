@@ -127,7 +127,7 @@ class TestApp(unittest.TestCase):
         '''test to make sure error returns correct thing'''
         response = self.app.get('/invalid_route')
         self.assertIn(b"Use the Navigation Bar across the top of the " \
-            "page to access our two functions", response.data)
+            b"page to access our two functions", response.data)
 
     def assert_404(self, route):
         '''test to make sure error returns correct thing'''
