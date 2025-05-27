@@ -82,8 +82,13 @@ a:hover {
     text-decoration: underline;
 }
 
-form {
-    margin-left: 5%;
-    margin-right: 5%;
-}
+.footer { 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    background-color: rgb(146, 183, 150);
+    color: rgb(55,20,88);
+    padding: 5px 720px;
+    text-align: left;
 
+}
