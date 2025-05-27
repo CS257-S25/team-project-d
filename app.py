@@ -31,12 +31,11 @@ def show_age_form():
 @app.route('/show_top_activities', methods = ['GET'])
 def get_top_by_age():
     ''' returns the information for the top activity for an age group'''
-    #TODO we should maybe not call it test, maybe change to database to make it more clear
-    test = DataSource()
+    data = DataSource()
     age = request.args.get('age')
     if not age:
         return "Age not provided", 400
-    top_ids = test.get_top_by_age(age)
+    top_ids = data.get_top_by_age(age)
     if "invalid age" in top_ids:
         return top_ids
     top_activities, times = process_top(top_ids)
@@ -64,16 +63,16 @@ def missing_age():
 @app.route('/get-all-categories')
 def get_all_categories():
     '''returns a list of category options'''
-    test = DataSource()
-    data_for_get_category = test.get_category_list()
+    data = DataSource()
+    data_for_get_category = data.get_category_list()
     return "The category options are: " + str(data_for_get_category)
 
 @app.route('/get-subcategories/<category>')
 def get_subcategories_for_category(category):
     ''' param: category, the category you want more info about(subcategories for)
     returns a list of subcategories for a given category'''
-    test = DataSource()
-    sub_list = test.get_subcategory_list(category)
+    data = DataSource()
+    sub_list = data.get_subcategory_list(category)
     return f"These are the subcategories for {category}: {sub_list}"
 
 @app.route('/get-subcategories/')
@@ -86,8 +85,8 @@ def get_activities_from_sub(category, subcategory):
     ''' param: category, the category you want to look at 
     param: subcategory, the subcategory you want more info about (activities for)
     returns a list of activities from a subcategory'''
-    test = DataSource()
-    activities = test.get_activity_list(subcategory)
+    data = DataSource()
+    activities = data.get_activity_list(subcategory)
     return f"here are the activities for {subcategory} in {category}: {activities}"
 
 @app.route('/get-activities/')
@@ -108,8 +107,8 @@ def show_activity_form():
     '''display form '''
     option =request.args.get('option')
     if option == 'get_activities_results':
-        test = DataSource()
-        categories= test.get_category_list()
+        data = DataSource()
+        categories= data.get_category_list()
         return render_template("activity_form.html", title = "Find Activities",
                                categories=categories)
     return "invalid option selected.", 400
@@ -119,10 +118,10 @@ def get_activities_results():
     '''display form to find activities'''
     category= request.args.get('category')
     subcategory = request.args.get('subcategory')
-    test= DataSource()
-    categories = test.get_category_list()
-    subcategories = test.get_subcategory_list(category)
-    activities = test.get_activity_list(subcategory)
+    data = DataSource()
+    categories = data.get_category_list()
+    subcategories = data.get_subcategory_list(category)
+    activities = data.get_activity_list(subcategory)
     return render_template('activity_form.html', categories=categories,
                             subcategories= subcategories, selected_category= category,
                             selected_subcategory=subcategory, activities=activities)
@@ -147,18 +146,16 @@ def compare_activity_for_age():
     returns render template that gives the comparison for an age group'''
     age= request.args.get('age')
     activity= request.args.get('activity')
-    test = DataSource()
-    hours = test.compare_by_age(age, activity)
+    data = DataSource()
+    hours = data.compare_by_age(age, activity)
     if not isinstance(hours, (tuple, list)) or len(hours) != 2:
         return f"Error: unexpected result from compare_by_age -> {hours}"
-    #TODO change hours_0 and hours_1 to be more useful/understandab;e
     return render_template('compare_activity.html', age=age, activity=activity,
-                           hours_0 = hours[0], hours_1=hours[1])
+                           hours_2223 = hours[0], hours_1213=hours[1])
 
 #####################################################
 ###########             Errors            ###########
 #####################################################
-# TODO: fix to have helpful 404 page with instructions on how to correctly use the website features
 @app.errorhandler(404)
 def page_not_found(e):
     '''returns error message if the page wasn't found'''

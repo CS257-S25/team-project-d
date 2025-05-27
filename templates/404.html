@@ -1,17 +1,31 @@
  <html>
      <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
         <title>{{title}}</title>
      </head>
-     <body>
-        <h1>ERROR 404: PAGE NOT FOUND</h1>
 
-        <h3> <a href = "/"> Click Here </a> to return to home and try again</h3>
+     <body>
+        <h1> {{title}}</h1> 
+
+          <nav>
+            <ul>
+                <li> <a href = "/"> Home </a></li>
+                <li> <a href = "/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
+                <li> <a href = "/compare?option=compare_activity_for_age"> Compare </a></li>
+                <li> <a href = "/find_activities?option=get_activities_results"> Find Activities</a> </a> </li>
+            </ul>
+        </nav>
 
         <br>
 
-        <p> Use the Navigation Bar across the top of the page to access our two functions: "Get Top Activity by Age" and "Compare".
+        <h3> Instructions: </h3>
+    
+        <p> Use the Navigation Bar across the top of the page to access our two functions: 
+            <a href = "/get_top?option=get_top_by_age"> "Get Top Activity By Age" </a> and 
+            <a href = "/compare?option=compare_activity_for_age"> "Compare" </a>
+
             <br><br>
-            On both pages, enter an age between 15 and 80. The "Compare" page also requires users to input an activity. 
+            On both pages, enter an age between 15 and 80. The "Compare" page also requires users to input a valid activity. 
             <br><br>
             Further information on valid activities can be found on the "Find Activities" tab on the Navigation Bar. 
             <br><br>

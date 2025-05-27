@@ -22,7 +22,38 @@ The following files were previously used by our python production or old databas
 
 After deleting all of these files, we ensured none of the newer code was dependent on them, and checked that every method was functional in its intended way.
 
+**TD5: Front-End Design Improvements**
+Usability Issue: Unecessary/Useless form 
+Page where change was made: compare_form.html
+What we did to adress the issue: Removed Select Years of Interest part of the Compare Page since we only have two to choose from. 
 
+Usability Issue: Structure in html pages could be improved
+Page where change was made: get_top.html, compare_activity.html, 404.html
+What we did to adress the issue: Added more headings in the html files to add structure to the pages (get_top.html line 20), (404.html liknes 6 and 8), (compare_activity.html line 20)
+
+Usability Issue: 404 page not useful or stylish 
+Page where change was made: 404.html
+What we did to adress the issue:created an html page with useful instructions for 404 errors and 500 errors and structured them with different headings 
+
+Usability Issue: it might not be clear to users to go to the navigation bar to resubmit a form, people are more used to back buttons or resubmit buttons 
+Page where change was made: get_top.html, compare_activity.html, activity_form
+What we did to adress the issue: added back buttons to the get_top.html and to compare_activity.html as well as a clear dropdowns button to activity_form.html
+
+Usability Issue: charts should be in a separate file from html
+Page where change was made: static folder
+What we did to adress the issue:created get_top_chart.js and compare_chart.js to keep html as just structural things
+
+Usability Issue: fonts should be consistent 
+Page where change was made: project.css, get_top_chart.js, compare_chart.js
+What we did to adress the issue:changed the font of the body in css to make sure all pages have a consistent font. globally changed the font in both js functions to same font as ecerything else
+
+Usability Issue: website should be polished and professional; plots should have better labels  
+Page where change was made: get_top_chart.js and compare_chart.js
+What we did to adress the issue: some of the labels for the charts were not very clear so we changed them to be more specific 
+
+Usability Issue: 
+Page where change was made: 
+What we did to adress the issue:
 --------------------------------------------------------------
 
 **TD4: Scanability, Satisficing, & Muddling Through**
@@ -83,3 +114,5 @@ Usage: python3 cl.py --category <valid category> --subcategory <valid subcategor
 
 python3 cl.py --category "Household_Activities" --subcategory "Housework"
 
+## 
+Thanks to W3Schools html help 

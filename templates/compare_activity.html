@@ -1,49 +1,50 @@
- <html>
-     <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
-        <title>{{ title }}</title>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     </head>
+<html>
 
-     <body>
-        <h1>Compare Results</h1>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
+    <title>{{ title }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 
-        <nav>
-            <ul>
-                <li> <a href = "/"> Home </a></li>
-                <li> <a href = "/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
-                <li> <a href = "/compare?option=compare_activity_for_age"> Compare </a></li>
-                <li> <a href = "/find_activities?option=get_activities_results"> Find Activities</a> </a> </li>
-            </ul>
-        </nav>
+<body>
+    <h1>Compare Results</h1>
 
-        <h3> People aged {{age}} engaged in {{activity}} on average {{hours_0}} hours in 2022 & 2023 and {{hours_1}} hours in 2012 & 2013</h3>
+    <nav>
+        <ul>
+            <li> <a href="/"> Home </a></li>
+            <li> <a href="/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
+            <li> <a href="/compare?option=compare_activity_for_age"> Compare </a></li>
+            <li> <a href="/find_activities?option=get_activities_results"> Find Activities
+                </a> </a> </li>
+        </ul>
+    </nav>
 
-        <!-- Then Generate a  bar graph-->
+    <h3> People aged {{age}} engaged in {{activity}} on average {{hours_0}} hours in
+        2022 & 2023 and {{hours_1}} hours in 2012 & 2013
+    </h3>
 
-        <div id="compare-data" ></div>
+    <!-- Then Generate a  bar graph-->
 
-        <canvas id="CompareChart" width="400" height="200" ></canvas>
+    <div id="compare-data"></div>
 
-        <script>
-            const compareData = {
-                age: "{{ age }}",
-                activity: "{{ activity }}",
-                hours_0: {{ hours_0 }},
-                hours_1: {{ hours_1 }}
+    <canvas id="CompareChart" width="400" height="200"></canvas>
+
+    <script>
+        const compareData = {
+            age: "{{ age }}",
+            activity: "{{ activity }}",
+            hours_2223: "{{ hours_2223 }}",
+            hours_1213: "{{ hours_1213 }}"
             };
-        
-        </script>
 
-        <script src="{{ url_for('static', filename= 'compare_chart.js') }}"></script>
-        
-        <!-- add alt text -->
+    </script>
 
-        <button><a href="/compare?option=compare_activity_for_age"> &larr; Compare Another</a></button>
+    <script src="{{ url_for('static', filename= 'compare_chart.js') }}"></script>
 
+    <!-- add alt text -->
 
- 
-       
+    <button><a href="/compare?option=compare_activity_for_age"> &larr; Compare Another</a></button>
 
-     </body>
- </html>
+</body>
+
+</html>
