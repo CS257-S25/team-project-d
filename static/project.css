@@ -1,7 +1,7 @@
 h1 {
     padding-top: 1em;
     padding-bottom: 1em;
-    background-color: rgb(55,20,88);
+    background-color: rgb(203, 196, 209);
     color: rgb(134,177,134);
     text-align: center;
 }
@@ -30,7 +30,10 @@ img{
 
 form {
     color:  rgb(55,20,88);
+    margin-left: 5%;
+    margin-right: 5%;
 }
+
 nav ul {
     border: 4px solid rgb(55,20,88);
     background-color: rgb(134,177,134);
@@ -92,3 +95,5 @@ a:hover {
     text-align: left;
 
 }
+
+
