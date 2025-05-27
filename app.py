@@ -26,7 +26,7 @@ def show_age_form():
             "age_form.html", 
             title = "Get Top Activity by Age"
         )
-    return "invalid option selected.", 400
+    return render_template('404.html')
 
 @app.route('/show_top_activities', methods = ['GET'])
 def get_top_by_age():
@@ -34,10 +34,10 @@ def get_top_by_age():
     data = DataSource()
     age = request.args.get('age')
     if not age:
-        return "Age not provided", 400
+        return render_template('404.html')
     top_ids = data.get_top_by_age(age)
     if "invalid age" in top_ids:
-        return top_ids
+        return render_template('404.html')
     top_activities, times = process_top(top_ids)
     return render_template("get_top.html",title= "Top Activity Result", age=age,
                            activities=top_activities, times= times)
@@ -55,7 +55,7 @@ def process_top(top_ids):
 @app.route('/get-top/')
 def missing_age():
     '''returns a message if you forgot to add a /age'''
-    return "Please include an age, ex: /get-top/23", 200
+    return render_template('404.html')
 
 #####################################################
 ###########        Get Cat/Sub/Act        ###########
@@ -78,7 +78,7 @@ def get_subcategories_for_category(category):
 @app.route('/get-subcategories/')
 def missing_category():
     '''returns a message if you forgot to add a /category'''
-    return "Please include a category, ex: /get-subcategories/Personal_Care_Activities", 200
+    return render_template('404.html')
 
 @app.route('/get-activities/<category>/<subcategory>')
 def get_activities_from_sub(category, subcategory):
@@ -92,14 +92,12 @@ def get_activities_from_sub(category, subcategory):
 @app.route('/get-activities/')
 def missing_cat_and_sub():
     '''returns a message if you forgot to add a category and subcategory'''
-    return "Please include a category and a subcategory, " \
-        "ex: /get-activities/Personal_Care_Activities/Sleeping"
+    return render_template('404.html')
 
 @app.route('/get-activities/<category>/')
 def missing_subcategory(category):
     '''returns a message if you forgot to add a subcategory'''
-    return f"/get-activities/{category}/ is not a valid option. Please include a subcategory, " \
-        "ex: /get-activities/Personal_Care_Activities/Sleeping"
+    return render_template('404.html')
 
 #########################
 @app.route('/find_activities', methods = ['GET'])
@@ -111,7 +109,7 @@ def show_activity_form():
         categories= data.get_category_list()
         return render_template("activity_form.html", title = "Find Activities",
                                categories=categories)
-    return "invalid option selected.", 400
+    return render_template('404.html')
 
 @app.route('/show_find_activities', methods = ['GET'])
 def get_activities_results():
@@ -137,7 +135,7 @@ def show_compare_form():
     option =request.args.get('option')
     if option == 'compare_activity_for_age':
         return render_template("compare_form.html", title = "Compare 2022-23 to 2012-13")
-    return "invalid option selected.", 400
+    return render_template('404.html')
 
 @app.route('/show_compare', methods = ['GET'])
 def compare_activity_for_age():
@@ -149,7 +147,7 @@ def compare_activity_for_age():
     data = DataSource()
     hours = data.compare_by_age(age, activity)
     if not isinstance(hours, (tuple, list)) or len(hours) != 2:
-        return f"Error: unexpected result from compare_by_age -> {hours}"
+        return render_template('404.html')
     return render_template('compare_activity.html', age=age, activity=activity,
                            hours_2223 = hours[0], hours_1213=hours[1])
 
@@ -169,4 +167,4 @@ def python_bug(e):
     return render_template ('500.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5138)
+    app.run(debug=True, port=5137)
