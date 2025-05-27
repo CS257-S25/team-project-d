@@ -27,7 +27,9 @@
         {% endfor %}
     </ul>
 
-    <p>Here is a helpful vizualization for this data. Hover over the bars to see how many 
+    <p>Here is a helpful vizualization for this data:
+        <br><br>
+        Hover over the bars to see how many 
         hours were spent doing each activity </p>
 
     <div id="get_top-data" data-labels='{{ activities|tojson }}' data-times='{{ times|tojson }}'>

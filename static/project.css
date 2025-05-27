@@ -6,6 +6,17 @@ h1 {
     text-align: center;
 }
 
+h2{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+h3{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
 body {
     margin-left: 5%;
     margin-right: 5%;
@@ -46,6 +57,8 @@ nav li a:hover {
 
 p {
     font-size: 18px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 button {
@@ -67,5 +80,10 @@ a {
 a:hover {
     color: white;
     text-decoration: underline;
+}
+
+form {
+    margin-left: 5%;
+    margin-right: 5%;
 }
 

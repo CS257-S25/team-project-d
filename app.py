@@ -12,6 +12,11 @@ def homepage():
     '''Purpose: Homepage provides instructions for what URL to go to see the data you choose'''
     return render_template('index.html', title = "Homepage")
 
+@app.route('/about',  methods=['GET'])
+def about_page():
+    '''purpose: provides information about our data'''
+    return render_template('about.html', title= 'About The Hobby Clock')
+
 #####################################################
 ###########    Get Top Activity By Age    ###########
 #####################################################
@@ -160,7 +165,7 @@ def compare_activity_for_age():
 def page_not_found(e):
     '''returns error message if the page wasn't found'''
     print(e)
-    return render_template('404.html')
+    return render_template('404.html', title = "ERROR 404: Page not Found")
 
 @app.errorhandler(500)
 def python_bug(e):
