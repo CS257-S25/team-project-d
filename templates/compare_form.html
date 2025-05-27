@@ -32,13 +32,19 @@
 
         <br><br>
         <!-- Activity -->
+        <p>Suggestions: <span id="txtHint"></span></p>
+
         <label for="activity"> <strong> Choose an Activity: </strong></label>
-        <input type="text" id="activity" name="activity" required>
+        <input type="text" id="activity" name="activity"> 
+        
+        <!-- add this: required onkeyup="showHint(this.value)" to the end of input -->
 
         <p>Need help choosing an activity? Checkout our Activity Searcher feature:
-            <a href="/find_activities?option=get_activities_results"> Find Activities </a>
+            <a href="/find_activities?option=get_activities_results"> <u>Find Activities </u></a>
         </p>
 
+        <!-- call compare_suggestions.js -->
+    
         <br>
         <input type="submit" value="Submit">
     </form>
