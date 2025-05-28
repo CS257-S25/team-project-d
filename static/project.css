@@ -76,6 +76,8 @@ a:hover {
     background-color: rgb(146, 183, 150);
     color: rgb(55,20,88);
     padding: 5px 720px;
+    display: inline;
     text-align: left;
+    font-size: 14px;
 
 }
