@@ -7,31 +7,30 @@ h1 {
 }
 
 h2{
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 h3{
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
-
 body {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 12%;
+    margin-right: 12%;
     background-color: rgb(236,233,205);
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
-img{
+img {
     border: 10px solid rgb(55,20,88);
 }
 
 form {
     color:  rgb(55,20,88);
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 nav ul {
@@ -39,6 +38,9 @@ nav ul {
     background-color: rgb(134,177,134);
     list-style-type: none;
     overflow: hidden;
+    font-size: 18px;
+    margin-left: 7%;
+    margin-right: 7%;
 }
 
 nav li {
@@ -60,23 +62,55 @@ nav li a:hover {
 
 p {
     font-size: 18px;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+p1 {
+    color: red;
+    font-size: 24px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+ol {
+    font-size: 18px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+ul {
+    font-size: 18px;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 button {
-    background-color: rgb(146, 183, 150);
-    color: rgb(55,20,88);
+    background-color: rgb(55,20,88);
+    color: white;
     border: rgb(55,20,88);
     padding: 10px 10px;
     text-align: center;
     display: inline-block;
     font-size: 15px;
-    margin: 4px 2px;
+    margin-left: 10%;
+    margin-right: 10%
+}
+
+button1 {
+    background-color: rgb(55,20,88);
+    color: white;
+    border: rgb(55,20,88);
+    padding: 20px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 24px;
+    margin-left: 5%;
+    margin-right: 5%
 }
 
 a {
-    color: rgb(55,20,88);
+    color: rgb(146, 183, 150);
     text-decoration: none;
 }
 
@@ -87,15 +121,15 @@ a:hover {
 
 .footer { 
     position: fixed; 
-    bottom: 0; 
-    left: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
     background-color: rgb(146, 183, 150);
     color: rgb(55,20,88);
-    padding: 5px 720px;
+    padding: 10px 10px;
     display: inline;
-    text-align: left;
     font-size: 14px;
-
 }
 
 
