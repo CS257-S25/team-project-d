@@ -2,6 +2,7 @@
      <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
         <title>{{title}}</title>
+    
      </head>
 
      <body>
@@ -18,6 +19,7 @@
         </nav>
 
         <br>
+        <p> {{message}} </p>
 
         <h3> Instructions: </h3>
     
@@ -28,7 +30,7 @@
             <br><br>
             On both pages, enter an age between 15 and 80. The "Compare" page also requires users to input a valid activity. 
             <br><br>
-            Further information on valid activities can be found on the  <a href = "/find_activities?option=get_activities_results"> <u> Find Activities </u></a>tab on the Navigation Bar. 
+            Further information on valid activities can be found on the  <a href = "/find_activities?option=get_activities_results"> <u> "Find Activities" </u></a>tab on the Navigation Bar. 
             <br><br>
             You can return to the Homepage at any time by using the navigation bar found across the top of all pages. 
 

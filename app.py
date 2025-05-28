@@ -31,7 +31,7 @@ def show_age_form():
             "age_form.html", 
             title = "Get Top Activity by Age"
         )
-    return render_template('404.html')
+    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
 
 @app.route('/show_top_activities', methods = ['GET'])
 def get_top_by_age():
@@ -39,10 +39,12 @@ def get_top_by_age():
     data = DataSource()
     age = request.args.get('age')
     if not age:
-        return render_template('404.html')
+        return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
     top_ids = data.get_top_by_age(age)
     if "invalid age" in top_ids:
-        return render_template('404.html')
+        return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND", 
+            message = "invalid age, try again with an age from 15 to 80")
+
     top_activities, times = process_top(top_ids)
     return render_template("get_top.html",title= "Top Activity Result", age=age,
                            activities=top_activities, times= times)
@@ -60,7 +62,7 @@ def process_top(top_ids):
 @app.route('/get-top/')
 def missing_age():
     '''returns a message if you forgot to add a /age'''
-    return render_template('404.html')
+    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
 
 #####################################################
 ###########        Get Cat/Sub/Act        ###########
@@ -83,7 +85,7 @@ def get_subcategories_for_category(category):
 @app.route('/get-subcategories/')
 def missing_category():
     '''returns a message if you forgot to add a /category'''
-    return render_template('404.html')
+    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
 
 @app.route('/get-activities/<category>/<subcategory>')
 def get_activities_from_sub(category, subcategory):
@@ -97,12 +99,12 @@ def get_activities_from_sub(category, subcategory):
 @app.route('/get-activities/')
 def missing_cat_and_sub():
     '''returns a message if you forgot to add a category and subcategory'''
-    return render_template('404.html')
+    return render_template ('404.html', title = "ERROR 404: PAGE NOT FOUND")
 
 @app.route('/get-activities/<category>/')
 def missing_subcategory():
     '''returns a message if you forgot to add a subcategory'''
-    return render_template('404.html')
+    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
 
 #########################
 @app.route('/find_activities', methods = ['GET'])
@@ -114,7 +116,7 @@ def show_activity_form():
         categories= data.get_category_list()
         return render_template("activity_form.html", title = "Find Activities",
                                categories=categories)
-    return render_template('404.html')
+    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
 
 @app.route('/show_find_activities', methods = ['GET'])
 def get_activities_results():
@@ -140,7 +142,7 @@ def show_compare_form():
     option =request.args.get('option')
     if option == 'compare_activity_for_age':
         return render_template("compare_form.html", title = "Compare 2022-23 to 2012-13")
-    return render_template('404.html')
+    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
 
 @app.route('/show_compare', methods = ['GET'])
 def compare_activity_for_age():
@@ -152,7 +154,9 @@ def compare_activity_for_age():
     data = DataSource()
     hours = data.compare_by_age(age, activity)
     if not isinstance(hours, (tuple, list)) or len(hours) != 2:
-        return render_template('404.html')
+        return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND",
+            message = "make sure to input a valid age from 15 to 80 and\
+            a valid activity name such as 'Playing baseball' or 'Laundry'")
     return render_template('compare_activity.html', age=age, activity=activity,
                            hours_2223 = hours[0], hours_1213=hours[1])
 
