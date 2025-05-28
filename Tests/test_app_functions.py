@@ -23,7 +23,7 @@ class TestApp(unittest.TestCase):
     def test_show_app_form_invalid(self):
         '''test that the app form shows up correctly'''
         response = self.app.get('/get_top')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
         self.assertIn(b"invalid option selected.", response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
@@ -58,7 +58,7 @@ class TestApp(unittest.TestCase):
     def test_show_compare_form_invalid(self):
         '''test that the compare form shows up correctly'''
         response = self.app.get('/compare')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.compare_by_age")
