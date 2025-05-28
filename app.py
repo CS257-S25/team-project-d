@@ -154,7 +154,7 @@ def page_not_found(e):
 def python_bug(e):
     ''' returns a message to let you know if there's an internal error/bug'''
     print(e)
-    return render_template ('500.html')
+    return render_template ('500.html', title = "ERROR 500: INTERNAL SERVER ERROR")
 
 if __name__ == '__main__':
     app.run(debug=True, port=5138)
