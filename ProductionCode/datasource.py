@@ -52,7 +52,7 @@ class DataSource:
 
     def get_category_list(self):
         '''Gets the list of categories available'''
-        names = self.get_correct_list("category", "SELECT * FROM category")
+        names = self.get_correct_list("category", "SELECT category FROM category")
         return names
 
     def get_correct_list(self, list_id, query):
