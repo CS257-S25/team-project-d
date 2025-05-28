@@ -31,7 +31,8 @@ def show_age_form():
             "age_form.html", 
             title = "Get Top Activity by Age"
         )
-    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
+    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND",
+                           message = "invalid age, try again with an age from 15 to 80")
 
 @app.route('/show_top_activities', methods = ['GET'])
 def get_top_by_age():
