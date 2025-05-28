@@ -39,7 +39,8 @@ def get_top_by_age():
     data = DataSource()
     age = request.args.get('age')
     if not age:
-        return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
+        return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND",
+                               message = "Age not provided")
     top_ids = data.get_top_by_age(age)
     if "invalid age" in top_ids:
         return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND",
