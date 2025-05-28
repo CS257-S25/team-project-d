@@ -24,7 +24,7 @@ class TestApp(unittest.TestCase):
         '''test that the app form shows up correctly'''
         response = self.app.get('/get_top')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"invalid option selected.", response.data)
+        self.assertIn(b"invalid age, try again with an age from 15 to 80", response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_top_by_age(self, mock_get_top_by_age):
