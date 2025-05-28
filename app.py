@@ -3,7 +3,9 @@ THIS IS THE FLASK APP FOR THE SQL DATABASE
 file: app.py
 '''
 from flask import Flask, request, render_template
-from ProductionCode.datasource import DataSource
+from ProductionCode.datasource_compare import DataSource as DataSourceCompare
+from ProductionCode.datasource_top import DataSource as DataSourceTop
+from ProductionCode.datasource_activities import DataSource as DataSourceActivities
 
 app = Flask(__name__)
 
@@ -37,7 +39,7 @@ def show_age_form():
 @app.route('/show_top_activities', methods = ['GET'])
 def get_top_by_age():
     ''' returns the information for the top activity for an age group'''
-    data = DataSource()
+    data = DataSourceTop()
     age = request.args.get('age')
     if not age:
         return render_template('error.html', title = "Invalid Input",
@@ -67,7 +69,7 @@ def process_top(top_ids):
 @app.route('/get-all-categories')
 def get_all_categories():
     '''returns a list of category options'''
-    data = DataSource()
+    data = DataSourceActivities()
     data_for_get_category = data.get_category_list()
     return "The category options are: " + str(data_for_get_category)
 
@@ -75,7 +77,7 @@ def get_all_categories():
 def get_subcategories_for_category(category):
     ''' param: category, the category you want more info about(subcategories for)
     returns a list of subcategories for a given category'''
-    data = DataSource()
+    data = DataSourceActivities()
     sub_list = data.get_subcategory_list(category)
     return f"These are the subcategories for {category}: {sub_list}"
 
@@ -84,7 +86,7 @@ def get_activities_from_sub(category, subcategory):
     ''' param: category, the category you want to look at 
     param: subcategory, the subcategory you want more info about (activities for)
     returns a list of activities from a subcategory'''
-    data = DataSource()
+    data = DataSourceActivities()
     activities = data.get_activity_list(subcategory)
     return f"here are the activities for {subcategory} in {category}: {activities}"
 
@@ -93,7 +95,7 @@ def show_activity_form():
     '''display form '''
     option =request.args.get('option')
     if option == 'get_activities_results':
-        data = DataSource()
+        data = DataSourceActivities()
         categories= data.get_category_list()
         return render_template("activity_form.html", title = "Find Activities",
                                categories=categories)
@@ -105,7 +107,7 @@ def get_activities_results():
     '''display form to find activities'''
     category= request.args.get('category')
     subcategory = request.args.get('subcategory')
-    data = DataSource()
+    data = DataSourceActivities()
     categories = data.get_category_list()
     subcategories = data.get_subcategory_list(category)
     activities = data.get_activity_list(subcategory)
@@ -134,7 +136,7 @@ def compare_activity_for_age():
     returns render template that gives the comparison for an age group'''
     age= request.args.get('age')
     activity= request.args.get('activity')
-    data = DataSource()
+    data = DataSourceCompare()
     hours = data.compare_by_age(age, activity)
     if not isinstance(hours, (tuple, list)) or len(hours) != 2:
         return render_template('error.html', title = "Invaid Input",

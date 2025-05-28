@@ -1,6 +1,8 @@
 ''' File: cl.py '''
 import argparse
-from ProductionCode import datasource
+from ProductionCode import datasource_compare
+from ProductionCode import datasource_top
+from ProductionCode import datasource_activities
 
 class InvalidCategoryError(Exception):
     '''exception raised for invalid category or subcategory'''
@@ -24,7 +26,7 @@ def get_parsed_arguments():
 
 def validate_category(category, subcategory = None):
     '''helper method for check valid category and subcategory'''
-    source = datasource.DataSource()
+    source = datasource_activities.DataSource()
     valid_subcategories = source.get_subcategory_list(category)
 
     if not valid_subcategories:
@@ -45,7 +47,7 @@ def check_validity(args):
 
 def validate_activity(activity):
     '''helper method to check if the activity is valid'''
-    source = datasource.DataSource()
+    source = datasource_activities.DataSource()
     subcategory = source.get_subcategory_from_activity(activity)
     valid_activities = source.get_activity_list(subcategory)
     if activity not in valid_activities:
@@ -54,15 +56,17 @@ def validate_activity(activity):
 
 def main():
     '''main function for the command line interface'''
-    source = datasource.DataSource()
+    source = datasource_activities.DataSource()
+    source2 = datasource_compare.DataSourceCompare()
+    source3 = datasource_top.DataSourceTop()
     args = get_parsed_arguments()
 
     if args.age is not None:
-        most_common_top_activity = source.get_top_by_age(args.age)
+        most_common_top_activity = source3.get_top_by_age(args.age)
         print(most_common_top_activity)
 
     elif args.compare is not None and args.activity is not None:
-        hours = source.compare_by_age(args.compare, args.activity)
+        hours = source2.compare_by_age(args.compare, args.activity)
         time = hours[0]
         time2 = hours[1]
         print("For people age " + str(args.compare) + " they engaged in " + str(args.activity) \
