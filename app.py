@@ -42,7 +42,7 @@ def get_top_by_age():
         return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
     top_ids = data.get_top_by_age(age)
     if "invalid age" in top_ids:
-        return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND", 
+        return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND",
             message = "invalid age, try again with an age from 15 to 80")
 
     top_activities, times = process_top(top_ids)
