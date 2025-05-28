@@ -7,7 +7,6 @@ from app import app
 class TestApp(unittest.TestCase):
     '''class for tests for app.py'''
     def setUp(self):
-        #create a mock connection and cursor
         self.mock_conn = MagicMock()
         self.mock_cursor = self.mock_conn.cursor.return_value
         self.app = app.test_client()
@@ -47,13 +46,6 @@ class TestApp(unittest.TestCase):
         mock_get_top_by_age.return_value = self.mock_conn
         response = self.app.get('/show_top_activities?age=invalid')
         self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
-
-    #def test_missing_age(self):
-        #'''test for missing_age route'''
-        #response= self.app.get('/get-top/')
-        #message = "Please include an age, ex: /get-top/23"
-        #self.assertEqual(response.status_code, 200)
-        #self.assertIn(message.encode(), response.data)
 
     #####################################################
     ###########            Compare            ###########

@@ -59,12 +59,6 @@ def process_top(top_ids):
         times.append(hours)
     return top_activities, times
 
-# I think this is dead code
-#@app.route('/get-top/')
-#def missing_age():
-    #'''returns a message if you forgot to add a /age'''
-    #return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
-
 #####################################################
 ###########        Get Cat/Sub/Act        ###########
 #####################################################
@@ -83,11 +77,6 @@ def get_subcategories_for_category(category):
     sub_list = data.get_subcategory_list(category)
     return f"These are the subcategories for {category}: {sub_list}"
 
-#@app.route('/get-subcategories/')
-#def missing_category():
-    #'''returns a message if you forgot to add a /category'''
-    #return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
-
 @app.route('/get-activities/<category>/<subcategory>')
 def get_activities_from_sub(category, subcategory):
     ''' param: category, the category you want to look at 
@@ -97,17 +86,6 @@ def get_activities_from_sub(category, subcategory):
     activities = data.get_activity_list(subcategory)
     return f"here are the activities for {subcategory} in {category}: {activities}"
 
-#@app.route('/get-activities/')
-#def missing_cat_and_sub():
-    #'''returns a message if you forgot to add a category and subcategory'''
-    #return render_template ('404.html', title = "ERROR 404: PAGE NOT FOUND")
-
-#@app.route('/get-activities/<category>/')
-#def missing_subcategory():
-    #'''returns a message if you forgot to add a subcategory'''
-    #return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
-
-#########################
 @app.route('/find_activities', methods = ['GET'])
 def show_activity_form():
     '''display form '''
