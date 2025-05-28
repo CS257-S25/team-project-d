@@ -52,7 +52,8 @@ class DataSource:
 
     def get_category_list(self):
         '''Gets the list of categories available'''
-        return "SELECT * FROM category"
+        names = self.get_correct_list("SELECT * FROM category")
+        return names
 
     def get_correct_list(self, list_id, query):
         '''Helper method for getting lists of categories, subcategories, or activities'''
