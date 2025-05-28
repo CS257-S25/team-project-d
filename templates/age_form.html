@@ -16,7 +16,7 @@
         </ul>
     </nav>
 
-    <p> Are you curious to find out what the most common activity for your age group is? 
+    <p method="get"> Are you curious to find out what the most common activity for your age group is? 
         What about your grandma's age? 
         <br><br>
         Input an age below to find out!
@@ -28,8 +28,32 @@
         <br><br>
         <input type="submit" value="Submit">
     </form>
+
+    <h3><b>The top activities for people age {{age}} are: </b> </h3>
+
+    <ul>
+        {% for activity in activities%}
+        <li> {{ activity }}</li>
+        {% endfor %}
+    </ul>
+
+    <p>Here is a helpful vizualization for this data:
+        <br><br>
+        Hover over the bars to see how many 
+        hours were spent doing each activity </p>
+
+    <div id="get_top-data" data-labels='{{ activities|tojson }}' data-times='{{ times|tojson }}'>
+    </div>
+
+    <canvas id="topActivityChart" width="400" height="200"></canvas>
+
+    <script src="{{ url_for('static', filename= 'get_top_chart.js') }}"></script>
+    <!-- add alt text -->
+
+    <button><a href="/get_top?option=get_top_by_age"> &larr; Try Another Age Group</a></button>
     <div class="footer">CS 257 Software Design Team D
 
     </div> 
+
 </body>
 </html>
