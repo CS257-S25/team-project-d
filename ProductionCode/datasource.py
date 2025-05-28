@@ -35,7 +35,6 @@ class DataSource:
         subcategory_id = subcategory_id + "%"
         query = "SELECT * FROM activities WHERE activities_ID LIKE %s"
         names = self.get_names_from_list(self.get_correct_list(subcategory_id,query))
-        print(f"test names activity list {names}")
         return names
 
     def get_subcategory_list(self, category):
@@ -52,8 +51,14 @@ class DataSource:
 
     def get_category_list(self):
         '''Gets the list of categories available'''
-        names = self.get_correct_list("category", "SELECT category FROM category")
-        return names
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute("SELECT category FROM category")
+            records = [row[1] for row in cursor.fetchall()]
+            return records
+        except psycopg2.Error as e:
+            print ("Something went wrong when executing the query: ", e)
+            return None
 
     def get_correct_list(self, list_id, query):
         '''Helper method for getting lists of categories, subcategories, or activities'''
