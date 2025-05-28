@@ -32,8 +32,10 @@ class DataSource:
             print(f"subcategory name {subcategory} not found")
             return None
 
+        subcategory_id = subcategory_id + "%"
         query = "SELECT * FROM activities WHERE activities_ID LIKE %s"
         names = self.get_names_from_list(self.get_correct_list(subcategory_id,query))
+        print(f"test names activity list {names}")
         return names
 
     def get_subcategory_list(self, category):
@@ -43,16 +45,14 @@ class DataSource:
             print(f"category name {category} not found")
             return None
 
+        category_id = category_id + "%"
         query = "SELECT * FROM subcategory WHERE subcategory_ID LIKE %s"
         names = self.get_names_from_list(self.get_correct_list(category_id,query))
         return names
 
     def get_category_list(self):
         '''Gets the list of categories available'''
-        category_id = ''
-        query = "SELECT * FROM category WHERE category_ID LIKE %s"
-        names = self.get_names_from_list(self.get_correct_list(category_id, query))
-        return names
+        return "SELECT * FROM category"
 
     def get_correct_list(self, list_id, query):
         '''Helper method for getting lists of categories, subcategories, or activities'''
