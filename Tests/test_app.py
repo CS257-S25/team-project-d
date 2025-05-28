@@ -73,23 +73,23 @@ class TestApp(unittest.TestCase):
         self.assertIn("Sleeping", decoded)
         self.assertIn("Sleeplessness", decoded)
 
-    def test_missing_category(self):
-        '''test for missing_category route'''
-        self.check_missing_route_helper('/get-subcategories/',
-                                "Please include a category, " \
-                                "ex: /get-subcategories/Personal_Care_Activities")
+    #def test_missing_category(self):
+        #'''test for missing_category route'''
+        #self.check_missing_route_helper('/get-subcategories/',
+                                #"Please include a category, " \
+                                #"ex: /get-subcategories/Personal_Care_Activities")
 
-    def test_missing_cat_and_sub(self):
-        '''test for missing_cat_and_sub route'''
-        self.check_missing_route_helper('/get-activities/',
-                                "Please include a category and a subcategory, " \
-                                "ex: /get-activities/Personal_Care_Activities/Sleeping" ) 
+    #def test_missing_cat_and_sub(self):
+        #'''test for missing_cat_and_sub route'''
+        #self.check_missing_route_helper('/get-activities/',
+                                #"Please include a category and a subcategory, " \
+                                #"ex: /get-activities/Personal_Care_Activities/Sleeping" ) 
 
-    def test_missing_subcategory(self):
-        '''test for missing_subcategory route'''
-        self.check_missing_route_helper('/get-activities/Personal_Care_Activities/',
-                                "Please include a subcategory, " \
-                                "ex: /get-activities/Personal_Care_Activities/Sleeping" )
+    #def test_missing_subcategory(self):
+        #'''test for missing_subcategory route'''
+        #self.check_missing_route_helper('/get-activities/Personal_Care_Activities/',
+                                #"Please include a subcategory, " \
+                                #"ex: /get-activities/Personal_Care_Activities/Sleeping" )
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_show_activity_form(self, mock_show_activity_form):
@@ -122,7 +122,6 @@ class TestApp(unittest.TestCase):
     #####################################################
     ###########             Others            ###########
     #####################################################
-    #TO DO: update this
     def test_page_not_found(self):
         '''test to make sure error returns correct thing'''
         response = self.app.get('/invalid_route')

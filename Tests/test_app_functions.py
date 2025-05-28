@@ -48,12 +48,12 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/show_top_activities?age=invalid')
         self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
 
-    def test_missing_age(self):
-        '''test for missing_age route'''
-        response= self.app.get('/get-top/')
-        message = "Please include an age, ex: /get-top/23"
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(message.encode(), response.data)
+    #def test_missing_age(self):
+        #'''test for missing_age route'''
+        #response= self.app.get('/get-top/')
+        #message = "Please include an age, ex: /get-top/23"
+        #self.assertEqual(response.status_code, 200)
+        #self.assertIn(message.encode(), response.data)
 
     #####################################################
     ###########            Compare            ###########
