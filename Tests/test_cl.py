@@ -49,6 +49,7 @@ class TestCL(unittest.TestCase):
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Sleeplessness"])
 
+    @patch('datasource_activities.psycopg2.connect')
     @patch("cl.datasource_activities.DataSource")
     @patch("cl.get_parsed_arguments")
     def test_main_category_only(self, mock_get_args, mock_datasource_class):
