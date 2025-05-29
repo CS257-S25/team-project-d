@@ -31,7 +31,7 @@ def show_age_form():
             "age_form.html", 
             title = "Get Top Activity by Age"
         )
-    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
+    #return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
 
 @app.route('/show_top_activities', methods = ['GET'])
 def get_top_by_age():
@@ -121,7 +121,7 @@ def show_compare_form():
     option =request.args.get('option')
     if option == 'compare_activity_for_age':
         return render_template("compare_form.html", title = "Compare 2022-23 to 2012-13")
-    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
+    #return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
 
 @app.route('/show_compare', methods = ['GET'])
 def compare_activity_for_age():

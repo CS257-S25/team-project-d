@@ -22,6 +22,8 @@ The following files were previously used by our python production or old databas
 
 After deleting all of these files, we ensured none of the newer code was dependent on them, and checked that every method was functional in its intended way.
 
+We also deleted a few functions from app.py that relied on the user typing in specific urls that users didn't really have to type anymore due to new front end features. Because of this, they were not really being used anymore and were dead code. 
+
 **TD5: Front-End Design Improvements**
 Usability Issue: Unecessary/Useless form 
 Page where change was made: compare_form.html
@@ -116,3 +118,4 @@ python3 cl.py --category "Household_Activities" --subcategory "Housework"
 
 ## 
 Thanks to W3Schools html help 
+ Chart.js help: https://www.chartjs.org/docs/latest/getting-started/usage.html
