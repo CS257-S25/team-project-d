@@ -142,7 +142,7 @@ class TestDataSource(unittest.TestCase):
         self.assertEqual(result, "invalid age, please use a number between 15 and 80")
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    @patch("ProductionCode.datasource.DataSource.get_id_from_name")
+    @patch("ProductionCode.datasource_compare.DataSource.get_id_from_name")
     def test_compare_by_age(self, mock_get_id_from_name, mock_connect):
         '''tests the correct result for compare_by_age'''
         mock_get_id_from_name.return_value = "T010101"
@@ -155,7 +155,7 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.fetchall.assert_called_once()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    @patch("ProductionCode.datasource.DataSource.get_id_from_name")
+    @patch("ProductionCode.datasource_compare.DataSource.get_id_from_name")
     def test_compare_by_age_no_data(self, mock_get_id_from_name, mock_connect):
         '''tests the correct error message for compare_by_age when no data found'''
         mock_get_id_from_name.return_value = "T010101"
@@ -168,7 +168,7 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.assert_called_once()
         self.mock_cursor.fetchall.assert_called_once()
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_compare.psycopg2.connect")
     def test_compare_by_age_error(self, mock_connect):
         '''tests the error is returned from compare_by_age when incorrect query'''
         mock_connect.return_value = self.mock_conn

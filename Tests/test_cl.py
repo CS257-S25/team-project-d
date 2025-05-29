@@ -93,7 +93,6 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource_top.DataSource")
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
-    @patch("cl.datasource_activities.DataSource")
     def test_validate_category_invalid(self, mock_datasource_class, compare, age):
         '''tests the validate_category function'''
         self.validating_helper_method(mock_datasource_class,
