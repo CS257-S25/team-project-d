@@ -21,9 +21,11 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########            Compare            ###########
     #####################################################
+    @patch("cl.datasource_top.DataSource")
     @patch("cl.datasource_compare.DataSource")
+    @patch("cl.datasource_activities.DataSource")
     @patch("cl.get_parsed_arguments")
-    def test_main_compare(self, mock_get_args, mock_datasource_class):
+    def test_main_compare(self, mock_get_args, mock_datasource_class, activities, age):
         '''tests the main compare function'''
         parameter_list = [mock_get_args, mock_datasource_class, None, 23,
                                 "Sleeping", None, None, (559,552), "compare_by_age"]
@@ -39,7 +41,6 @@ class TestCL(unittest.TestCase):
     #####################################################
     @patch("cl.datasource_top.DataSource")
     @patch("cl.datasource_compare.DataSource")
-    @patch("cl.datasource_activities.DataSource")
     @patch("cl.datasource_activities.DataSource")
     @patch("cl.get_parsed_arguments")
     def test_main_category_subcategory(self, mock_get_args, mock_datasource_class, compare, age):
