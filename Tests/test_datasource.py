@@ -142,37 +142,37 @@ class TestDataSource(unittest.TestCase):
         self.assertEqual(result, "invalid age, please use a number between 15 and 80")
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    @patch("ProductionCode.datasource_compare.DataSource.get_id_from_name")
+    @patch("ProductionCode.datasource_activities.DataSource.get_id_from_name")
     def test_compare_by_age(self, mock_get_id_from_name, mock_connect):
         '''tests the correct result for compare_by_age'''
         mock_get_id_from_name.return_value = "T010101"
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = [[559], [552]]
-        ds = DataSourceCompare()
+        ds = DataSourceActivities()
         result = ds.compare_by_age(23, "Sleeping")
         self.assertEqual(result, (559, 552))
         self.mock_cursor.execute.assert_called_once()
         self.mock_cursor.fetchall.assert_called_once()
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    @patch("ProductionCode.datasource_compare.DataSource.get_id_from_name")
+    @patch("ProductionCode.datasource_activities.DataSource.get_id_from_name")
     def test_compare_by_age_no_data(self, mock_get_id_from_name, mock_connect):
         '''tests the correct error message for compare_by_age when no data found'''
         mock_get_id_from_name.return_value = "T010101"
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = None
-        ds = DataSourceCompare()
+        ds = DataSourceActivities()
         result = ds.compare_by_age(23, "Sleeping")
         print(f"compare by age result: {result}")
         self.assertEqual(result, "no data found for this age")
         self.mock_cursor.execute.assert_called_once()
         self.mock_cursor.fetchall.assert_called_once()
 
-    @patch("ProductionCode.datasource_compare.psycopg2.connect")
+    @patch("ProductionCode.datasource_activities.psycopg2.connect")
     def test_compare_by_age_error(self, mock_connect):
         '''tests the error is returned from compare_by_age when incorrect query'''
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.execute.side_effect = psycopg2.Error()
-        ds = DataSourceCompare()
+        ds = DataSourceActivities()
         result = ds.compare_by_age(25, "test_activity")
         self.assertEqual(result, None)
