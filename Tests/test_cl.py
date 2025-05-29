@@ -49,7 +49,7 @@ class TestCL(unittest.TestCase):
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Sleeplessness"])
 
-    @patch("cl.datasource_activities.DataSource")
+    @patch("cl.datasource_top.DataSource")
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
     @patch("cl.get_parsed_arguments")
