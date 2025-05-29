@@ -2,6 +2,7 @@
 import sys
 import psycopg2
 from ProductionCode import psql_config as config
+from ProductionCode.datasource_activities import DataSource
 
 class DataSource:
     '''Class to connect to database and create sql table'''
@@ -45,7 +46,7 @@ class DataSource:
     def compare_by_age_hours(self, age, activity):
         '''finds the time spent on an activity for a given age in 2022-2023 and 10 years before'''
         cursor = self.connection.cursor()
-        activity_id = self.get_id_from_name('activities', 'activities_ID',
+        activity_id = self.DataSource.get_id_from_name('activities', 'activities_ID',
                                             'activities', activity)
         cursor.execute(self.create_query_for_compare(age, activity_id), (age, activity_id,))
         records = cursor.fetchall()
