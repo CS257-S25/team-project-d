@@ -148,7 +148,7 @@ class TestDataSource(unittest.TestCase):
         mock_get_id_from_name.return_value = "T010101"
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = [[559], [552]]
-        ds = DataSourceActivities()
+        ds = DataSourceCompare()
         result = ds.compare_by_age(23, "Sleeping")
         self.assertEqual(result, (559, 552))
         self.mock_cursor.execute.assert_called_once()
