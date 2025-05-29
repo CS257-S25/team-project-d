@@ -54,7 +54,7 @@ class DataSource:
         try:
             cursor = self.connection.cursor()
             cursor.execute("SELECT category FROM category")
-            records = [row[1] for row in cursor.fetchall()]
+            records = [row[0] for row in cursor.fetchall()]
             return records
         except psycopg2.Error as e:
             print ("Something went wrong when executing the query: ", e)
