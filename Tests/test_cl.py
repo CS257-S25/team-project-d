@@ -52,7 +52,7 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
     @patch("cl.get_parsed_arguments")
-    def test_main_category_only(self, mock_get_args, mock_datasource_class):
+    def test_main_category_only(self, mock_get_args, mock_datasource_class, test):
         '''tests the main function for category only'''
         parameter_list = [mock_get_args, mock_datasource_class, None, None, None,
                                 "Personal Care Activities", None, ["Sleeping", "Grooming"],
