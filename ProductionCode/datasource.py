@@ -52,10 +52,17 @@ class DataSource:
     def get_category_list(self):
         '''Gets the list of categories available'''
         try:
-            cursor = self.connection.cursor()
-            cursor.execute("SELECT category FROM category")
-            records = [row[1] for row in cursor.fetchall()]
-            return records
+
+            category_id = ''
+            query = "SELECT * FROM category WHERE category_ID LIKE %s"
+            names = self.get_names_from_list(self.get_correct_list(category_id, query))
+            return names
+            
+            #cursor = self.connection.cursor()
+            #cursor.execute("SELECT category FROM category")
+            #records = [row[1] for row in cursor.fetchall()]
+            #return records
+
         except psycopg2.Error as e:
             print ("Something went wrong when executing the query: ", e)
             return None
