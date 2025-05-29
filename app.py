@@ -31,7 +31,8 @@ def show_age_form():
             "age_form.html", 
             title = "Get Top Activity by Age"
         )
-    #return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
+    return render_template('error.html', title = "Invalid Input",
+                           message = "invalid age, try again with an age from 15 to 80")
 
 @app.route('/show_top_activities', methods = ['GET'])
 def get_top_by_age():
@@ -39,10 +40,11 @@ def get_top_by_age():
     data = DataSource()
     age = request.args.get('age')
     if not age:
-        return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
+        return render_template('error.html', title = "Invalid Input",
+                               message = "Age not provided")
     top_ids = data.get_top_by_age(age)
     if "invalid age" in top_ids:
-        return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND",
+        return render_template('error.html', title = "Invalid Input",
             message = "invalid age, try again with an age from 15 to 80")
 
     top_activities, times = process_top(top_ids)
@@ -95,7 +97,8 @@ def show_activity_form():
         categories= data.get_category_list()
         return render_template("activity_form.html", title = "Find Activities",
                                categories=categories)
-    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
+    return render_template('error.html', title = "ERROR 404: PAGE NOT FOUND",
+                           message = "ERROR 404: PAGE NOT FOUND")
 
 @app.route('/show_find_activities', methods = ['GET'])
 def get_activities_results():
@@ -121,7 +124,8 @@ def show_compare_form():
     option =request.args.get('option')
     if option == 'compare_activity_for_age':
         return render_template("compare_form.html", title = "Compare 2022-23 to 2012-13")
-    #return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
+    return render_template('error.html', title = "ERROR 404: PAGE NOT FOUND",
+                           message = "ERROR 404: PAGE NOT FOUND")
 
 @app.route('/show_compare', methods = ['GET'])
 def compare_activity_for_age():
@@ -133,7 +137,7 @@ def compare_activity_for_age():
     data = DataSource()
     hours = data.compare_by_age(age, activity)
     if not isinstance(hours, (tuple, list)) or len(hours) != 2:
-        return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND",
+        return render_template('error.html', title = "Invaid Input",
             message = "make sure to input a valid age from 15 to 80 and\
             a valid activity name such as 'Playing baseball' or 'Laundry'")
     return render_template('compare_activity.html', age=age, activity=activity,
@@ -146,13 +150,15 @@ def compare_activity_for_age():
 def page_not_found(e):
     '''returns error message if the page wasn't found'''
     print(e)
-    return render_template('404.html', title = "ERROR 404: PAGE NOT FOUND")
+    return render_template('error.html', title = "ERROR 404: PAGE NOT FOUND",
+                           message = "ERROR 404: PAGE NOT FOUND")
 
 @app.errorhandler(500)
 def python_bug(e):
     ''' returns a message to let you know if there's an internal error/bug'''
     print(e)
-    return render_template ('500.html')
+    return render_template ('error.html', title = "ERROR 500: INTERNAL SERVER ERROR",
+                            message = "ERROR 500: INTERNAL SERVER ERROR")
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=5138)

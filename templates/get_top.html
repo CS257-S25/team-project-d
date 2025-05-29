@@ -9,15 +9,17 @@
 <body>
     <h1> {{ title }}s </h1>
 
-     <nav>
+    <nav>
         <ul>
             <li> <a href="/"> Home </a></li>
+            <li> <a href="/about?option=about_page"> About </a> </li>
             <li> <a href="/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
             <li> <a href="/compare?option=compare_activity_for_age"> Compare </a></li>
             <li> <a href="/find_activities?option=get_activities_results"> Find Activities</a> </li>
-            <li> <a href="/about?option=about_page"> About </a> </li>
         </ul>
     </nav>
+
+    <button><a href="/get_top?option=get_top_by_age"> &larr; Try Another Age Group</a></button>
 
     <h3><b>The top activities for people age {{age}} are: </b> </h3>
 
@@ -27,9 +29,9 @@
         {% endfor %}
     </ul>
 
-    <p>Here is a helpful vizualization for this data:
-        <br><br>
-        Hover over the bars to see how many 
+    <h3>Here is a helpful vizualization for this data: </h3>
+    <p>
+        Hover over the bars to see how many
         hours were spent doing each activity </p>
 
     <div id="get_top-data" data-labels='{{ activities|tojson }}' data-times='{{ times|tojson }}'>
@@ -40,10 +42,10 @@
     <script src="{{ url_for('static', filename= 'get_top_chart.js') }}"></script>
     <!-- add alt text -->
 
-    <button><a href="/get_top?option=get_top_by_age"> &larr; Try Another Age Group</a></button>
+    <br><br><br>
     <div class="footer">CS 257 Software Design Team D
 
-    </div> 
+    </div>
 </body>
 
 </html>

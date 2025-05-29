@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
+    <title>{{title}}</title>
+
+</head>
+
+<body>
+    <h1> {{title}}</h1>
+
+    <nav>
+        <ul>
+            <li> <a href="/"> Home </a></li>
+            <li> <a href="/about?option=about_page"> About </a> </li>
+            <li> <a href="/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
+            <li> <a href="/compare?option=compare_activity_for_age"> Compare </a></li>
+            <li> <a href="/find_activities?option=get_activities_results"> Find Activities</a> </li>
+        </ul>
+    </nav>
+
+    <h4>{{message}}</h4>
+
+    <h3> Instructions: </h3>
+
+    <p> Use the Navigation Bar across the top of the page to access our two functions:
+        <a href="/get_top?option=get_top_by_age"> <u> Get Top Activity By Age </u> </a> and
+        <a href="/compare?option=compare_activity_for_age"> <u> Compare </u> </a>
+
+        <br><br>
+        On both pages, enter an age between 15 and 80. The "Compare" page also requires users to
+        input a valid activity.
+        <br><br>
+        Further information on valid activities can be found on the
+        <a href="/find_activities?option=get_activities_results"> <u> Find Activities </u></a>
+        tab on the Navigation Bar.
+        <br><br>
+        You can return to the Homepage at any time by using the navigation bar found across the top
+        of all pages.
+
+    </p>
+
+    <div class="footer">CS 257 Software Design Team D
+
+    </div>
+</body>
+
+</html>

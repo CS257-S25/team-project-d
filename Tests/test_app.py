@@ -82,7 +82,7 @@ class TestApp(unittest.TestCase):
     def test_show_activity_form_invalid(self):
         '''test that the activity form shows up correctly'''
         response = self.app.get('/find_activities')
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.get_category_list")

@@ -11,10 +11,10 @@
     <nav>
         <ul>
             <li> <a href="/"> Home </a></li>
+            <li> <a href="/about?option=about_page"> About </a> </li>
             <li> <a href="/get_top?option=get_top_by_age"> Get Top Activity By Age </a></li>
             <li> <a href="/compare?option=compare_activity_for_age"> Compare </a></li>
             <li> <a href="/find_activities?option=get_activities_results"> Find Activities</a> </li>
-            <li> <a href="/about?option=about_page"> About </a> </li>
         </ul>
     </nav>
 
@@ -36,22 +36,23 @@
         <!-- <p> Activity Suggestions: <span id="txtHint"></span></p> -->
 
         <label for="activity"> <strong> Choose an Activity: </strong></label>
-        <input type="text" id="activity" name="activity"> 
-        
+        <input type="text" id="activity" name="activity">
+
         <!-- add this: required onkeyup="showHint(this.value)" to the end of input -->
 
-        <p>Need help choosing an activity? Checkout our Activity Searcher feature:
-            <a href="/find_activities?option=get_activities_results"> <u>Find Activities </u></a>
-        </p>
-
         <!-- call compare_suggestions.js -->
-    
-        <br>
+
+        <br> <br> 
         <input type="submit" value="Submit">
     </form>
+
+    <p>Need help choosing an activity? Checkout our Activity Searcher feature:
+        <a href="/find_activities?option=get_activities_results"> <u>Find Activities </u></a>
+    </p>
+
     <div class="footer">CS 257 Software Design Team D
 
-    </div> 
+    </div>
 
 </body>
 

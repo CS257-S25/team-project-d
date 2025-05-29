@@ -108,13 +108,13 @@ python3 cl.py --compare 23 --activity "Sleeping"
 
 Usage: python3 cl.py --category <valid category>
 
-python3 cl.py --category "Household_Activities"
+python3 cl.py --category "Household Activities"
 
 Usage: python3 cl.py --category <valid category> --subcategory <valid subcategory> 
 
 *reference python3 cl.py --category for valid subcategory inputs because they change based on the category*
 
-python3 cl.py --category "Household_Activities" --subcategory "Housework"
+python3 cl.py --category "Household Activities" --subcategory "Housework"
 
 ## 
 Thanks to W3Schools html help 

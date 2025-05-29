@@ -23,8 +23,8 @@ class TestApp(unittest.TestCase):
     def test_show_app_form_invalid(self):
         '''test that the app form shows up correctly'''
         response = self.app.get('/get_top')
-        self.assertEqual(response.status_code, 400)
-        self.assertIn(b"invalid option selected.", response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"invalid age, try again with an age from 15 to 80", response.data)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     def test_route_top_by_age(self, mock_get_top_by_age):
@@ -45,7 +45,7 @@ class TestApp(unittest.TestCase):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         mock_get_top_by_age.return_value = self.mock_conn
         response = self.app.get('/show_top_activities?age=invalid')
-        self.assertIn(b"invalid age, please use a number between 15 and 80", response.data)
+        self.assertIn(b"invalid age, try again with an age from 15 to 80", response.data)
 
     #####################################################
     ###########            Compare            ###########
@@ -58,7 +58,7 @@ class TestApp(unittest.TestCase):
     def test_show_compare_form_invalid(self):
         '''test that the compare form shows up correctly'''
         response = self.app.get('/compare')
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
     @patch("ProductionCode.datasource.DataSource.compare_by_age")
@@ -77,4 +77,4 @@ class TestApp(unittest.TestCase):
         '''test that the compare activity for age function returns the right thing'''
         mock_compare_activity_for_age.return_value = self.mock_conn
         response = self.app.get('/show_compare?age=invalid&activity=Sleeping')
-        self.assertIn(b"Error: unexpected result from compare_by_age", response.data)
+        self.assertIn(b"make sure to input a valid age from 15 to 80", response.data)
