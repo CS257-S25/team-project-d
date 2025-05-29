@@ -49,10 +49,11 @@ class TestCL(unittest.TestCase):
             cl.main()
             mock_print.assert_called_once_with(["Sleeping", "Sleeplessness"])
 
+    @patch("cl.datasource_activities.DataSource")
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
     @patch("cl.get_parsed_arguments")
-    def test_main_category_only(self, mock_get_args, mock_datasource_class, test):
+    def test_main_category_only(self, mock_get_args, mock_datasource_class, test, test2):
         '''tests the main function for category only'''
         parameter_list = [mock_get_args, mock_datasource_class, None, None, None,
                                 "Personal Care Activities", None, ["Sleeping", "Grooming"],
