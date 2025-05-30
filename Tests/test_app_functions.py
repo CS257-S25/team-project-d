@@ -26,21 +26,21 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"invalid age, try again with an age from 15 to 80", response.data)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_top.psycopg2.connect")
     def test_route_top_by_age(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given age 23'''
         mock_get_top_by_age.return_value = self.mock_conn
         response = self.app.get('/show_top_activities?age=23')
         self.assertIn(b"Top Activity Result", response.data)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_top.psycopg2.connect")
     def test_route_top_by_age_no_age(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         mock_get_top_by_age.return_value = self.mock_conn
         response = self.app.get('/show_top_activities?age=')
         self.assertIn(b"Age not provided", response.data)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_top.psycopg2.connect")
     def test_route_top_by_age_invalid_age(self, mock_get_top_by_age):
         '''tests that the route to get top by age returns the right thing, given invalid age'''
         mock_get_top_by_age.return_value = self.mock_conn
@@ -60,8 +60,8 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/compare')
         self.assertEqual(response.status_code, 200)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
-    @patch("ProductionCode.datasource.DataSource.compare_by_age")
+    @patch("ProductionCode.datasource_compare.psycopg2.connect")
+    @patch("ProductionCode.datasource_compare.DataSource")
     def test_compare_activity_for_age(self, mock_compare_by_age, mock_compare_activity_for_age):
         '''test that the compare activity for age function returns the right hours and message'''
         mock_compare_activity_for_age.return_value = self.mock_conn
@@ -72,7 +72,7 @@ class TestApp(unittest.TestCase):
             b"People aged 23 engaged in Sleeping on average",
             response.data)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_compare.psycopg2.connect")
     def test_compare_activity_for_age_invalid(self, mock_compare_activity_for_age):
         '''test that the compare activity for age function returns the right thing'''
         mock_compare_activity_for_age.return_value = self.mock_conn
