@@ -33,14 +33,15 @@
 
         <br><br>
         <!-- Activity -->
-        <!-- <p> Activity Suggestions: <span id="txtHint"></span></p> -->
+        <p> Activity Suggestions: <span id="txtHint"></span></p> 
 
         <label for="activity"> <strong> Choose an Activity: </strong></label>
-        <input type="text" id="activity" name="activity">
+        <input type="text" id="activity" name="activity" required onkeyup="showHint(this.value)">
 
         <!-- add this: required onkeyup="showHint(this.value)" to the end of input -->
 
         <!-- call compare_suggestions.js -->
+             <script src="{{ url_for('static', filename= 'compare_suggestions.js') }}"></script>
 
         <br> <br> 
         <input type="submit" value="Submit">
