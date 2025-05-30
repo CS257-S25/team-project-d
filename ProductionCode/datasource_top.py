@@ -2,6 +2,7 @@
 import sys
 import psycopg2
 from ProductionCode import psql_config as config
+from ProductionCode.datasource_activities import DataSource as activities
 
 class DataSource:
     '''Class to connect to database and create sql table'''
@@ -74,7 +75,6 @@ class DataSource:
         top_activities= []
 
         for activity_id, hours in records:
-            name = self.get_name_from_id('activities', 'activities_ID',
-                                            'activities', activity_id)
+            name = activities.get_name_from_id(self, 'activities', 'activities_ID','activities', activity_id)
             top_activities.append((name, hours))
         return top_activities

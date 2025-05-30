@@ -46,7 +46,7 @@ class DataSource:
     def compare_by_age_hours(self, age, activity):
         '''finds the time spent on an activity for a given age in 2022-2023 and 10 years before'''
         cursor = self.connection.cursor()
-        activity_id = activities.get_id_from_name('activities', 'activities_ID',
+        activity_id = activities.get_id_from_name(self, 'activities', 'activities_ID',
                                             'activities', activity)
         cursor.execute(self.create_query_for_compare(age, activity_id), (age, activity_id,))
         records = cursor.fetchall()
@@ -63,24 +63,3 @@ class DataSource:
         q_old = f'SELECT "{age}" FROM data_1213 WHERE activity_id = \'{activity_id}\''
         q = q_new + " UNION ALL " + q_old + ";"
         return q
-
-    def get_id_from_name(self, table, id_column, name_column, name):
-        '''helper method to get a name from an id in a given table
-        params: 
-            table, the table name (ex. category, subcategory, activities)
-            id_column, the id column name (ex. 'category_ID') 
-            name_column, the name column to match (ex. 'category_Name')
-            id, the id to search for (ex. 'Personal Care Activities')
-        returns the value for the id or none'''
-        try:
-            cursor = self.connection.cursor()
-            cursor.execute(f"SELECT {id_column} FROM {table} WHERE {name_column} = '{name}';")
-            records = cursor.fetchone()
-
-            if records:
-                return records[0]
-
-            return None
-        except psycopg2.Error as e:
-            print(f"Error getting activity from {table}: ", e)
-            return None
