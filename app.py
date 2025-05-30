@@ -94,7 +94,7 @@ def show_activity_form():
     option =request.args.get('option')
     if option == 'get_activities_results':
         data = DataSource()
-        categories= data.get_category_list()
+        categories = data.get_category_list()
         return render_template("activity_form.html", title = "Find Activities",
                                categories=categories)
     return render_template('error.html', title = "ERROR 404: PAGE NOT FOUND",
@@ -161,4 +161,4 @@ def python_bug(e):
                             message = "ERROR 500: INTERNAL SERVER ERROR")
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5138)
+    app.run(port=5138)
