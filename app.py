@@ -163,4 +163,4 @@ def python_bug(e):
                             message = "ERROR 500: INTERNAL SERVER ERROR")
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5138)
+    app.run(port=5138)

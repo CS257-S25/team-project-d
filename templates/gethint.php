@@ -1,5 +1,5 @@
 <?php
-// Array with names
+// Array with activities
 $a[] = "Anna";
 $a[] = "Brittany";
 $a[] = "Cinderella";
