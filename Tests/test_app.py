@@ -85,9 +85,9 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     @patch("ProductionCode.datasource.psycopg2.connect")
-    @patch("ProductionCode.datasource.DataSource.get_category_list")
-    @patch("ProductionCode.datasource.DataSource.get_subcategory_list")
-    @patch("ProductionCode.datasource.DataSource.get_activity_list")
+    @patch("ProductionCode.datasource_activities.DataSource.get_category_list")
+    @patch("ProductionCode.datasource_activities.DataSource.get_subcategory_list")
+    @patch("ProductionCode.datasource_activities.DataSource.get_activity_list")
     def test_get_activities_results(self, mock_get_category, mock_get_subcategory,
                                     mock_get_activity, mock_get_activities_results):
         '''test that the get activities results function returns the right thing'''
