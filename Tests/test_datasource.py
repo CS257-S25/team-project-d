@@ -162,7 +162,7 @@ class TestDataSource(unittest.TestCase):
         mock_connect.return_value = self.mock_conn
         self.mock_cursor.fetchall.return_value = None
         ds = DataSourceCompare()
-        result = ds.compare_by_age(23, "Sleeping")
+        result = ds.compare_by_age(self, 23, "Sleeping")
         print(f"compare by age result: {result}")
         self.assertEqual(result, "no data found for this age")
         self.mock_cursor.execute.assert_called_once()
