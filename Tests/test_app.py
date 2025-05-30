@@ -18,7 +18,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(message.encode(), response.data)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_activities.psycopg2.connect")
     def test_route_home_template(self, mock_homepage):
         '''tests that the homeroute uses the correct template'''
         mock_homepage.return_value = self.mock_conn
@@ -84,7 +84,7 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/find_activities')
         self.assertEqual(response.status_code, 200)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_activities.psycopg2.connect")
     @patch("ProductionCode.datasource_activities.DataSource.get_category_list")
     @patch("ProductionCode.datasource_activities.DataSource.get_subcategory_list")
     @patch("ProductionCode.datasource_activities.DataSource.get_activity_list")
