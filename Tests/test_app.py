@@ -28,7 +28,7 @@ class TestApp(unittest.TestCase):
     #####################################################
     ###########        Get Cat/Sub/Act        ###########
     #####################################################
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_activities.psycopg2.connect")
     def test_get_all_categories(self, mock_get_all_categories):
         '''tests that the route to get all categories returns the correct thing'''
         mock_get_all_categories.return_value = self.mock_conn
@@ -40,7 +40,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual("The category options are: ['Personal Care Activities', "\
         "'Household Activities']", response)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_activities.psycopg2.connect")
     def test_get_subcategories_for_category(self, mock_get_subcategories_for_category):
         '''tests that the route to get subcategories given a category returns the right thing '''
         mock_get_subcategories_for_category.return_value = self.mock_conn
@@ -56,7 +56,7 @@ class TestApp(unittest.TestCase):
         "['Sleeping', 'Grooming', 'Health-related self care', 'Personal Activities', " \
         "'Personal Care Emergencies']", result)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_activities.psycopg2.connect")
     def test_get_activities_from_sub(self, mock_get_activities_from_sub):
         '''tests that the route to get activities returns the correct thing '''
         mock_get_activities_from_sub.return_value = self.mock_conn
@@ -72,7 +72,7 @@ class TestApp(unittest.TestCase):
         self.assertIn("Sleeping", decoded)
         self.assertIn("Sleeplessness", decoded)
 
-    @patch("ProductionCode.datasource.psycopg2.connect")
+    @patch("ProductionCode.datasource_activities.psycopg2.connect")
     def test_show_activity_form(self, mock_show_activity_form):
         '''test that the activity form shows up correctly'''
         mock_show_activity_form.return_value = self.mock_conn
