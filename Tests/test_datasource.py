@@ -22,7 +22,7 @@ class TestDataSource(unittest.TestCase):
         mock_get_names_from_list.return_value = ["Sleeping", "Sleeplessness"]
         mock_connect.return_value = self.mock_conn
         ds = DataSourceActivities()
-        result = ds.get_activity_list(self, "Sleeping")
+        result = ds.get_activity_list("Sleeping")
         self.assertEqual(result, ["Sleeping", "Sleeplessness"])
 
     @patch("ProductionCode.datasource_activities.psycopg2.connect")

@@ -25,7 +25,7 @@ class DataSource:
     #####################################################
     def get_activity_list(self, subcategory):
         '''Get a list of activities given the subcategory'''
-        subcategory_id= self.get_id_from_name("subcategory",
+        subcategory_id= self.get_id_from_name(self, "subcategory",
                                               "subcategory_ID", "subcategory", subcategory)
 
         if not subcategory_id:
