@@ -1,15 +1,31 @@
-<script>
-    function showHint(str) {
-        if (str.length == 0) { 
-            document.getElementById("txtHint").innerHTML = "";
-            return;
-        }
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
-            document.getElementById("txtHint").innerHTML =
-            this.responseText;
-        }
-        xhttp.open("GET", "gethint.php?q="+str);
-        xhttp.send();   
+const resultsBox = document.querySelector(".result-box");
+const inputBox = document.querySelector("#activity");
+
+inputBox.onkeyup = function() {
+    let input = inputBox.value;
+
+    if (input.length) {
+        fetch(`/gethint?q=${input}`)
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === "no suggestion") {
+                    resultsBox.innerHTML = '';
+                } else {
+                    resultsBox.innerHTML = data;
+                    let items = resultsBox.querySelectorAll("li");
+                    items.forEach(item => {
+                        item.onclick = function() {
+                            selectInput(this);
+                        };
+                    });
+                }
+            });
+    } else {
+        resultsBox.innerHTML = '';
     }
-</script>
+};
+
+function selectInput(listItem) {
+    inputBox.value = listItem.textContent;
+    resultsBox.innerHTML = '';
+}
