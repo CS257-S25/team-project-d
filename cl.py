@@ -56,9 +56,9 @@ def validate_activity(activity):
 
 def main():
     '''main function for the command line interface'''
-    source = DatasourceActivities()
-    source2 = DatasourceCompare()
-    source3 = DatasourceTop()
+    source = DatasourceActivities.DataSource()
+    source2 = DatasourceCompare.DataSource()
+    source3 = DatasourceTop.DataSource()
     args = get_parsed_arguments()
 
     if args.age is not None:
