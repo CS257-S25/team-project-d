@@ -17,14 +17,9 @@ def about_page():
     '''purpose: provides information about our data'''
     return render_template('about.html', title= 'About The Hobby Clock')
 
-
-activities = [
-    "Laundry", "Lawn care", "Listening to music", "Lifting weights", "Lunch",
-    "Library", "Limbo dancing", "Log chopping", "Learning", "Longboarding"
-]
-
 @app.route("/gethint")
 def get_hint():
+    '''used to get suggestions for activities based on what a user types'''
     user_input = request.args.get("q", "")
     data = DataSource()
     suggestions = data.get_hint_for_compare(user_input)

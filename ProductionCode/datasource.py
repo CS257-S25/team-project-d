@@ -257,7 +257,7 @@ class DataSource:
 
     def get_hint_for_compare(self, user_input):
         '''Returns up to 10 activity name suggestions based on partial user input.'''
-    
+
         if not user_input:
             return []
 

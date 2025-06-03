@@ -53,9 +53,9 @@ Usability Issue: website should be polished and professional; plots should have 
 Page where change was made: get_top_chart.js and compare_chart.js
 What we did to adress the issue: some of the labels for the charts were not very clear so we changed them to be more specific 
 
-Usability Issue: 
-Page where change was made: 
-What we did to adress the issue:
+Usability Issue: users won't really know all possible valid activities to input when trying to use the compare feature and going to find activities might be too much work
+Page where change was made: compare --> we made changes to datsource.py, app.py and compare_form.html and created compare_suggestions.js
+What we did to adress the issue: we made it so that the form where you input an activity will give you 10 activities that start similarly to what you are typing so that if you don't know what you could look for or the exact wording of an activity, it will give you some suggestions and you can just click one and compare. 
 --------------------------------------------------------------
 
 **TD4: Scanability, Satisficing, & Muddling Through**
