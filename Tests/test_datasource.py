@@ -15,8 +15,8 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor = self.mock_conn.cursor.return_value
 
     @patch("ProductionCode.datasource_activities.psycopg2.connect")
-    @patch("ProductionCode.datasource_activities.DataSource.get_id_from_name")
     @patch("ProductionCode.datasource_activities.DataSource.get_names_from_list")
+    @patch("ProductionCode.datasource_activities.DataSource.get_id_from_name")
     def test_get_activity_list(self, mock_get_id_from_name, mock_get_names_from_list, mock_connect):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
         mock_get_id_from_name.return_value = "T0101"
