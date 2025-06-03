@@ -80,7 +80,7 @@ class TestApp(unittest.TestCase):
         self.assertIn(b"make sure to input a valid age from 15 to 80", response.data)
 
     @patch("ProductionCode.datasource_compare.psycopg2.connect")
-    @patch("ProductionCode.datasource_compare.DataSource")
+    @patch("ProductionCode.datasource_compare.DataSource.get_hint_for_compare")
     def test_get_hint_with_results(self, mock_get_hint_for_compare, mock_connect):
         '''Test that /gethint returns HTML list with suggestions'''
         mock_connect.return_value = None
@@ -93,12 +93,11 @@ class TestApp(unittest.TestCase):
         self.assertIn(b"<li>Sleeplessness</li>", response.data)
 
     @patch("ProductionCode.datasource_compare.psycopg2.connect")
-    @patch("ProductionCode.datasource_compare.DataSource")
+    @patch("ProductionCode.datasource_compare.DataSource.get_hint_for_compare")
     def test_get_hint_no_results(self, mock_get_hint_for_compare, mock_connect):
         '''Test that /gethint returns "no suggestion" if no results found'''
         mock_connect.return_value = None
         mock_get_hint_for_compare.return_value = []
-
         response = self.app.get("/gethint?q=nonexistentactivity")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, b"no suggestion")
