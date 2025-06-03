@@ -21,9 +21,9 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########            Compare            ###########
     #####################################################
-    @patch("cl.datasource_top.DataSource")
-    @patch("cl.datasource_compare.DataSource")
-    @patch("cl.datasource_activities.DataSource")
+    @patch("cl.DatasourceTop.DataSource")
+    @patch("cl.DatasourceCompare.DataSource")
+    @patch("cl.DatasourceActivities.DataSource")
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_get_args, mock_datasource_class, activities, age):
         '''tests the main compare function'''
