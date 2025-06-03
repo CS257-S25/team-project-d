@@ -1,8 +1,8 @@
 ''' File: cl.py '''
 import argparse
-from ProductionCode import datasource_compare
-from ProductionCode import datasource_top
-from ProductionCode import datasource_activities
+from ProductionCode import datasource_compare as DatasourceCompare
+from ProductionCode import datasource_top as DatasourceTop
+from ProductionCode import datasource_activities as DatasourceActivities
 
 class InvalidCategoryError(Exception):
     '''exception raised for invalid category or subcategory'''
@@ -26,7 +26,7 @@ def get_parsed_arguments():
 
 def validate_category(category, subcategory = None):
     '''helper method for check valid category and subcategory'''
-    source = datasource_activities.DataSource()
+    source = DatasourceActivities()
     valid_subcategories = source.get_subcategory_list(category)
 
     if not valid_subcategories:
@@ -47,7 +47,7 @@ def check_validity(args):
 
 def validate_activity(activity):
     '''helper method to check if the activity is valid'''
-    source = datasource_activities.DataSource()
+    source = DatasourceActivities()
     subcategory = source.get_subcategory_from_activity(activity)
     valid_activities = source.get_activity_list(subcategory)
     if activity not in valid_activities:
@@ -56,9 +56,9 @@ def validate_activity(activity):
 
 def main():
     '''main function for the command line interface'''
-    source = datasource_activities.DataSource()
-    source2 = datasource_compare.DataSource()
-    source3 = datasource_top.DataSource()
+    source = DatasourceActivities()
+    source2 = DatasourceCompare()
+    source3 = DatasourceTop()
     args = get_parsed_arguments()
 
     if args.age is not None:
