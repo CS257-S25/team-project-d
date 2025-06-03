@@ -83,7 +83,7 @@ class TestApp(unittest.TestCase):
     @patch("ProductionCode.datasource.DataSource.get_hint_for_compare")
     def test_get_hint_with_results(self, mock_get_hint_for_compare, mock_connect):
         '''Test that /gethint returns HTML list with suggestions'''
-        mock_connect.return_value = None  
+        mock_connect.return_value = None 
         mock_get_hint_for_compare.return_value = ["Sleeping", "Sleeplessness"]
 
         response = self.app.get("/gethint?q=sleep")
