@@ -52,19 +52,6 @@ class DataSource:
     def get_category_list(self):
         '''Gets the list of categories available'''
         try:
-<<<<<<< HEAD
-
-            category_id = ''
-            query = "SELECT * FROM category WHERE category_ID LIKE %s"
-            names = self.get_names_from_list(self.get_correct_list(category_id, query))
-            return names
-
-            #cursor = self.connection.cursor()
-            #cursor.execute("SELECT category FROM category")
-            #records = [row[1] for row in cursor.fetchall()]
-            #return records
-
-=======
             cursor = self.connection.cursor()
             cursor.execute("SELECT category FROM category")
             all_cats = cursor.fetchall()
@@ -72,7 +59,6 @@ class DataSource:
             for category in all_cats:
                 records.append(category[0])
             return records
->>>>>>> 023e8dcbbf43725cd8a942ce7774cd088114cd5b
         except psycopg2.Error as e:
             print ("Something went wrong when executing the query: ", e)
             return None
@@ -268,3 +254,19 @@ class DataSource:
         q_old = f'SELECT "{age}" FROM data_1213 WHERE activity_id = \'{activity_id}\''
         q = q_new + " UNION ALL " + q_old + ";"
         return q
+
+    def get_hint_for_compare(self, user_input):
+        '''Returns up to 10 activity name suggestions based on partial user input.'''
+    
+        if not user_input:
+            return []
+
+        cursor = self.connection.cursor()
+        query = "SELECT activities FROM activities WHERE LOWER(activities) LIKE %s LIMIT 10"
+        like_pattern = user_input.lower() + '%'
+
+        cursor.execute(query, (like_pattern,))
+        results = cursor.fetchall()
+        cursor.close()
+
+        return [row[0] for row in results]

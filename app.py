@@ -17,6 +17,22 @@ def about_page():
     '''purpose: provides information about our data'''
     return render_template('about.html', title= 'About The Hobby Clock')
 
+
+activities = [
+    "Laundry", "Lawn care", "Listening to music", "Lifting weights", "Lunch",
+    "Library", "Limbo dancing", "Log chopping", "Learning", "Longboarding"
+]
+
+@app.route("/gethint")
+def get_hint():
+    user_input = request.args.get("q", "")
+    data = DataSource()
+    suggestions = data.get_hint_for_compare(user_input)
+
+    if not suggestions:
+        return "no suggestion"
+
+    return "<ul>" + "".join(f"<li>{s}</li>" for s in suggestions) + "</ul>"
 #####################################################
 ###########    Get Top Activity By Age    ###########
 #####################################################
