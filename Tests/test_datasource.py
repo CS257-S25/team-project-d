@@ -90,7 +90,8 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.assert_called_once()
 
     @patch("ProductionCode.datasource_activities.psycopg2.connect")
-    @patch("ProductionCode.datasource_activities.DataSource")
+    @patch("ProductionCode.datasource_activities.DataSource.get_id_from_name")
+    @patch("ProductionCode.datasource_activities.DataSource.get_name_from_id")
     def test_get_subcategory_from_activity(self, mock_get_name_from_id,
                                            mock_get_id_from_name, mock_connect):
         '''tests the subcategory is returned from get_subcategory_from_activity when activity'''
