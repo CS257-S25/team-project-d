@@ -143,8 +143,7 @@ class TestDataSource(unittest.TestCase):
 
     @patch("ProductionCode.datasource_activities.psycopg2.connect")
     @patch("ProductionCode.datasource_activities.DataSource.get_id_from_name")
-    @patch("ProductionCode.datasource_compare.DataSource")
-    def test_compare_by_age(self, mock_get_id_from_name, mock_connect, compare):
+    def test_compare_by_age(self, mock_get_id_from_name, mock_connect):
         '''tests the correct result for compare_by_age'''
         mock_get_id_from_name.return_value = "T010101"
         mock_connect.return_value = self.mock_conn
