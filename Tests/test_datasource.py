@@ -27,7 +27,7 @@ class TestDataSource(unittest.TestCase):
         self.assertEqual(result, ["Sleeping", "Sleeplessness"])
 
     @patch("ProductionCode.datasource_activities.psycopg2.connect")
-    @patch("ProductionCode.datasource_activities.DataSource")
+    @patch("ProductionCode.datasource_activities.DataSource.get_activity_list")
     def test_get_activity_list_error(self, mock_get_id_from_name, mock_connect):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
         mock_get_id_from_name.return_value = None
