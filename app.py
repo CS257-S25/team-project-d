@@ -149,7 +149,7 @@ def compare_activity_for_age():
 def get_hint():
     '''used to get suggestions for activities based on what a user types'''
     user_input = request.args.get("q", "")
-    data = DataSource()
+    data = DataSourceCompare()
     suggestions = data.get_hint_for_compare(user_input)
 
     if not suggestions:
