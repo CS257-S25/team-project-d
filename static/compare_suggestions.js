@@ -1,32 +1,31 @@
-function showHint(str) {
-    if (str.length == 0) { 
-        document.getElementById("txtHint").innerHTML = "";
-        return;
-    }
+const resultsBox = document.querySelector(".result-box");
+const inputBox = document.querySelector("#activity");
 
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-        const txtHint = document.getElementById("txtHint");
-        txtHint.innerHTML = this.responseText;
+inputBox.onkeyup = function() {
+    let input = inputBox.value;
 
-        // Make suggestions clickable
-        txtHint.querySelectorAll("li").forEach(item => {
-            item.onclick = function() {
-                document.getElementById("activity").value = this.innerText;
-                txtHint.innerHTML = "";
-            }
-        });
+    if (input.length) {
+        fetch(`/gethint?q=${input}`)
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === "no suggestion") {
+                    resultsBox.innerHTML = '';
+                } else {
+                    resultsBox.innerHTML = data;
+                    let items = resultsBox.querySelectorAll("li");
+                    items.forEach(item => {
+                        item.onclick = function() {
+                            selectInput(this);
+                        };
+                    });
+                }
+            });
+    } else {
+        resultsBox.innerHTML = '';
     }
-    xhttp.open("GET", "/gethint?q=" + encodeURIComponent(str));
-    xhttp.send();   
+};
+
+function selectInput(listItem) {
+    inputBox.value = listItem.textContent;
+    resultsBox.innerHTML = '';
 }
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    const input = document.getElementById("activity");
-    if (input) {
-        input.addEventListener("keyup", function() {
-            showHint(this.value);
-        });
-    }
-});

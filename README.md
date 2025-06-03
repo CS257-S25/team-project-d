@@ -118,4 +118,5 @@ python3 cl.py --category "Household Activities" --subcategory "Housework"
 
 ## 
 Thanks to W3Schools html help 
- Chart.js help: https://www.chartjs.org/docs/latest/getting-started/usage.html
+Chart.js help: https://www.chartjs.org/docs/latest/getting-started/usage.html
+compare_suggestions help: a mixture of elements from: https://www.youtube.com/watch?v=pdyFf1ugVfk and https://www.w3schools.com/js/js_ajax_php.asp and https://www.algolia.com/blog/engineering/how-to-implement-autocomplete-with-javascript-on-your-website and https://www.w3schools.com/howto/howto_js_autocomplete.asp 
