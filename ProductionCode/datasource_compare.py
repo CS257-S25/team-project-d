@@ -2,7 +2,7 @@
 import sys
 import psycopg2
 from ProductionCode import psql_config as config
-from ProductionCode.datasource_activities import DataSource as activities
+from ProductionCode.datasource_compare import DataSource as activities
 
 class DataSource:
     '''Class to connect to database and create sql table'''
