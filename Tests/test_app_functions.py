@@ -99,5 +99,5 @@ class TestApp(unittest.TestCase):
         mock_connect.return_value = None
         mock_get_hint_for_compare.return_value = []
         response = self.app.get("/gethint?q=nonexistentactivity")
-        self.assertIn(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertIn(b"no suggestion", response.data)
