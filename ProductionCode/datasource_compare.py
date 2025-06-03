@@ -63,3 +63,19 @@ class DataSource:
         q_old = f'SELECT "{age}" FROM data_1213 WHERE activity_id = \'{activity_id}\''
         q = q_new + " UNION ALL " + q_old + ";"
         return q
+
+    def get_hint_for_compare(self, user_input):
+        '''Returns up to 10 activity name suggestions based on partial user input.'''
+
+        if not user_input:
+            return []
+
+        cursor = self.connection.cursor()
+        query = "SELECT activities FROM activities WHERE LOWER(activities) LIKE %s LIMIT 10"
+        like_pattern = user_input.lower() + '%'
+
+        cursor.execute(query, (like_pattern,))
+        results = cursor.fetchall()
+        cursor.close()
+
+        return [row[0] for row in results]
