@@ -175,3 +175,26 @@ class TestDataSource(unittest.TestCase):
         ds = DataSourceCompare()
         result = ds.compare_by_age(25, "test_activity")
         self.assertEqual(result, None)
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_get_hint_for_compare(self, mock_connect):
+        '''tests that get_hint_for_compare returns correct activity name suggestions'''
+        mock_connect.return_value = self.mock_conn
+        self.mock_cursor.fetchall.return_value = [("Sleeping",), ("Sleeplessness",)]
+        ds = DataSource()
+        result = ds.get_hint_for_compare("sleep")
+        self.assertEqual(result, ["Sleeping", "Sleeplessness"])
+        self.mock_cursor.execute.assert_called_once_with(
+            "SELECT activities FROM activities WHERE LOWER(activities) LIKE %s LIMIT 10",
+            ("sleep%",)
+        )
+        self.mock_cursor.fetchall.assert_called_once()
+        self.mock_cursor.close.assert_called_once()
+
+    @patch("ProductionCode.datasource.psycopg2.connect")
+    def test_get_hint_for_compare_empty_input(self, mock_connect):
+        '''Tests that get_hint_for_compare returns empty list for empty input.'''
+        mock_connect.return_value = self.mock_conn
+        ds = DataSource()
+        result = ds.get_hint_for_compare("")
+        self.assertEqual(result, [])

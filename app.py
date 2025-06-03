@@ -145,6 +145,17 @@ def compare_activity_for_age():
     return render_template('compare_activity.html', age=age, activity=activity,
                            hours_2223 = hours[0], hours_1213=hours[1])
 
+@app.route("/gethint")
+def get_hint():
+    '''used to get suggestions for activities based on what a user types'''
+    user_input = request.args.get("q", "")
+    data = DataSource()
+    suggestions = data.get_hint_for_compare(user_input)
+
+    if not suggestions:
+        return "no suggestion"
+
+    return "<ul>" + "".join(f"<li>{s}</li>" for s in suggestions) + "</ul>"
 #####################################################
 ###########             Errors            ###########
 #####################################################
@@ -163,4 +174,4 @@ def python_bug(e):
                             message = "ERROR 500: INTERNAL SERVER ERROR")
 
 if __name__ == '__main__':
-    app.run(port=5138)
+    app.run(host='0.0.0.0', debug=False, port=5138)
