@@ -16,7 +16,7 @@ class TestDataSource(unittest.TestCase):
 
     @patch("ProductionCode.datasource_activities.psycopg2.connect")
     @patch("ProductionCode.datasource_activities.DataSource")
-    def test_get_activity_list(self, mock_get_id_from_name, mock_get_names_from_list, mock_connect):
+    def test_get_activity_list(self, mock_connect, mock_get_id_from_name, mock_get_names_from_list):
         '''tests the correct error message for get_activity_list when subcategory is not found'''
         mock_get_id_from_name.return_value = "T0101"
         mock_get_names_from_list.return_value = ["Sleeping", "Sleeplessness"]
