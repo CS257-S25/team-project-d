@@ -32,7 +32,7 @@ class DataSource:
             print(f"subcategory name {subcategory} not found")
             return None
 
-        subcategory_id = subcategory_id + "%"
+        subcategory_id = subcategory_id + "%s"
         query = "SELECT * FROM activities WHERE activities_ID LIKE %s"
         names = self.get_names_from_list(self.get_correct_list(subcategory_id,query))
         return names
