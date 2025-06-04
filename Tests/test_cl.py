@@ -139,14 +139,14 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########    Get Top Activity By Age    ###########
     #####################################################
-    @patch("cl.datasource_top.DataSource")
-    @patch("cl.datasource_compare.DataSource")
+    # @patch("cl.datasource_top.DataSource")
+    # @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
     @patch("cl.get_parsed_arguments")
-    def test_main_top_activity(self, mock_get_args, mock_datasource_class, compare, age):
+    def test_main_top_activity(self, mock_get_args, mock_activities):
         '''tests the main function'''
         with patch("builtins.print") as mock_print:
-            parameter_list = [mock_get_args, mock_datasource_class, 23,
+            parameter_list = [mock_get_args, mock_activities, 23,
                                 None, None, None, None, "Sleeping", "get_top_by_age"]
             self.main_helper_method(parameter_list)
             cl.main()
