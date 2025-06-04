@@ -21,10 +21,15 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########            Compare            ###########
     #####################################################
+    @patch("cl.datasource_top.DataSource")
+    @patch("cl.datasource_activities.DataSource")
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.get_parsed_arguments")
-    def test_main_compare(self, mock_get_args, mock_compare):
+    def test_main_compare(self, mock_get_args, mock_compare, mock_activities, mock_top):
         '''tests the main compare function'''
+        mock_activities.return_value = self.mock_conn
+        mock_top.return_value = self.mock_conn
+
         parameter_list = [mock_get_args, mock_compare, None, 23,
                                 "Sleeping", None, None, (559,552), "compare_by_age"]
         self.main_helper_method(parameter_list)
