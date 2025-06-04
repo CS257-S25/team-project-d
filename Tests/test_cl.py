@@ -145,10 +145,10 @@ class TestCL(unittest.TestCase):
     @patch("cl.get_parsed_arguments")
     def test_main_top_activity(self, mock_get_args, mock_datasource_class, compare, age):
         '''tests the main function'''
-        parameter_list = [mock_get_args, mock_datasource_class, 23,
-                                None, None, None, None, "Sleeping", "get_top_by_age"]
-        self.main_helper_method(parameter_list)
         with patch("builtins.print") as mock_print:
+            parameter_list = [mock_get_args, mock_datasource_class, 23,
+                                None, None, None, None, "Sleeping", "get_top_by_age"]
+            self.main_helper_method(parameter_list)
             cl.main()
             mock_print.assert_called_once_with("Sleeping")
 

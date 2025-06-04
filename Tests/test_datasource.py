@@ -165,8 +165,6 @@ class TestDataSource(unittest.TestCase):
         result = ds.compare_by_age(23, "Sleeping")
         print(f"compare by age result: {result}")
         self.assertEqual(result, "no data found for this age")
-        # self.mock_cursor.execute.assert_called()
-        # self.mock_cursor.fetchall.assert_called()
 
     @patch("ProductionCode.datasource_compare.psycopg2.connect")
     def test_compare_by_age_error(self, mock_connect):
