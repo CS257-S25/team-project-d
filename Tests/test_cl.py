@@ -46,7 +46,8 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
     @patch("cl.get_parsed_arguments")
-    def test_main_category_subcategory(self, mock_get_args, mock_activities, mock_compare, mock_age):
+    def test_main_category_subcategory(self, mock_get_args,
+                                       mock_activities, mock_compare, mock_age):
         '''tests the main function for category and subcategory'''
         mock_compare.return_value = self.mock_conn
         mock_age.return_value = self.mock_conn
@@ -139,7 +140,7 @@ class TestCL(unittest.TestCase):
         '''tests the validate_activity function returns an error for invalid activity'''
         mock_compare.return_value = self.mock_conn
         mock_age.return_value = self.mock_conn
-        
+
         self.validating_helper_method(mock_activities, ["act", "Sleeping"],
                                       True, "Error getting subcategory from activities:")
         with self.assertRaises(cl.InvalidCategoryError):
@@ -167,9 +168,9 @@ class TestCL(unittest.TestCase):
     def test_main_top_activity(self, mock_get_args, mock_compare, mock_activities, mock_top):
         '''tests the main function'''
         mock_compare.return_value = self.mock_conn
-        mock_top.return_value = self.mock_conn
+        mock_activities.return_value = self.mock_conn
 
-        parameter_list = [mock_get_args, mock_activities, 23,
+        parameter_list = [mock_get_args, mock_top, 23,
                                 None, None, None, None, "Sleeping", "get_top_by_age"]
         self.main_helper_method(parameter_list)
         with patch("builtins.print") as mock_print:
