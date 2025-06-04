@@ -21,7 +21,6 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########            Compare            ###########
     #####################################################
-    @patch("cl.datasource_top.DataSource")
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.get_parsed_arguments")
     def test_main_compare(self, mock_get_args, mock_compare):
