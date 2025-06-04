@@ -38,7 +38,7 @@ class TestDataSource(unittest.TestCase):
         self.mock_cursor.execute.assert_not_called()
 
     @patch("ProductionCode.datasource_activities.psycopg2.connect")
-    @patch("ProductionCode.datasource_activities.DataSource")
+    @patch("ProductionCode.datasource_activities.get_id_from_name")
     def test_get_subcategory_list_error(self, mock_get_id_from_name, mock_connect):
         '''tests the correct error message for get_subcategory_list when category is not found'''
         mock_get_id_from_name.return_value = None
