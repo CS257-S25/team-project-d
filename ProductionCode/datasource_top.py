@@ -75,6 +75,7 @@ class DataSource:
         top_activities= []
 
         for activity_id, hours in records:
-            name = activities.get_name_from_id(self, 'activities', 'activities_ID','activities', activity_id)
+            name = activities.get_name_from_id(self, 'activities', 'activities_ID',
+                                               'activities', activity_id)
             top_activities.append((name, hours))
         return top_activities

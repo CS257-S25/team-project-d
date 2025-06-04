@@ -46,9 +46,12 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
     @patch("cl.get_parsed_arguments")
-    def test_main_category_subcategory(self, mock_get_args, mock_datasource_class, compare, age):
+    def test_main_category_subcategory(self, mock_get_args, mock_activities, mock_compare, mock_age):
         '''tests the main function for category and subcategory'''
-        parameter_list = [mock_get_args, mock_datasource_class, None, None, None,
+        mock_compare.return_value = self.mock_conn
+        mock_age.return_value = self.mock_conn
+
+        parameter_list = [mock_get_args, mock_activities, None, None, None,
                                 "Personal Care Activities", "Sleeping",
                                 ["Sleeping", "Sleeplessness"], "get_activity_list"]
         self.main_helper_method(parameter_list)
@@ -60,9 +63,12 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
     @patch("cl.get_parsed_arguments")
-    def test_main_category_only(self, mock_get_args, mock_datasource_class, compare, age):
+    def test_main_category_only(self, mock_get_args, mock_activities, mock_compare, mock_age):
         '''tests the main function for category only'''
-        parameter_list = [mock_get_args, mock_datasource_class, None, None, None,
+        mock_compare.return_value = self.mock_conn
+        mock_age.return_value = self.mock_conn
+
+        parameter_list = [mock_get_args, mock_activities, None, None, None,
                                 "Personal Care Activities", None, ["Sleeping", "Grooming"],
                                 "get_subcategory_list"]
         self.main_helper_method(parameter_list)
@@ -81,36 +87,45 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource_top.DataSource")
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
-    def test_validate_category_valid(self, mock_datasource_class, compare, age):
+    def test_validate_category_valid(self, mock_activities, mock_compare, mock_age):
         '''tests the validate_category function'''
-        self.validating_helper_method(mock_datasource_class,
+        mock_compare.return_value = self.mock_conn
+        mock_age.return_value = self.mock_conn
+
+        self.validating_helper_method(mock_activities,
                                       ["sub", "Sleeping", "Grooming"], None, None)
         try:
             cl.validate_category("Personal Care Activities", "Sleeping")
         except cl.InvalidCategoryError:
             self.fail("validate_category() raised InvalidCategoryError")
 
-        mock_datasource_class.return_value.get_subcategory_list.assert_called_once_with(
+        mock_activities.return_value.get_subcategory_list.assert_called_once_with(
             "Personal Care Activities")
 
     @patch("cl.datasource_top.DataSource")
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
-    def test_validate_category_invalid(self, mock_datasource_class, compare, age):
+    def test_validate_category_invalid(self, mock_activities, mock_compare, mock_age):
         '''tests the validate_category function'''
-        self.validating_helper_method(mock_datasource_class,
+        mock_compare.return_value = self.mock_conn
+        mock_age.return_value = self.mock_conn
+
+        self.validating_helper_method(mock_activities,
                                       ["sub", "Sleeping", "Grooming"], None, None)
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_category("Invalid_category", "invalid_subcategory")
 
-        mock_datasource_class.return_value.get_subcategory_list.assert_called_once()
+        mock_activities.return_value.get_subcategory_list.assert_called_once()
 
     @patch("cl.datasource_top.DataSource")
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
-    def test_validate_activity_valid(self, mock_datasource_class, compare, age):
+    def test_validate_activity_valid(self, mock_activities, mock_compare, mock_age):
         '''tests the validate_activity function'''
-        self.validating_helper_method(mock_datasource_class, ["act", "Sleeping"],
+        mock_compare.return_value = self.mock_conn
+        mock_age.return_value = self.mock_conn
+
+        self.validating_helper_method(mock_activities, ["act", "Sleeping"],
                                       True, "T0101")
         try:
             cl.validate_activity("Sleeping")
@@ -120,14 +135,17 @@ class TestCL(unittest.TestCase):
     @patch("cl.datasource_top.DataSource")
     @patch("cl.datasource_compare.DataSource")
     @patch("cl.datasource_activities.DataSource")
-    def test_validate_activity_invalid(self, mock_datasource_class, compare, age):
+    def test_validate_activity_invalid(self, mock_activities, mock_compare, mock_age):
         '''tests the validate_activity function returns an error for invalid activity'''
-        self.validating_helper_method(mock_datasource_class, ["act", "Sleeping"],
+        mock_compare.return_value = self.mock_conn
+        mock_age.return_value = self.mock_conn
+        
+        self.validating_helper_method(mock_activities, ["act", "Sleeping"],
                                       True, "Error getting subcategory from activities:")
         with self.assertRaises(cl.InvalidCategoryError):
             cl.validate_activity("Carleton")
 
-        mock_datasource_class.return_value.get_activity_list.assert_called_once()
+        mock_activities.return_value.get_activity_list.assert_called_once()
 
     @patch("cl.validate_category")
     @patch("cl.validate_activity")
@@ -142,20 +160,21 @@ class TestCL(unittest.TestCase):
     #####################################################
     ###########    Get Top Activity By Age    ###########
     #####################################################
-    # @patch("cl.datasource_top.DataSource")
-    # @patch("cl.datasource_compare.DataSource")
-    # @patch("cl.datasource_activities.DataSource")
-    # @patch("cl.get_parsed_arguments")
-    # def test_main_top_activity(self, mock_get_args, mock_activities):
-    #     '''tests the main function'''
-    #     mock_get_args = 
+    @patch("cl.datasource_top.DataSource")
+    @patch("cl.datasource_activities.DataSource")
+    @patch("cl.datasource_compare.DataSource")
+    @patch("cl.get_parsed_arguments")
+    def test_main_top_activity(self, mock_get_args, mock_compare, mock_activities, mock_top):
+        '''tests the main function'''
+        mock_compare.return_value = self.mock_conn
+        mock_top.return_value = self.mock_conn
 
-    #     with patch("builtins.print") as mock_print:
-    #         parameter_list = [mock_get_args, mock_activities, 23,
-    #                             None, None, None, None, "Sleeping", "get_top_by_age"]
-    #         self.main_helper_method(parameter_list)
-    #         cl.main()
-    #         mock_print.assert_called_once_with("Sleeping")
+        parameter_list = [mock_get_args, mock_activities, 23,
+                                None, None, None, None, "Sleeping", "get_top_by_age"]
+        self.main_helper_method(parameter_list)
+        with patch("builtins.print") as mock_print:
+            cl.main()
+            mock_print.assert_called_once_with("Sleeping")
 
     #####################################################
     ###########        Helper Methods         ###########
