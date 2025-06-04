@@ -34,7 +34,7 @@ class TestDataSource(unittest.TestCase):
         mock_connect.return_value = self.mock_conn
         ds = DataSourceActivities()
         not_found = ds.get_activity_list("invalid_subcategory")
-        self.assertIn(not_found, None)
+        self.assertEqual(not_found, None)
         self.mock_cursor.execute.assert_not_called()
 
     @patch("ProductionCode.datasource_activities.psycopg2.connect")
@@ -45,7 +45,7 @@ class TestDataSource(unittest.TestCase):
         mock_connect.return_value = self.mock_conn
         ds = DataSourceActivities()
         not_found = ds.get_subcategory_list("invalid_category")
-        self.assertIn(not_found, None)
+        self.assertEqual(not_found, None)
         self.mock_cursor.execute.assert_not_called()
 
     @patch("ProductionCode.datasource_activities.psycopg2.connect")
