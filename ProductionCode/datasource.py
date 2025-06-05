@@ -1,3 +1,4 @@
+'''connects to database for all other datasource classes to use'''
 import sys
 import psycopg2
 from ProductionCode import psql_config as config
