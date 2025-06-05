@@ -88,7 +88,7 @@ ul {
 button {
     background-color: rgb(55,20,88);
     color: white;
-    border: rgb(55,20,88);
+    border:  rgb(55,20,88);
     padding: 10px 10px;
     text-align: center;
     display: inline-block;
@@ -98,9 +98,9 @@ button {
 }
 
 button1 {
-    background-color: rgb(55,20,88);
-    color: white;
-    border: rgb(55,20,88);
+    background-color:rgb(55,20,88);
+    color:   white;
+    border: 1px solid rgb(55,20,88);
     padding: 20px 20px;
     text-align: center;
     display: inline-block;
@@ -109,15 +109,30 @@ button1 {
     margin-right: 5%
 }
 
+button2{
+    background-color:  rgb(236,233,205);
+    color: rgb(146, 183, 150);
+    border: 2px solid rgb(55,20,88);
+    border-radius: 25px;
+    padding: 10px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 a {
     color: rgb(146, 183, 150);
     text-decoration: none;
 }
 
+
 a:hover {
     color: white;
     text-decoration: underline;
 }
+
 
 .footer { 
     position: fixed; 
@@ -152,3 +167,4 @@ a:hover {
 .result-box li:hover {
     background-color: rgb(146, 183, 150);
 }
+
