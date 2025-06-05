@@ -1,25 +1,10 @@
 '''Connects to the database'''
-import sys
 import psycopg2
-from ProductionCode import psql_config as config
 from ProductionCode.datasource_activities import DataSource as activities
+from ProductionCode.datasource import BaseDataSource as base_data_source
 
-class DataSource:
+class DataSource(base_data_source):
     '''Class to connect to database and create sql table for Get Top Activity By Age'''
-    def __init__(self):
-        '''Constructor that initiates connection to SQL database'''
-        self.connection = self.connect()
-
-    def connect(self):
-        '''Initiates connection to database using information in the gitignore
-        psql_config.py file. Returns the connection object.'''
-        try:
-            connection = psycopg2.connect(database=config.DATABASE, user=config.USER,
-            password=config.PASSWORD, host="localhost")
-        except psycopg2.Error as e:
-            print("Connection error: ", e)
-            sys.exit()
-        return connection
 
     #####################################################
     ###########    Get Top Activity By Age    ###########
