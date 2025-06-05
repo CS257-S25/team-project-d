@@ -1,10 +1,11 @@
-'''Connects to the database'''
+'''Connects to the database and does the compare function'''
 import psycopg2
 from ProductionCode.datasource_activities import DataSource as activities
 from ProductionCode.datasource import BaseDataSource as base_data_source
 
 class DataSource(base_data_source):
-    '''Class to connect to database and create sql table'''
+    '''Class to connect to database and execute functions 
+    for the Compare function'''
 
     #####################################################
     ###########            Compare            ###########

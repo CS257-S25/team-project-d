@@ -3,7 +3,8 @@ import psycopg2
 from ProductionCode import psql_config as config
 
 class BaseDataSource:
-    '''Class to connect to database and create sql table'''
+    '''Class to connect to database for all functions'''
+
     def __init__(self):
         '''Constructor that initiates connection to database'''
         self.connection = self.connect()

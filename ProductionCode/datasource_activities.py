@@ -3,6 +3,9 @@ import psycopg2
 from ProductionCode.datasource import BaseDataSource as base_data_source
 
 class DataSource(base_data_source):
+    '''Class to connect to database and execute functions
+    for processing, accessing, and displaying categories,
+    subcategories, and activities'''
 
     #####################################################
     ###########        Get Cat/Sub/Act        ###########

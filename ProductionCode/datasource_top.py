@@ -1,10 +1,11 @@
-'''Connects to the database'''
+'''Connects to the database and does get top activity by age function'''
 import psycopg2
 from ProductionCode.datasource_activities import DataSource as activities
 from ProductionCode.datasource import BaseDataSource as base_data_source
 
 class DataSource(base_data_source):
-    '''Class to connect to database and create sql table for Get Top Activity By Age'''
+    '''Class to connect to database and execute functions
+    for Get Top Activity By Age'''
 
     #####################################################
     ###########    Get Top Activity By Age    ###########
