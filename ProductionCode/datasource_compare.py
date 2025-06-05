@@ -1,25 +1,11 @@
-'''Connects to the database'''
-import sys
+'''Connects to the database and does the compare function'''
 import psycopg2
-from ProductionCode import psql_config as config
 from ProductionCode.datasource_activities import DataSource as activities
+from ProductionCode.datasource import BaseDataSource as base_data_source
 
-class DataSource:
-    '''Class to connect to database and create sql table'''
-    def __init__(self):
-        '''Constructor that initiates connection to database'''
-        self.connection = self.connect()
-
-    def connect(self):
-        '''Initiates connection to database using information in the psql_config.py file.
-        Returns the connection object.'''
-        try:
-            connection = psycopg2.connect(database=config.DATABASE, user=config.USER,
-            password=config.PASSWORD, host="localhost")
-        except psycopg2.Error as e:
-            print("Connection error: ", e)
-            sys.exit()
-        return connection
+class DataSource(base_data_source):
+    '''Class to connect to database and execute functions 
+    for the Compare function'''
 
     #####################################################
     ###########            Compare            ###########
