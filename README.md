@@ -24,7 +24,7 @@ After deleting all of these files, we ensured none of the newer code was depende
 
 We also deleted a few functions from app.py that relied on the user typing in specific urls that users didn't really have to type anymore due to new front end features. Because of this, they were not really being used anymore and were dead code. 
 
-*Long Class*
+*Long Class:*
 
 The Long Class is known for having a lot of functions, methods, and lines of code that may affect the readability of the code. Our approach to this issue was to divide one of our long classes into three based on the website’s components.
 
@@ -32,7 +32,7 @@ Our long class was originally called datasource.py, but has now been split up in
 
 To refactor our code, we decided to make three DataSource classes, each one for our three user stories: finding activities, getting the top three activities by age, and comparing data between ten decades. Depending on what component the user would like to use, python will access the corresponding DataSource.
 
-*Duplicate Code*
+*Duplicate Code:*
 
 Having duplicate code, especially between two classes will only take up more data, decrease the readability, and possibly confuse the program. When refactoring for out long class, we ended up with three classes, each withholding a piece of code that was the same for the other three.
 
@@ -41,6 +41,7 @@ The files in question are as follows: datasource_activities.py, datasource_compa
 To complement the refactoring of our long class, we created a superclass called datasource.py, that includes a DataSource constructor and connects to the database. All three datasource files, that use the database for their functions, now inherit this class, eliminating duplicate code.
 
 **TD5: Front-End Design Improvements**
+
 Usability Issue: Unecessary/Useless form 
 Page where change was made: compare_form.html
 What we did to adress the issue: Removed Select Years of Interest part of the Compare Page since we only have two to choose from. 
